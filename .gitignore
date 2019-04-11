@@ -29,7 +29,7 @@ speed-measure-plugin.json
 !.vscode/extensions.json
 
 # misc
-/.sass-cache
+/.scss-cache
 /connect.lock
 /coverage
 /libpeerconnection.log
