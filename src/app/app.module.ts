@@ -5,9 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MapComponent } from './map/map.component';
 import { MaterialModule } from './material/material.module';
+import { LayoutComponent } from './layout/layout.component';
 
 @NgModule({
-  declarations: [AppComponent, MapComponent],
+  declarations: [AppComponent, MapComponent, LayoutComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
