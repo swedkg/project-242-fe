@@ -1,1 +1,23 @@
-<app-layout></app-layout>
+<mat-sidenav-container class="example-container" hasBackdrop="false">
+  <mat-sidenav #sidenav mode="over" [(opened)]="opened">
+    <button
+      mat-button
+      class="material-icons menu-icon"
+      (click)="sidenav.toggle()"
+    >
+      <p class="material-icons">menu</p></button
+    >sidenav content</mat-sidenav
+  >
+  <mat-sidenav-content>
+    <!-- <p><button mat-button >toggle</button></p> -->
+    <button
+      mat-button
+      class="material-icons menu-icon"
+      (click)="sidenav.toggle()"
+    >
+      <p class="material-icons">menu</p>
+    </button>
+
+    <app-layout></app-layout>
+  </mat-sidenav-content>
+</mat-sidenav-container>

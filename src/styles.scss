@@ -4,6 +4,12 @@
 @import '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
 @import '../node_modules/material-icons/iconfont/material-icons.css';
 
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
 * {
   box-sizing: content-box;
   font-family: 'Roboto';
