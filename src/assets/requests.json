@@ -1,0 +1,62 @@
+[
+  {
+    "firstName": "Dustin",
+    "lastName": "Green",
+    "cityOfOrigin": "Hickory Hills",
+    "stateOfOrigin": "IL",
+    "lat": 40,
+    "lng": -105.35,
+    "img": "https://randomuser.me/api/portraits/men/1.jpg",
+    "quote": "Fishing relaxes me. It's like yoga, except I still get to kill something."
+  },
+  {
+    "firstName": "Jason",
+    "lastName": "Finn",
+    "cityOfOrigin": "Huntington Beach",
+    "stateOfOrigin": "CA",
+    "lat": 39.95,
+    "lng": -105.24,
+    "img": "https://randomuser.me/api/portraits/men/2.jpg",
+    "quote": "Honor: if you need it defined, you don't have it."
+  },
+  {
+    "firstName": "Howard",
+    "lastName": "Thompson",
+    "cityOfOrigin": "Hale",
+    "stateOfOrigin": "MO",
+    "lat": 40.06,
+    "lng": -105.26,
+    "img": "https://randomuser.me/api/portraits/men/3.jpg",
+    "quote": "Crying: acceptable at funerals and the Grand Canyon."
+  },
+  {
+    "firstName": "Maggie",
+    "lastName": "Lantz",
+    "cityOfOrigin": "Dublin",
+    "stateOfOrigin": "OH",
+    "lat": 40.03,
+    "lng": -105.23,
+    "img": "https://randomuser.me/api/portraits/women/4.jpg",
+    "quote": "Fish, for sport only, not for meat. Fish meat is practically a vegetable."
+  },
+  {
+    "firstName": "Lawrence",
+    "lastName": "Duran",
+    "cityOfOrigin": "Fort Myers",
+    "stateOfOrigin": "FL",
+    "lat": 40.04,
+    "lng": -105.23,
+    "img": "https://randomuser.me/api/portraits/men/5.jpg",
+    "quote": "Just give me all the bacon and eggs you have."
+  },
+  {
+    "firstName": "Irene",
+    "lastName": "Molina",
+    "cityOfOrigin": "Tucson",
+    "stateOfOrigin": "AZ",
+    "lat": 39.96,
+    "lng": -105.22,
+    "img": "https://randomuser.me/api/portraits/women/6.jpg",
+    "quote": "Keep your tears in your eyes where they belong."
+  }
+]
