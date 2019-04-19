@@ -1,23 +1,45 @@
-import { NgModule, Component, OnInit } from '@angular/core';
+import { AgmMap } from '@agm/core';
+import {
+  Component,
+  NgModule,
+  OnInit,
+  ViewChild,
+  HostListener,
+  ViewEncapsulation
+} from '@angular/core';
 import { HelpRequestsService } from '../help-requests.service';
+
 @NgModule({
   providers: [HelpRequestsService]
 })
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
   constructor(private HelpRequestsService: HelpRequestsService) {}
 
   title: string = 'My first AGM project';
-  lat: number = 51.678418;
-  lng: number = 7.809007;
+
+  public markers: {} = [];
+
+  @ViewChild(AgmMap)
+  public agmMap: AgmMap;
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    // console.log('resize');
+    // console.log(this);
+
+    this.agmMap.triggerResize();
+  }
+
   ngOnInit() {
     this.HelpRequestsService.getHelpRequests().subscribe(data => {
-      // this.markers = data;
-      console.log(data);
+      this.markers = data;
+      console.log(this.markers);
     });
     console.log(this.HelpRequestsService.getHelpRequests());
   }

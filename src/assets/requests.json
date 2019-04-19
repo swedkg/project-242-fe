@@ -1,6 +1,7 @@
 [
   {
     "firstName": "Dustin",
+    "isOneTime": true,
     "lastName": "Green",
     "cityOfOrigin": "Hickory Hills",
     "stateOfOrigin": "IL",
@@ -11,6 +12,7 @@
   },
   {
     "firstName": "Jason",
+    "isOneTime": false,
     "lastName": "Finn",
     "cityOfOrigin": "Huntington Beach",
     "stateOfOrigin": "CA",
@@ -21,6 +23,7 @@
   },
   {
     "firstName": "Howard",
+    "isOneTime": true,
     "lastName": "Thompson",
     "cityOfOrigin": "Hale",
     "stateOfOrigin": "MO",
@@ -31,6 +34,7 @@
   },
   {
     "firstName": "Maggie",
+    "isOneTime": true,
     "lastName": "Lantz",
     "cityOfOrigin": "Dublin",
     "stateOfOrigin": "OH",
@@ -41,6 +45,7 @@
   },
   {
     "firstName": "Lawrence",
+    "isOneTime": false,
     "lastName": "Duran",
     "cityOfOrigin": "Fort Myers",
     "stateOfOrigin": "FL",
@@ -51,6 +56,7 @@
   },
   {
     "firstName": "Irene",
+    "isOneTime": true,
     "lastName": "Molina",
     "cityOfOrigin": "Tucson",
     "stateOfOrigin": "AZ",
@@ -58,5 +64,159 @@
     "lng": -105.22,
     "img": "https://randomuser.me/api/portraits/women/6.jpg",
     "quote": "Keep your tears in your eyes where they belong."
+  },
+  {
+    "firstName": "Nancy",
+    "isOneTime": true,
+    "lastName": "Garner",
+    "cityOfOrigin": "Baltimore",
+    "stateOfOrigin": "MD",
+    "lat": 39.98,
+    "lng": -105.21,
+    "img": "https://randomuser.me/api/portraits/women/7.jpg",
+    "quote": "Any dog under fifty pounds is a cat and cats are useless."
+  },
+  {
+    "firstName": "Tara",
+    "isOneTime": false,
+    "lastName": "Taylor",
+    "cityOfOrigin": "Minneapolis",
+    "stateOfOrigin": "MN",
+    "lat": 40,
+    "lng": -105.25,
+    "img": "https://randomuser.me/api/portraits/women/8.jpg",
+    "quote": "Son, there is no wrong way to consume alcohol."
+  },
+  {
+    "firstName": "Alejandro",
+    "isOneTime": true,
+    "lastName": "Smith",
+    "cityOfOrigin": "Scarborough",
+    "stateOfOrigin": "ME",
+    "lat": 40.02,
+    "lng": -105.26,
+    "img": "https://randomuser.me/api/portraits/men/9.jpg",
+    "quote": "I'll take that steak to go. Please and thank you."
+  },
+  {
+    "firstName": "Tricia",
+    "isOneTime": true,
+    "lastName": "Renshaw",
+    "cityOfOrigin": "Mystic",
+    "stateOfOrigin": "CT",
+    "lat": 40.02,
+    "lng": -105.3,
+    "img": "https://randomuser.me/api/portraits/women/10.jpg",
+    "quote": "One rage every three months is permitted. Try not to hurt anyone who doesn't deserve it."
+  },
+  {
+    "firstName": "Travis",
+    "isOneTime": true,
+    "lastName": "Cook",
+    "cityOfOrigin": "Twin Lakes",
+    "stateOfOrigin": "WI",
+    "lat": 40.01,
+    "lng": -105.2,
+    "img": "https://randomuser.me/api/portraits/men/11.jpg",
+    "quote": "There's only one thing I hate more than lying: skim milk. Which is water that's lying about being milk."
+  },
+  {
+    "firstName": "Joan",
+    "isOneTime": false,
+    "lastName": "Brooks",
+    "cityOfOrigin": "Norfolk",
+    "stateOfOrigin": "VA",
+    "lat": 39.98,
+    "lng": -105.24,
+    "img": "https://randomuser.me/api/portraits/women/12.jpg",
+    "quote": "Honor: if you need it defined, you don't have it."
+  },
+  {
+    "firstName": "Joseph",
+    "isOneTime": true,
+    "lastName": "Rodgers",
+    "cityOfOrigin": "Wayne",
+    "stateOfOrigin": "NJ",
+    "lat": 39.99,
+    "lng": -105.25,
+    "img": "https://randomuser.me/api/portraits/men/23.jpg",
+    "quote": "There are only three ways to motivate people: money, fear, and hunger."
+  },
+  {
+    "firstName": "Matthew",
+    "isOneTime": true,
+    "lastName": "Gregson",
+    "cityOfOrigin": "Brashear",
+    "stateOfOrigin": "MO",
+    "lat": 40.01,
+    "lng": -105.29,
+    "img": "https://randomuser.me/api/portraits/men/14.jpg",
+    "quote": "Don't waste energy moving unless necessary."
+  },
+  {
+    "firstName": "Katie",
+    "isOneTime": false,
+    "lastName": "Dunlap",
+    "cityOfOrigin": "Marion",
+    "stateOfOrigin": "VA",
+    "lat": 39.97,
+    "lng": -105.27,
+    "img": "https://randomuser.me/api/portraits/women/15.jpg",
+    "quote": "There must be a mistake, you've accidentally given me the food that my food eats."
+  },
+  {
+    "firstName": "Leo",
+    "isOneTime": true,
+    "lastName": "Howard",
+    "cityOfOrigin": "Dallas",
+    "stateOfOrigin": "TX",
+    "lat": 39.97,
+    "lng": -105.33,
+    "img": "https://randomuser.me/api/portraits/men/16.jpg",
+    "quote": "It's always a good idea to demonstrate to your coworkers that you are capable of withstanding a tremendous amount of pain."
+  },
+  {
+    "firstName": "Maria",
+    "isOneTime": true,
+    "lastName": "Baisden",
+    "cityOfOrigin": "Raleigh",
+    "stateOfOrigin": "NC",
+    "lat": 40,
+    "lng": -105.29,
+    "img": "https://randomuser.me/api/portraits/women/17.jpg",
+    "quote": "When I eat, it is the food that is scared."
+  },
+  {
+    "firstName": "Sandy",
+    "isOneTime": true,
+    "lastName": "Townsend",
+    "cityOfOrigin": "Newport",
+    "stateOfOrigin": "PA",
+    "lat": 40.05,
+    "lng": -105.3,
+    "img": "https://randomuser.me/api/portraits/women/18.jpg",
+    "quote": "Breakfast food can serve many purposes."
+  },
+  {
+    "firstName": "Melinda",
+    "isOneTime": false,
+    "lastName": "Stephenson",
+    "cityOfOrigin": "Kahului",
+    "stateOfOrigin": "HI",
+    "lat": 39.99,
+    "lng": -105.31,
+    "img": "https://randomuser.me/api/portraits/women/19.jpg",
+    "quote": "I will take a free breakfast buffet anytime, anyplace."
+  },
+  {
+    "firstName": "Jason",
+    "isOneTime": true,
+    "lastName": "Nichols",
+    "cityOfOrigin": "Alexandria",
+    "stateOfOrigin": "VA",
+    "lat": 40.01,
+    "lng": -105.32,
+    "img": "https://randomuser.me/api/portraits/men/20.jpg",
+    "quote": "There are three acceptable haircuts: high and tight, crew cut, buzz cut."
   }
 ]

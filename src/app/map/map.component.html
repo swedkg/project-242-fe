@@ -1,6 +1,46 @@
 <h1>{{ title }}</h1>
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<agm-map [latitude]="lat" [longitude]="lng">
-  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+<agm-map [fitBounds]="true" [mapTypeControl]="true">
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    [agmFitBounds]="true"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [opacity]="0"
+  >
+    <agm-overlay [latitude]="m.lat" [longitude]="m.lng">
+      <span
+        class="material-icons marker"
+        [ngClass]="{ red: m.isOneTime === true, green: m.isOneTime === false }"
+        >location_on</span
+      >
+      <!-- <div>
+        <img
+          class="marker-image"
+          src="{{ m.img }}"
+          style="width: 100%; height: auto"
+        />
+      </div> -->
+    </agm-overlay>
+    <!-- <agm-info-window
+      >{{ m.firstName }} {{ m.lastName }} {{ m.quote }}</agm-info-window
+    > -->
+    <agm-snazzy-info-window
+      [maxWidth]="500"
+      [maxHeight]="500"
+      [closeWhenOthersOpen]="true"
+      [wrapperClass]="'agmSnazzyInfoWindow'"
+    >
+      <ng-template>
+        <p class="name">{{ m.firstName }} {{ m.lastName }}</p>
+        <p class="city">
+          {{ m.cityOfOrigin }}
+          <span class="stateOfOrigin">({{ m.stateOfOrigin }})</span>
+        </p>
+        <img src="{{ m.img }}" />
+        <p class="quote">{{ m.quote }}</p>
+      </ng-template>
+    </agm-snazzy-info-window>
+  </agm-marker>
 </agm-map>

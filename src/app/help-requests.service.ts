@@ -14,5 +14,23 @@ export class HelpRequestsService {
 }
 
 interface helpRequest {
-  name: string;
+  lat: number;
+  lng: number;
+  quote?: string;
+  firstName?: string;
+  lastName?: string;
+  img?: string;
+  stateOfOrigin?: string;
+  cityOfOrigin?: string;
 }
+
+// export interface rider {
+//   lat: number;
+//   lng: number;
+//   quote?: string;
+//   firstName?: string;
+//   lastName?: string;
+//   img?: string;
+//   stateOfOrigin?: string;
+//   cityOfOrigin?: string;
+// }

@@ -1,8 +1,10 @@
 import { AgmCoreModule } from '@agm/core';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgmOverlays } from 'agm-overlays';
 import { AppComponent } from './app.component';
 import { HelpRequestsService } from './help-requests.service';
 import { LayoutComponent } from './layout/layout.component';
@@ -16,6 +18,8 @@ import { MaterialModule } from './material/material.module';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    AgmSnazzyInfoWindowModule,
+    AgmOverlays,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAAxU077IxAHkK25YbCs6rRwwTw7Gx-MHg'
     })

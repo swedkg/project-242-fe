@@ -6,3 +6,68 @@ agm-map {
   right: 0;
   z-index: -1;
 }
+
+// agm-map img.marker-image[src*='rails'] {
+agm-map img.marker-image {
+  border-radius: 100px;
+  width: 50px !important;
+  height: auto !important;
+  position: absolute;
+  top: -25px;
+  left: -15px;
+}
+
+.material-icons.marker {
+  font-size: 36px;
+  position: relative;
+  top: -24px;
+  &.red {
+    color: red;
+  }
+  &.green {
+    color: green;
+  }
+}
+
+.si-wrapper-top.si-has-border.agmSnazzyInfoWindow {
+  width: 300px;
+  margin-top: -45px !important;
+  margin-left: 8px !important;
+
+  img {
+    width: 302px;
+    height: auto;
+  }
+
+  .si-content-wrapper {
+    padding: 0rem;
+  }
+
+  p.name {
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+    margin-left: 1rem;
+  }
+
+  span.stateOfOrigin {
+    color: grey;
+    font-weight: normal;
+    font-style: italic;
+  }
+
+  p.city {
+    margin-top: 0;
+    margin-left: 1rem;
+    font-style: italic;
+    color: grey;
+  }
+
+  p.quote {
+    margin: 1rem;
+  }
+
+  .si-content {
+    overflow: unset;
+  }
+}
