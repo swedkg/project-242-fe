@@ -1,7 +1,11 @@
 <h1>{{ title }}</h1>
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
-<agm-map [fitBounds]="true" [mapTypeControl]="true">
+<agm-map
+  [fitBounds]="true"
+  [mapTypeControl]="true"
+  (boundsChange)="checkMarkersInBounds($event)"
+>
   <agm-marker
     *ngFor="let m of markers; let i = index"
     [agmFitBounds]="true"
@@ -13,7 +17,7 @@
       <span
         class="material-icons marker"
         [ngClass]="{ red: m.isOneTime === true, green: m.isOneTime === false }"
-        >location_on</span
+        >assignment</span
       >
       <!-- <div>
         <img
@@ -33,7 +37,7 @@
       [wrapperClass]="'agmSnazzyInfoWindow'"
     >
       <ng-template>
-        <p class="name">{{ m.firstName }} {{ m.lastName }}</p>
+        <p class="name">{{ m.lat }} {{ m.lng }}</p>
         <p class="city">
           {{ m.cityOfOrigin }}
           <span class="stateOfOrigin">({{ m.stateOfOrigin }})</span>

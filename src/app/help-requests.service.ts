@@ -7,24 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class HelpRequestsService {
   constructor(private http: HttpClient) {}
-  getHelpRequests(): Observable<helpRequest> {
+  getHelpRequests(): Observable<any[]> {
     let url: string = '../../assets/requests.json';
-    return this.http.get<helpRequest>(url);
+    return this.http.get<any[]>(url);
   }
 }
 
-interface helpRequest {
-  lat: number;
-  lng: number;
-  quote?: string;
-  firstName?: string;
-  lastName?: string;
-  img?: string;
-  stateOfOrigin?: string;
-  cityOfOrigin?: string;
-}
-
-// export interface rider {
+// interface helpRequest {
 //   lat: number;
 //   lng: number;
 //   quote?: string;

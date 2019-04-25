@@ -23,7 +23,7 @@ export class MapComponent implements OnInit {
 
   title: string = 'My first AGM project';
 
-  public markers: {} = [];
+  public markers; //: {} = [];
 
   @ViewChild(AgmMap)
   public agmMap: AgmMap;
@@ -36,10 +36,27 @@ export class MapComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
+  checkMarkersInBounds(event) {
+    console.clear();
+    console.log(event);
+    this.markers.forEach(el => {
+      let position = { lat: el.lat, lng: el.lng };
+      if (this.inRange(position.lng, event.ga.j, event.ga.l)) {
+        if (this.inRange(position.lat, event.ma.j, event.ma.l)) {
+          console.log(event, position);
+        }
+      }
+    });
+  }
+
+  inRange(x, min, max) {
+    return (x - min) * (x - max) <= 0;
+  }
+
   ngOnInit() {
     this.HelpRequestsService.getHelpRequests().subscribe(data => {
       this.markers = data;
-      console.log(this.markers);
+      console.log(typeof this.markers);
     });
     console.log(this.HelpRequestsService.getHelpRequests());
   }
