@@ -10,9 +10,10 @@ import { HelpRequestsService } from './help-requests.service';
 import { LayoutComponent } from './layout/layout.component';
 import { MapComponent } from './map/map.component';
 import { MaterialModule } from './material/material.module';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
-  declarations: [AppComponent, MapComponent, LayoutComponent],
+  declarations: [AppComponent, MapComponent, LayoutComponent, SidebarComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -38,12 +38,12 @@ export class MapComponent implements OnInit {
 
   checkMarkersInBounds(event) {
     console.clear();
-    console.log(event);
+    // console.log(event);
     this.markers.forEach(el => {
       let position = { lat: el.lat, lng: el.lng };
       if (this.inRange(position.lng, event.ga.j, event.ga.l)) {
         if (this.inRange(position.lat, event.ma.j, event.ma.l)) {
-          console.log(event, position);
+          console.log(el);
         }
       }
     });
