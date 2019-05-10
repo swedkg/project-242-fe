@@ -7,7 +7,7 @@ import {
   HostListener,
   ViewEncapsulation
 } from '@angular/core';
-import { HelpRequestsService } from '../help-requests.service';
+import { HelpRequestsService } from '../_services/index';
 
 @NgModule({
   providers: [HelpRequestsService]
@@ -19,7 +19,7 @@ import { HelpRequestsService } from '../help-requests.service';
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
-  constructor(private HelpRequestsService: HelpRequestsService) {}
+  constructor(private helpRequestsService: HelpRequestsService) {}
 
   title: string = 'My first AGM project';
 
@@ -36,17 +36,28 @@ export class MapComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
+  sendMessage(message): void {
+    // send message to subscribers via observable subject
+    console.log(message);
+    this.helpRequestsService.sendMessage(message);
+  }
+
   checkMarkersInBounds(event) {
-    console.clear();
+    // console.clear();
+    let counter = 0;
+    let inBoundMarkers = [];
     // console.log(event);
     this.markers.forEach(el => {
       let position = { lat: el.lat, lng: el.lng };
       if (this.inRange(position.lng, event.ga.j, event.ga.l)) {
         if (this.inRange(position.lat, event.ma.j, event.ma.l)) {
-          console.log(el);
+          counter++; // console.log(el);
+          inBoundMarkers.push(el);
         }
       }
     });
+    console.log(counter + ' in bounds markers');
+    this.sendMessage(inBoundMarkers);
   }
 
   inRange(x, min, max) {
@@ -54,10 +65,11 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.HelpRequestsService.getHelpRequests().subscribe(data => {
+    this.helpRequestsService.getHelpRequests().subscribe(data => {
       this.markers = data;
-      console.log(typeof this.markers);
+      this.markers = this.markers.filter(el => el.fulfilled === false);
+      console.log(this.markers);
     });
-    console.log(this.HelpRequestsService.getHelpRequests());
+    console.log(this.helpRequestsService.getHelpRequests());
   }
 }

@@ -37,13 +37,15 @@
       [wrapperClass]="'agmSnazzyInfoWindow'"
     >
       <ng-template>
-        <p class="name">{{ m.firstName }} {{ m.lastName }}</p>
-        <p class="city">
+        <p class="name">{{ m.title }}</p>
+        <p *ngIf="m.isOneTime" class="name">One-time task</p>
+        <p *ngIf="!m.isOneTime" class="name">Material need</p>
+        <!-- <p class="city">
           {{ m.cityOfOrigin }}
           <span class="stateOfOrigin">({{ m.stateOfOrigin }})</span>
-        </p>
-        <img src="{{ m.img }}" />
-        <p class="quote">{{ m.quote }}</p>
+        </p> -->
+        <!-- <img src="{{ m.img }}" /> -->
+        <p class="quote">{{ m.description }}</p>
       </ng-template>
     </agm-snazzy-info-window>
   </agm-marker>

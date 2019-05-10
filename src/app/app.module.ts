@@ -6,7 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmOverlays } from 'agm-overlays';
 import { AppComponent } from './app.component';
-import { HelpRequestsService } from './help-requests.service';
+import { HelpRequestsService } from './_services/help-requests.service';
 import { LayoutComponent } from './layout/layout.component';
 import { MapComponent } from './map/map.component';
 import { MaterialModule } from './material/material.module';

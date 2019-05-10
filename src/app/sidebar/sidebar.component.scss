@@ -1,0 +1,30 @@
+.inBoundMarkersList {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-header {
+  min-height: 70px;
+}
+
+span.mat-content {
+  flex-flow: column;
+}
+.panel-header p {
+  // padding: 8px;
+}
+.title {
+  max-width: 300px;
+  margin-right: 16px;
+  font-family: roboto-medium;
+}
+
+.request-type {
+  color: hsl(0, 0%, 66%);
+}
+.description {
+  max-width: 300px;
+  display: inline-block;
+  margin-top: 16px;
+}

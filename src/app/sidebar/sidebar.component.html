@@ -1,3 +1,18 @@
-<h1>
-  sidenav content
-</h1>
+<mat-accordion class="inBoundMarkersList111">
+  <mat-expansion-panel *ngFor="let message of messages">
+    <mat-expansion-panel-header class="panel-header">
+      <span class="title">{{ message.title }}</span>
+      <span *ngIf="message.isOneTime" class="request-type"
+        >One time ({{ message.responders }})</span
+      >
+      <span *ngIf="!message.isOneTime" class="request-type"
+        >Material need ({{ message.responders }})</span
+      >
+    </mat-expansion-panel-header>
+    <mat-divider></mat-divider>
+    <span class="description">{{ message.description }}</span>
+    <mat-action-row>
+      <button mat-button>Respond to request</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+</mat-accordion>
