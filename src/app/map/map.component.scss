@@ -7,19 +7,9 @@ agm-map {
   z-index: -1;
 }
 
-// hide Google Maps UI elements
-.gmnoprint {
-  display: none;
-}
-
-// agm-map img.marker-image[src*='rails'] {
-agm-map img.marker-image {
-  border-radius: 100px;
-  width: 50px !important;
-  height: auto !important;
-  position: absolute;
-  top: -25px;
-  left: -15px;
+.gm-style-mtc {
+  left: 70px;
+  top: 6px;
 }
 
 .material-icons.marker {
@@ -39,37 +29,33 @@ agm-map img.marker-image {
   margin-top: -45px !important;
   margin-left: 8px !important;
 
-  img {
-    width: 302px;
-    height: auto;
-    min-height: 200px;
+  button.mat-button {
+    display: flex;
+    margin: 8px;
+    /* margin-right: 0; */
+    margin-left: auto;
   }
 
   .si-content-wrapper {
-    padding: 0rem;
+    padding: 1rem 0.5rem 0;
   }
 
-  p.name {
-    font-weight: bold;
+  p.title {
+    font-family: roboto-medium;
     margin-top: 1rem;
     margin-bottom: 0.2rem;
     margin-left: 1rem;
   }
 
-  span.stateOfOrigin {
-    color: grey;
-    font-weight: normal;
-    font-style: italic;
-  }
-
-  p.city {
+  p.request-type {
     margin-top: 0;
     margin-left: 1rem;
+    margin-bottom: 0;
     font-style: italic;
     color: grey;
   }
 
-  p.quote {
+  p.description {
     margin: 1rem;
   }
 

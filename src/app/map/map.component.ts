@@ -21,8 +21,6 @@ import { HelpRequestsService } from '../_services/index';
 export class MapComponent implements OnInit {
   constructor(private helpRequestsService: HelpRequestsService) {}
 
-  title: string = 'My first AGM project';
-
   public markers; //: {} = [];
 
   @ViewChild(AgmMap)
@@ -64,12 +62,34 @@ export class MapComponent implements OnInit {
     return (x - min) * (x - max) <= 0;
   }
 
+  addUserLocation(position) {
+    let coords = position.coords;
+    console.log('navigator.geolocation exists', coords, this);
+    this.markers.push({
+      lat: coords.latitude,
+      lng: coords.longitude,
+      title: 'You are here'
+    });
+  }
+
   ngOnInit() {
+    // let self = this;
     this.helpRequestsService.getHelpRequests().subscribe(data => {
       this.markers = data;
       this.markers = this.markers.filter(el => el.fulfilled === false);
+
+      if (!!navigator.geolocation) {
+        // Support
+        navigator.geolocation.getCurrentPosition(
+          this.addUserLocation.bind(this)
+        );
+      } else {
+        // No support
+      }
+
       console.log(this.markers);
     });
-    console.log(this.helpRequestsService.getHelpRequests());
+
+    // console.log(this.helpRequestsService.getHelpRequests());
   }
 }

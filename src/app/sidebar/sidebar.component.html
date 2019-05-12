@@ -2,12 +2,20 @@
   <mat-expansion-panel *ngFor="let message of messages">
     <mat-expansion-panel-header class="panel-header">
       <span class="title">{{ message.title }}</span>
-      <span *ngIf="message.isOneTime" class="request-type"
-        >One time ({{ message.responders }})</span
-      >
-      <span *ngIf="!message.isOneTime" class="request-type"
-        >Material need ({{ message.responders }})</span
-      >
+
+      <span class="request-type">
+        <span
+          class="material-icons marker sidepanel"
+          [ngClass]="{
+            red: message.isOneTime === true,
+            green: message.isOneTime === false
+          }"
+          >pin_drop</span
+        ><span *ngIf="message.isOneTime">One time</span>
+        <span *ngIf="!message.isOneTime">Material need</span> ({{
+          message.responders
+        }})
+      </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <span class="description">{{ message.description }}</span>

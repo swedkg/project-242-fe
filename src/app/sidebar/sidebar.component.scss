@@ -11,8 +11,10 @@
 span.mat-content {
   flex-flow: column;
 }
-.panel-header p {
-  // padding: 8px;
+span.material-icons.marker.sidepanel {
+  top: 3px;
+  font-size: 1rem;
+  margin-right: 8px;
 }
 .title {
   max-width: 300px;
