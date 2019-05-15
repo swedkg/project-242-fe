@@ -1,0 +1,20 @@
+<div class="new-request-form">
+  <mat-form-field hintLabel="Max 300 characters">
+    <textarea matInput #description placeholder="Description"></textarea>
+    <mat-hint align="end">{{ description.value?.length || 0 }}/300</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Address" />
+  </mat-form-field>
+
+  <div class="request-type">
+    <label>Type of request: </label>
+    <mat-radio-group formControlName="requestType">
+      <mat-radio-button value="auto">One-time task</mat-radio-button>
+      <mat-radio-button value="always">Material need</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <button mat-button>Add new request</button>
+</div>

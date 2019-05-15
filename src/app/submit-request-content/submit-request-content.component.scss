@@ -1,0 +1,16 @@
+.new-request-form {
+  display: flex;
+  flex-direction: column;
+  min-width: 400px;
+
+  mat-form-field {
+    margin: 1rem 0;
+  }
+  .request-type .mat-radio-group {
+    display: flex;
+    flex-flow: column;
+    mat-radio-button {
+      margin: 1rem 0;
+    }
+  }
+}

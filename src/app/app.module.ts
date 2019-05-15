@@ -11,9 +11,18 @@ import { LayoutComponent } from './layout/layout.component';
 import { MapComponent } from './map/map.component';
 import { MaterialModule } from './material/material.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { SubmitRequestComponent } from './submit-request/submit-request.component';
+import { SubmitRequestContentComponent } from './submit-request-content/submit-request-content.component';
 
 @NgModule({
-  declarations: [AppComponent, MapComponent, LayoutComponent, SidebarComponent],
+  declarations: [
+    AppComponent,
+    MapComponent,
+    LayoutComponent,
+    SidebarComponent,
+    SubmitRequestComponent,
+    SubmitRequestContentComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -26,6 +35,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     })
   ],
   providers: [HelpRequestsService],
+  entryComponents: [SubmitRequestContentComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
