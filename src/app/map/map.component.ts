@@ -41,14 +41,15 @@ export class MapComponent implements OnInit {
   }
 
   checkMarkersInBounds(event) {
-    // console.clear();
+    console.clear();
     let counter = 0;
     let inBoundMarkers = [];
-    // console.log(event);
+    let mapBounds = event.toJSON();
+    console.log(event, mapBounds);
     this.markers.forEach(el => {
       let position = { lat: el.lat, lng: el.lng };
-      if (this.inRange(position.lng, event.ga.j, event.ga.l)) {
-        if (this.inRange(position.lat, event.ma.j, event.ma.l)) {
+      if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
+        if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
           counter++; // console.log(el);
           inBoundMarkers.push(el);
         }
@@ -64,11 +65,12 @@ export class MapComponent implements OnInit {
 
   addUserLocation(position) {
     let coords = position.coords;
-    console.log('navigator.geolocation exists', coords, this);
+    // console.log('navigator.geolocation exists', coords, this);
     this.markers.push({
       lat: coords.latitude,
       lng: coords.longitude,
-      title: 'You are here'
+      title: 'You are here',
+      isUser: true
     });
   }
 

@@ -11,20 +11,20 @@ import { HelpRequestsService } from '../_services/index';
   encapsulation: ViewEncapsulation.None
 })
 export class SidebarComponent implements OnInit {
-  messages: any[] = [];
+  requests: any[] = [];
   subscription: Subscription;
   constructor(private helpRequestsService: HelpRequestsService) {
     this.subscription = this.helpRequestsService
       .getMessage()
       .subscribe(message => {
         if (message) {
-          this.messages = [];
-          this.messages = message.requests;
-          // this.messages.push(message);
+          this.requests = [];
+          this.requests = message.requests;
+          // this.requests.push(message);
           console.log(message);
         } else {
-          // clear messages when empty message received
-          this.messages = [];
+          // clear requests when empty message received
+          this.requests = [];
         }
       });
   }

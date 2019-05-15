@@ -2,6 +2,7 @@
   {
     "title": "Why, I wouldn't say anything about it",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40,
     "lng": -105.35,
     "fulfilled": false,
@@ -11,6 +12,7 @@
   {
     "title": "William's conduct at first she thought",
     "isOneTime": false,
+    "isUser": false,
     "lat": 39.95,
     "lng": -105.24,
     "fulfilled": false,
@@ -20,6 +22,7 @@
   {
     "title": "There was not a moment to think about stopping herself",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.06,
     "lng": -105.26,
     "fulfilled": false,
@@ -29,6 +32,7 @@
   {
     "title": "However, everything is queer to-day",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.03,
     "lng": -105.23,
     "fulfilled": false,
@@ -38,6 +42,7 @@
   {
     "title": "When she was nine feet high",
     "isOneTime": false,
+    "isUser": false,
     "lat": 40.04,
     "lng": -105.23,
     "fulfilled": false,
@@ -47,6 +52,7 @@
   {
     "title": "The alarm still oscillated, louder here",
     "isOneTime": true,
+    "isUser": false,
     "lat": 39.96,
     "lng": -105.22,
     "fulfilled": false,
@@ -56,6 +62,7 @@
   {
     "title": "They floated in the Japanese night like live wire voodoo",
     "isOneTime": true,
+    "isUser": false,
     "lat": 39.98,
     "lng": -105.21,
     "fulfilled": false,
@@ -65,6 +72,7 @@
   {
     "title": "He woke and found her stretched beside him in the coffin for Armitage’s call",
     "isOneTime": false,
+    "isUser": false,
     "lat": 40,
     "lng": -105.25,
     "fulfilled": false,
@@ -74,6 +82,7 @@
   {
     "title": "Case felt the edge of the bright void beyond the chain link.",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.02,
     "lng": -105.26,
     "fulfilled": false,
@@ -83,6 +92,7 @@
   {
     "title": "Still it was a yearly pilgrimage to Tokyo",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.02,
     "lng": -105.3,
     "fulfilled": false,
@@ -92,6 +102,7 @@
   {
     "title": "Why bother with the movement of the train",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.01,
     "lng": -105.2,
     "fulfilled": false,
@@ -101,6 +112,7 @@
   {
     "title": "Its hands were holograms that altered",
     "isOneTime": false,
+    "isUser": false,
     "lat": 39.98,
     "lng": -105.24,
     "fulfilled": false,
@@ -110,6 +122,7 @@
   {
     "title": "Her cheekbones flaring scarlet as Wizard’s Castle burned",
     "isOneTime": true,
+    "isUser": false,
     "lat": 39.99,
     "lng": -105.25,
     "fulfilled": false,
@@ -119,6 +132,7 @@
   {
     "title": "None of that prepared him for the arena",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.01,
     "lng": -105.29,
     "fulfilled": false,
@@ -128,6 +142,7 @@
   {
     "title": "Images formed and reformed",
     "isOneTime": false,
+    "isUser": false,
     "lat": 39.97,
     "lng": -105.27,
     "fulfilled": false,
@@ -137,6 +152,7 @@
   {
     "title": "The semiotics of the car’s floor",
     "isOneTime": true,
+    "isUser": false,
     "lat": 39.97,
     "lng": -105.33,
     "fulfilled": false,
@@ -146,6 +162,7 @@
   {
     "title": "The Sprawl was a handgun and nine rounds of ammunition",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40,
     "lng": -105.29,
     "fulfilled": false,
@@ -155,6 +172,7 @@
   {
     "title": "The alarm still oscillated, louder here",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.05,
     "lng": -105.3,
     "fulfilled": false,
@@ -164,6 +182,7 @@
   {
     "title": "After the postoperative check at the rear of the arcade",
     "isOneTime": false,
+    "isUser": false,
     "lat": 39.99,
     "lng": -105.31,
     "fulfilled": false,
@@ -173,6 +192,7 @@
   {
     "title": "He’d waited in the shade beneath a bridge or overpass",
     "isOneTime": true,
+    "isUser": false,
     "lat": 40.01,
     "lng": -105.32,
     "fulfilled": false,

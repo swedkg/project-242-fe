@@ -1,24 +1,23 @@
 <mat-accordion class="inBoundMarkersList111">
-  <mat-expansion-panel *ngFor="let message of messages">
-    <mat-expansion-panel-header class="panel-header">
-      <span class="title">{{ message.title }}</span>
-
+  <mat-expansion-panel *ngFor="let request of requests">
+    <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
+      <span class="title">{{ request.title }}</span>
       <span class="request-type">
         <span
           class="material-icons marker sidepanel"
           [ngClass]="{
-            red: message.isOneTime === true,
-            green: message.isOneTime === false
+            red: request.isOneTime === true,
+            green: request.isOneTime === false
           }"
           >pin_drop</span
-        ><span *ngIf="message.isOneTime">One time</span>
-        <span *ngIf="!message.isOneTime">Material need</span> ({{
-          message.responders
+        ><span *ngIf="request.isOneTime">One time</span>
+        <span *ngIf="!request.isOneTime">Material need</span> ({{
+          request.responders
         }})
       </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
-    <span class="description">{{ message.description }}</span>
+    <span class="description">{{ request.description }}</span>
     <mat-action-row>
       <button mat-button>Respond to request</button>
     </mat-action-row>
