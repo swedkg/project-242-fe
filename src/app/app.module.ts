@@ -13,6 +13,7 @@ import { MaterialModule } from './material/material.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { SubmitRequestComponent } from './submit-request/submit-request.component';
 import { SubmitRequestContentComponent } from './submit-request-content/submit-request-content.component';
+import { MessagingComponent } from './messaging/messaging.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SubmitRequestContentComponent } from './submit-request-content/submit-r
     LayoutComponent,
     SidebarComponent,
     SubmitRequestComponent,
-    SubmitRequestContentComponent
+    SubmitRequestContentComponent,
+    MessagingComponent
   ],
   imports: [
     BrowserModule,

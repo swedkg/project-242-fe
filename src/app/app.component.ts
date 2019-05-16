@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   events: string[] = [];
-  opened: boolean;
+  requestSidenavOpened: boolean;
+  messagingSidenavOpened: boolean;
+
+  openMessagingSidepanel() {
+    console.log('this should open the Messaging Sidepanel ');
+  }
 }

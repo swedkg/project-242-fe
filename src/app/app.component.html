@@ -1,23 +1,45 @@
 <mat-sidenav-container class="example-container" hasBackdrop="false">
-  <mat-sidenav #sidenav mode="over" [(opened)]="opened">
+  <mat-sidenav #requests mode="over" [(opened)]="requestSidenavOpened">
     <button
       mat-button
       class="material-icons menu-icon"
-      (click)="sidenav.toggle()"
+      (click)="requests.toggle()"
     >
       <p class="material-icons">menu</p>
     </button>
     <app-sidebar></app-sidebar
+  ></mat-sidenav>
+  <mat-sidenav
+    #messaging
+    mode="over"
+    position="end"
+    [(opened)]="messagingSidenavOpened"
+  >
+    <button
+      mat-button
+      class="material-icons menu-icon"
+      (click)="messaging.toggle()"
+    >
+      <p class="material-icons">menu</p>
+    </button>
+    <app-messaging></app-messaging
   ></mat-sidenav>
   <mat-sidenav-content>
     <!-- <p><button mat-button >toggle</button></p> -->
     <button
       mat-button
       class="material-icons menu-icon"
-      (click)="sidenav.toggle()"
+      (click)="requests.toggle()"
     >
       <p class="material-icons">menu</p>
     </button>
+    <i
+      class="material-icons message"
+      matTooltip="My mesages"
+      (click)="messaging.toggle()"
+    >
+      chat
+    </i>
 
     <app-layout></app-layout>
   </mat-sidenav-content>
