@@ -15,7 +15,7 @@ export class SidebarComponent implements OnInit {
   subscription: Subscription;
   constructor(private helpRequestsService: HelpRequestsService) {
     this.subscription = this.helpRequestsService
-      .getMessage()
+      .getInboundRequestsList()
       .subscribe(message => {
         if (message) {
           this.requests = [];

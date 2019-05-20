@@ -8,21 +8,30 @@ import { Observable, Subject } from 'rxjs';
 export class HelpRequestsService {
   constructor(private http: HttpClient) {}
 
-  private subject = new Subject<any>();
+  private requestsList = new Subject<any>();
+  private newRequesst = new Subject<any>();
 
-  sendMessage(requests) {
-    this.subject.next({ requests });
+  addNewRequest(request) {
+    this.newRequesst.next({ request });
+  }
+
+  getNewRequest(): Observable<any> {
+    return this.newRequesst.asObservable();
+  }
+
+  sendRequestList(requests) {
+    this.requestsList.next({ requests });
   }
 
   clearMessages() {
-    this.subject.next();
+    this.requestsList.next();
   }
 
-  getMessage(): Observable<any> {
-    return this.subject.asObservable();
+  getInboundRequestsList(): Observable<any> {
+    return this.requestsList.asObservable();
   }
 
-  getHelpRequests(): Observable<any[]> {
+  getAllRequests(): Observable<any[]> {
     let url: string = '../../assets/requests.json';
     return this.http.get<any[]>(url);
   }

@@ -4,6 +4,7 @@
   [fitBounds]="true"
   [mapTypeControl]="true"
   (boundsChange)="checkMarkersInBounds($event)"
+  (mapClick)="addMarker($event)"
 >
   <agm-marker
     *ngFor="let m of markers; let i = index"

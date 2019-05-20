@@ -1,20 +1,37 @@
-<div class="new-request-form">
+<form [formGroup]="form" class="new-request-form">
   <mat-form-field hintLabel="Max 300 characters">
-    <textarea matInput #description placeholder="Description"></textarea>
+    <textarea
+      matInput
+      #description
+      formControlName="description"
+      placeholder="Description"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="8"
+    ></textarea>
     <mat-hint align="end">{{ description.value?.length || 0 }}/300</mat-hint>
   </mat-form-field>
 
   <mat-form-field>
-    <input matInput placeholder="Address" />
+    <input
+      #address
+      matInput
+      formControlName="address"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="Address"
+    />
   </mat-form-field>
 
   <div class="request-type">
     <label>Type of request: </label>
-    <mat-radio-group formControlName="requestType">
+    <mat-radio-group #requestType formControlName="requestType">
       <mat-radio-button value="auto">One-time task</mat-radio-button>
       <mat-radio-button value="always">Material need</mat-radio-button>
     </mat-radio-group>
   </div>
 
-  <button mat-button>Add new request</button>
-</div>
+  <button mat-button (click)="addNewRequest()">Add new request</button>
+</form>

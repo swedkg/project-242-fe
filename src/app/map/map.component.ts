@@ -34,10 +34,10 @@ export class MapComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
-  sendMessage(message): void {
+  sendRequestList(message): void {
     // send message to subscribers via observable subject
     console.log(message);
-    this.helpRequestsService.sendMessage(message);
+    this.helpRequestsService.sendRequestList(message);
   }
 
   checkMarkersInBounds(event) {
@@ -56,11 +56,15 @@ export class MapComponent implements OnInit {
       }
     });
     console.log(counter + ' in bounds markers');
-    this.sendMessage(inBoundMarkers);
+    this.sendRequestList(inBoundMarkers);
   }
 
   inRange(x, min, max) {
     return (x - min) * (x - max) <= 0;
+  }
+
+  addMarker(event) {
+    console.log('another marker added', event);
   }
 
   addUserLocation(position) {
@@ -76,7 +80,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     // let self = this;
-    this.helpRequestsService.getHelpRequests().subscribe(data => {
+    this.helpRequestsService.getAllRequests().subscribe(data => {
       this.markers = data;
       this.markers = this.markers.filter(el => el.fulfilled === false);
 
@@ -92,6 +96,10 @@ export class MapComponent implements OnInit {
       console.log(this.markers);
     });
 
-    // console.log(this.helpRequestsService.getHelpRequests());
+    this.helpRequestsService.getNewRequest().subscribe(data => {
+      let newRequest = data.request;
+      this.markers.push(newRequest);
+      console.log('getNewRequest', data, this.markers);
+    });
   }
 }
