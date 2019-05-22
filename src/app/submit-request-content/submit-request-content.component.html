@@ -1,4 +1,24 @@
-<form [formGroup]="form" class="new-request-form">
+<form [formGroup]="newRequestForm" class="new-request-form">
+  <mat-form-field>
+    <input
+      #title
+      matInput
+      formControlName="title"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      formControlName="title"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="Title"
+    />
+    <mat-hint align="end">{{ title.value?.length || 0 }}/50</mat-hint>
+    <mat-error *ngIf="hasError('title', 'required')"
+      >A title is required</mat-error
+    >
+    <mat-error *ngIf="hasError('title', 'maxlength')"
+      >You have more than 50 characters</mat-error
+    >
+  </mat-form-field>
   <mat-form-field hintLabel="Max 300 characters">
     <textarea
       matInput
@@ -10,6 +30,12 @@
       cdkAutosizeMaxRows="8"
     ></textarea>
     <mat-hint align="end">{{ description.value?.length || 0 }}/300</mat-hint>
+    <mat-error *ngIf="hasError('description', 'required')"
+      >A description is required</mat-error
+    >
+    <mat-error *ngIf="hasError('description', 'maxlength')"
+      >You have more than 300 characters</mat-error
+    >
   </mat-form-field>
 
   <mat-form-field>
@@ -20,18 +46,35 @@
       autocorrect="off"
       autocapitalize="off"
       spellcheck="off"
+      formControlName="address"
       (keydown.enter)="$event.preventDefault()"
       placeholder="Address"
     />
+    <mat-error *ngIf="hasError('address', 'required')"
+      >An address is required</mat-error
+    >
+    <mat-error *ngIf="hasError('address', 'validateAddress')"
+      >This is an incorrect address</mat-error
+    >
   </mat-form-field>
 
   <div class="request-type">
     <label>Type of request: </label>
-    <mat-radio-group #requestType formControlName="requestType">
-      <mat-radio-button value="auto">One-time task</mat-radio-button>
-      <mat-radio-button value="always">Material need</mat-radio-button>
+    <mat-radio-group #isOneTime formControlName="isOneTime">
+      <mat-radio-button [value]="true">One-time task</mat-radio-button>
+      <mat-radio-button [value]="false">Material need</mat-radio-button>
     </mat-radio-group>
   </div>
-
-  <button mat-button (click)="addNewRequest()">Add new request</button>
+  <div class="button-container">
+    <button mat-button (click)="closeDialog()">
+      Cancel
+    </button>
+    <button
+      mat-button
+      (click)="addNewRequest()"
+      [disabled]="!newRequestForm.valid"
+    >
+      Add new request
+    </button>
+  </div>
 </form>

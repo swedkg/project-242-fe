@@ -1,36 +1,40 @@
 import {
-  NgModule,
   Component,
   OnInit,
   ViewChild,
   NgZone,
-  ElementRef
+  ElementRef,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   Validators,
-  FormsModule,
-  ReactiveFormsModule
+  AbstractControl
 } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { MapsAPILoader } from '@agm/core';
 import { HelpRequestsService } from '../_services/index';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-submit-request-content',
   templateUrl: './submit-request-content.component.html',
-  styleUrls: ['./submit-request-content.component.scss']
+  styleUrls: ['./submit-request-content.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SubmitRequestContentComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private helpRequestsService: HelpRequestsService
+    private helpRequestsService: HelpRequestsService,
+    public dialogRef: MatDialogRef<SubmitRequestContentComponent>
   ) {}
-  public form: FormGroup;
-  private geoCoder;
+  public newRequestForm: FormGroup;
+  // private geoCoder;
   newRequest: any = {};
+  reverseResult: any = {};
+  current_address: string;
 
   @ViewChild('autosize')
   autosize: CdkTextareaAutosize;
@@ -38,25 +42,67 @@ export class SubmitRequestContentComponent implements OnInit {
   @ViewChild('address')
   public searchElementRef: ElementRef;
 
+  closeDialog() {
+    this.dialogRef.close();
+  }
+
   addNewRequest() {
-    console.log('addNewRequest', this.newRequest);
+    this.newRequest.title = this.newRequestForm.controls.title.value;
+    this.newRequest.description = this.newRequestForm.controls.description.value;
+    this.newRequest.isOneTime = this.newRequestForm.controls.isOneTime.value;
+    this.newRequest.responders = 0;
+    this.newRequest.fulfilled = false;
+    this.newRequest.isUser = false;
+
+    console.log(
+      'addNewRequest',
+      this.newRequest,
+      this.newRequestForm.controls.title
+    );
     this.helpRequestsService.addNewRequest(this.newRequest);
+    this.closeDialog();
+  }
+
+  hasError = (controlName: string, errorName: string) => {
+    return this.newRequestForm.controls[controlName].hasError(errorName);
+  };
+
+  validateAddress() {
+    console.log(
+      'current:',
+      this.current_address,
+      'native:',
+      this.searchElementRef.nativeElement.value
+    );
+
+    if (this.current_address !== this.searchElementRef.nativeElement.value) {
+      return { validateAddress: true };
+    }
+    return null;
   }
 
   ngOnInit() {
-    this.form = new FormGroup({
-      description: new FormControl(''),
-      address: new FormControl(''),
-      requestType: new FormControl('')
+    this.newRequestForm = new FormGroup({
+      title: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(50)
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(300)
+      ]),
+      address: new FormControl(
+        '',
+        [Validators.required, this.validateAddress.bind(this)],
+        []
+      ),
+      isOneTime: new FormControl('', [Validators.required])
     });
 
     this.mapsAPILoader.load().then(() => {
       console.log('mapsAPILoader loaded');
-    });
-
-    this.mapsAPILoader.load().then(() => {
       // this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder();
+      // this.geoCoder = new google.maps.Geocoder();
 
       let autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
@@ -67,19 +113,43 @@ export class SubmitRequestContentComponent implements OnInit {
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
           //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          let reverseResult: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // console.log(reverseResult);
 
           //verify result
-          if (place.geometry === undefined || place.geometry === null) {
+          if (
+            reverseResult.geometry === undefined ||
+            reverseResult.geometry === null
+          ) {
             return;
           }
 
+          this.reverseResult = reverseResult;
+
           //set latitude, longitude and zoom
-          this.newRequest.lat = place.geometry.location.lat();
-          this.newRequest.lng = place.geometry.location.lng();
-          this.newRequest.title = 'New request title';
-          this.newRequest.description = 'Some description here';
-          console.log(typeof this.newRequest, this.newRequest);
+          this.newRequest.lat = reverseResult.geometry.location.lat();
+          this.newRequest.lng = reverseResult.geometry.location.lng();
+          // this.newRequest.title = 'New request title';
+          // this.newRequest.description = 'Some description here';
+
+          this.current_address = this.searchElementRef.nativeElement.value;
+
+          this.newRequestForm.controls.address.updateValueAndValidity();
+
+          console.log(
+            this.newRequest,
+            this.newRequestForm.controls.address,
+            reverseResult,
+            this.searchElementRef.nativeElement.value
+          );
+
+          // this.addressHasError = false;
+
+          // console.log(
+          //   this.searchElementRef.nativeElement.value,
+          //   this.searchElementRef.nativeElement.value === this.current_address
+          // );
 
           // this.zoom = 16;
         });

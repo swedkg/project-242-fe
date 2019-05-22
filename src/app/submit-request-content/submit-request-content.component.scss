@@ -1,7 +1,8 @@
 .new-request-form {
   display: flex;
   flex-direction: column;
-  min-width: 400px;
+  width: 50vw;
+  max-width: 600px;
 
   mat-form-field {
     margin: 1rem 0;
@@ -13,4 +14,14 @@
       margin: 1rem 0;
     }
   }
+
+  .button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+
+.pac-container.pac-logo::after {
+  display: none;
 }
