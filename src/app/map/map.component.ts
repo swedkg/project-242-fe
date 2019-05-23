@@ -41,7 +41,7 @@ export class MapComponent implements OnInit {
   }
 
   checkMarkersInBounds(event) {
-    console.clear();
+    // console.clear();
     let counter = 0;
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();

@@ -36,14 +36,3 @@ export class HelpRequestsService {
     return this.http.get<any[]>(url);
   }
 }
-
-// interface helpRequest {
-//   lat: number;
-//   lng: number;
-//   quote?: string;
-//   firstName?: string;
-//   lastName?: string;
-//   img?: string;
-//   stateOfOrigin?: string;
-//   cityOfOrigin?: string;
-// }
