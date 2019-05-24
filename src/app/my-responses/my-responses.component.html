@@ -1,0 +1,9 @@
+<mat-accordion class="inBoundMarkersList">
+  <mat-expansion-panel *ngFor="let response of responses">
+    <mat-expansion-panel-header *ngIf="!response.isUser" class="panel-header">
+      <span class="title">Request title goes here</span>
+    </mat-expansion-panel-header>
+    <mat-divider></mat-divider>
+    <span class="description">{{ response.message }}</span>
+  </mat-expansion-panel>
+</mat-accordion>

@@ -7,7 +7,7 @@ import {
   HostListener,
   ViewEncapsulation
 } from '@angular/core';
-import { HelpRequestsService } from '../_services/index';
+import { HelpRequestsService } from '../_services/help-requests.service';
 
 @NgModule({
   providers: [HelpRequestsService]
@@ -34,9 +34,15 @@ export class MapComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
+  sendInboundRequestList(message): void {
+    // send message to subscribers via observable subject
+    // console.log(message);
+    this.helpRequestsService.sendInboundRequestList(message);
+  }
+
   sendRequestList(message): void {
     // send message to subscribers via observable subject
-    console.log(message);
+    // console.log(message);
     this.helpRequestsService.sendRequestList(message);
   }
 
@@ -45,7 +51,7 @@ export class MapComponent implements OnInit {
     let counter = 0;
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();
-    console.log(event, mapBounds);
+    // console.log(event, mapBounds);
     this.markers.forEach(el => {
       let position = { lat: el.lat, lng: el.lng };
       if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
@@ -55,8 +61,8 @@ export class MapComponent implements OnInit {
         }
       }
     });
-    console.log(counter + ' in bounds markers');
-    this.sendRequestList(inBoundMarkers);
+    // console.log(counter + ' in bounds markers');
+    this.sendInboundRequestList(inBoundMarkers);
   }
 
   inRange(x, min, max) {
@@ -80,7 +86,7 @@ export class MapComponent implements OnInit {
 
   ngOnInit() {
     // let self = this;
-    this.helpRequestsService.getAllRequests().subscribe(data => {
+    this.helpRequestsService.getAllRequestsFromJSON().subscribe(data => {
       this.markers = data;
       this.markers = this.markers.filter(el => el.fulfilled === false);
 
@@ -92,14 +98,13 @@ export class MapComponent implements OnInit {
       } else {
         // No support
       }
-
-      console.log(this.markers);
     });
 
     this.helpRequestsService.getNewRequest().subscribe(data => {
       let newRequest = data.request;
       this.markers.push(newRequest);
-      console.log('getNewRequest', data, this.markers);
+      console.log('getNewRequest', this);
+      this.sendRequestList(this.markers);
     });
   }
 }

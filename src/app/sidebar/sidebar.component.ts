@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ViewEncapsulation } from '@angular/core';
 
-import { HelpRequestsService } from '../_services/index';
+import { HelpRequestsService } from '../_services/help-requests.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,13 +21,12 @@ export class SidebarComponent implements OnInit {
           this.requests = [];
           this.requests = message.requests;
           // this.requests.push(message);
-          console.log(message);
+          // console.log(message);
         } else {
           // clear requests when empty message received
           this.requests = [];
         }
       });
   }
-
   ngOnInit() {}
 }

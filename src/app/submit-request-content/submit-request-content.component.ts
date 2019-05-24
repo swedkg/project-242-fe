@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MapsAPILoader } from '@agm/core';
-import { HelpRequestsService } from '../_services/index';
+import { HelpRequestsService } from '../_services/help-requests.service';
 import { MatDialogRef } from '@angular/material';
 
 @Component({
@@ -54,11 +54,11 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.fulfilled = false;
     this.newRequest.isUser = false;
 
-    console.log(
-      'addNewRequest',
-      this.newRequest,
-      this.newRequestForm.controls.title
-    );
+    // console.log(
+    //   'addNewRequest',
+    //   this.newRequest,
+    //   this.newRequestForm.controls.title
+    // );
     this.helpRequestsService.addNewRequest(this.newRequest);
     this.closeDialog();
   }
@@ -68,12 +68,12 @@ export class SubmitRequestContentComponent implements OnInit {
   };
 
   validateAddress() {
-    console.log(
-      'current:',
-      this.current_address,
-      'native:',
-      this.searchElementRef.nativeElement.value
-    );
+    // console.log(
+    //   'current:',
+    //   this.current_address,
+    //   'native:',
+    //   this.searchElementRef.nativeElement.value
+    // );
 
     if (this.current_address !== this.searchElementRef.nativeElement.value) {
       return { validateAddress: true };
@@ -100,7 +100,7 @@ export class SubmitRequestContentComponent implements OnInit {
     });
 
     this.mapsAPILoader.load().then(() => {
-      console.log('mapsAPILoader loaded');
+      // console.log('mapsAPILoader loaded');
       // this.setCurrentLocation();
       // this.geoCoder = new google.maps.Geocoder();
 
@@ -137,12 +137,12 @@ export class SubmitRequestContentComponent implements OnInit {
 
           this.newRequestForm.controls.address.updateValueAndValidity();
 
-          console.log(
-            this.newRequest,
-            this.newRequestForm.controls.address,
-            reverseResult,
-            this.searchElementRef.nativeElement.value
-          );
+          // console.log(
+          //   this.newRequest,
+          //   this.newRequestForm.controls.address,
+          //   reverseResult,
+          //   this.searchElementRef.nativeElement.value
+          // );
 
           // this.addressHasError = false;
 
