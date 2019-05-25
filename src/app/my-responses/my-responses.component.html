@@ -1,9 +1,16 @@
 <mat-accordion class="inBoundMarkersList">
-  <mat-expansion-panel *ngFor="let response of responses">
-    <mat-expansion-panel-header *ngIf="!response.isUser" class="panel-header">
-      <span class="title">Request title goes here</span>
+  <mat-expansion-panel *ngFor="let res of myResponsesList">
+    <mat-expansion-panel-header *ngIf="!res.isUser" class="panel-header">
+      <span class="title">{{ res.title }}</span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
-    <span class="description">{{ response.message }}</span>
+    <div class="message-flow-container">
+      <span
+        class="request-message"
+        [ngClass]="{ 'align-right': mes.requester_id === mes.user_id }"
+        *ngFor="let mes of res.messageFlow"
+        >{{ mes.message }}</span
+      >
+    </div>
   </mat-expansion-panel>
 </mat-accordion>

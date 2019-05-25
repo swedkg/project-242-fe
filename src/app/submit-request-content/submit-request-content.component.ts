@@ -17,6 +17,8 @@ import { MapsAPILoader } from '@agm/core';
 import { HelpRequestsService } from '../_services/help-requests.service';
 import { MatDialogRef } from '@angular/material';
 
+import { Globals } from '../../assets/globals';
+
 @Component({
   selector: 'app-submit-request-content',
   templateUrl: './submit-request-content.component.html',
@@ -28,7 +30,8 @@ export class SubmitRequestContentComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private helpRequestsService: HelpRequestsService,
-    public dialogRef: MatDialogRef<SubmitRequestContentComponent>
+    public dialogRef: MatDialogRef<SubmitRequestContentComponent>,
+    public globals: Globals
   ) {}
   public newRequestForm: FormGroup;
   // private geoCoder;
@@ -53,6 +56,7 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.responders = 0;
     this.newRequest.fulfilled = false;
     this.newRequest.isUser = false;
+    this.newRequest.requester_id = this.globals.current_user;
 
     // console.log(
     //   'addNewRequest',
@@ -82,6 +86,8 @@ export class SubmitRequestContentComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this);
+
     this.newRequestForm = new FormGroup({
       title: new FormControl('', [
         Validators.required,

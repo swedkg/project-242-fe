@@ -1,0 +1,18 @@
+.message-flow-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.request-message {
+  padding-top: 1rem;
+  background: hsla(0, 0%, 95%, 1);
+  border: 1px solid transparent;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+.align-right {
+  text-align: right;
+  background: hsl(195, 53%, 90%);
+}

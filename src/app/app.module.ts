@@ -19,6 +19,8 @@ import { SubmitRequestComponent } from './submit-request/submit-request.componen
 import { HelpRequestsService } from './_services/help-requests.service';
 import { MessageFlowService } from './_services/message-flow.service';
 
+import { Globals } from '../assets/globals';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,7 @@ import { MessageFlowService } from './_services/message-flow.service';
       libraries: ['places']
     })
   ],
-  providers: [HelpRequestsService, MessageFlowService],
+  providers: [HelpRequestsService, MessageFlowService, Globals],
   entryComponents: [SubmitRequestContentComponent],
   bootstrap: [AppComponent]
 })
