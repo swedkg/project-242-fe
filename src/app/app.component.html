@@ -3,11 +3,11 @@
     <button
       mat-button
       class="material-icons menu-icon"
-      (click)="requests.toggle()"
+      (click)="toggleRequestSidenav()"
     >
       <p class="material-icons">menu</p>
     </button>
-    <app-sidebar></app-sidebar
+    <app-requests></app-requests
   ></mat-sidenav>
   <mat-sidenav
     #messaging
@@ -18,7 +18,7 @@
     <button
       mat-button
       class="material-icons menu-icon"
-      (click)="messaging.toggle()"
+      (click)="toggleMessagingSidenav()"
     >
       <p class="material-icons">menu</p>
     </button>
@@ -29,14 +29,14 @@
     <button
       mat-button
       class="material-icons menu-icon"
-      (click)="requests.toggle()"
+      (click)="toggleRequestSidenav()"
     >
       <p class="material-icons">menu</p>
     </button>
     <i
       class="material-icons message"
       matTooltip="My mesages"
-      (click)="messaging.toggle()"
+      (click)="toggleMessagingSidenav()"
     >
       chat
     </i>

@@ -43,7 +43,7 @@ export class MyResponsesComponent implements OnInit {
       this.myResponsesList.push({ title, messageFlow });
     }
 
-    // console.log(this.myResponsesList);
+    console.log(this.myResponsesList);
   }
 
   getRequestersMessages(requestID, requesterID) {
@@ -54,7 +54,7 @@ export class MyResponsesComponent implements OnInit {
         res.user_id === requesterID
       );
     });
-    console.log(filter);
+    // console.log(filter);
     return filter;
   }
 

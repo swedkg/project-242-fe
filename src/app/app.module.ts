@@ -13,7 +13,7 @@ import { MaterialModule } from './material/material.module';
 import { MessagingComponent } from './messaging/messaging.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 import { MyResponsesComponent } from './my-responses/my-responses.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { RequestsComponent } from './requests/requests.component';
 import { SubmitRequestContentComponent } from './submit-request-content/submit-request-content.component';
 import { SubmitRequestComponent } from './submit-request/submit-request.component';
 import { HelpRequestsService } from './_services/help-requests.service';
@@ -26,7 +26,7 @@ import { Globals } from '../assets/globals';
     AppComponent,
     MapComponent,
     LayoutComponent,
-    SidebarComponent,
+    RequestsComponent,
     SubmitRequestComponent,
     SubmitRequestContentComponent,
     MessagingComponent,

@@ -19,7 +19,9 @@
     <mat-divider></mat-divider>
     <span class="description">{{ request.description }}</span>
     <mat-action-row>
-      <button mat-button>Respond to request</button>
+      <button mat-button (click)="respondToRequest()">
+        Respond to request
+      </button>
     </mat-action-row>
   </mat-expansion-panel>
 </mat-accordion>
