@@ -2,13 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MessageFlowService } from '../_services/message-flow.service';
 import { HelpRequestsService } from '../_services/help-requests.service';
+import { SidenavService } from '../_services/sidenav.service';
+import { ViewEncapsulation } from '@angular/core';
 
 import { Globals } from '../../assets/globals';
 
 @Component({
   selector: 'app-my-responses',
   templateUrl: './my-responses.component.html',
-  styleUrls: ['./my-responses.component.scss']
+  styleUrls: ['./my-responses.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MyResponsesComponent implements OnInit {
   allResponses: any[] = [];
@@ -18,10 +21,13 @@ export class MyResponsesComponent implements OnInit {
   requests: any[] = [];
   messageFlow: Subscription;
   allRequests: Subscription;
+  showMessages: boolean = false;
   current_user = this.globals.current_user;
+  expanded = 0;
   constructor(
     private messageFlowService: MessageFlowService,
     private helpRequestsService: HelpRequestsService,
+    private sidenavService: SidenavService,
     public globals: Globals
   ) {}
 
@@ -31,6 +37,8 @@ export class MyResponsesComponent implements OnInit {
       let requestThread = responsesList[prop];
       let thread = requestThread[0];
       let title = this.getRequestTitle(thread.request_id);
+      let description = this.getRequestDescription(thread.request_id);
+      let request_id = thread.request_id;
 
       let requestersMessages = this.getRequestersMessages(
         thread.request_id,
@@ -40,10 +48,15 @@ export class MyResponsesComponent implements OnInit {
       let messageFlow = requestThread.concat(requestersMessages);
       messageFlow = this.sortMessages(messageFlow);
 
-      this.myResponsesList.push({ title, messageFlow });
+      this.myResponsesList.push({
+        title,
+        description,
+        request_id,
+        messageFlow
+      });
     }
 
-    console.log(this.myResponsesList);
+    // console.log(this.myResponsesList);
   }
 
   getRequestersMessages(requestID, requesterID) {
@@ -72,6 +85,12 @@ export class MyResponsesComponent implements OnInit {
     })[0];
     return request.title;
   }
+  getRequestDescription(request_id) {
+    let request = this.requests.filter(res => {
+      return res.id === request_id;
+    })[0];
+    return request.description;
+  }
 
   sortMessages(requestThread) {
     return requestThread.sort((a, b) => {
@@ -85,6 +104,10 @@ export class MyResponsesComponent implements OnInit {
       timestamp: response.timestamp,
       dateFormatted: response.dateFormatted
     };
+  }
+
+  handleShowMessages() {
+    this.showMessages = !this.showMessages;
   }
 
   ngOnInit() {
@@ -127,7 +150,12 @@ export class MyResponsesComponent implements OnInit {
       this.buildMyResponsesList();
       // console.log('getRequestList', this.requests, data);
     });
+    this.sidenavService.getExpanded().subscribe(data => {
+      this.expanded = data;
+      // let title = this.getRequestTitle(data);
+      // console.log('title', title);
+    });
 
-    console.log(this);
+    // console.log(this);
   }
 }

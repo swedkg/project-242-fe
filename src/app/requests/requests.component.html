@@ -1,4 +1,4 @@
-<mat-accordion class="inBoundMarkersList111">
+<mat-accordion class="inBoundMarkersList">
   <mat-expansion-panel *ngFor="let request of requests">
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="title">{{ request.title }}</span>
@@ -19,7 +19,7 @@
     <mat-divider></mat-divider>
     <span class="description">{{ request.description }}</span>
     <mat-action-row>
-      <button mat-button (click)="respondToRequest()">
+      <button mat-button (click)="respondToRequest(request.id)">
         Respond to request
       </button>
     </mat-action-row>

@@ -12,7 +12,8 @@ import { SidenavService } from '../_services/sidenav.service';
   encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
-  respondToRequest() {
+  respondToRequest(id) {
+    this.SidenavService.setExpanded(id);
     this.SidenavService.setRequestSidenavOpened(false);
     this.SidenavService.setMessagingSidenavOpened(true);
   }

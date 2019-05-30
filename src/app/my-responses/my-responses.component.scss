@@ -1,3 +1,7 @@
+.mat-expansion-panel-body {
+  max-width: 400px;
+}
+
 .message-flow-container {
   display: flex;
   flex-direction: column;
@@ -15,4 +19,14 @@
 .align-right {
   text-align: right;
   background: hsl(195, 53%, 90%);
+}
+
+.messages {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  left: 0;
+  top: 0;
+  padding: 1rem;
+  bottom: 0;
 }
