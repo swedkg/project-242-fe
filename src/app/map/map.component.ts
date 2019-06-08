@@ -90,6 +90,8 @@ export class MapComponent implements OnInit {
       this.markers = data;
       this.markers = this.markers.filter(el => el.fulfilled === false);
 
+      this.helpRequestsService.sendRequestList(this.markers);
+
       if (!!navigator.geolocation) {
         // Support
         navigator.geolocation.getCurrentPosition(

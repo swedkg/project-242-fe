@@ -129,16 +129,14 @@ export class MyResponsesComponent implements OnInit {
           console.log('none found');
         }
       });
-    this.allRequests = this.helpRequestsService
-      .getAllRequestsFromJSON()
-      .subscribe(data => {
-        this.requests = data;
-        this.buildMyResponsesList();
-        // console.log('getAllRequestsFromJSON', this.requests);
+    // this.helpRequestsService.getAllRequestsFromJSON().subscribe(data => {
+    //   this.requests = data;
+    //   this.buildMyResponsesList();
+    //   console.log('getAllRequestsFromJSON', this.requests);
 
-        // this.allRequests;
-        // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
-      });
+    //   // this.allRequests;
+    //   // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
+    // });
     this.helpRequestsService.getRequestList().subscribe(data => {
       // let newRequest = data.request;
       // this.markers.push(newRequest);
@@ -146,9 +144,9 @@ export class MyResponsesComponent implements OnInit {
       this.requests = this.requests.filter(res => {
         return res.isUser === false;
       });
-      // TODO: build/rebuild responses list
+      // TODO: this and the above have to be a single call to the API
       this.buildMyResponsesList();
-      // console.log('getRequestList', this.requests, data);
+      console.log('getRequestList', this.requests, data);
     });
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
