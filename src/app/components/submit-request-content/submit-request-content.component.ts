@@ -14,10 +14,10 @@ import {
 } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MapsAPILoader } from '@agm/core';
-import { HelpRequestsService } from '../_services/help-requests.service';
+import { HelpRequestsService } from '../../_services/help-requests.service';
 import { MatDialogRef } from '@angular/material';
 
-import { Globals } from '../../assets/globals';
+import { Globals } from '../../../assets/globals';
 
 @Component({
   selector: 'app-submit-request-content',

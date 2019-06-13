@@ -7,7 +7,7 @@ import {
   HostListener,
   ViewEncapsulation
 } from '@angular/core';
-import { HelpRequestsService } from '../_services/help-requests.service';
+import { HelpRequestsService } from '../../_services/help-requests.service';
 
 @NgModule({
   providers: [HelpRequestsService]

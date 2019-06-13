@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MessageFlowService } from '../_services/message-flow.service';
-import { HelpRequestsService } from '../_services/help-requests.service';
-import { SidenavService } from '../_services/sidenav.service';
+import { MessageFlowService } from '../../_services/message-flow.service';
+import { HelpRequestsService } from '../../_services/help-requests.service';
+import { SidenavService } from '../../_services/sidenav.service';
 import { ViewEncapsulation } from '@angular/core';
 
-import { Globals } from '../../assets/globals';
+import { Globals } from '../../../assets/globals';
 
 @Component({
   selector: 'app-my-responses',

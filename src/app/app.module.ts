@@ -2,53 +2,63 @@ import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgmOverlays } from 'agm-overlays';
 import { AppComponent } from './app.component';
-import { LayoutComponent } from './layout/layout.component';
-import { MapComponent } from './map/map.component';
-import { MaterialModule } from './material/material.module';
-import { MessagingComponent } from './messaging/messaging.component';
-import { MyRequestsComponent } from './my-requests/my-requests.component';
-import { MyResponsesComponent } from './my-responses/my-responses.component';
-import { RequestsComponent } from './requests/requests.component';
-import { SubmitRequestContentComponent } from './submit-request-content/submit-request-content.component';
-import { SubmitRequestComponent } from './submit-request/submit-request.component';
+import { LayoutComponent } from './components/layout/layout.component';
+import { MapComponent } from './components/map/map.component';
+import { MaterialModule } from './modules/material.module';
 import { HelpRequestsService } from './_services/help-requests.service';
 import { MessageFlowService } from './_services/message-flow.service';
 
+import { RequestsModule } from './modules/requests.module';
+import { ResponsesModule } from './modules/responses.module';
+
 import { Globals } from '../assets/globals';
+import { StoreModule, MetaReducer } from '@ngrx/store';
+
+// import { environment } from '../environments/environment';
+
+// not used in production
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { storeFreeze } from 'ngrx-store-freeze';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './store/effects/app.effects';
+
+const environment = {
+  development: true,
+  production: false
+};
+
+export const metaReducers: MetaReducer<any>[] = !environment.production
+  ? [storeFreeze]
+  : [];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    MapComponent,
-    LayoutComponent,
-    RequestsComponent,
-    SubmitRequestComponent,
-    SubmitRequestContentComponent,
-    MessagingComponent,
-    MyResponsesComponent,
-    MyRequestsComponent
-  ],
+  declarations: [AppComponent, MapComponent, LayoutComponent],
   imports: [
     BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    RequestsModule,
+    ResponsesModule,
     AgmSnazzyInfoWindowModule,
     AgmOverlays,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCw9TlphTR3feHATjeQhqJKA8qP5wGjLjQ',
       libraries: ['places']
-    })
+    }),
+
+    StoreModule.forRoot({}, { metaReducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [HelpRequestsService, MessageFlowService, Globals],
-  entryComponents: [SubmitRequestContentComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

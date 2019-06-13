@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ViewEncapsulation } from '@angular/core';
 
-import { HelpRequestsService } from '../_services/help-requests.service';
-import { SidenavService } from '../_services/sidenav.service';
+import { HelpRequestsService } from '../../_services/help-requests.service';
+import { SidenavService } from '../../_services/sidenav.service';
 
 @Component({
   selector: 'app-requests',
