@@ -15,3 +15,5 @@
 // export const metaReducers: MetaReducer<State>[] = !environment.production
 //   ? [storeFreeze]
 //   : [];
+
+export * from './reducers';
