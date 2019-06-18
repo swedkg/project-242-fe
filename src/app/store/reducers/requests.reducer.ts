@@ -1,9 +1,9 @@
 import * as fromRequests from '../actions/requests.action';
-import { Requests } from '../../models/request.model';
+import { AidRequest } from '../../models/aidRequest.model';
 
 // a slice of state that our reducer will manage in out entire state tree
 export interface RequestState {
-  data: Requests[];
+  data: AidRequest[];
   loaded: boolean;
   loading: boolean;
 }
@@ -28,6 +28,7 @@ export function reducer(
     case fromRequests.LOAD_REQUESTS_SUCCESS: {
       console.log(action);
       const data = action.payload;
+
       return {
         ...state,
         loading: false,

@@ -8,7 +8,7 @@ import * as fromStore from '../../store';
 
 import { HelpRequestsService } from '../../_services/help-requests.service';
 import { SidenavService } from '../../_services/sidenav.service';
-import { Requests } from '../../models/request.model';
+import { AidRequest } from '../../models/aidRequest.model';
 
 @Component({
   selector: 'app-requests',
@@ -17,7 +17,7 @@ import { Requests } from '../../models/request.model';
   encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
-  requests$: Observable<Requests[]>;
+  requests$: Observable<AidRequest[]>;
   requests: any[] = [];
   subscription: Subscription;
 

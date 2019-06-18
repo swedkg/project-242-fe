@@ -1,4 +1,4 @@
-export interface Requests {
+export interface AidRequest {
   id?: number;
   title?: string;
   isOneTime?: boolean;

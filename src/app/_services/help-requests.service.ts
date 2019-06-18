@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-import { Requests } from '../models/request.model';
+import { AidRequest } from '../models/aidRequest.model';
 import { catchError } from 'rxjs/operators';
 
 import 'rxjs/add/observable/throw';
@@ -50,7 +50,7 @@ export class HelpRequestsService {
   getAllRequestsFromJSON(): Observable<any[]> {
     let url: string = '../../assets/requests.json';
     return this.http
-      .get<Requests[]>(url)
+      .get<AidRequest[]>(url)
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
     // .pipe(catchError((error: any) => Observable.throw(error.json())));
   }

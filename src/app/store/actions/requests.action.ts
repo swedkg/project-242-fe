@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Requests } from '../../models/request.model';
+import { AidRequest } from '../../models/aidRequest.model';
 
 // load requests
 export const LOAD_REQUESTS = '[Requests] Load Requests';
@@ -17,7 +17,7 @@ export class LoadRequestsFail implements Action {
 
 export class LoadRequestsSuccess implements Action {
   readonly type = LOAD_REQUESTS_SUCCESS;
-  constructor(public payload: Requests[]) {}
+  constructor(public payload: AidRequest[]) {}
 }
 
 // action types
