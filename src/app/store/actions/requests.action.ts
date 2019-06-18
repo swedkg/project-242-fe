@@ -4,7 +4,7 @@ import { AidRequest } from '../../models/aidRequest.model';
 // load requests
 export const LOAD_REQUESTS = '[Requests] Load Requests';
 export const LOAD_REQUESTS_FAIL = '[Requests] Load Requests Fail';
-export const LOAD_REQUESTS_SUCCESS = '[Requests] Load Requests Fail Success';
+export const LOAD_REQUESTS_SUCCESS = '[Requests] Load Requests Success';
 
 export class LoadRequests implements Action {
   readonly type = LOAD_REQUESTS;

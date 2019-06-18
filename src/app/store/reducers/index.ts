@@ -1,8 +1,4 @@
-import {
-  ActionReducerMap,
-  createSelector,
-  createFeatureSelector
-} from '@ngrx/store';
+import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import * as fromRequests from './requests.reducer';
 
 // define the structure of the state tree
@@ -20,22 +16,3 @@ export const getPlatformState = createFeatureSelector<PlatformState>(
 );
 
 // requests state
-export const getRequestsState = createSelector(
-  getPlatformState,
-  (state: PlatformState) => state.requests
-);
-
-export const getAllRequests = createSelector(
-  getRequestsState,
-  fromRequests.getRequests
-);
-
-export const getRequestsLoaded = createSelector(
-  getRequestsState,
-  fromRequests.getRequestsLoaded
-);
-
-export const getRequestsLoading = createSelector(
-  getRequestsState,
-  fromRequests.getRequestsLoading
-);
