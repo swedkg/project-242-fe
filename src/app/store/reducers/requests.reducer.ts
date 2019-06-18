@@ -9,20 +9,7 @@ export interface RequestState {
 }
 
 export const initialState: RequestState = {
-  data: [
-    {
-      id: 1,
-      title: "Why, I wouldn't say anything about it",
-      isOneTime: true,
-      isUser: false,
-      lat: 53.46041899999999,
-      lng: -2.235272200000054,
-      fulfilled: false,
-      requester_id: 1,
-      description:
-        'Strata of cigarette smoke rose from the tiers, drifting until it struck currents set up by the blowers and the drifting shoals of waste. A graphic representation of data abstracted from the banks of every computer in the shade beneath a bridge or overpass. Case felt the edge of the Villa bespeak a turning in, a denial of the bright void beyond the hull. The alarm still oscillated, louder here, the rear of the deck sting his palm as he made his way down Shiga from the sushi stall he cradled it in his jacket pocket.'
-    }
-  ],
+  data: [],
   loaded: false,
   loading: false
 };
@@ -39,10 +26,13 @@ export function reducer(
       };
     }
     case fromRequests.LOAD_REQUESTS_SUCCESS: {
+      console.log(action);
+      const data = action.payload;
       return {
         ...state,
         loading: false,
-        loaded: true
+        loaded: true,
+        data
       };
     }
     case fromRequests.LOAD_REQUESTS_FAIL: {

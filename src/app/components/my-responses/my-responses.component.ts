@@ -124,7 +124,7 @@ export class MyResponsesComponent implements OnInit {
               res.requester_id !== res.user_id
             );
           });
-          console.log(this.myResponses);
+          // console.log(this.myResponses);
         } else {
           console.log('none found');
         }
@@ -146,7 +146,7 @@ export class MyResponsesComponent implements OnInit {
       });
       // TODO: this and the above have to be a single call to the API
       this.buildMyResponsesList();
-      console.log('getRequestList', this.requests, data);
+      // console.log('getRequestList', this.requests, data);
     });
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;

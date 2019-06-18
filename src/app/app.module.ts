@@ -24,7 +24,6 @@ import { StoreModule, MetaReducer } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './store/effects/app.effects';
 
 const environment = {
   development: true,
@@ -56,7 +55,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
       maxAge: 25,
       logOnly: environment.production
     }),
-    EffectsModule.forRoot([AppEffects])
+    EffectsModule.forRoot([])
   ],
   providers: [HelpRequestsService, MessageFlowService, Globals],
   bootstrap: [AppComponent]

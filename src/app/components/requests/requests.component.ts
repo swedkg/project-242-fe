@@ -51,5 +51,6 @@ export class RequestsComponent implements OnInit {
       console.log(state);
     });
     this.requests$ = this.store.select(fromStore.getAllRequests);
+    this.store.dispatch(new fromStore.LoadRequests());
   }
 }

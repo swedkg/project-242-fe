@@ -7,7 +7,8 @@ import { SubmitRequestContentComponent } from '../components/submit-request-cont
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
-import { reducers } from '../store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers, effects } from '../store';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { reducers } from '../store';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    StoreModule.forFeature('requests', reducers)
+    StoreModule.forFeature('requests', reducers),
+    EffectsModule.forFeature(effects)
   ],
   exports: [RequestsComponent, SubmitRequestComponent],
   entryComponents: [SubmitRequestContentComponent]
