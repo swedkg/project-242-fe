@@ -43,5 +43,9 @@ export class MyRequestsComponent implements OnInit {
     this.store.select(fromStore.getAllRequests).subscribe(state => {
       console.log(state);
     });
+    this.store.select(fromStore.getAllMessages).subscribe(state => {
+      console.log(state);
+    });
+    this.store.dispatch(new fromStore.LoadMessages());
   }
 }
