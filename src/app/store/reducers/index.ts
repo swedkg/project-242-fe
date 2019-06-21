@@ -15,7 +15,7 @@ export const reducers: ActionReducerMap<PlatformState> = {
 };
 
 export const getPlatformState = createFeatureSelector<PlatformState>(
-  'requests'
+  'addPlatform'
 );
 
 // requests state

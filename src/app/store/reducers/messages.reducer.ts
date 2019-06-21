@@ -43,6 +43,8 @@ export function reducer(
         }
       );
 
+      console.log(entities);
+
       return {
         ...state,
         loading: false,

@@ -25,6 +25,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { EffectsModule } from '@ngrx/effects';
 
+import { reducers, effects } from './store';
+
 const environment = {
   development: true,
   production: false
@@ -49,7 +51,8 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
       apiKey: 'AIzaSyCw9TlphTR3feHATjeQhqJKA8qP5wGjLjQ',
       libraries: ['places']
     }),
-
+    StoreModule.forFeature('addPlatform', reducers),
+    EffectsModule.forFeature(effects),
     StoreModule.forRoot({}, { metaReducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
