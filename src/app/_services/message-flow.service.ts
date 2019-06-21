@@ -11,7 +11,7 @@ export class MessageFlowService {
   private messageFlow = new Subject<any>();
 
   getAllResponseRequests(): Observable<any[]> {
-    let url: string = '../../assets/messages.json';
+    let url: string = 'http://localhost:3000/messages';
     return this.http.get<any[]>(url);
   }
 }

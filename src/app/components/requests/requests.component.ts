@@ -47,9 +47,9 @@ export class RequestsComponent implements OnInit {
     //   });
   }
   ngOnInit() {
-    this.store.select(fromStore.getAllRequests).subscribe(state => {
-      console.log(state);
-    });
+    // this.store.select(fromStore.getAllRequests).subscribe(state => {
+    //   console.log(state);
+    // });
     this.requests$ = this.store.select(fromStore.getAllRequests);
     this.store.dispatch(new fromStore.LoadRequests());
   }

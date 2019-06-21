@@ -29,17 +29,17 @@ export class MyRequestsComponent implements OnInit {
     //   // this.allRequests;
     //   // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
     // });
-    this.helpRequestsService.getRequestList().subscribe(data => {
-      // let newRequest = data.request;
-      // this.markers.push(newRequest);
-      this.requests = data.requests;
-      this.requests = this.requests.filter(res => {
-        return res.isUser === false;
-      });
-      // TODO: this and the above have to be a single call to the API
-      // this.buildMyResponsesList();
-      // console.log('getRequestList', this.requests, data);
-    });
+    // this.helpRequestsService.getRequestList().subscribe(data => {
+    //   // let newRequest = data.request;
+    //   // this.markers.push(newRequest);
+    //   this.requests = data.requests;
+    //   this.requests = this.requests.filter(res => {
+    //     return res.isUser === false;
+    //   });
+    //   // TODO: this and the above have to be a single call to the API
+    //   // this.buildMyResponsesList();
+    //   // console.log('getRequestList', this.requests, data);
+    // });
     this.store.select(fromStore.getAllRequests).subscribe(state => {
       console.log(state);
     });

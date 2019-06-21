@@ -35,7 +35,7 @@ export function reducer(
         (entities: { [id: number]: Message }, message) => {
           return {
             ...entities,
-            [message._id]: message
+            [message.id]: message
           };
         },
         {

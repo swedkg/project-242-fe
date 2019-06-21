@@ -48,7 +48,8 @@ export class HelpRequestsService {
   // ---------------------------------- //
 
   getAllRequestsFromJSON(): Observable<any[]> {
-    let url: string = '../../assets/requests.json';
+    // let url: string = '../../assets/requests.json';
+    let url: string = 'http://localhost:3000/requests';
     return this.http
       .get<AidRequest[]>(url)
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
