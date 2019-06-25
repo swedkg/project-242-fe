@@ -1,4 +1,4 @@
-import * as fromMessages from '../actions/messages.actions';
+import * as fromMessages from '../actions/my-responses.actions';
 import { Message } from '../../models/message.model';
 
 export interface MessageState {

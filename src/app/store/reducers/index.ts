@@ -1,6 +1,6 @@
 import { ActionReducerMap, createFeatureSelector } from '@ngrx/store';
 import * as fromRequests from './requests.reducer';
-import * as fromMessages from './messages.reducer';
+import * as fromMessages from './my-responses.reducer';
 
 // define the structure of the state tree
 export interface PlatformState {

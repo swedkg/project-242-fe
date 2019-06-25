@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 
 import * as fromFeature from '../reducers';
-import * as fromMessages from '../reducers/messages.reducer';
+import * as fromMessages from '../reducers/my-responses.reducer';
 
 export const getMessagesState = createSelector(
   fromFeature.getPlatformState,

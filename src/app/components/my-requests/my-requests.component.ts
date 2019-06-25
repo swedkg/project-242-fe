@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromStore from '../../store';
 
-import { AidRequest } from '../../models/aidRequest.model';
+import { Globals } from '../../../assets/globals';
 
 @Component({
   selector: 'app-my-requests',
@@ -13,31 +13,22 @@ import { AidRequest } from '../../models/aidRequest.model';
   styleUrls: ['./my-requests.component.scss']
 })
 export class MyRequestsComponent implements OnInit {
-  requests: any[] = [];
+  myRequests: any[] = [];
+  current_user = this.globals.current_user;
 
   constructor(
-    private helpRequestsService: HelpRequestsService,
-    private store: Store<AidRequest>
+    private store: Store<fromStore.PlatformState>,
+    public globals: Globals
   ) {}
 
   ngOnInit() {
-    // this.helpRequestsService.getAllRequestsFromJSON().subscribe(data => {
-    //   this.requests = data;
-    //   // this.buildMyResponsesList();
-    //   console.log('getAllRequestsFromJSON', this.requests);
-    //   // this.allRequests;
-    //   // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
-    // });
-    // this.helpRequestsService.getRequestList().subscribe(data => {
-    //   // let newRequest = data.request;
-    //   // this.markers.push(newRequest);
-    //   this.requests = data.requests;
-    //   this.requests = this.requests.filter(res => {
-    //     return res.isUser === false;
-    //   });
-    //   // TODO: this and the above have to be a single call to the API
-    //   // this.buildMyResponsesList();
-    //   // console.log('getRequestList', this.requests, data);
-    // });
+    this.store.select(fromStore.getAllMessages).subscribe(state => {
+      this.myRequests = state.filter(m => {
+        return m.requester_id === m.user_id;
+      });
+      // this.buildMyResponsesList();
+      console.log('myRequests', this.myRequests);
+    });
+    this.store.dispatch(new fromStore.LoadMessages(this.current_user));
   }
 }

@@ -58,6 +58,7 @@ export class MapComponent implements OnInit {
         if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
           if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
             counter++; // console.log(el);
+            // TODO we need to annouce that so the side panel will be updated
             inBoundMarkers.push(el);
           }
         }

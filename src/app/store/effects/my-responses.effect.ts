@@ -6,7 +6,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 
 import * as fromServices from '../../_services';
 
-import * as messagesActions from '../actions/messages.actions';
+import * as messagesActions from '../actions/my-responses.actions';
 
 @Injectable()
 export class MessagesEffects {
