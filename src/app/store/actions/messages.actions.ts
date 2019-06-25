@@ -8,6 +8,7 @@ export const LOAD_MESSAGES_SUCCESS = '[Messages] Load Messages Success';
 
 export class LoadMessages implements Action {
   readonly type = LOAD_MESSAGES;
+  constructor(public payload?: any) {}
 }
 
 export class LoadMessagesFail implements Action {

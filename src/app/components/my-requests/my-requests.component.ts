@@ -25,7 +25,6 @@ export class MyRequestsComponent implements OnInit {
     //   this.requests = data;
     //   // this.buildMyResponsesList();
     //   console.log('getAllRequestsFromJSON', this.requests);
-
     //   // this.allRequests;
     //   // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
     // });
@@ -40,12 +39,5 @@ export class MyRequestsComponent implements OnInit {
     //   // this.buildMyResponsesList();
     //   // console.log('getRequestList', this.requests, data);
     // });
-    this.store.select(fromStore.getAllRequests).subscribe(state => {
-      console.log(state);
-    });
-    this.store.select(fromStore.getAllMessages).subscribe(state => {
-      console.log(state);
-    });
-    this.store.dispatch(new fromStore.LoadMessages());
   }
 }

@@ -26,7 +26,7 @@ export function reducer(
       };
     }
     case fromRequests.LOAD_REQUESTS_SUCCESS: {
-      console.log(action);
+      // console.log(action);
       const requests = action.payload;
 
       const entities = requests.reduce(
@@ -41,7 +41,7 @@ export function reducer(
         }
       );
 
-      console.log(entities);
+      // console.log(entities);
 
       return {
         ...state,

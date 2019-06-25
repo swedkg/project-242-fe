@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { MessageFlowService } from '../../_services/message-flow.service';
-import { HelpRequestsService } from '../../_services/help-requests.service';
 import { SidenavService } from '../../_services/sidenav.service';
 import { ViewEncapsulation } from '@angular/core';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromStore from '../../store';
+
+import { Message } from '../../models/message.model';
 
 import { Globals } from '../../../assets/globals';
 
@@ -14,6 +18,7 @@ import { Globals } from '../../../assets/globals';
   encapsulation: ViewEncapsulation.None
 })
 export class MyResponsesComponent implements OnInit {
+  myResponses$: Observable<Message>;
   allResponses: any[] = [];
   myResponses: any[] = [];
   myResponsesIDs: any[] = [];
@@ -25,9 +30,8 @@ export class MyResponsesComponent implements OnInit {
   current_user = this.globals.current_user;
   expanded = 0;
   constructor(
-    private messageFlowService: MessageFlowService,
-    private helpRequestsService: HelpRequestsService,
     private sidenavService: SidenavService,
+    private store: Store<fromStore.PlatformState>,
     public globals: Globals
   ) {}
 
@@ -111,24 +115,24 @@ export class MyResponsesComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.messageFlow = this.messageFlowService
-      .getAllResponseRequests()
-      .subscribe(responses => {
-        if (responses) {
-          this.myResponses = [];
-          this.allResponses = responses;
-          this.myResponses = responses;
-          this.myResponses = responses.filter(res => {
-            return (
-              res.user_id === this.current_user &&
-              res.requester_id !== res.user_id
-            );
-          });
-          // console.log(this.myResponses);
-        } else {
-          console.log('none found');
-        }
-      });
+    // this.messageFlow = this.messageFlowService
+    //   .getAllResponseRequests()
+    //   .subscribe(responses => {
+    //     if (responses) {
+    //       this.myResponses = [];
+    //       this.allResponses = responses;
+    //       this.myResponses = responses;
+    //       this.myResponses = responses.filter(res => {
+    //         return (
+    //           res.user_id === this.current_user &&
+    //           res.requester_id !== res.user_id
+    //         );
+    //       });
+    //       // console.log(this.myResponses);
+    //     } else {
+    //       console.log('none found');
+    //     }
+    //   });
     // this.helpRequestsService.getAllRequestsFromJSON().subscribe(data => {
     //   this.requests = data;
     //   this.buildMyResponsesList();
@@ -137,17 +141,17 @@ export class MyResponsesComponent implements OnInit {
     //   // this.allRequests;
     //   // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
     // });
-    this.helpRequestsService.getRequestList().subscribe(data => {
-      // let newRequest = data.request;
-      // this.markers.push(newRequest);
-      this.requests = data.requests;
-      this.requests = this.requests.filter(res => {
-        return res.isUser === false;
-      });
-      // TODO: this and the above have to be a single call to the API
-      this.buildMyResponsesList();
-      // console.log('getRequestList', this.requests, data);
-    });
+    // this.helpRequestsService.getRequestList().subscribe(data => {
+    //   // let newRequest = data.request;
+    //   // this.markers.push(newRequest);
+    //   this.requests = data.requests;
+    //   this.requests = this.requests.filter(res => {
+    //     return res.isUser === false;
+    //   });
+    //   // TODO: this and the above have to be a single call to the API
+    //   this.buildMyResponsesList();
+    //   // console.log('getRequestList', this.requests, data);
+    // });
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
       // let title = this.getRequestTitle(data);
@@ -155,5 +159,20 @@ export class MyResponsesComponent implements OnInit {
     });
 
     // console.log(this);
+    this.store.select(fromStore.getAllRequests).subscribe(state => {
+      this.allResponses = state;
+      this.requests = state.filter(res => {
+        return res.isUser === false;
+      });
+      // console.log(state, this.requests);
+    });
+    this.store.select(fromStore.getAllMessages).subscribe(state => {
+      this.myResponses = state.filter(m => {
+        return m.requester_id != m.user_id;
+      });
+      this.buildMyResponsesList();
+      // console.log(state, this.myResponses);
+    });
+    this.store.dispatch(new fromStore.LoadMessages(this.current_user));
   }
 }

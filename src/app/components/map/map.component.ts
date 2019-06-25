@@ -52,15 +52,16 @@ export class MapComponent implements OnInit {
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();
     // console.log(event, mapBounds);
-    this.markers.forEach(el => {
-      let position = { lat: el.lat, lng: el.lng };
-      if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
-        if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
-          counter++; // console.log(el);
-          inBoundMarkers.push(el);
+    if (this.markers)
+      this.markers.forEach(el => {
+        let position = { lat: el.lat, lng: el.lng };
+        if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
+          if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
+            counter++; // console.log(el);
+            inBoundMarkers.push(el);
+          }
         }
-      }
-    });
+      });
     // console.log(counter + ' in bounds markers');
     this.sendInboundRequestList(inBoundMarkers);
   }
