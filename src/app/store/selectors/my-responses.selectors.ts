@@ -1,21 +1,21 @@
 import { createSelector } from '@ngrx/store';
 
 import * as fromFeature from '../reducers';
-import * as fromMessages from '../reducers/my-responses.reducer';
+import * as fromMyResponses from '../reducers/my-responses.reducer';
 
-export const getMessagesState = createSelector(
+export const getMyResponsesState = createSelector(
   fromFeature.getPlatformState,
-  (state: fromFeature.PlatformState) => state.messages
+  (state: fromFeature.PlatformState) => state.myResponses
 );
 
-// getMessagesEntities
-export const getMessagesEntities = createSelector(
-  getMessagesState,
-  fromMessages.getMessages
+// getMyResponsesEntities
+export const getMyResponsesEntities = createSelector(
+  getMyResponsesState,
+  fromMyResponses.getMyResponses
 );
 
-export const getAllMessages = createSelector(
-  getMessagesEntities,
+export const getMyResponses = createSelector(
+  getMyResponsesEntities,
   entitites => {
     // return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
 
@@ -23,12 +23,12 @@ export const getAllMessages = createSelector(
   }
 );
 
-export const getMessagesLoaded = createSelector(
-  getMessagesState,
-  fromMessages.getMessagesLoaded
+export const getMyResponsesLoaded = createSelector(
+  getMyResponsesState,
+  fromMyResponses.getMyResponsesLoaded
 );
 
-export const getMessagesLoading = createSelector(
-  getMessagesState,
-  fromMessages.getMessagesLoading
+export const getMyResponsesLoading = createSelector(
+  getMyResponsesState,
+  fromMyResponses.getMyResponsesLoading
 );

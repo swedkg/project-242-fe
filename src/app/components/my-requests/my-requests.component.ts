@@ -22,13 +22,13 @@ export class MyRequestsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select(fromStore.getAllMessages).subscribe(state => {
-      this.myRequests = state.filter(m => {
-        return m.requester_id === m.user_id;
-      });
+    this.store.select(fromStore.getMyRequests).subscribe(state => {
+      // this.myRequests = state.filter(m => {
+      //   return m.requester_id === m.user_id;
+      // });
       // this.buildMyResponsesList();
-      console.log('myRequests', this.myRequests);
+      console.log('myRequests', this.myRequests, state);
     });
-    this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+    this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
   }
 }

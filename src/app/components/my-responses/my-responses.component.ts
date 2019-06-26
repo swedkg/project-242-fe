@@ -166,13 +166,13 @@ export class MyResponsesComponent implements OnInit {
       });
       // console.log(state, this.requests);
     });
-    this.store.select(fromStore.getAllMessages).subscribe(state => {
+    this.store.select(fromStore.getMyResponses).subscribe(state => {
       this.myResponses = state.filter(m => {
         return m.requester_id != m.user_id;
       });
       this.buildMyResponsesList();
       // console.log(state, this.myResponses);
     });
-    this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+    this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
   }
 }

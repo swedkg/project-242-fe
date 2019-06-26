@@ -1,4 +1,4 @@
-import * as fromMyResponses from '../actions/my-responses.actions';
+import * as fromMyRequests from '../actions/my-requests.actions';
 import { Message } from '../../models/message.model';
 
 export interface MessageState {
@@ -18,16 +18,16 @@ export const initialState: MessageState = {
 
 export function reducer(
   state = initialState,
-  action: fromMyResponses.MyResponsesAction
+  action: fromMyRequests.MyRequestsAction
 ): MessageState {
   switch (action.type) {
-    case fromMyResponses.LOAD_MY_RESPONSES: {
+    case fromMyRequests.LOAD_MY_REQUESTS: {
       return {
         ...state,
         loading: true
       };
     }
-    case fromMyResponses.LOAD_MY_RESPONSES_SUCCESS: {
+    case fromMyRequests.LOAD_MY_REQUESTS_SUCCESS: {
       // console.log(action);
       const messages = action.payload;
       // console.log(data);
@@ -43,7 +43,7 @@ export function reducer(
         }
       );
 
-      // console.log(entities);
+      console.log(entities);
 
       return {
         ...state,
@@ -52,7 +52,7 @@ export function reducer(
         entities
       };
     }
-    case fromMyResponses.LOAD_MY_RESPONSES_FAIL: {
+    case fromMyRequests.LOAD_MY_REQUESTS_FAIL: {
       return {
         ...state,
         loading: false,
@@ -60,10 +60,9 @@ export function reducer(
       };
     }
   }
-  // console.log(action, state);
   return state;
 }
 
-export const getMyResponses = (state: MessageState) => state.entities;
-export const getMyResponsesLoading = (state: MessageState) => state.loading;
-export const getMyResponsesLoaded = (state: MessageState) => state.loaded;
+export const getMyRequests = (state: MessageState) => state.entities;
+export const getMyRequestsLoading = (state: MessageState) => state.loading;
+export const getMyRequestsLoaded = (state: MessageState) => state.loaded;

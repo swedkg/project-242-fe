@@ -2,27 +2,27 @@ import { Action } from '@ngrx/store';
 import { Message } from '../../models/message.model';
 
 // load messages
-export const LOAD_MESSAGES = '[Messages] Load Messages';
-export const LOAD_MESSAGES_FAIL = '[Messages] Load Messages Fail';
-export const LOAD_MESSAGES_SUCCESS = '[Messages] Load Messages Success';
+export const LOAD_MY_RESPONSES = '[My Responses] Load Messages';
+export const LOAD_MY_RESPONSES_FAIL = '[My Responses] Load Messages Fail';
+export const LOAD_MY_RESPONSES_SUCCESS = '[My Responses] Load Messages Success';
 
-export class LoadMessages implements Action {
-  readonly type = LOAD_MESSAGES;
+export class LoadMyResponses implements Action {
+  readonly type = LOAD_MY_RESPONSES;
   constructor(public payload?: any) {}
 }
 
-export class LoadMessagesFail implements Action {
-  readonly type = LOAD_MESSAGES_FAIL;
+export class LoadMyResponsesFail implements Action {
+  readonly type = LOAD_MY_RESPONSES_FAIL;
   constructor(public payload: any) {}
 }
 
-export class LoadMessagesSuccess implements Action {
-  readonly type = LOAD_MESSAGES_SUCCESS;
+export class LoadMyResponsesSuccess implements Action {
+  readonly type = LOAD_MY_RESPONSES_SUCCESS;
   constructor(public payload: Message[]) {}
 }
 
 // action types
-export type MessagesAction =
-  | LoadMessages
-  | LoadMessagesFail
-  | LoadMessagesSuccess;
+export type MyResponsesAction =
+  | LoadMyResponses
+  | LoadMyResponsesFail
+  | LoadMyResponsesSuccess;
