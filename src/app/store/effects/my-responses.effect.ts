@@ -16,7 +16,7 @@ export class MyResponsesEffects {
   ) {}
   @Effect()
   loadMessages$ = this.actions$.pipe(
-    ofType(messagesActions.LOAD_MY_RESPONSES),
+    ofType<messagesActions.LoadMyResponses>(messagesActions.LOAD_MY_RESPONSES),
     switchMap(action => {
       return this.messagesService.getUserResponses(action.payload).pipe(
         map(messages => new messagesActions.LoadMyResponsesSuccess(messages)),
