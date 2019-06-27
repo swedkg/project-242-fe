@@ -1,4 +1,4 @@
-<mat-accordion class="inBoundMarkersList">
+<mat-accordion class="my-responses-list">
   <mat-expansion-panel
     *ngFor="let res of myResponsesList"
     displayMode="flat11"
@@ -12,7 +12,12 @@
       {{ res.description }}
     </p>
     <button mat-button (click)="handleShowMessages()">Go to messages</button>
+    <!-- //TODO: this has to be moved into a new component  -->
     <div class="messages" *ngIf="showMessages">
+      <span class="title">{{ res.title }}</span>
+      <p>
+        {{ res.description }}
+      </p>
       <div class="message-flow-container">
         <span
           class="request-message"

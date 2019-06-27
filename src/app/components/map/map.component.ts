@@ -67,7 +67,7 @@ export class MapComponent implements OnInit {
         if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
           if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
             counter++; // console.log(el);
-            // TODO we need to annouce that so the side panel will be updated
+            // TODO: we need to annouce that so the side panel will be updated
             inBoundMarkers.push(el);
           }
         }
@@ -105,7 +105,7 @@ export class MapComponent implements OnInit {
     // let self = this;
     this.store.dispatch(new fromStore.LoadRequests());
     this.store.select(fromStore.getAllRequests).subscribe(data => {
-      console.log(data);
+      // console.log(data);
       this.markers = data;
       this.markers = this.markers.filter(el => el.fulfilled === false);
 

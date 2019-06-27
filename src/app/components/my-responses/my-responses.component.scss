@@ -1,5 +1,23 @@
+.my-responses-list {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
 .mat-expansion-panel-body {
-  max-width: 400px;
+  // max-width: 400px;
+}
+
+mat-sidenav.mat-drawer.mat-sidenav {
+  width: 400px;
+}
+
+.mat-tab-body-wrapper {
+  position: absolute;
+  top: 123px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .message-flow-container {

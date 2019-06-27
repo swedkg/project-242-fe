@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HelpRequestsService } from '../../_services/help-requests.service';
 
+import { Message } from '../../models/message.model';
+
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromStore from '../../store';
@@ -22,13 +24,13 @@ export class MyRequestsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select(fromStore.getMyRequests).subscribe(state => {
-      // this.myRequests = state.filter(m => {
-      //   return m.requester_id === m.user_id;
-      // });
+    this.store.select(fromStore.getAllRequests).subscribe(state => {
+      this.myRequests = state.filter(m => {
+        return m.requester_id === this.current_user;
+      });
       // this.buildMyResponsesList();
-      // console.log('myRequests', this.myRequests, state);
+      console.log('myRequests', this.myRequests, state);
     });
-    this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
+    // this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
   }
 }
