@@ -8,9 +8,14 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import { HelpRequestsService } from '../../_services/help-requests.service';
+import { SidenavService } from '../../_services/sidenav.service';
+
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromStore from '../../store';
 
 @NgModule({
-  providers: [HelpRequestsService]
+  providers: [HelpRequestsService, SidenavService]
 })
 @Component({
   selector: 'app-map',
@@ -19,7 +24,11 @@ import { HelpRequestsService } from '../../_services/help-requests.service';
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
-  constructor(private helpRequestsService: HelpRequestsService) {}
+  constructor(
+    private helpRequestsService: HelpRequestsService,
+    private SidenavService: SidenavService,
+    private store: Store<fromStore.PlatformState>
+  ) {}
 
   public markers; //: {} = [];
 
@@ -86,9 +95,17 @@ export class MapComponent implements OnInit {
     });
   }
 
+  respondToRequest(id) {
+    this.SidenavService.setExpanded(id);
+    this.SidenavService.setRequestSidenavOpened(false);
+    this.SidenavService.setMessagingSidenavOpened(true);
+  }
+
   ngOnInit() {
     // let self = this;
-    this.helpRequestsService.getAllRequestsFromJSON().subscribe(data => {
+    this.store.dispatch(new fromStore.LoadRequests());
+    this.store.select(fromStore.getAllRequests).subscribe(data => {
+      console.log(data);
       this.markers = data;
       this.markers = this.markers.filter(el => el.fulfilled === false);
 
@@ -103,6 +120,22 @@ export class MapComponent implements OnInit {
         // No support
       }
     });
+
+    // this.helpRequestsService.getAllRequests().subscribe(data => {
+    //   this.markers = data;
+    //   this.markers = this.markers.filter(el => el.fulfilled === false);
+
+    //   this.helpRequestsService.sendRequestList(this.markers);
+
+    //   if (!!navigator.geolocation) {
+    //     // Support
+    //     navigator.geolocation.getCurrentPosition(
+    //       this.addUserLocation.bind(this)
+    //     );
+    //   } else {
+    //     // No support
+    //   }
+    // });
 
     this.helpRequestsService.getNewRequest().subscribe(data => {
       let newRequest = data.request;

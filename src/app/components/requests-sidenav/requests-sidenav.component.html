@@ -1,5 +1,5 @@
 <mat-accordion class="inBoundMarkersList">
-  <mat-expansion-panel *ngFor="let request of requests$ | async">
+  <mat-expansion-panel *ngFor="let request of requests">
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="title">{{ request.title }}</span>
       <span class="request-type">
@@ -11,9 +11,7 @@
           }"
           >pin_drop</span
         ><span *ngIf="request.isOneTime">One time</span>
-        <span *ngIf="!request.isOneTime">Material need</span> ({{
-          request.responders
-        }})
+        <span *ngIf="!request.isOneTime">Material need</span>
       </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
@@ -24,4 +22,8 @@
       </button>
     </mat-action-row>
   </mat-expansion-panel>
+  <!-- requests.length:: {{ requests.length }} :: {{ requests.length === 0 }} -->
+  <p *ngIf="requests.length === 0" class="warning">
+    There are currently no aid requests inside the visible area of the map
+  </p>
 </mat-accordion>

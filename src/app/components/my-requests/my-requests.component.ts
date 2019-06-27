@@ -27,7 +27,7 @@ export class MyRequestsComponent implements OnInit {
       //   return m.requester_id === m.user_id;
       // });
       // this.buildMyResponsesList();
-      console.log('myRequests', this.myRequests, state);
+      // console.log('myRequests', this.myRequests, state);
     });
     this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
   }

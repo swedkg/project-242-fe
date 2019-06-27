@@ -43,7 +43,7 @@ export function reducer(
         }
       );
 
-      console.log(entities);
+      // console.log(entities);
 
       return {
         ...state,

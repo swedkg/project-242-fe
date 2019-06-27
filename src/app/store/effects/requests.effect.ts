@@ -18,7 +18,7 @@ export class RequestsEffects {
   loadRequests$ = this.actions$.pipe(
     ofType(requestsActions.LOAD_REQUESTS),
     switchMap(() => {
-      return this.requestsService.getAllRequestsFromJSON().pipe(
+      return this.requestsService.getAllRequests().pipe(
         map(requests => new requestsActions.LoadRequestsSuccess(requests)),
         catchError(error => of(new requestsActions.LoadRequestsFail(error)))
       );

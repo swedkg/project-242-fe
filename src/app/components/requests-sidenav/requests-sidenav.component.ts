@@ -11,9 +11,9 @@ import { SidenavService } from '../../_services/sidenav.service';
 import { AidRequest } from '../../models/aidRequest.model';
 
 @Component({
-  selector: 'app-requests',
-  templateUrl: './requests.component.html',
-  styleUrls: ['./requests.component.scss'],
+  selector: 'app-requests-sidenav',
+  templateUrl: './requests-sidenav.component.html',
+  styleUrls: ['./requests-sidenav.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class RequestsComponent implements OnInit {
@@ -29,28 +29,28 @@ export class RequestsComponent implements OnInit {
 
   constructor(
     private store: Store<fromStore.PlatformState>,
-    // private helpRequestsService: HelpRequestsService,
+    private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService
   ) {
-    // this.subscription = this.helpRequestsService
-    //   .getInboundRequestsList()
-    //   .subscribe(message => {
-    //     if (message) {
-    //       this.requests = [];
-    //       this.requests = message.requests;
-    //       // this.requests.push(message);
-    //       // console.log(message);
-    //     } else {
-    //       // clear requests when empty message received
-    //       this.requests = [];
-    //     }
-    //   });
+    this.subscription = this.helpRequestsService
+      .getInboundRequestsList()
+      .subscribe(message => {
+        if (message) {
+          this.requests = [];
+          this.requests = message.requests;
+          // this.requests.push(message);
+          // console.log(message);
+        } else {
+          // clear requests when empty message received
+          this.requests = [];
+        }
+      });
   }
   ngOnInit() {
     // this.store.select(fromStore.getAllRequests).subscribe(state => {
     //   console.log(state);
     // });
-    this.requests$ = this.store.select(fromStore.getAllRequests);
-    this.store.dispatch(new fromStore.LoadRequests());
+    // this.requests$ = this.store.select(fromStore.getAllRequests);
+    // this.store.dispatch(new fromStore.LoadRequests());
   }
 }

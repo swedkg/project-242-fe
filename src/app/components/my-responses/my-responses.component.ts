@@ -36,6 +36,8 @@ export class MyResponsesComponent implements OnInit {
   ) {}
 
   buildMyResponsesList() {
+    if (this.myResponses.length * this.requests.length == 0) return null;
+    this.myResponsesList = [];
     let responsesList = this.groupResponses(this.myResponses);
     for (let prop in responsesList) {
       let requestThread = responsesList[prop];
@@ -115,6 +117,8 @@ export class MyResponsesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new fromStore.LoadRequests());
+    this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
     // this.messageFlow = this.messageFlowService
     //   .getAllResponseRequests()
     //   .subscribe(responses => {
@@ -133,10 +137,10 @@ export class MyResponsesComponent implements OnInit {
     //       console.log('none found');
     //     }
     //   });
-    // this.helpRequestsService.getAllRequestsFromJSON().subscribe(data => {
+    // this.helpRequestsService.getAllRequests().subscribe(data => {
     //   this.requests = data;
     //   this.buildMyResponsesList();
-    //   console.log('getAllRequestsFromJSON', this.requests);
+    //   console.log('getAllRequests', this.requests);
 
     //   // this.allRequests;
     //   // this.allRequests = this.allRequests.filter(el => el.fulfilled === false);
@@ -154,25 +158,29 @@ export class MyResponsesComponent implements OnInit {
     // });
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
+
       // let title = this.getRequestTitle(data);
       // console.log('title', title);
     });
-
     // console.log(this);
     this.store.select(fromStore.getAllRequests).subscribe(state => {
       this.allResponses = state;
-      this.requests = state.filter(res => {
-        return res.isUser === false;
-      });
+      this.requests = state;
+      // this.requests = state.filter(res => {
+      //   return res.isUser === false;
+      // });
+      // if (this.myResponses.length > 0 && this.requests.length > 0)
+      this.buildMyResponsesList();
       // console.log(state, this.requests);
     });
     this.store.select(fromStore.getMyResponses).subscribe(state => {
-      this.myResponses = state.filter(m => {
-        return m.requester_id != m.user_id;
-      });
+      this.myResponses = state;
+      // this.myResponses = state.filter(m => {
+      //   return m.requester_id != m.user_id;
+      // });
+      // if (this.myResponses.length > 0 && this.requests.length > 0)
       this.buildMyResponsesList();
       // console.log(state, this.myResponses);
     });
-    this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
   }
 }

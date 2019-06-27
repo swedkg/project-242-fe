@@ -47,7 +47,7 @@ export class HelpRequestsService {
 
   // ---------------------------------- //
 
-  getAllRequestsFromJSON(): Observable<any[]> {
+  getAllRequests(): Observable<any[]> {
     // let url: string = '../../assets/requests.json';
     let url: string = 'http://localhost:3000/requests';
     return this.http
