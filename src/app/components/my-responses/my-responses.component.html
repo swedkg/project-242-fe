@@ -1,7 +1,6 @@
 <mat-accordion class="my-responses-list">
   <mat-expansion-panel
     *ngFor="let res of myResponsesList"
-    displayMode="flat11"
     [expanded]="expanded === res.request_id"
   >
     <mat-expansion-panel-header *ngIf="!res.isUser" class="panel-header">
@@ -11,7 +10,9 @@
     <p>
       {{ res.description }}
     </p>
-    <button mat-button (click)="handleShowMessages()">Go to messages</button>
+    <button mat-button (click)="handleShowMessages()">
+      Go to messages {{ res.request_id }}
+    </button>
     <!-- //TODO: this has to be moved into a new component  -->
     <div class="messages" *ngIf="showMessages">
       <span class="title">{{ res.title }}</span>
