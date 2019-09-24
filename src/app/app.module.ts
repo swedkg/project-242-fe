@@ -60,7 +60,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     }),
     EffectsModule.forRoot([])
   ],
-  providers: [HelpRequestsService, MessageFlowService, Globals],
+  providers: [HelpRequestsService, MessageFlowService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

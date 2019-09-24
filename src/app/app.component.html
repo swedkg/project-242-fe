@@ -15,13 +15,16 @@
     position="end"
     [(opened)]="messagingSidenavOpened"
   >
-    <button
-      mat-button
-      class="material-icons menu-icon"
-      (click)="toggleMessagingSidenav()"
-    >
-      <p class="material-icons">menu</p>
-    </button>
+    <div class="user-area">
+      <button
+        mat-button
+        class="material-icons menu-icon"
+        (click)="toggleMessagingSidenav()"
+      >
+        <p class="material-icons">menu</p>
+      </button>
+      {{ current_user.firstName }} {{ current_user.lastName }}
+    </div>
     <app-messaging></app-messaging
   ></mat-sidenav>
   <mat-sidenav-content>

@@ -18,7 +18,8 @@ export class HelpRequestsService {
   private newRequesst = new Subject<any>();
 
   addNewRequest(request) {
-    this.newRequesst.next({ request });
+    console.log(request);
+    // this.newRequesst.next({ request });
   }
 
   getNewRequest(): Observable<any> {

@@ -107,7 +107,7 @@ export class MapComponent implements OnInit {
     this.store.select(fromStore.getAllRequests).subscribe(data => {
       // console.log(data);
       this.markers = data;
-      this.markers = this.markers.filter(el => el.fulfilled === false);
+      // this.markers = this.markers.filter(el => el.fulfilled === false);
 
       this.helpRequestsService.sendRequestList(this.markers);
 

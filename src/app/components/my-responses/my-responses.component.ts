@@ -27,40 +27,43 @@ export class MyResponsesComponent implements OnInit {
   messageFlow: Subscription;
   allRequests: Subscription;
   showMessages: boolean = false;
-  current_user = this.globals.current_user;
+  current_user = Globals.current_user;
   expanded = 0;
   constructor(
     private sidenavService: SidenavService,
-    private store: Store<fromStore.PlatformState>,
-    public globals: Globals
-  ) {}
+    private store: Store<fromStore.PlatformState>
+  ) // public globals: Globals
+  {}
 
   buildMyResponsesList() {
     if (this.myResponses.length * this.requests.length == 0) return null;
     this.myResponsesList = [];
-    let responsesList = this.groupResponses(this.myResponses);
-    for (let prop in responsesList) {
-      let requestThread = responsesList[prop];
-      let thread = requestThread[0];
-      let title = this.getRequestTitle(thread.request_id);
-      let description = this.getRequestDescription(thread.request_id);
-      let request_id = thread.request_id;
+    this.myResponsesList = this.myResponses;
+    console.log(this.myResponsesList);
 
-      let requestersMessages = this.getRequestersMessages(
-        thread.request_id,
-        thread.requester_id
-      );
+    // let responsesList = this.groupResponses(this.myResponses);
+    // for (let prop in responsesList) {
+    //   let requestThread = responsesList[prop];
+    //   let thread = requestThread[0];
+    //   let title = this.getRequestTitle(thread.request_id);
+    //   let description = this.getRequestDescription(thread.request_id);
+    //   let request_id = thread.request_id;
 
-      let messageFlow = requestThread.concat(requestersMessages);
-      messageFlow = this.sortMessages(messageFlow);
+    //   let requestersMessages = this.getRequestersMessages(
+    //     thread.request_id,
+    //     thread.requester_id
+    //   );
 
-      this.myResponsesList.push({
-        title,
-        description,
-        request_id,
-        messageFlow
-      });
-    }
+    //   let messageFlow = requestThread.concat(requestersMessages);
+    //   messageFlow = this.sortMessages(messageFlow);
+
+    //   this.myResponsesList.push({
+    //     title,
+    //     description,
+    //     request_id,
+    //     messageFlow
+    //   });
+    // }
 
     // console.log(this.myResponsesList);
   }

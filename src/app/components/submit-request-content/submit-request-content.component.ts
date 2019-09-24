@@ -30,9 +30,9 @@ export class SubmitRequestContentComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private helpRequestsService: HelpRequestsService,
-    public dialogRef: MatDialogRef<SubmitRequestContentComponent>,
-    public globals: Globals
-  ) {}
+    public dialogRef: MatDialogRef<SubmitRequestContentComponent>
+  ) // public globals: Globals
+  {}
   public newRequestForm: FormGroup;
   // private geoCoder;
   newRequest: any = {};
@@ -56,7 +56,7 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.responders = 0;
     this.newRequest.fulfilled = false;
     this.newRequest.isUser = false;
-    this.newRequest.requester_id = this.globals.current_user;
+    this.newRequest.requester_id = Globals.current_user;
 
     // console.log(
     //   'addNewRequest',

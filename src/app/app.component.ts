@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SidenavService } from '../app/_services/sidenav.service';
+import { Globals } from '../assets/globals';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,13 @@ import { SidenavService } from '../app/_services/sidenav.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private SidenavService: SidenavService) {}
+  constructor(
+    private SidenavService: SidenavService // public globals: Globals
+  ) {}
   events: string[] = [];
   requestSidenavOpened: boolean = false;
   messagingSidenavOpened: boolean = false;
+  current_user = Globals;
 
   openMessagingSidepanel() {
     console.log('this should open the Messaging Sidepanel ');

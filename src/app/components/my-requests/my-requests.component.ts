@@ -16,15 +16,16 @@ import { Globals } from '../../../assets/globals';
 })
 export class MyRequestsComponent implements OnInit {
   myRequests: any[] = [];
-  current_user = this.globals.current_user;
+  current_user = Globals.current_user;
 
   constructor(
-    private store: Store<fromStore.PlatformState>,
-    public globals: Globals
+    private store: Store<fromStore.PlatformState> // public globals: Globals
   ) {}
 
   ngOnInit() {
     this.store.select(fromStore.getAllRequests).subscribe(state => {
+      console.log(Globals);
+
       this.myRequests = state.filter(m => {
         return m.requester_id === this.current_user;
       });
