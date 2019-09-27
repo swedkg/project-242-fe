@@ -18,8 +18,24 @@ export class HelpRequestsService {
   private newRequesst = new Subject<any>();
 
   addNewRequest(request) {
+    let url: string = 'http://localhost:3000/requests';
+
     console.log(request);
-    // this.newRequesst.next({ request });
+    return this.http.post(url, request, { observe: 'response' }).subscribe(
+      response => {
+        console.log(response, response.status);
+        if (response.status === 201) {
+          this.newRequesst.next({ request });
+        } else {
+          console.log('Something went wrong');
+        }
+        return response;
+      },
+      err => {
+        throw err;
+      }
+    );
+    // .pipe(catchError((error: any) => Observable.throw(console.log(error))));
   }
 
   getNewRequest(): Observable<any> {

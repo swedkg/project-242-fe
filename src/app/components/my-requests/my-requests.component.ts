@@ -27,7 +27,7 @@ export class MyRequestsComponent implements OnInit {
       console.log(Globals);
 
       this.myRequests = state.filter(m => {
-        return m.requester_id === this.current_user;
+        return m.owner_id === this.current_user;
       });
       // this.buildMyResponsesList();
       console.log('myRequests', this.myRequests, state);

@@ -9,6 +9,7 @@ import * as fromStore from '../../store';
 import { HelpRequestsService } from '../../_services/help-requests.service';
 import { SidenavService } from '../../_services/sidenav.service';
 import { AidRequest } from '../../models/aidRequest.model';
+import { Globals } from '../../../assets/globals';
 
 @Component({
   selector: 'app-requests-sidenav',
@@ -20,6 +21,8 @@ export class RequestsComponent implements OnInit {
   requests$: Observable<AidRequest[]>;
   requests: any[] = [];
   subscription: Subscription;
+
+  current_user = Globals.current_user;
 
   respondToRequest(id) {
     this.SidenavService.setExpanded(id);

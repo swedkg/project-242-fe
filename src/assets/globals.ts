@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 // @Injectable()
 export const Globals = Object.freeze({
-  email: 'test@example.com',
-  current_user: 2,
-  authentication_token: 'Fp6ssozGjyaGrCMzaR6W',
-  firstName: 'Jane',
-  lastName: 'Fonda'
+  email: 'user@example.com',
+  current_user: 1,
+  authentication_token: '99B5FkfAFeeauq6oPaaz',
+  firstName: 'John',
+  lastName: 'Doe'
 });

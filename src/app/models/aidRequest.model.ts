@@ -1,11 +1,11 @@
 export interface AidRequest {
   id?: number;
   title?: string;
-  isOneTime?: boolean;
-  isUser?: boolean;
+  desc?: string;
   lat?: number;
   lng?: number;
-  fulfilled?: boolean;
-  requester_id?: number;
-  description?: string;
+  status?: boolean;
+  owner_id?: number;
+  isOneTime?: boolean;
+  // isUser?: boolean;
 }

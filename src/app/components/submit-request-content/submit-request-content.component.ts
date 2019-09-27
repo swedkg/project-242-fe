@@ -30,9 +30,8 @@ export class SubmitRequestContentComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private helpRequestsService: HelpRequestsService,
-    public dialogRef: MatDialogRef<SubmitRequestContentComponent>
-  ) // public globals: Globals
-  {}
+    public dialogRef: MatDialogRef<SubmitRequestContentComponent> // public globals: Globals
+  ) {}
   public newRequestForm: FormGroup;
   // private geoCoder;
   newRequest: any = {};
@@ -51,19 +50,20 @@ export class SubmitRequestContentComponent implements OnInit {
 
   addNewRequest() {
     this.newRequest.title = this.newRequestForm.controls.title.value;
-    this.newRequest.description = this.newRequestForm.controls.description.value;
+    this.newRequest.desc = this.newRequestForm.controls.description.value;
     this.newRequest.isOneTime = this.newRequestForm.controls.isOneTime.value;
-    this.newRequest.responders = 0;
-    this.newRequest.fulfilled = false;
-    this.newRequest.isUser = false;
-    this.newRequest.requester_id = Globals.current_user;
+    this.newRequest.status = false;
+    // this.newRequest.isUser = false;
+    this.newRequest.owner_id = Globals.current_user;
 
     // console.log(
     //   'addNewRequest',
     //   this.newRequest,
     //   this.newRequestForm.controls.title
     // );
-    this.helpRequestsService.addNewRequest(this.newRequest);
+    let kk = this.helpRequestsService.addNewRequest(this.newRequest);
+    console.log(kk);
+
     this.closeDialog();
   }
 
