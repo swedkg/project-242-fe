@@ -22,7 +22,7 @@ export class RequestsComponent implements OnInit {
   requests: any[] = [];
   subscription: Subscription;
 
-  current_user = Globals.current_user;
+  current_user = Globals.id;
 
   respondToRequest(id) {
     this.SidenavService.setExpanded(id);

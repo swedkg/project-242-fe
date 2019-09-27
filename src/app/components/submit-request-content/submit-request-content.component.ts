@@ -54,7 +54,7 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.isOneTime = this.newRequestForm.controls.isOneTime.value;
     this.newRequest.status = false;
     // this.newRequest.isUser = false;
-    this.newRequest.owner_id = Globals.current_user;
+    this.newRequest.owner_id = Globals.id;
 
     // console.log(
     //   'addNewRequest',

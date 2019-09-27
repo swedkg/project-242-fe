@@ -16,7 +16,7 @@ import { Globals } from '../../../assets/globals';
 })
 export class MyRequestsComponent implements OnInit {
   myRequests: any[] = [];
-  current_user = Globals.current_user;
+  current_user = Globals.id;
 
   constructor(
     private store: Store<fromStore.PlatformState> // public globals: Globals

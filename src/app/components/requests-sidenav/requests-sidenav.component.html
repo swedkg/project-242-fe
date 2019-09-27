@@ -16,13 +16,14 @@
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <span class="description">{{ request.desc }}</span>
+    <pre>{{ request | json }}</pre>
     <mat-action-row>
       <button
         mat-button
         (click)="respondToRequest(request.id)"
-        disabled="request.owner_id === current_user"
+        disabled="{{ request.owner_id === current_user }}"
       >
-        Respond to request
+        Respond to request ({{ request.owner_id }}, {{ current_user }})
       </button>
     </mat-action-row>
   </mat-expansion-panel>
