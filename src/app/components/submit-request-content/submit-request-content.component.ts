@@ -52,6 +52,7 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.title = this.newRequestForm.controls.title.value;
     this.newRequest.desc = this.newRequestForm.controls.description.value;
     this.newRequest.isOneTime = this.newRequestForm.controls.isOneTime.value;
+    this.newRequest.address = this.current_address;
     this.newRequest.status = false;
     // this.newRequest.isUser = false;
     this.newRequest.owner_id = Globals.id;
@@ -61,9 +62,7 @@ export class SubmitRequestContentComponent implements OnInit {
     //   this.newRequest,
     //   this.newRequestForm.controls.title
     // );
-    let kk = this.helpRequestsService.addNewRequest(this.newRequest);
-    console.log(kk);
-
+    this.helpRequestsService.addNewRequest(this.newRequest);
     this.closeDialog();
   }
 

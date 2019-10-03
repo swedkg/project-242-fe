@@ -10,6 +10,7 @@ export class SidenavService {
   private requestSidenavOpened = new Subject<boolean>();
   private messagingSidenavOpened = new Subject<boolean>();
   private expanded = new Subject<number>();
+  private activeMessagingTab = new Subject<number>();
 
   setRequestSidenavOpened(boolean) {
     this.requestSidenavOpened.next(boolean);
@@ -28,5 +29,13 @@ export class SidenavService {
   }
   getExpanded(): Observable<number> {
     return this.expanded.asObservable();
+  }
+
+  setActiveMessagingTab(num) {
+    this.activeMessagingTab.next(num);
+  }
+
+  getActiveMessagingTab(): Observable<number> {
+    return this.activeMessagingTab.asObservable();
   }
 }

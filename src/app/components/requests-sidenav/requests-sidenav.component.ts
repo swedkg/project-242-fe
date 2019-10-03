@@ -28,6 +28,7 @@ export class RequestsComponent implements OnInit {
     this.SidenavService.setExpanded(id);
     this.SidenavService.setRequestSidenavOpened(false);
     this.SidenavService.setMessagingSidenavOpened(true);
+    this.SidenavService.setActiveMessagingTab(0);
   }
 
   constructor(

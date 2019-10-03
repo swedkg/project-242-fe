@@ -27,13 +27,12 @@ export class MyResponsesComponent implements OnInit {
   messageFlow: Subscription;
   allRequests: Subscription;
   showMessages: boolean = false;
-  current_user = Globals.current_user;
+  current_user = Globals.id;
   expanded = 0;
   constructor(
     private sidenavService: SidenavService,
-    private store: Store<fromStore.PlatformState>
-  ) // public globals: Globals
-  {}
+    private store: Store<fromStore.PlatformState> // public globals: Globals
+  ) {}
 
   buildMyResponsesList() {
     if (this.myResponses.length * this.requests.length == 0) return null;
