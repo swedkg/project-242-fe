@@ -8,6 +8,7 @@ import * as fromStore from '../../store';
 
 import { HelpRequestsService } from '../../_services/help-requests.service';
 import { SidenavService } from '../../_services/sidenav.service';
+import { MessageFlowService } from '../../_services/message-flow.service';
 import { AidRequest } from '../../models/aidRequest.model';
 import { Globals } from '../../../assets/globals';
 
@@ -25,16 +26,21 @@ export class RequestsComponent implements OnInit {
   current_user = Globals.id;
 
   respondToRequest(id) {
-    this.SidenavService.setExpanded(id);
-    this.SidenavService.setRequestSidenavOpened(false);
-    this.SidenavService.setMessagingSidenavOpened(true);
-    this.SidenavService.setActiveMessagingTab(0);
+    // TODO: we need a POST request here
+    this.MessageFlowService.respondToRequest(id);
+    // if everything goes well,
+    // continue with the rest
+    // this.SidenavService.setExpanded(id);
+    // this.SidenavService.setRequestSidenavOpened(false);
+    // this.SidenavService.setMessagingSidenavOpened(true);
+    // this.SidenavService.setActiveMessagingTab(0);
   }
 
   constructor(
     private store: Store<fromStore.PlatformState>,
     private helpRequestsService: HelpRequestsService,
-    private SidenavService: SidenavService
+    private SidenavService: SidenavService,
+    private MessageFlowService: MessageFlowService
   ) {
     this.subscription = this.helpRequestsService
       .getInboundRequestsList()

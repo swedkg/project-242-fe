@@ -41,7 +41,6 @@ export class MessagingComponent implements OnInit {
 
 // TODO: published field boolean
 
-// TODO: save fulll address in request
 // TODO: After 24 hours the request expires.  If, within 24 hours, the request still hasn't been marked as fulfilled, the requester can republish it.
 // TODO: hide request after 5 fullfliments
 // TODO: Counter unfllfiled requests

@@ -13,6 +13,7 @@ import { SidenavService } from '../../_services/sidenav.service';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import * as fromStore from '../../store';
+import { Globals } from '../../../assets/globals';
 
 @NgModule({
   providers: [HelpRequestsService, SidenavService]
@@ -31,6 +32,8 @@ export class MapComponent implements OnInit {
   ) {}
 
   public markers; //: {} = [];
+
+  current_user = Globals.id;
 
   @ViewChild(AgmMap)
   public agmMap: AgmMap;
@@ -99,6 +102,7 @@ export class MapComponent implements OnInit {
     this.SidenavService.setExpanded(id);
     this.SidenavService.setRequestSidenavOpened(false);
     this.SidenavService.setMessagingSidenavOpened(true);
+    this.SidenavService.setActiveMessagingTab(0);
   }
 
   ngOnInit() {

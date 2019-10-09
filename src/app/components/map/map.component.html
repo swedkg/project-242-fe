@@ -34,7 +34,7 @@
         <p class="request-type">{{ m.responders }} responses</p>
         <p class="description">{{ m.description }}</p>
         <mat-divider></mat-divider>
-        <button mat-button (click)="respondToRequest(m.id)">
+        <button *ngIf="!m.isUser" mat-button (click)="respondToRequest(m.id)">
           Respond to request
         </button>
       </ng-template>
