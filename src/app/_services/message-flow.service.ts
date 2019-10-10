@@ -24,13 +24,17 @@ export class MessageFlowService {
     return this.http.get<any[]>(url);
   }
   getUserResponses(id: number): Observable<any[]> {
-    let url: string = BASEURL + MESSAGES + '?user_id=' + id;
+    let url: string = BASEURL + FULLFILMENTS + '?user_id=' + id;
+    console.log(url);
+
     return this.http.get<any[]>(url);
   }
   getUserRequests(id: number): Observable<any[]> {
     let url: string =
       BASEURL + MESSAGES + '?requester_id=' + id + '&user_id_ne=' + id;
     // ?requester_id=3&user_id_ne=3
+    console.log(url);
+
     return this.http.get<any[]>(url);
   }
 

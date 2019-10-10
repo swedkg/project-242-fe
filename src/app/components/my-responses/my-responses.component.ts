@@ -35,10 +35,10 @@ export class MyResponsesComponent implements OnInit {
   ) {}
 
   buildMyResponsesList() {
-    if (this.myResponses.length * this.requests.length == 0) return null;
+    // if (this.myResponses.length * this.requests.length == 0) return null;
     this.myResponsesList = [];
     this.myResponsesList = this.myResponses;
-    console.log(this.myResponsesList);
+    console.log(this.myResponsesList, this.myResponses);
 
     // let responsesList = this.groupResponses(this.myResponses);
     // for (let prop in responsesList) {
@@ -165,18 +165,22 @@ export class MyResponsesComponent implements OnInit {
       // console.log('title', title);
     });
     // console.log(this);
-    this.store.select(fromStore.getAllRequests).subscribe(state => {
-      this.allResponses = state;
-      this.requests = state;
-      // this.requests = state.filter(res => {
-      //   return res.isUser === false;
-      // });
-      // if (this.myResponses.length > 0 && this.requests.length > 0)
-      this.buildMyResponsesList();
-      // console.log(state, this.requests);
-    });
+    // this.store.select(fromStore.getAllRequests).subscribe(state => {
+    //   this.allResponses = state;
+    //   this.requests = state;
+    //   console.log(this.requests);
+
+    //   // this.requests = state.filter(res => {
+    //   //   return res.isUser === false;
+    //   // });
+    //   // if (this.myResponses.length > 0 && this.requests.length > 0)
+    //   this.buildMyResponsesList();
+    //   // console.log(state, this.requests);
+    // });
     this.store.select(fromStore.getMyResponses).subscribe(state => {
       this.myResponses = state;
+      console.log(this.myResponses);
+
       // this.myResponses = state.filter(m => {
       //   return m.requester_id != m.user_id;
       // });
