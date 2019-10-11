@@ -4,26 +4,26 @@
     [expanded]="expanded === res.request_id"
   >
     <mat-expansion-panel-header *ngIf="!res.isUser" class="panel-header">
-      <span class="title">{{ res.title }}</span>
+      <span class="title">{{ res.request.title }}</span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <p>
-      {{ res.desc }}
+      {{ res.request.desc }}
     </p>
     <button mat-button (click)="handleShowMessages()">
-      Go to messages {{ res.request_id }}
+      Go to messages {{ res.request.id }}
     </button>
     <!-- //TODO: this has to be moved into a new component  -->
     <div class="messages" *ngIf="showMessages">
-      <span class="title">{{ res.title }}</span>
+      <span class="title">{{ res.request.title }}</span>
       <p>
-        {{ res.description }}
+        {{ res.request.desc }}
       </p>
       <div class="message-flow-container">
         <span
           class="request-message"
-          [ngClass]="{ 'align-right': mes.requester_id === mes.user_id }"
-          *ngFor="let mes of res.messageFlow"
+          [ngClass]="{ 'align-right': mes.sender_id === res.user_id }"
+          *ngFor="let mes of res.messages"
           ><p class="kop">
             {{ mes.message }}
           </p></span
@@ -31,10 +31,18 @@
       </div>
       <form class="respond-request-form">
         <mat-form-field class="example-full-width">
-          <input matInput placeholder="Favorite food" value="Sushi" />
+          <textarea
+            matInput
+            placeholder="Type a message"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="8"
+          ></textarea>
         </mat-form-field>
-        <button mat-button>Respond to request</button>
-        <button mat-button (click)="handleShowMessages()">Cancel</button>
+        <div class="button-holder">
+          <button mat-button (click)="handleShowMessages()">Cancel</button>
+          <button mat-button>Send message</button>
+        </div>
       </form>
     </div>
   </mat-expansion-panel>

@@ -29,14 +29,16 @@ mat-sidenav.mat-drawer.mat-sidenav {
   padding-top: 1rem;
   background: hsla(0, 0%, 95%, 1);
   border: 1px solid transparent;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
   padding: 0.5rem 1rem;
   border-radius: 1rem;
+  width: 75%;
 }
 
 .align-right {
   text-align: right;
   background: hsl(195, 53%, 90%);
+  align-self: flex-end;
 }
 
 .messages {
@@ -47,4 +49,14 @@ mat-sidenav.mat-drawer.mat-sidenav {
   top: 0;
   padding: 1rem;
   bottom: 0;
+}
+
+.respond-request-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  .button-holder {
+    display: flex;
+    justify-content: space-around;
+  }
 }
