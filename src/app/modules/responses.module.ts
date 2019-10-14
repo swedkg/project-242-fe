@@ -4,10 +4,11 @@ import { MessagingComponent } from '../components/messaging/messaging.component'
 import { MaterialModule } from './material.module';
 import { MyResponsesComponent } from '../components/my-responses/my-responses.component';
 import { MyRequestsComponent } from '../components/my-requests/my-requests.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [MessagingComponent, MyResponsesComponent, MyRequestsComponent],
-  imports: [CommonModule, MaterialModule],
+  imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [MessagingComponent]
 })
 export class ResponsesModule {}

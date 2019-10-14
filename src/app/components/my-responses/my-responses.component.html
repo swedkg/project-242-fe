@@ -1,47 +1,66 @@
 <mat-accordion class="my-responses-list">
   <mat-expansion-panel
-    *ngFor="let res of myResponsesList"
-    [expanded]="expanded === res.request_id"
+    *ngFor="let response of myResponsesList"
+    [expanded]="expanded === response.request_id"
   >
-    <mat-expansion-panel-header *ngIf="!res.isUser" class="panel-header">
-      <span class="title">{{ res.request.title }}</span>
+    <mat-expansion-panel-header *ngIf="!response.isUser" class="panel-header">
+      <span class="title">{{ response.request.title }}</span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <p>
-      {{ res.request.desc }}
+      {{ response.request.desc }}
     </p>
     <button mat-button (click)="handleShowMessages()">
-      Go to messages {{ res.request.id }}
+      Go to messages {{ response.request.id }}
     </button>
     <!-- //TODO: this has to be moved into a new component  -->
     <div class="messages" *ngIf="showMessages">
-      <span class="title">{{ res.request.title }}</span>
+      <span class="title">{{ response.request.title }}</span>
       <p>
-        {{ res.request.desc }}
+        {{ response.request.desc }}
       </p>
       <div class="message-flow-container">
         <span
           class="request-message"
-          [ngClass]="{ 'align-right': mes.sender_id === res.user_id }"
-          *ngFor="let mes of res.messages"
+          [ngClass]="{ 'align-right': mes.sender_id === response.user_id }"
+          *ngFor="let mes of response.messages"
           ><p class="kop">
             {{ mes.message }}
           </p></span
         >
       </div>
-      <form class="respond-request-form">
+      <form class="respond-request-form" [formGroup]="newMessageForm">
         <mat-form-field class="example-full-width">
           <textarea
             matInput
+            #messageText
             placeholder="Type a message"
+            formControlName="messageText"
             cdkTextareaAutosize
             cdkAutosizeMinRows="1"
             cdkAutosizeMaxRows="8"
           ></textarea>
+          <mat-hint align="end"
+            >{{ messageText.value?.length || 0 }}/{{
+              messageMaxLength
+            }}</mat-hint
+          >
+          <mat-error *ngIf="hasError('messageText', 'required')"
+            >Please type in your message</mat-error
+          >
+          <mat-error *ngIf="hasError('messageText', 'maxlength')"
+            >Your message is too long</mat-error
+          >
         </mat-form-field>
         <div class="button-holder">
           <button mat-button (click)="handleShowMessages()">Cancel</button>
-          <button mat-button>Send message</button>
+          <button
+            mat-button
+            (click)="sendMessage(response.id, response.request.owner)"
+            [disabled]="!newMessageForm.valid"
+          >
+            Send message
+          </button>
         </div>
       </form>
     </div>

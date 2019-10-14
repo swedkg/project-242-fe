@@ -19,6 +19,9 @@ export class MessageFlowService {
 
   private messageFlow = new Subject<any>();
 
+  // TODO: some cleanup is needed, HTTP requests are being send on refresh
+  // TODO: an observable is need to update the messages as we send a new one.
+
   getAllResponseRequests(): Observable<any[]> {
     let url: string = BASEURL;
     return this.http.get<any[]>(url);
@@ -52,12 +55,27 @@ export class MessageFlowService {
       .subscribe(response => {
         console.log(response);
 
-        this.SidenavService.setExpanded(id);
-        this.SidenavService.setRequestSidenavOpened(false);
-        this.SidenavService.setMessagingSidenavOpened(true);
-        this.SidenavService.setActiveMessagingTab(0);
-
+        if (response.status === 201) {
+          this.SidenavService.setExpanded(id);
+          this.SidenavService.setRequestSidenavOpened(false);
+          this.SidenavService.setMessagingSidenavOpened(true);
+          this.SidenavService.setActiveMessagingTab(0);
+        } else {
+          console.log('Something went wrong');
+        }
         return response.status;
+      });
+  }
+
+  sendMessage(newMessage) {
+    //http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
+    let url = BASEURL + MESSAGES;
+    console.log(newMessage);
+
+    return this.http
+      .post(url, newMessage, { observe: 'response' })
+      .subscribe(response => {
+        console.log(response);
       });
   }
 
