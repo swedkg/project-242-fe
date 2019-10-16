@@ -51,7 +51,11 @@ export class MyResponsesComponent implements OnInit {
   buildMyResponsesList() {
     // if (this.myResponses.length * this.requests.length == 0) return null;
     this.myResponsesList = [];
-    this.myResponsesList = this.myResponses;
+    this.myResponsesList = this.myResponses.map(item => ({
+      ...item,
+      selected: false
+    }));
+
     // setTimeout(() => {
     //   // console.log(this.myResponsesList, this.myResponses);
     // }, 0);
@@ -59,6 +63,7 @@ export class MyResponsesComponent implements OnInit {
 
   handleShowMessages() {
     this.showMessages = !this.showMessages;
+    console.log(this);
   }
 
   sendMessage(fullfilment_id: number, owner: number) {
@@ -88,14 +93,22 @@ export class MyResponsesComponent implements OnInit {
 
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
+      console.log(data);
+      this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
+      this.showMessages = true;
     });
 
     // });
     this.store.select(fromStore.getMyResponses).subscribe(
       state => {
         this.myResponses = state;
-        this.myResponsesList = state;
-        console.log(this.myResponses);
+        // this.myResponsesList = this.myResponses;
+        this.myResponsesList = [];
+        this.myResponsesList = this.myResponses.map(item => ({
+          ...item,
+          selected: false
+        }));
+        console.log(this.myResponses, this.myResponsesList);
         this.cdr.detectChanges();
 
         // this.buildMyResponsesList();
@@ -107,6 +120,28 @@ export class MyResponsesComponent implements OnInit {
       // if (this.myResponses.length > 0 && this.requests.length > 0)
       // console.log(state, this.myResponses);
     );
+
+    this.messageFlowService.getNewMessage().subscribe(data => {
+      // let newRequest = data.request;
+      // this.markers.push(newRequest);
+
+      // this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
+
+      let filteredResponses = this.myResponsesList.filter(message => {
+        console.log(message);
+        return message.id == data.newMessage.fullfilment_id;
+      });
+      // filteredResponses[0].messages.push(data.newMessage);
+      this.myResponsesList[0].messages.concat([data.newMessage]);
+      console.log(
+        'getNewMessage',
+        this,
+        data,
+        this.myResponsesList,
+        filteredResponses[0].messages
+      );
+      // this.sendRequestList(this.markers);
+    });
   }
 }
 

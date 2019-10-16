@@ -28,6 +28,7 @@ export class RequestsComponent implements OnInit {
   respondToRequest(id) {
     // TODO: we need a POST request here
     this.MessageFlowService.respondToRequest(id);
+
     // if everything goes well,
     // continue with the rest
     // this.SidenavService.setExpanded(id);

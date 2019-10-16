@@ -18,6 +18,7 @@ export class MessageFlowService {
   ) {}
 
   private messageFlow = new Subject<any>();
+  private newMessageToFullfilment = new Subject<any>();
 
   // TODO: some cleanup is needed, HTTP requests are being send on refresh
   // TODO: an observable is need to update the messages as we send a new one.
@@ -53,7 +54,7 @@ export class MessageFlowService {
     return this.http
       .post(BASEURL + FULLFILMENTS, fullfilment, { observe: 'response' })
       .subscribe(response => {
-        console.log(response);
+        console.log(response, response.status);
 
         if (response.status === 201) {
           this.SidenavService.setExpanded(id);
@@ -75,8 +76,17 @@ export class MessageFlowService {
     return this.http
       .post(url, newMessage, { observe: 'response' })
       .subscribe(response => {
-        console.log(response);
+        if (response.status === 201) {
+          this.newMessageToFullfilment.next({ newMessage });
+        } else {
+          console.log('Something went wrong');
+        }
+        console.log(response, response.status);
       });
+  }
+
+  getNewMessage(): Observable<any> {
+    return this.newMessageToFullfilment.asObservable();
   }
 
   // addNewRequest(request) {

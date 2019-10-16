@@ -39,6 +39,10 @@ export class MessagingComponent implements OnInit {
 
 // TODO: click on a request, move open the tooltip
 
+// responders list in  "My requests" tab
+// Respond to Request : 1st click -> respond and go to messages
+//                      2nd click -> go to messages
+
 // TODO: published field boolean
 
 // TODO: After 24 hours the request expires.  If, within 24 hours, the request still hasn't been marked as fulfilled, the requester can republish it.
