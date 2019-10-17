@@ -140,7 +140,6 @@ export class MyResponsesComponent implements OnInit {
         this.myResponsesList,
         filteredResponses[0].messages
       );
-      // this.sendRequestList(this.markers);
     });
   }
 }

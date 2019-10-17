@@ -65,4 +65,7 @@
       </form>
     </div>
   </mat-expansion-panel>
+  <p *ngIf="myResponsesList.length === 0" class="warning">
+    Your don't have any messages.
+  </p>
 </mat-accordion>

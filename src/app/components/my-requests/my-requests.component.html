@@ -1,4 +1,4 @@
-<mat-accordion class="inBoundMarkersList">
+<mat-accordion class="my-responses-list">
   <mat-expansion-panel *ngFor="let request of requests">
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="title">{{ request.title }}</span>
@@ -29,6 +29,6 @@
   </mat-expansion-panel>
   <!-- requests.length:: {{ requests.length }} :: {{ requests.length === 0 }} -->
   <p *ngIf="requests.length === 0" class="warning">
-    There are currently no aid requests inside the visible area of the map.
+    Your don't have any requests.
   </p>
 </mat-accordion>

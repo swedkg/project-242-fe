@@ -52,12 +52,6 @@ export class MapComponent implements OnInit {
     this.helpRequestsService.inBoundMarkersList(message);
   }
 
-  sendRequestList(message): void {
-    // send message to subscribers via observable subject
-    // console.log(message);
-    this.helpRequestsService.sendRequestList(message);
-  }
-
   checkMarkersInBounds(event) {
     // console.clear();
     let counter = 0;
@@ -113,9 +107,6 @@ export class MapComponent implements OnInit {
     this.store.select(fromStore.getAllRequests).subscribe(data => {
       // console.log(data);
       this.markers = data;
-      // this.markers = this.markers.filter(el => el.fulfilled === false);
-
-      this.helpRequestsService.sendRequestList(this.markers);
 
       if (!!navigator.geolocation) {
         // Support
@@ -126,28 +117,5 @@ export class MapComponent implements OnInit {
         // No support
       }
     });
-
-    // this.helpRequestsService.getAllRequests().subscribe(data => {
-    //   this.markers = data;
-    //   this.markers = this.markers.filter(el => el.fulfilled === false);
-
-    //   this.helpRequestsService.sendRequestList(this.markers);
-
-    //   if (!!navigator.geolocation) {
-    //     // Support
-    //     navigator.geolocation.getCurrentPosition(
-    //       this.addUserLocation.bind(this)
-    //     );
-    //   } else {
-    //     // No support
-    //   }
-    // });
-
-    // this.helpRequestsService.getNewRequest().subscribe(data => {
-    //   let newRequest = data.request;
-    //   this.markers.push(newRequest);
-    //   console.log('getNewRequest', this);
-    //   this.sendRequestList(this.markers);
-    // });
   }
 }
