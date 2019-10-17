@@ -88,8 +88,8 @@ export class MyResponsesComponent implements OnInit {
       ])
     });
 
-    this.store.dispatch(new fromStore.LoadRequests());
-    this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
+    // this.store.dispatch(new fromStore.LoadRequests());
+    // this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
 
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;

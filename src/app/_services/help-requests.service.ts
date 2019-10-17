@@ -21,6 +21,7 @@ export class HelpRequestsService {
     let url: string = 'http://localhost:3000/requests';
 
     console.log(request);
+
     return this.http.post(url, request, { observe: 'response' }).subscribe(
       response => {
         console.log(response, response.status);
@@ -48,7 +49,7 @@ export class HelpRequestsService {
     return this.inboundRequestsList.asObservable();
   }
 
-  sendInboundRequestList(requests) {
+  inBoundMarkersList(requests) {
     this.inboundRequestsList.next({ requests });
   }
 
@@ -64,12 +65,17 @@ export class HelpRequestsService {
 
   // ---------------------------------- //
 
+  createRequest(request): Observable<any> {
+    let url: string = 'http://localhost:3000/requests';
+    return this.http
+      .post<any>(url, request, { observe: 'response' })
+      .pipe(catchError((error: any) => Observable.throw(console.log(error))));
+  }
+
   getAllRequests(): Observable<any[]> {
-    // let url: string = '../../assets/requests.json';
     let url: string = 'http://localhost:3000/requests';
     return this.http
       .get<AidRequest[]>(url)
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
-    // .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 }

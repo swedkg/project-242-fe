@@ -24,4 +24,17 @@ export class RequestsEffects {
       );
     })
   );
+
+  @Effect()
+  createRequest$ = this.actions$.pipe(
+    ofType<requestsActions.CreateRequest>(requestsActions.CREATE_REQUEST),
+    // map((action: requestsActions.CreateRequest)=> action.payload),
+    switchMap(action => {
+      let request = action.payload;
+      return this.requestsService.createRequest(request).pipe(
+        map(request => new requestsActions.CreateRequestSuccess(request)),
+        catchError(error => of(new requestsActions.CreateRequestFail(error)))
+      );
+    })
+  );
 }

@@ -17,6 +17,9 @@ import { MapsAPILoader } from '@agm/core';
 import { HelpRequestsService } from '../../_services/help-requests.service';
 import { MatDialogRef } from '@angular/material';
 
+import { Store } from '@ngrx/store';
+import * as fromStore from '../../store';
+
 import { Globals } from '../../../assets/globals';
 
 @Component({
@@ -30,7 +33,8 @@ export class SubmitRequestContentComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
     private helpRequestsService: HelpRequestsService,
-    public dialogRef: MatDialogRef<SubmitRequestContentComponent> // public globals: Globals
+    public dialogRef: MatDialogRef<SubmitRequestContentComponent>, // public globals: Globals
+    private store: Store<fromStore.PlatformState>
   ) {}
   public newRequestForm: FormGroup;
   // private geoCoder;
@@ -62,7 +66,8 @@ export class SubmitRequestContentComponent implements OnInit {
     //   this.newRequest,
     //   this.newRequestForm.controls.title
     // );
-    this.helpRequestsService.addNewRequest(this.newRequest);
+    // this.helpRequestsService.addNewRequest(this.newRequest);
+    this.store.dispatch(new fromStore.CreateRequest(this.newRequest));
     this.closeDialog();
   }
 

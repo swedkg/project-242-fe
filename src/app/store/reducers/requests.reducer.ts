@@ -26,7 +26,6 @@ export function reducer(
       };
     }
     case fromRequests.LOAD_REQUESTS_SUCCESS: {
-      // console.log(action);
       const requests = action.payload;
 
       const entities = requests.reduce(
@@ -41,8 +40,6 @@ export function reducer(
         }
       );
 
-      // console.log(entities);
-
       return {
         ...state,
         loading: false,
@@ -55,6 +52,19 @@ export function reducer(
         ...state,
         loading: false,
         loaded: false
+      };
+    }
+
+    case fromRequests.CREATE_REQUEST_SUCCESS: {
+      const request = action.payload.body;
+
+      const entities = {
+        ...state.entities,
+        [request.id]: request
+      };
+      return {
+        ...state,
+        entities
       };
     }
   }

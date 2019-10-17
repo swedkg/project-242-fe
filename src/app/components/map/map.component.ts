@@ -46,10 +46,10 @@ export class MapComponent implements OnInit {
     this.agmMap.triggerResize();
   }
 
-  sendInboundRequestList(message): void {
+  inBoundMarkersList(message): void {
     // send message to subscribers via observable subject
     // console.log(message);
-    this.helpRequestsService.sendInboundRequestList(message);
+    this.helpRequestsService.inBoundMarkersList(message);
   }
 
   sendRequestList(message): void {
@@ -64,6 +64,8 @@ export class MapComponent implements OnInit {
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();
     // console.log(event, mapBounds);
+    console.log(this.markers);
+
     if (this.markers)
       this.markers.forEach(el => {
         let position = { lat: el.lat, lng: el.lng };
@@ -76,7 +78,7 @@ export class MapComponent implements OnInit {
         }
       });
     // console.log(counter + ' in bounds markers');
-    this.sendInboundRequestList(inBoundMarkers);
+    this.inBoundMarkersList(inBoundMarkers);
   }
 
   inRange(x, min, max) {
@@ -141,11 +143,11 @@ export class MapComponent implements OnInit {
     //   }
     // });
 
-    this.helpRequestsService.getNewRequest().subscribe(data => {
-      let newRequest = data.request;
-      this.markers.push(newRequest);
-      console.log('getNewRequest', this);
-      this.sendRequestList(this.markers);
-    });
+    // this.helpRequestsService.getNewRequest().subscribe(data => {
+    //   let newRequest = data.request;
+    //   this.markers.push(newRequest);
+    //   console.log('getNewRequest', this);
+    //   this.sendRequestList(this.markers);
+    // });
   }
 }

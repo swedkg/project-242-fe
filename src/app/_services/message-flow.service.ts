@@ -27,7 +27,8 @@ export class MessageFlowService {
     let url: string = BASEURL;
     return this.http.get<any[]>(url);
   }
-  getUserResponses(id: number): Observable<any[]> {
+
+  loadMyResponses(id: number): Observable<any[]> {
     let url: string = BASEURL + FULLFILMENTS + '?user_id=' + id;
     console.log(url);
 
