@@ -25,34 +25,15 @@ export class MyRequestsComponent implements OnInit {
   constructor(
     private store: Store<fromStore.PlatformState>, // public globals: Globals
     private helpRequestsService: HelpRequestsService
-  ) {
-    this.subscription = this.helpRequestsService
-      .getInboundRequestsList()
-      .subscribe(message => {
-        if (message) {
-          this.requests = [];
-          this.requests = message.requests;
-          this.requests = this.requests.filter(m => {
-            return m.owner_id === this.current_user;
-          });
-          // this.requests.push(message);
-          console.log('--------->', this.requests);
-        } else {
-          // clear requests when empty message received
-          this.requests = [];
-        }
-      });
-  }
+  ) {}
 
   ngOnInit() {
-    // this.store.select(fromStore.getAllRequests).subscribe(state => {
-    //   console.log(Globals);
-    //   this.myRequests = state.filter(m => {
-    //     return m.owner_id === this.current_user;
-    //   });
-    //   // this.buildMyResponsesList();
-    //   console.log('myRequests', this.myRequests, state);
-    // });
+    this.store.select(fromStore.getAllRequests).subscribe(state => {
+      // console.log(Globals);
+      this.requests = state.filter(m => {
+        return m.owner_id === this.current_user;
+      });
+    });
     // this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
   }
 }
