@@ -6,7 +6,7 @@ import { map, switchMap, catchError } from 'rxjs/operators';
 
 import * as fromServices from '../../_services';
 
-import * as messagesActions from '../actions/my-responses.actions';
+import * as messagesActions from '../actions/responses.actions';
 
 @Injectable()
 export class MyResponsesEffects {
@@ -16,11 +16,11 @@ export class MyResponsesEffects {
   ) {}
   @Effect()
   loadMessages$ = this.actions$.pipe(
-    ofType<messagesActions.LoadMyResponses>(messagesActions.LOAD_MY_RESPONSES),
+    ofType<messagesActions.LoadResponses>(messagesActions.LOAD_RESPONSES),
     switchMap(action => {
-      return this.messagesService.loadMyResponses(action.payload).pipe(
-        map(messages => new messagesActions.LoadMyResponsesSuccess(messages)),
-        catchError(error => of(new messagesActions.LoadMyResponsesFail(error)))
+      return this.messagesService.loadResponses(action.payload).pipe(
+        map(messages => new messagesActions.LoadResponsesSuccess(messages)),
+        catchError(error => of(new messagesActions.LoadResponsesFail(error)))
       );
     })
   );

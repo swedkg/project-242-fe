@@ -94,12 +94,13 @@ export class MyResponsesComponent implements OnInit {
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
       console.log(data);
-      this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
+      this.store.dispatch(new fromStore.LoadResponses(this.current_user));
       this.showMessages = true;
     });
 
     // });
-    this.store.select(fromStore.getMyResponses).subscribe(
+    this.store.dispatch(new fromStore.LoadResponses(this.current_user));
+    this.store.select(fromStore.getResponses).subscribe(
       state => {
         this.myResponses = state;
         // this.myResponsesList = this.myResponses;

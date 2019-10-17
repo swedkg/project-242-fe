@@ -1,4 +1,4 @@
-import * as fromMyResponses from '../actions/my-responses.actions';
+import * as fromResponses from '../actions/responses.actions';
 import { Message } from '../../models/message.model';
 
 export interface MessageState {
@@ -18,16 +18,16 @@ export const initialState: MessageState = {
 
 export function reducer(
   state = initialState,
-  action: fromMyResponses.MyResponsesAction
+  action: fromResponses.MyResponsesAction
 ): MessageState {
   switch (action.type) {
-    case fromMyResponses.LOAD_MY_RESPONSES: {
+    case fromResponses.LOAD_RESPONSES: {
       return {
         ...state,
         loading: true
       };
     }
-    case fromMyResponses.LOAD_MY_RESPONSES_SUCCESS: {
+    case fromResponses.LOAD_RESPONSES_SUCCESS: {
       // console.log(action);
       const messages = action.payload;
       // console.log(data);
@@ -52,7 +52,7 @@ export function reducer(
         entities
       };
     }
-    case fromMyResponses.LOAD_MY_RESPONSES_FAIL: {
+    case fromResponses.LOAD_RESPONSES_FAIL: {
       return {
         ...state,
         loading: false,
@@ -64,6 +64,6 @@ export function reducer(
   return state;
 }
 
-export const getMyResponses = (state: MessageState) => state.entities;
-export const getMyResponsesLoading = (state: MessageState) => state.loading;
-export const getMyResponsesLoaded = (state: MessageState) => state.loaded;
+export const getResponses = (state: MessageState) => state.entities;
+export const getResponsesLoading = (state: MessageState) => state.loading;
+export const getResponsesLoaded = (state: MessageState) => state.loaded;
