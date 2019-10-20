@@ -1,5 +1,5 @@
 <mat-accordion class="my-responses-list">
-  <mat-expansion-panel
+  <!-- <mat-expansion-panel
     *ngFor="let response of myResponsesList"
     [expanded]="expanded === response.request_id"
   >
@@ -13,7 +13,6 @@
     <button mat-button (click)="handleShowMessages()">
       Go to messages {{ response.request.id }}
     </button>
-    <!-- //TODO: this has to be moved into a new component  -->
     <div class="messages" *ngIf="showMessages">
       <span class="title">{{ response.request.title }}</span>
       <p>
@@ -64,7 +63,7 @@
         </div>
       </form>
     </div>
-  </mat-expansion-panel>
+  </mat-expansion-panel> -->
   <p *ngIf="myResponsesList.length === 0" class="warning">
     Your don't have any messages.
   </p>

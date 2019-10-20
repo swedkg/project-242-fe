@@ -51,7 +51,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
       apiKey: 'AIzaSyCw9TlphTR3feHATjeQhqJKA8qP5wGjLjQ',
       libraries: ['places']
     }),
-    StoreModule.forFeature('addPlatform', reducers),
+    StoreModule.forFeature('aidPlatform', reducers),
     EffectsModule.forFeature(effects),
     StoreModule.forRoot({}, { metaReducers }),
     StoreDevtoolsModule.instrument({

@@ -51,6 +51,7 @@ export class MyResponsesComponent implements OnInit {
   buildMyResponsesList() {
     // if (this.myResponses.length * this.requests.length == 0) return null;
     this.myResponsesList = [];
+    return false;
     this.myResponsesList = this.myResponses.map(item => ({
       ...item,
       selected: false
@@ -94,13 +95,13 @@ export class MyResponsesComponent implements OnInit {
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
       console.log(data);
-      this.store.dispatch(new fromStore.LoadResponses(this.current_user));
+      this.store.dispatch(new fromStore.LoadMessages(this.current_user));
       this.showMessages = true;
     });
 
     // });
-    this.store.dispatch(new fromStore.LoadResponses(this.current_user));
-    this.store.select(fromStore.getResponses).subscribe(
+    this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+    this.store.select(fromStore.getMessages).subscribe(
       state => {
         this.myResponses = state;
         // this.myResponsesList = this.myResponses;

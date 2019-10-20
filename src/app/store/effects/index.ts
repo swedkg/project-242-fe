@@ -1,7 +1,7 @@
 import { RequestsEffects } from './requests.effect';
-import { MyResponsesEffects } from './responses.effect';
+import { MyMessagesEffects } from './messages.effect';
 
-export const effects: any[] = [RequestsEffects, MyResponsesEffects];
+export const effects: any[] = [RequestsEffects, MyMessagesEffects];
 
 export * from './requests.effect';
-export * from './responses.effect';
+export * from './messages.effect';

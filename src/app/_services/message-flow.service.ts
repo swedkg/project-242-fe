@@ -28,8 +28,8 @@ export class MessageFlowService {
     return this.http.get<any[]>(url);
   }
 
-  loadResponses(id: number): Observable<any[]> {
-    let url: string = BASEURL + FULLFILMENTS + '?user_id=' + id;
+  getUserMessages(id: number): Observable<any[]> {
+    let url: string = BASEURL + MESSAGES + '?user_id=' + id;
     console.log(url);
 
     return this.http.get<any[]>(url);
