@@ -1,0 +1,49 @@
+.messages {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  left: 0;
+  top: 0;
+  padding: 1rem 2rem;
+  bottom: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.request-message {
+  padding-top: 1rem;
+  background: hsla(0, 0%, 95%, 1);
+  border: 1px solid transparent;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  width: 75%;
+  p {
+    margin: 0;
+  }
+  small {
+    display: block;
+    text-align: right;
+  }
+}
+
+.align-right {
+  text-align: right;
+  background: hsl(195, 53%, 90%);
+  align-self: flex-end;
+}
+
+.message-flow-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.respond-request-form {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  .button-holder {
+    display: flex;
+    justify-content: space-around;
+  }
+}

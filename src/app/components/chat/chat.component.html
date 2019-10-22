@@ -1,0 +1,57 @@
+<!-- <p>chat works! id {{ request_id }}</p> -->
+<!-- <pre>
+  {{ chatRequest | json }}
+</pre> -->
+<div>
+  <span class="title">{{ chatRequest.title }}</span>
+  <p>
+    {{ chatRequest.desc }}
+  </p>
+  <div class="message-flow-container">
+    <span
+      class="request-message"
+      [ngClass]="{ 'align-right': mes.sender_id === chatRequest.owner_id }"
+      *ngFor="let mes of chatMessages$ | async"
+      ><p class="kop">
+        {{ mes.message }}
+        <small
+          >by {{ mes.users.sender.firstName }}
+          {{ mes.users.sender.lastName }}</small
+        >
+      </p></span
+    >
+  </div>
+</div>
+
+<form class="respond-request-form" [formGroup]="newMessageForm">
+  <mat-form-field class="example-full-width">
+    <textarea
+      matInput
+      #messageText
+      placeholder="Type a message"
+      formControlName="messageText"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="1"
+      cdkAutosizeMaxRows="8"
+    ></textarea>
+    <mat-hint align="end"
+      >{{ messageText.value?.length || 0 }}/{{ messageMaxLength }}</mat-hint
+    >
+    <mat-error *ngIf="hasError('messageText', 'required')"
+      >Please type in your message</mat-error
+    >
+    <mat-error *ngIf="hasError('messageText', 'maxlength')"
+      >Your message is too long</mat-error
+    >
+  </mat-form-field>
+  <div class="button-holder">
+    <button mat-button (click)="closeChat()">Cancel</button>
+    <button
+      mat-button
+      (click)="sendMessage(response.id, response.request.owner)"
+      [disabled]="!newMessageForm.valid"
+    >
+      Send message
+    </button>
+  </div>
+</form>

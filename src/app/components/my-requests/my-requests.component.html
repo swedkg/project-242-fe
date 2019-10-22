@@ -1,5 +1,5 @@
 <mat-accordion class="my-responses-list">
-  <mat-expansion-panel *ngFor="let request of requests">
+  <mat-expansion-panel *ngFor="let request of requests$ | async">
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="title">{{ request.title }}</span>
       <span class="request-type">
@@ -28,7 +28,7 @@
     </mat-action-row>
   </mat-expansion-panel>
   <!-- requests.length:: {{ requests.length }} :: {{ requests.length === 0 }} -->
-  <p *ngIf="requests.length === 0" class="warning">
+  <p *ngIf="myRequestsLength === 0" class="warning">
     Your don't have any requests.
   </p>
 </mat-accordion>

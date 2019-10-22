@@ -7,6 +7,10 @@ export interface AidRequest {
   lng: number;
   status: boolean;
   owner_id: number;
+  responders: {
+    ids: Array<number>;
+    details: object;
+  };
   isOneTime: boolean;
   // isUser?: boolean;
 }

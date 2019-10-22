@@ -17,6 +17,7 @@ import { AidRequest } from '../../models/aidRequest.model';
 })
 export class MyRequestsComponent implements OnInit {
   myRequests: any[] = [];
+  myRequestsLength: number;
   current_user = Globals.id;
   subscription: Subscription;
   requests$: Observable<AidRequest[]>;
@@ -28,12 +29,25 @@ export class MyRequestsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.select(fromStore.getAllRequests).subscribe(state => {
-      // console.log(Globals);
-      this.requests = state.filter(m => {
-        return m.owner_id === this.current_user;
-      });
+    this.requests$ = this.store.select(fromStore.getUserRequests);
+
+    this.requests$.subscribe(data => {
+      this.myRequestsLength = data.length;
+      console.log('fromStore.getUserRequests', data);
     });
+
+    // .subscribe(state => {
+    //   // console.log(Globals);
+    //   this.requests = state
+    //     .map(item => ({
+    //       ...item
+    //     }))
+    //     .filter(r => {
+    //       return r.owner_id == this.current_user;
+    //     });
+    //   console.log('user requests', this.requests);
+    // });
+
     // this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
   }
 }

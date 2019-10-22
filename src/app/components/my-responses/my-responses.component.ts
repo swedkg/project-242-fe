@@ -18,6 +18,8 @@ import {
   Validators,
   AbstractControl
 } from '@angular/forms';
+import { isNgTemplate } from '@angular/compiler';
+import { AidRequest } from '../../models/aidRequest.model';
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,11 +29,13 @@ import {
   encapsulation: ViewEncapsulation.None
 })
 export class MyResponsesComponent implements OnInit {
-  myResponses$: Observable<Message>;
+  // myResponses$: Observable<Message>;
   allResponses: any[] = [];
+  myResponses$: Observable<AidRequest[]>;
   myResponses: any[] = [];
   myResponsesIDs: any[] = [];
   myResponsesList: any[] = [];
+  myResponsesLength: number;
   requests: any[] = [];
   messageFlow: Subscription;
   allRequests: Subscription;
@@ -40,6 +44,7 @@ export class MyResponsesComponent implements OnInit {
   expanded = 0;
   messageMaxLength = 150;
   newMessage: any = {};
+  activeThread: Number;
   public newMessageForm: FormGroup;
   constructor(
     private cdr: ChangeDetectorRef,
@@ -62,9 +67,14 @@ export class MyResponsesComponent implements OnInit {
     // }, 0);
   }
 
-  handleShowMessages() {
+  handleShowMessages(id) {
+    this.activeThread = id;
     this.showMessages = !this.showMessages;
     console.log(this);
+  }
+
+  receiveMessage($event) {
+    console.log((this.showMessages = $event));
   }
 
   sendMessage(fullfilment_id: number, owner: number) {
@@ -89,9 +99,6 @@ export class MyResponsesComponent implements OnInit {
       ])
     });
 
-    // this.store.dispatch(new fromStore.LoadRequests());
-    // this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
-
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
       console.log(data);
@@ -101,34 +108,14 @@ export class MyResponsesComponent implements OnInit {
 
     // });
     this.store.dispatch(new fromStore.LoadMessages(this.current_user));
-    this.store.select(fromStore.getMessages).subscribe(
-      state => {
-        this.myResponses = state;
-        // this.myResponsesList = this.myResponses;
-        this.myResponsesList = [];
-        this.myResponsesList = this.myResponses.map(item => ({
-          ...item,
-          selected: false
-        }));
-        console.log(this.myResponses, this.myResponsesList);
-        this.cdr.detectChanges();
 
-        // this.buildMyResponsesList();
-      }
-
-      // this.myResponses = state.filter(m => {
-      //   return m.requester_id != m.user_id;
-      // });
-      // if (this.myResponses.length > 0 && this.requests.length > 0)
-      // console.log(state, this.myResponses);
-    );
+    this.myResponses$ = this.store.select(fromStore.getUserResponses);
+    this.myResponses$.subscribe(data => {
+      this.myResponsesLength = data.length;
+      console.log(data, data.length, this.myResponsesLength);
+    });
 
     this.messageFlowService.getNewMessage().subscribe(data => {
-      // let newRequest = data.request;
-      // this.markers.push(newRequest);
-
-      // this.store.dispatch(new fromStore.LoadMyResponses(this.current_user));
-
       let filteredResponses = this.myResponsesList.filter(message => {
         console.log(message);
         return message.id == data.newMessage.fullfilment_id;
