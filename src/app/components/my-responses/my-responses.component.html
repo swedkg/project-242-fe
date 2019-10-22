@@ -1,7 +1,7 @@
 <mat-accordion class="my-responses-list">
   <mat-expansion-panel
     *ngFor="let request of myResponses$ | async"
-    [expanded]="expanded === request.request_id"
+    [expanded]="expanded === expanded"
   >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="title">{{ request.title }}</span>
@@ -17,8 +17,6 @@
   <app-chat
     class="messages"
     [request_id]="activeThread"
-    [showMessages]="showMessages"
-    (messageEvent)="receiveMessage($event)"
     *ngIf="showMessages"
   ></app-chat>
   <p *ngIf="myResponsesLength === 0" class="warning">

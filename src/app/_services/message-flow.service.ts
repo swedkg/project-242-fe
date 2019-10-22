@@ -58,6 +58,7 @@ export class MessageFlowService {
         console.log(response, response.status);
 
         if (response.status === 201) {
+          this.SidenavService.setOpenChat(true);
           this.SidenavService.setExpanded(id);
           this.SidenavService.setRequestSidenavOpened(false);
           this.SidenavService.setMessagingSidenavOpened(true);

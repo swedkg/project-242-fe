@@ -20,6 +20,7 @@ import {
   Validators,
   AbstractControl
 } from '@angular/forms';
+import { SidenavService } from 'src/app/_services/sidenav.service';
 
 @Component({
   selector: 'app-chat',
@@ -35,6 +36,7 @@ export class ChatComponent implements OnInit {
   chatRequest: any = {};
 
   constructor(
+    private sidenavService: SidenavService,
     private store: Store<fromStore.PlatformState> // public globals: Globals
   ) {}
 
@@ -57,14 +59,8 @@ export class ChatComponent implements OnInit {
 
   message: string = 'Hola Mundo!';
 
-  @Output() messageEvent = new EventEmitter<boolean>();
-
   closeChat() {
-    console.log(this);
-
-    this.showMessages = false;
-
-    this.messageEvent.emit(this.showMessages);
+    this.sidenavService.setOpenChat(false);
   }
 
   ngOnInit() {

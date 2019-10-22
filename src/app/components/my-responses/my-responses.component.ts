@@ -69,12 +69,12 @@ export class MyResponsesComponent implements OnInit {
 
   handleShowMessages(id) {
     this.activeThread = id;
-    this.showMessages = !this.showMessages;
+    this.sidenavService.setOpenChat(true);
     console.log(this);
   }
 
   receiveMessage($event) {
-    console.log((this.showMessages = $event));
+    this.showMessages = $event;
   }
 
   sendMessage(fullfilment_id: number, owner: number) {
@@ -99,9 +99,12 @@ export class MyResponsesComponent implements OnInit {
       ])
     });
 
+    this.sidenavService.getOpenChat().subscribe(data => {
+      this.showMessages = data;
+    });
+
     this.sidenavService.getExpanded().subscribe(data => {
       this.expanded = data;
-      console.log(data);
       this.store.dispatch(new fromStore.LoadMessages(this.current_user));
       this.showMessages = true;
     });
