@@ -25,10 +25,10 @@ export class SidenavService {
   isMessagingSidenavOpened(): Observable<boolean> {
     return this.messagingSidenavOpened.asObservable();
   }
-  setExpanded(id) {
+  setExpandedAccordionPanel(id) {
     this.expanded.next(id);
   }
-  getExpanded(): Observable<number> {
+  getExpandedAccordionPanel(): Observable<number> {
     return this.expanded.asObservable();
   }
 

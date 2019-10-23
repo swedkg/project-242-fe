@@ -31,7 +31,7 @@ export class RequestsComponent implements OnInit {
 
     // if everything goes well,
     // continue with the rest
-    // this.SidenavService.setExpanded(id);
+    // this.SidenavService.setExpandedAccordionPanel(id);
     // this.SidenavService.setRequestSidenavOpened(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
     // this.SidenavService.setActiveMessagingTab(0);

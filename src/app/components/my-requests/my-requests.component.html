@@ -16,17 +16,25 @@
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <span class="description">{{ request.desc }}</span>
-    <pre>{{ request | json }}</pre>
-    <mat-action-row>
-      <button
-        mat-button
-        (click)="respondToRequest(request.id)"
-        disabled="{{ request.owner_id === current_user }}"
-      >
-        Respond to request ({{ request.owner_id }}, {{ current_user }})
-      </button>
-    </mat-action-row>
+    <!-- <pre>{{ request | json }}</pre> -->
+    <div class="responders-list">
+      <p *ngFor="let responder of request.responders.details">
+        <span>{{ responder.firstName }} {{ responder.lastName }}</span>
+        <button
+          mat-button
+          (click)="handleShowMessages(request.id, responder.id)"
+        >
+          Go to messages (req_id: {{ request.id }}, res_id: {{ responder.id }})
+        </button>
+      </p>
+    </div>
   </mat-expansion-panel>
+  <app-chat
+    class="messages"
+    [request_id]="activeThread"
+    [chat$]="chat$"
+    *ngIf="showMessages"
+  ></app-chat>
   <!-- requests.length:: {{ requests.length }} :: {{ requests.length === 0 }} -->
   <p *ngIf="myRequestsLength === 0" class="warning">
     Your don't have any requests.

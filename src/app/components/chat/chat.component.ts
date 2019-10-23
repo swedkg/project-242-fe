@@ -20,7 +20,7 @@ import {
   Validators,
   AbstractControl
 } from '@angular/forms';
-import { SidenavService } from 'src/app/_services/sidenav.service';
+import { SidenavService } from '../../_services/sidenav.service';
 
 @Component({
   selector: 'app-chat',
@@ -33,7 +33,8 @@ export class ChatComponent implements OnInit {
   messageMaxLength = 150;
   newMessage: any = {};
   chatMessages$: Observable<Message[]>;
-  chatRequest: any = {};
+  chatMessages: {};
+  chatRequest: object = {};
 
   constructor(
     private sidenavService: SidenavService,
@@ -41,7 +42,9 @@ export class ChatComponent implements OnInit {
   ) {}
 
   @Input() request_id: number;
+  @Input() responder: number;
   @Input() showMessages: boolean;
+  @Input() chat$: any;
 
   // sendMessage(fullfilment_id: number, owner: number) {
   //   this.newMessage.message = this.newMessageForm.controls.messageText.value;
@@ -57,8 +60,6 @@ export class ChatComponent implements OnInit {
     return this.newMessageForm.controls[controlName].hasError(errorName);
   };
 
-  message: string = 'Hola Mundo!';
-
   closeChat() {
     this.sidenavService.setOpenChat(false);
   }
@@ -66,10 +67,12 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     console.log(this);
 
-    this.chatMessages$ = this.store.select(
-      fromStore.getChatMessages,
-      this.request_id
-    );
+    // this.chatMessages$ = this.store.select(
+    //   fromStore.getChatMessages,
+    //   this.request_id
+    // );
+
+    this.chatMessages$ = this.chat$;
 
     // this.chatMessages$.subscribe(data => {
     //   console.log('fromStore.getChatMessages', data);
@@ -85,7 +88,7 @@ export class ChatComponent implements OnInit {
 
     // this.chatRequest = this.chatRequest[0];
 
-    console.log('this.chatRequest', this.chatRequest);
+    // console.log('this.chatRequest', this.chatRequest);
     //
     this.newMessageForm = new FormGroup({
       messageText: new FormControl('', [

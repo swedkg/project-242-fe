@@ -3,6 +3,8 @@ import { createSelector } from '@ngrx/store';
 import * as fromFeature from '../reducers';
 import * as fromMessages from '../reducers/messages.reducer';
 
+import { Globals } from '../../../assets/globals';
+
 export const getMessagesState = createSelector(
   fromFeature.getPlatformState,
   (state: fromFeature.PlatformState) => state.messages
@@ -19,7 +21,11 @@ export const getMessages = createSelector(
   entitites => {
     // return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
 
-    return Object.keys(entitites).map(id => entitites[id]);
+    let result = Object.keys(entitites).map(id => entitites[id]);
+
+    console.log('all messages', result);
+
+    return result;
   }
 );
 
@@ -33,6 +39,24 @@ export const getChatMessages = createSelector(
       });
 
     console.log('--------------->', entitites, request_id, result);
+
+    return result;
+  }
+);
+
+export const getChatForResponder = createSelector(
+  getMessagesEntities,
+  (entitites, obj) => {
+    let result = Object.keys(entitites)
+      .map(id => entitites[id])
+      .filter(m => {
+        return (
+          m.request_id == obj.request_id &&
+          (m.receiver_id == obj.responder_id || m.sender_id == obj.responder_id)
+        );
+      });
+
+    console.log(entitites, obj, '--------------->', result);
 
     return result;
   }

@@ -18,17 +18,13 @@ export class MessagingComponent implements OnInit {
 
   indexChanged(event) {
     this.activeTab = event;
+    this.SidenavService.setActiveMessagingTab(event);
   }
 
   ngOnInit() {
-    // this.SidenavService.isMessagingSidenavOpened().subscribe(data => {
-    //   this.messagingSidenavOpened = data;
-    //   console.log(data, this.messagingSidenavOpened);
-    // });
-
     this.SidenavService.getActiveMessagingTab().subscribe(data => {
       this.activeTab = data;
-      console.log(data, this);
+      // console.log(data, this);
     });
   }
 }

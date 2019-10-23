@@ -11,7 +11,7 @@
     <span
       class="request-message"
       [ngClass]="{ 'align-right': mes.sender_id === chatRequest.owner_id }"
-      *ngFor="let mes of chatMessages$ | async"
+      *ngFor="let mes of chat$"
       ><p class="kop">
         {{ mes.message }}
         <small

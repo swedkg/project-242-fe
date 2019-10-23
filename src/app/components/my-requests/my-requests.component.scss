@@ -1,0 +1,10 @@
+.responders-list {
+  display: flex;
+  flex-direction: column;
+
+  p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

@@ -17,6 +17,7 @@
   <app-chat
     class="messages"
     [request_id]="activeThread"
+    [chat$]="chat$"
     *ngIf="showMessages"
   ></app-chat>
   <p *ngIf="myResponsesLength === 0" class="warning">

@@ -45,7 +45,9 @@ export class MyResponsesComponent implements OnInit {
   messageMaxLength = 150;
   newMessage: any = {};
   activeThread: Number;
+  chat$: object;
   public newMessageForm: FormGroup;
+  activeMessagingTab: number;
   constructor(
     private cdr: ChangeDetectorRef,
     private sidenavService: SidenavService,
@@ -53,28 +55,10 @@ export class MyResponsesComponent implements OnInit {
     private store: Store<fromStore.PlatformState> // public globals: Globals
   ) {}
 
-  buildMyResponsesList() {
-    // if (this.myResponses.length * this.requests.length == 0) return null;
-    this.myResponsesList = [];
-    return false;
-    this.myResponsesList = this.myResponses.map(item => ({
-      ...item,
-      selected: false
-    }));
-
-    // setTimeout(() => {
-    //   // console.log(this.myResponsesList, this.myResponses);
-    // }, 0);
-  }
-
   handleShowMessages(id) {
     this.activeThread = id;
     this.sidenavService.setOpenChat(true);
     console.log(this);
-  }
-
-  receiveMessage($event) {
-    this.showMessages = $event;
   }
 
   sendMessage(fullfilment_id: number, owner: number) {
@@ -99,20 +83,28 @@ export class MyResponsesComponent implements OnInit {
       ])
     });
 
-    this.sidenavService.getOpenChat().subscribe(data => {
-      this.showMessages = data;
-    });
-
-    this.sidenavService.getExpanded().subscribe(data => {
-      this.expanded = data;
+    this.sidenavService.getOpenChat().subscribe(open => {
+      if (this.activeMessagingTab !== 0) return null;
       this.store.dispatch(new fromStore.LoadMessages(this.current_user));
-      this.showMessages = true;
+
+      this.store
+        .select(fromStore.getChatMessages, this.activeThread)
+        .subscribe(data => {
+          this.chat$ = data;
+        });
+
+      console.log(open, this.activeThread, this.chat$);
+      this.showMessages = open;
+      console.log('--------------------------------------------------');
     });
 
-    // });
-    this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+    this.sidenavService.getActiveMessagingTab().subscribe(data => {
+      this.activeMessagingTab = data;
+      console.log('ActiveMessagingTab', this.activeMessagingTab);
+    });
 
     this.myResponses$ = this.store.select(fromStore.getUserResponses);
+
     this.myResponses$.subscribe(data => {
       this.myResponsesLength = data.length;
       console.log(data, data.length, this.myResponsesLength);
