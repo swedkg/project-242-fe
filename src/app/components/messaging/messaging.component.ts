@@ -28,7 +28,7 @@ export class MessagingComponent implements OnInit {
     });
   }
 }
-
+// user staus in the fuulfilments table to remove responder
 // TODO: wireframe 3/5 mobile & desktop
 // TODO: respond to requests
 // TODO: tests

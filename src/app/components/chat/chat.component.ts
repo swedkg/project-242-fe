@@ -21,6 +21,8 @@ import {
   AbstractControl
 } from '@angular/forms';
 import { SidenavService } from '../../_services/sidenav.service';
+import { MessageFlowService } from '../../_services/message-flow.service';
+import { Globals } from '../../../assets/globals';
 
 @Component({
   selector: 'app-chat',
@@ -38,23 +40,28 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private sidenavService: SidenavService,
+    private messageFlowService: MessageFlowService,
+
     private store: Store<fromStore.PlatformState> // public globals: Globals
   ) {}
 
   @Input() request_id: number;
-  @Input() responder: number;
+  @Input() responder_id: number;
   @Input() showMessages: boolean;
   @Input() chat$: any;
 
-  // sendMessage(fullfilment_id: number, owner: number) {
-  //   this.newMessage.message = this.newMessageForm.controls.messageText.value;
-  //   this.newMessage.fullfilment_id = fullfilment_id;
-  //   this.newMessage.sender_id = this.current_user;
-  //   this.newMessage.receiver_id = owner;
-  //   // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
-  //   this.messageFlowService.sendMessage(this.newMessage);
-  //   this.newMessageForm.reset();
-  // }
+  sendMessage() {
+    let fullfilment_id = this.chat$[0].fullfilment_id;
+    this.newMessage.message = this.newMessageForm.controls.messageText.value;
+    this.newMessage.fullfilment_id = fullfilment_id;
+    this.newMessage.sender_id = Globals.id;
+    this.newMessage.receiver_id = this.responder_id;
+    console.log(this.newMessage);
+
+    // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
+    // this.messageFlowService.sendMessage(this.newMessage);
+    this.newMessageForm.reset();
+  }
 
   hasError = (controlName: string, errorName: string) => {
     return this.newMessageForm.controls[controlName].hasError(errorName);

@@ -38,7 +38,7 @@ export const getChatMessages = createSelector(
         return m.request_id == request_id;
       });
 
-    console.log('--------------->', entitites, request_id, result);
+    // console.log('--------------->', entitites, request_id, result);
 
     return result;
   }
@@ -56,7 +56,7 @@ export const getChatForResponder = createSelector(
         );
       });
 
-    console.log(entitites, obj, '--------------->', result);
+    // console.log(entitites, obj, '--------------->', result);
 
     return result;
   }

@@ -41,8 +41,8 @@ export const getUserRequests = createSelector(
         return r.owner_id == Globals.id;
       });
 
-    console.log(Globals, entitites);
-    console.log('User requests', result);
+    // console.log(Globals, entitites);
+    // console.log('User requests', result);
 
     return result;
   }
@@ -58,8 +58,8 @@ export const getUserResponses = createSelector(
         return r.responders.ids.includes(Globals.id);
       });
 
-    console.log(Globals, entitites);
-    console.log('Requests that the user have responded to', result);
+    // console.log(Globals, entitites);
+    // console.log('Requests that the user have responded to', result);
 
     return result;
   }
@@ -74,8 +74,8 @@ export const getSingleRequest = createSelector(
         return r.id == request_id;
       });
 
-    console.log(Globals, entitites);
-    console.log('Single request', result);
+    // console.log(Globals, entitites);
+    // console.log('Single request', result);
 
     return result;
   }
