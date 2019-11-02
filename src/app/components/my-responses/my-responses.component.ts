@@ -98,11 +98,6 @@ export class MyResponsesComponent implements OnInit {
       console.log('--------------------------------------------------');
     });
 
-    this.sidenavService.getActiveMessagingTab().subscribe(data => {
-      this.activeMessagingTab = data;
-      console.log('ActiveMessagingTab', this.activeMessagingTab);
-    });
-
     this.myResponses$ = this.store.select(fromStore.getUserResponses);
 
     this.myResponses$.subscribe(data => {

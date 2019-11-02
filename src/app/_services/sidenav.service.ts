@@ -10,7 +10,7 @@ export class SidenavService {
   private isSidenavOpen = new Subject<boolean>();
   private messagingSidenavOpened = new Subject<boolean>();
   private expanded = new Subject<number>();
-  private activeMessagingTab = new Subject<number>();
+  private activeSidenavTab = new Subject<number>();
   private openChat = new Subject<boolean>();
 
   setSidenavOpen(boolean) {
@@ -32,12 +32,12 @@ export class SidenavService {
     return this.expanded.asObservable();
   }
 
-  setActiveMessagingTab(num) {
-    this.activeMessagingTab.next(num);
+  setActiveSidenavTab(num) {
+    this.activeSidenavTab.next(num);
   }
 
-  getActiveMessagingTab(): Observable<number> {
-    return this.activeMessagingTab.asObservable();
+  getActiveSidenavTab(): Observable<number> {
+    return this.activeSidenavTab.asObservable();
   }
 
   setOpenChat(bool) {

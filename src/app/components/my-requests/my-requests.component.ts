@@ -38,7 +38,7 @@ export class MyRequestsComponent implements OnInit {
   handleShowMessages(request_id, responder_id) {
     this.activeThread = request_id;
     this.responder_id = responder_id;
-    this.sidenavService.setActiveMessagingTab(1);
+    this.sidenavService.setActiveSidenavTab(1);
     this.sidenavService.setOpenChat(true);
     // console.log(this);
   }
@@ -60,11 +60,6 @@ export class MyRequestsComponent implements OnInit {
       console.log(open, this, this.chat$);
       this.showMessages = open;
       console.log('--------------------------------------------------');
-    });
-
-    this.sidenavService.getActiveMessagingTab().subscribe(data => {
-      this.activeMessagingTab = data;
-      console.log('ActiveMessagingTab', this.activeMessagingTab);
     });
 
     this.requests$ = this.store.select(fromStore.getUserRequests);

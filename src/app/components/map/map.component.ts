@@ -98,7 +98,7 @@ export class MapComponent implements OnInit {
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setSidenavOpen(false);
     this.SidenavService.setMessagingSidenavOpened(true);
-    this.SidenavService.setActiveMessagingTab(0);
+    this.SidenavService.setActiveSidenavTab(0);
   }
 
   ngOnInit() {

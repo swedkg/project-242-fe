@@ -1,12 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SidenavService } from '../../_services/sidenav.service';
 
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.scss']
+  styleUrls: ['./sidenav.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SidenavComponent implements OnInit {
+  activeTab: number = 2;
+
   constructor(
     private SidenavService: SidenavService // public globals: Globals
   ) {}
@@ -18,5 +21,15 @@ export class SidenavComponent implements OnInit {
     this.SidenavService.setSidenavOpen(this.isSidenavOpen);
   }
 
-  ngOnInit() {}
+  indexChanged(event) {
+    this.activeTab = event;
+    this.SidenavService.setActiveSidenavTab(event);
+  }
+
+  ngOnInit() {
+    this.SidenavService.getActiveSidenavTab().subscribe(data => {
+      this.activeTab = data;
+      // console.log(data, this);
+    });
+  }
 }

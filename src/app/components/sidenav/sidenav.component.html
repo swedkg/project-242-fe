@@ -7,9 +7,22 @@
     >
       <p class="material-icons">close</p>
     </button>
-    <app-messaging></app-messaging>
+    <!-- <app-messaging></app-messaging>
     <app-markers-list></app-markers-list
-  ></mat-sidenav>
+  > -->
+    <mat-tab-group
+      selectedIndex="{{ activeTab }}"
+      (selectedIndexChange)="indexChanged($event)"
+    >
+      <mat-tab label="My resposnes"
+        ><app-my-responses></app-my-responses
+      ></mat-tab>
+      <mat-tab label="My requests"><app-my-requests></app-my-requests></mat-tab>
+      <mat-tab label="All requests">
+        <app-markers-list></app-markers-list
+      ></mat-tab>
+    </mat-tab-group>
+  </mat-sidenav>
 
   <mat-sidenav-content>
     <button
