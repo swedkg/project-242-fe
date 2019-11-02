@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RequestsComponent } from '../components/requests-sidenav/requests-sidenav.component';
-import { MaterialModule } from './material.module';
-import { SubmitRequestComponent } from '../components/submit-request/submit-request.component';
-import { SubmitRequestContentComponent } from '../components/submit-request-content/submit-request-content.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MarkersListComponent } from '../components/markers-list/markers-list.component';
+import { SubmitRequestContentComponent } from '../components/submit-request-content/submit-request-content.component';
+import { SubmitRequestComponent } from '../components/submit-request/submit-request.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
-    RequestsComponent,
+    MarkersListComponent,
     SubmitRequestComponent,
     SubmitRequestContentComponent
   ],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
-  exports: [RequestsComponent, SubmitRequestComponent],
+  exports: [MarkersListComponent, SubmitRequestComponent],
   entryComponents: [SubmitRequestContentComponent]
 })
 export class RequestsModule {}

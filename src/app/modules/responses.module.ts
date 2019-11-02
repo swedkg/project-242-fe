@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MessagingComponent } from '../components/messaging/messaging.component';
-import { ChatComponent } from '../components/chat/chat.component';
-import { MaterialModule } from './material.module';
-import { MyResponsesComponent } from '../components/my-responses/my-responses.component';
-import { MyRequestsComponent } from '../components/my-requests/my-requests.component';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChatComponent } from '../components/chat/chat.component';
+import { MessagingComponent } from '../components/messaging/messaging.component';
+import { MyRequestsComponent } from '../components/my-requests/my-requests.component';
+import { MyResponsesComponent } from '../components/my-responses/my-responses.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [

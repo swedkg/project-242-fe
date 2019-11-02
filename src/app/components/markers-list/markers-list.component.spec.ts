@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequestsComponent } from './requests-sidenav.component';
+import { MarkersListComponent } from './markers-list.component';
 
-describe('RequestsComponent', () => {
-  let component: RequestsComponent;
-  let fixture: ComponentFixture<RequestsComponent>;
+describe('MarkersListComponent', () => {
+  let component: MarkersListComponent;
+  let fixture: ComponentFixture<MarkersListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RequestsComponent]
+      declarations: [MarkersListComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RequestsComponent);
+    fixture = TestBed.createComponent(MarkersListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

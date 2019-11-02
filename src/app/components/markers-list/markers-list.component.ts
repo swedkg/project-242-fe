@@ -1,24 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ViewEncapsulation } from '@angular/core';
-
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromStore from '../../store';
-
-import { HelpRequestsService } from '../../_services/help-requests.service';
-import { SidenavService } from '../../_services/sidenav.service';
-import { MessageFlowService } from '../../_services/message-flow.service';
-import { AidRequest } from '../../models/aidRequest.model';
+import { Observable, Subscription } from 'rxjs';
 import { Globals } from '../../../assets/globals';
+import { AidRequest } from '../../models/aidRequest.model';
+import * as fromStore from '../../store';
+import { HelpRequestsService } from '../../_services/help-requests.service';
+import { MessageFlowService } from '../../_services/message-flow.service';
+import { SidenavService } from '../../_services/sidenav.service';
 
 @Component({
-  selector: 'app-requests-sidenav',
-  templateUrl: './requests-sidenav.component.html',
-  styleUrls: ['./requests-sidenav.component.scss'],
+  selector: 'app-markers-list',
+  templateUrl: './markers-list.component.html',
+  styleUrls: ['./markers-list.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class RequestsComponent implements OnInit {
+export class MarkersListComponent implements OnInit {
   requests$: Observable<AidRequest[]>;
   requests: any[] = [];
   subscription: Subscription;

@@ -26,6 +26,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { EffectsModule } from '@ngrx/effects';
 
 import { reducers, effects } from './store';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 const environment = {
   development: true,
@@ -37,7 +38,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   : [];
 
 @NgModule({
-  declarations: [AppComponent, MapComponent, LayoutComponent],
+  declarations: [AppComponent, MapComponent, LayoutComponent, SidenavComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
