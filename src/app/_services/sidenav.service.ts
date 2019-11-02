@@ -7,17 +7,17 @@ import { Observable, Subject } from 'rxjs';
 export class SidenavService {
   constructor() {}
 
-  private requestSidenavOpened = new Subject<boolean>();
+  private isSidenavOpen = new Subject<boolean>();
   private messagingSidenavOpened = new Subject<boolean>();
   private expanded = new Subject<number>();
   private activeMessagingTab = new Subject<number>();
   private openChat = new Subject<boolean>();
 
-  setRequestSidenavOpened(boolean) {
-    this.requestSidenavOpened.next(boolean);
+  setSidenavOpen(boolean) {
+    this.isSidenavOpen.next(boolean);
   }
   isRequestSidenavOpened(): Observable<boolean> {
-    return this.requestSidenavOpened.asObservable();
+    return this.isSidenavOpen.asObservable();
   }
   setMessagingSidenavOpened(boolean) {
     this.messagingSidenavOpened.next(boolean);

@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
     private SidenavService: SidenavService // public globals: Globals
   ) {}
   events: string[] = [];
-  requestSidenavOpened: boolean = false;
+  isSidenavOpen: boolean = false;
   messagingSidenavOpened: boolean = false;
   current_user = Globals;
 
@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
     console.log('this should open the Messaging Sidepanel ');
   }
   toggleRequestSidenav() {
-    this.requestSidenavOpened = !this.requestSidenavOpened;
-    this.SidenavService.setRequestSidenavOpened(this.requestSidenavOpened);
+    this.isSidenavOpen = !this.isSidenavOpen;
+    this.SidenavService.setSidenavOpen(this.isSidenavOpen);
   }
   toggleMessagingSidenav() {
     this.messagingSidenavOpened = !this.messagingSidenavOpened;
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     this.SidenavService.isRequestSidenavOpened().subscribe(data => {
-      this.requestSidenavOpened = data;
+      this.isSidenavOpen = data;
     });
     this.SidenavService.isMessagingSidenavOpened().subscribe(data => {
       this.messagingSidenavOpened = data;

@@ -28,7 +28,7 @@ export class MarkersListComponent implements OnInit {
     // if everything goes well,
     // continue with the rest
     // this.SidenavService.setExpandedAccordionPanel(id);
-    // this.SidenavService.setRequestSidenavOpened(false);
+    // this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
     // this.SidenavService.setActiveMessagingTab(0);
   }

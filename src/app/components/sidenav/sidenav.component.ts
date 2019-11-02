@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidenavService } from '../../_services/sidenav.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
+  constructor(
+    private SidenavService: SidenavService // public globals: Globals
+  ) {}
 
-  constructor() { }
+  isSidenavOpen: boolean = false;
 
-  ngOnInit() {
+  toggleRequestSidenav() {
+    this.isSidenavOpen = !this.isSidenavOpen;
+    this.SidenavService.setSidenavOpen(this.isSidenavOpen);
   }
 
+  ngOnInit() {}
 }

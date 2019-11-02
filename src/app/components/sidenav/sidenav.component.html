@@ -1,3 +1,24 @@
-<p>
-  sidenav works!
-</p>
+<mat-sidenav-container hasBackdrop="false">
+  <mat-sidenav #requests mode="over" [(opened)]="isSidenavOpen">
+    <button
+      mat-button
+      class="material-icons menu-icon"
+      (click)="toggleRequestSidenav()"
+    >
+      <p class="material-icons">close</p>
+    </button>
+    <app-messaging></app-messaging>
+    <app-markers-list></app-markers-list
+  ></mat-sidenav>
+
+  <mat-sidenav-content>
+    <button
+      mat-button
+      class="material-icons menu-icon"
+      (click)="toggleRequestSidenav()"
+    >
+      <p class="material-icons">menu</p>
+    </button>
+    <app-layout></app-layout>
+  </mat-sidenav-content>
+</mat-sidenav-container>
