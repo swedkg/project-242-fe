@@ -16,8 +16,7 @@ import { LayoutComponent } from './components/layout/layout.component';
 import { MapComponent } from './components/map/map.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { MaterialModule } from './modules/material.module';
-import { RequestsModule } from './modules/requests.module';
-import { ResponsesModule } from './modules/responses.module';
+import { SidenavModule } from './modules/sidenav.module';
 import { effects, reducers } from './store';
 import { HelpRequestsService } from './_services/help-requests.service';
 import { MessageFlowService } from './_services/message-flow.service';
@@ -38,8 +37,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
-    RequestsModule,
-    ResponsesModule,
+    SidenavModule,
     AgmSnazzyInfoWindowModule,
     AgmOverlays,
     AgmCoreModule.forRoot({
