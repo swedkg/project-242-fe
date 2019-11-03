@@ -20,6 +20,7 @@ import { SidenavModule } from './modules/sidenav.module';
 import { effects, reducers } from './store';
 import { HelpRequestsService } from './_services/help-requests.service';
 import { MessageFlowService } from './_services/message-flow.service';
+import { CounterComponent } from './components/counter/counter.component';
 
 const environment = {
   development: true,
@@ -31,7 +32,13 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   : [];
 
 @NgModule({
-  declarations: [AppComponent, MapComponent, LayoutComponent, SidenavComponent],
+  declarations: [
+    AppComponent,
+    MapComponent,
+    LayoutComponent,
+    SidenavComponent,
+    CounterComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -1,0 +1,3 @@
+<p>Requests: {{ (stats$ | async)?.total }}</p>
+<p>Unfulfilled: {{ (stats$ | async)?.unfulfilled }}</p>
+<p>Updated: {{ (stats$ | async)?.time | date: 'medium' }}</p>
