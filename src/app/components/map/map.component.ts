@@ -58,7 +58,7 @@ export class MapComponent implements OnInit {
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();
     // console.log(event, mapBounds);
-    console.log(this.markers);
+    // console.log(this.markers);
 
     if (this.markers)
       this.markers.forEach(el => {

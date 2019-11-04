@@ -18,15 +18,13 @@ export class CounterComponent implements OnInit {
   ngOnInit() {
     const stat$ = this.http.get('http://localhost:3000/platform/status/');
 
-    this.stats$ = timer(0, 5000).pipe(
-      concatMap(_ => stat$),
-      map((response: { requests: { requests: any } }) => response.requests)
-    );
-
-    // this.stats$.subscribe(kk => {
-    //   this.stats = kk;
-    //   console.log('kk', kk);
-    //   // console.log(this.stats$);
-    // });
+    timer(0, 15000)
+      .pipe(
+        concatMap(_ => stat$),
+        map((response: { requests: { requests: any } }) => response.requests)
+      )
+      .subscribe(stats => {
+        this.stats = stats;
+      });
   }
 }
