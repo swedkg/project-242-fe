@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HelpRequestsService } from '../../_services/help-requests.service';
 
 import { Message } from '../../models/message.model';
@@ -17,6 +17,8 @@ import { SidenavService } from '../../_services/sidenav.service';
   styleUrls: ['./my-requests.component.scss']
 })
 export class MyRequestsComponent implements OnInit {
+  @Input() activeTab: number;
+
   myRequests: any[] = [];
   myRequestsLength: number;
   current_user = Globals.id;
@@ -45,7 +47,10 @@ export class MyRequestsComponent implements OnInit {
 
   ngOnInit() {
     this.sidenavService.getOpenChat().subscribe(open => {
-      if (this.activeMessagingTab !== 1) return null;
+      if (this.activeTab !== 2) return null;
+
+      console.log('this.activeMessagingTab', this);
+
       this.store.dispatch(new fromStore.LoadMessages(this.current_user));
 
       this.store

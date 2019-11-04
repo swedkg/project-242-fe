@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   OnInit,
+  Input,
   ViewEncapsulation
 } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -29,6 +30,8 @@ import { AidRequest } from '../../models/aidRequest.model';
   encapsulation: ViewEncapsulation.None
 })
 export class MyResponsesComponent implements OnInit {
+  @Input() activeTab: number;
+
   // myResponses$: Observable<Message>;
   allResponses: any[] = [];
   myResponses$: Observable<AidRequest[]>;
@@ -84,7 +87,10 @@ export class MyResponsesComponent implements OnInit {
     });
 
     this.sidenavService.getOpenChat().subscribe(open => {
-      if (this.activeMessagingTab !== 0) return null;
+      if (this.activeTab !== 1) return null;
+
+      console.log('this.activeMessagingTab', this);
+
       this.store.dispatch(new fromStore.LoadMessages(this.current_user));
 
       this.store

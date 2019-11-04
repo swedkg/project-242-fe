@@ -8,7 +8,7 @@ import { SidenavService } from '../../_services/sidenav.service';
   encapsulation: ViewEncapsulation.None
 })
 export class SidenavComponent implements OnInit {
-  activeTab: number = 2;
+  activeTab: number = 0;
 
   constructor(
     private SidenavService: SidenavService // public globals: Globals
@@ -29,7 +29,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
-      // console.log(data, this);
+      console.log(data, this);
     });
   }
 }
