@@ -1,7 +1,7 @@
 <mat-accordion class="accordion">
   <mat-expansion-panel
     *ngFor="let request of myResponses$ | async"
-    [expanded]="expanded === expanded"
+    [expanded]="expandedPanel === request.id"
   >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="title">{{ request.title }}</span>

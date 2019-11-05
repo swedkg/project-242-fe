@@ -44,7 +44,7 @@ export class MyResponsesComponent implements OnInit {
   allRequests: Subscription;
   showMessages: boolean = false;
   current_user = Globals.id;
-  expanded = 0;
+  expandedPanel: number;
   messageMaxLength = 150;
   newMessage: any = {};
   activeThread: Number;
@@ -53,14 +53,15 @@ export class MyResponsesComponent implements OnInit {
   activeMessagingTab: number;
   constructor(
     private cdr: ChangeDetectorRef,
-    private sidenavService: SidenavService,
+    private SidenavService: SidenavService,
     private messageFlowService: MessageFlowService,
     private store: Store<fromStore.PlatformState> // public globals: Globals
   ) {}
 
   handleShowMessages(id) {
-    this.activeThread = id;
-    this.sidenavService.setOpenChat(true);
+    // this.activeThread = id;
+    this.SidenavService.setActiveThread(id);
+    // this.SidenavService.setOpenChat(true);
     console.log(this);
   }
 
@@ -86,8 +87,8 @@ export class MyResponsesComponent implements OnInit {
       ])
     });
 
-    this.sidenavService.getOpenChat().subscribe(open => {
-      if (this.activeTab !== 1) return null;
+    this.SidenavService.getOpenChat().subscribe(open => {
+      // if (this.activeTab !== 1) return null;
 
       console.log('this.activeMessagingTab', this);
 
@@ -106,9 +107,21 @@ export class MyResponsesComponent implements OnInit {
 
     this.myResponses$ = this.store.select(fromStore.getUserResponses);
 
+    console.log('--------------------', this.myResponses$);
+
     this.myResponses$.subscribe(data => {
       this.myResponsesLength = data.length;
       console.log(data, data.length, this.myResponsesLength);
+    });
+
+    this.SidenavService.getExpandedAccordionPanel().subscribe(
+      data => (this.expandedPanel = data)
+    );
+
+    this.SidenavService.getActiveThread().subscribe(data => {
+      this.activeThread = data;
+      this.SidenavService.setOpenChat(true);
+      console.log('activeThread', data);
     });
 
     this.messageFlowService.getNewMessage().subscribe(data => {

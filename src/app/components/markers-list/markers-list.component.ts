@@ -27,10 +27,17 @@ export class MarkersListComponent implements OnInit {
 
     // if everything goes well,
     // continue with the rest
-    // this.SidenavService.setExpandedAccordionPanel(id);
+  }
+
+  goToMessages(id) {
+    console.log('goTomessages', id);
+    this.SidenavService.setExpandedAccordionPanel(id);
     // this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
-    // this.SidenavService.setActiveSidenavTab(0);
+    this.SidenavService.setActiveSidenavTab(1);
+    this.SidenavService.setExpandedAccordionPanel(id);
+    this.SidenavService.setActiveThread(id);
+    // setTimeout(function() {}.bind(this), 100);
   }
 
   constructor(

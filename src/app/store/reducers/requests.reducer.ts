@@ -56,7 +56,12 @@ export function reducer(
     }
 
     case fromRequests.CREATE_REQUEST_SUCCESS: {
-      const request = action.payload.body;
+      let request = action.payload.body;
+
+      request = {
+        ...request,
+        responders: { ids: [], details: [] }
+      };
 
       const entities = {
         ...state.entities,

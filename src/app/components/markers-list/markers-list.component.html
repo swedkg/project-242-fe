@@ -16,14 +16,25 @@
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <span class="description">{{ request.desc }}</span>
-    <pre>{{ request | json }}</pre>
+    <!-- <pre>{{ request | json }}</pre> -->
     <mat-action-row>
       <button
         mat-button
         (click)="respondToRequest(request.id)"
-        disabled="{{ request.owner_id === current_user }}"
+        *ngIf="
+          request.responders && !request.responders.ids.includes(current_user)
+        "
       >
         Respond to request ({{ request.owner_id }}, {{ current_user }}) !!
+      </button>
+      <button
+        mat-button
+        (click)="goToMessages(request.id)"
+        *ngIf="
+          request.responders && request.responders.ids.includes(current_user)
+        "
+      >
+        Go to messages ({{ request.owner_id }}, {{ current_user }}) !!
       </button>
     </mat-action-row>
   </mat-expansion-panel>

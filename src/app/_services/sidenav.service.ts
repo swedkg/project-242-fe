@@ -12,6 +12,7 @@ export class SidenavService {
   private expanded = new Subject<number>();
   private activeSidenavTab = new Subject<number>();
   private openChat = new Subject<boolean>();
+  private activeThread = new Subject<number>();
 
   setSidenavOpen(boolean) {
     this.isSidenavOpen.next(boolean);
@@ -46,5 +47,13 @@ export class SidenavService {
 
   getOpenChat(): Observable<boolean> {
     return this.openChat;
+  }
+
+  setActiveThread(num) {
+    this.activeThread.next(num);
+  }
+
+  getActiveThread() {
+    return this.activeThread;
   }
 }

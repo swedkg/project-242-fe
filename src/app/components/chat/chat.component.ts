@@ -39,7 +39,7 @@ export class ChatComponent implements OnInit {
   chatRequest: object = {};
 
   constructor(
-    private sidenavService: SidenavService,
+    private SidenavService: SidenavService,
     private messageFlowService: MessageFlowService,
 
     private store: Store<fromStore.PlatformState> // public globals: Globals
@@ -68,7 +68,7 @@ export class ChatComponent implements OnInit {
   };
 
   closeChat() {
-    this.sidenavService.setOpenChat(false);
+    this.SidenavService.setOpenChat(false);
   }
 
   ngOnInit() {
@@ -93,6 +93,12 @@ export class ChatComponent implements OnInit {
         // console.log('fromStore.getSingleRequest', data);
       });
 
+    this.SidenavService.getActiveThread().subscribe(data => {
+      // this.activeThread = data;
+      // this.SidenavService.setOpenChat(true);
+      console.log('Chat activeThread', data);
+    });
+
     // this.chatRequest = this.chatRequest[0];
 
     // console.log('this.chatRequest', this.chatRequest);
@@ -103,5 +109,9 @@ export class ChatComponent implements OnInit {
         Validators.maxLength(this.messageMaxLength)
       ])
     });
+  }
+
+  ngOnDestroy() {
+    console.log('closing chat');
   }
 }

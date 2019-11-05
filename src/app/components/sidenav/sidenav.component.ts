@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SidenavService } from '../../_services/sidenav.service';
 
+import { Globals } from '../../../assets/globals';
+
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -9,6 +11,7 @@ import { SidenavService } from '../../_services/sidenav.service';
 })
 export class SidenavComponent implements OnInit {
   activeTab: number = 0;
+  user = Globals;
 
   constructor(
     private SidenavService: SidenavService // public globals: Globals

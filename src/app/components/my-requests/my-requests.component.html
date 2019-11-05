@@ -29,13 +29,13 @@
       </p>
     </div>
   </mat-expansion-panel>
-  <app-chat
+  <!-- <app-chat
     class="messages"
     [request_id]="activeThread"
     [responder_id]="responder_id"
     [chat$]="chat$"
     *ngIf="showMessages"
-  ></app-chat>
+  ></app-chat> -->
   <!-- requests.length:: {{ requests.length }} :: {{ requests.length === 0 }} -->
   <p *ngIf="myRequestsLength === 0" class="warning">
     Your don't have any requests.

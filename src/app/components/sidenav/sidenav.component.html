@@ -10,6 +10,7 @@
     <!-- <app-messaging></app-messaging>
     <app-markers-list></app-markers-list
   > -->
+    {{ user.firstName }} {{ user.lastName }} ({{ user.id }})
     <mat-tab-group
       selectedIndex="{{ activeTab }}"
       (selectedIndexChange)="indexChanged($event)"

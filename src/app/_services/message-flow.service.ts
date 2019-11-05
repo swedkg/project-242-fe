@@ -4,6 +4,10 @@ import { Observable, Subject } from 'rxjs';
 import { Globals } from '../../assets/globals';
 import { SidenavService } from '../_services/sidenav.service';
 
+import { Store } from '@ngrx/store';
+
+import * as fromStore from '../store/';
+
 const BASEURL = 'http://localhost:3000';
 const MESSAGES = '/messages';
 const FULLFILMENTS = '/fullfilments/';
@@ -14,7 +18,8 @@ const FULLFILMENTS = '/fullfilments/';
 export class MessageFlowService {
   constructor(
     private http: HttpClient,
-    private SidenavService: SidenavService
+    private SidenavService: SidenavService,
+    private store: Store<fromStore.PlatformState>
   ) {}
 
   private messageFlow = new Subject<any>();
@@ -58,11 +63,14 @@ export class MessageFlowService {
         console.log(response, response.status);
 
         if (response.status === 201) {
+          this.store.dispatch(new fromStore.LoadMessages(Globals.id));
+          this.store.dispatch(new fromStore.LoadRequests());
+
           this.SidenavService.setOpenChat(true);
           this.SidenavService.setExpandedAccordionPanel(id);
           this.SidenavService.setSidenavOpen(false);
           this.SidenavService.setMessagingSidenavOpened(true);
-          this.SidenavService.setActiveSidenavTab(0);
+          this.SidenavService.setActiveSidenavTab(1);
         } else {
           console.log('Something went wrong');
         }
