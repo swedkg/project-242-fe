@@ -25,12 +25,14 @@
         ><app-my-requests [activeTab]="activeTab"></app-my-requests
       ></mat-tab>
     </mat-tab-group>
+    <app-chat *ngIf="showMessages"></app-chat>
   </mat-sidenav>
 
   <mat-sidenav-content>
     <button
       mat-button
       class="material-icons menu-icon"
+      style="z-index: 1;"
       (click)="toggleRequestSidenav()"
     >
       <p class="material-icons">menu</p>

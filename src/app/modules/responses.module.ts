@@ -7,7 +7,7 @@ import { MyResponsesComponent } from '../components/my-responses/my-responses.co
 import { MaterialModule } from './material.module';
 
 @NgModule({
-  declarations: [ChatComponent, MyResponsesComponent, MyRequestsComponent],
+  declarations: [MyResponsesComponent, MyRequestsComponent],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
   exports: [MyResponsesComponent, MyRequestsComponent]
 })

@@ -11,6 +11,7 @@ import { Globals } from '../../../assets/globals';
 })
 export class SidenavComponent implements OnInit {
   activeTab: number = 0;
+  showMessages: boolean;
   user = Globals;
 
   constructor(
@@ -32,7 +33,12 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
-      console.log(data, this);
+      // console.log(data, this);
+    });
+
+    this.SidenavService.getOpenChat().subscribe(data => {
+      this.showMessages = data;
+      // console.log(open);
     });
   }
 }

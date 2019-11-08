@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { Globals } from '../../assets/globals';
-import { SidenavService } from '../_services/sidenav.service';
 
 import { Store } from '@ngrx/store';
 
@@ -18,15 +17,23 @@ const FULLFILMENTS = '/fullfilments/';
 export class MessageFlowService {
   constructor(
     private http: HttpClient,
-    private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>
   ) {}
 
   private messageFlow = new Subject<any>();
   private newMessageToFullfilment = new Subject<any>();
+  private responseToRequest = new Subject<number>();
 
   // TODO: some cleanup is needed, HTTP requests are being send on refresh
   // TODO: an observable is need to update the messages as we send a new one.
+
+  setResponseToRequest(bool) {
+    this.responseToRequest.next(bool);
+  }
+
+  getResponseToRequest() {
+    return this.responseToRequest;
+  }
 
   getAllResponseRequests(): Observable<any[]> {
     let url: string = BASEURL;
@@ -63,14 +70,10 @@ export class MessageFlowService {
         console.log(response, response.status);
 
         if (response.status === 201) {
-          this.store.dispatch(new fromStore.LoadMessages(Globals.id));
-          this.store.dispatch(new fromStore.LoadRequests());
+          // this.store.dispatch(new fromStore.LoadMessages(Globals.id));
+          // this.store.dispatch(new fromStore.LoadRequests());
 
-          this.SidenavService.setOpenChat(true);
-          this.SidenavService.setExpandedAccordionPanel(id);
-          this.SidenavService.setSidenavOpen(false);
-          this.SidenavService.setMessagingSidenavOpened(true);
-          this.SidenavService.setActiveSidenavTab(1);
+          this.setResponseToRequest(response.status);
         } else {
           console.log('Something went wrong');
         }

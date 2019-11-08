@@ -1,0 +1,15 @@
+app-counter {
+  // z-index: -1;
+  position: relative;
+  display: inline-flex;
+  left: 40%;
+  top: -3em;
+  .stats {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    // width: fit-content;
+    border-radius: 10px;
+  }
+}

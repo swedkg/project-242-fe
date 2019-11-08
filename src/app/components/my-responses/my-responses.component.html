@@ -14,12 +14,12 @@
       Go to messages (id: {{ request.id }})
     </button>
   </mat-expansion-panel>
-  <app-chat
+  <!-- <app-chat
     class="messages"
     [request_id]="activeThread"
     [chat$]="chat$"
     *ngIf="showMessages"
-  ></app-chat>
+  ></app-chat> -->
   <p *ngIf="myResponsesLength === 0" class="warning">
     Your don't have any messages.
   </p>

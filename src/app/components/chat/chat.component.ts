@@ -41,14 +41,15 @@ export class ChatComponent implements OnInit {
   constructor(
     private SidenavService: SidenavService,
     private messageFlowService: MessageFlowService,
-
     private store: Store<fromStore.PlatformState> // public globals: Globals
   ) {}
 
-  @Input() request_id: number;
+  // @Input() request_id: number;
+  request_id: number;
   @Input() responder_id: number;
   @Input() showMessages: boolean;
-  @Input() chat$: any;
+  // @Input() chat$: any;
+  chat$: any;
 
   sendMessage() {
     let fullfilment_id = this.chat$[0].fullfilment_id;
@@ -69,40 +70,57 @@ export class ChatComponent implements OnInit {
 
   closeChat() {
     this.SidenavService.setOpenChat(false);
+    this.showMessages = false;
   }
 
+  _getActiveChat;
+  _getActiveThread;
+  _chatRequest;
+
   ngOnInit() {
-    console.log(this);
+    console.log('chat init');
+
+    // this.request_id = this.SidenavService.thread;
 
     // this.chatMessages$ = this.store.select(
     //   fromStore.getChatMessages,
     //   this.request_id
     // );
 
-    this.chatMessages$ = this.chat$;
+    // this.SidenavService.getOpenChat().subscribe(data => {
+    //   this.showMessages = data;
+    // });
+
+    this._getActiveChat = this.SidenavService.getActiveChat().subscribe(
+      data => {
+        // this.chat$ = this.SidenavService.activeChat;
+        this.chat$ = data;
+        console.log('getActiveChat', data, this);
+      }
+    );
+
+    // this.chatMessages$ = this.chat$;
 
     // this.chatMessages$.subscribe(data => {
     //   console.log('fromStore.getChatMessages', data);
     // });
 
-    this.store
-      .select(fromStore.getSingleRequest, this.request_id)
-      .subscribe(data => {
-        this.chatRequest = data;
-        this.chatRequest = this.chatRequest[0];
-        // console.log('fromStore.getSingleRequest', data);
-      });
+    this._getActiveThread = this.SidenavService.getActiveThread().subscribe(
+      data => {
+        // this.activeThread = data;
+        // this.SidenavService.setOpenChat(true);
+        this.request_id = data;
+        this._chatRequest = this.store
+          .select(fromStore.getSingleRequest, this.request_id)
+          .subscribe(data => {
+            this.chatRequest = data;
+            this.chatRequest = this.chatRequest[0];
+            console.log('fromStore.getSingleRequest', this.request_id, data);
+          });
+        console.log('Chat activeThread', data);
+      }
+    );
 
-    this.SidenavService.getActiveThread().subscribe(data => {
-      // this.activeThread = data;
-      // this.SidenavService.setOpenChat(true);
-      console.log('Chat activeThread', data);
-    });
-
-    // this.chatRequest = this.chatRequest[0];
-
-    // console.log('this.chatRequest', this.chatRequest);
-    //
     this.newMessageForm = new FormGroup({
       messageText: new FormControl('', [
         Validators.required,
@@ -112,6 +130,9 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnDestroy() {
+    this._getActiveChat.unsubscribe();
+    this._getActiveThread.unsubscribe();
+    this._chatRequest.unsubscribe();
     console.log('closing chat');
   }
 }

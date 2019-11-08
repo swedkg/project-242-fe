@@ -19,10 +19,13 @@ export class MarkersListComponent implements OnInit {
   requests: any[] = [];
   subscription: Subscription;
 
+  request_id: number;
+
   current_user = Globals.id;
 
   respondToRequest(id) {
     // TODO: we need a POST request here
+    this.request_id = id;
     this.MessageFlowService.respondToRequest(id);
 
     // if everything goes well,
@@ -32,12 +35,13 @@ export class MarkersListComponent implements OnInit {
   goToMessages(id) {
     console.log('goTomessages', id);
     this.SidenavService.setExpandedAccordionPanel(id);
+    this.SidenavService.setActiveSidenavTab(1);
+    this.SidenavService.setActiveThread(id);
+    this.SidenavService.setOpenChat(true);
     // this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
-    this.SidenavService.setActiveSidenavTab(1);
-    this.SidenavService.setExpandedAccordionPanel(id);
-    this.SidenavService.setActiveThread(id);
-    // setTimeout(function() {}.bind(this), 100);
+    // this.SidenavService.setExpandedAccordionPanel(id);
+    setTimeout(function() {}.bind(this), 100);
   }
 
   constructor(
@@ -61,6 +65,19 @@ export class MarkersListComponent implements OnInit {
       });
   }
   ngOnInit() {
+    this.MessageFlowService.getResponseToRequest().subscribe(data => {
+      if (data === 201) {
+        this.store.dispatch(new fromStore.LoadMessages(Globals.id));
+        this.SidenavService.setActiveSidenavTab(1);
+        this.SidenavService.setActiveThread(this.request_id);
+        this.SidenavService.setExpandedAccordionPanel(this.request_id);
+        this.SidenavService.setOpenChat(true);
+        console.log('goTomessages', this.request_id);
+        setTimeout(function() {}.bind(this), 100);
+
+        console.log('getResponseToRequest', data);
+      }
+    });
     // this.store.select(fromStore.getAllRequests).subscribe(state => {
     //   console.log(state);
     // });

@@ -40,7 +40,7 @@ export class MyRequestsComponent implements OnInit {
   handleShowMessages(request_id, responder_id) {
     this.activeThread = request_id;
     this.responder_id = responder_id;
-    this.SidenavService.setActiveSidenavTab(1);
+    this.SidenavService.setActiveSidenavTab(2);
     this.SidenavService.setOpenChat(true);
     // console.log(this);
   }
@@ -48,6 +48,8 @@ export class MyRequestsComponent implements OnInit {
   ngOnInit() {
     this.SidenavService.getOpenChat().subscribe(open => {
       if (this.activeTab !== 2) return null;
+
+      if (open === false) return null;
 
       console.log('this.activeMessagingTab', this);
 

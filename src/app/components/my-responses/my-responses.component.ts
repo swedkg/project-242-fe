@@ -61,7 +61,7 @@ export class MyResponsesComponent implements OnInit {
   handleShowMessages(id) {
     // this.activeThread = id;
     this.SidenavService.setActiveThread(id);
-    // this.SidenavService.setOpenChat(true);
+    this.SidenavService.setOpenChat(true);
     console.log(this);
   }
 
@@ -80,6 +80,8 @@ export class MyResponsesComponent implements OnInit {
   };
 
   ngOnInit() {
+    console.log('open my responses');
+
     this.newMessageForm = new FormGroup({
       messageText: new FormControl('', [
         Validators.required,
@@ -88,20 +90,28 @@ export class MyResponsesComponent implements OnInit {
     });
 
     this.SidenavService.getOpenChat().subscribe(open => {
-      // if (this.activeTab !== 1) return null;
+      if (this.activeTab !== 1) return null;
 
+      if (open === false) return null;
+
+      console.log('--------------------------------------------------');
       console.log('this.activeMessagingTab', this);
 
       this.store.dispatch(new fromStore.LoadMessages(this.current_user));
-
+      this.store.dispatch(new fromStore.LoadRequests());
       this.store
         .select(fromStore.getChatMessages, this.activeThread)
         .subscribe(data => {
           this.chat$ = data;
+          console.log('____', this.chat$, this.activeThread);
+
+          this.SidenavService.setActiveChat(data);
+          this.SidenavService.setActiveThread(this.activeThread);
+          setTimeout(() => {}, 0);
         });
 
       console.log(open, this.activeThread, this.chat$);
-      this.showMessages = open;
+      // this.showMessages = open;
       console.log('--------------------------------------------------');
     });
 
@@ -120,8 +130,13 @@ export class MyResponsesComponent implements OnInit {
 
     this.SidenavService.getActiveThread().subscribe(data => {
       this.activeThread = data;
-      this.SidenavService.setOpenChat(true);
+      // this.SidenavService.setOpenChat(true);
       console.log('activeThread', data);
+    });
+
+    this.SidenavService.getActiveSidenavTab().subscribe(data => {
+      this.activeTab = data;
+      console.log('getActiveSidenavTab', this.activeTab);
     });
 
     this.messageFlowService.getNewMessage().subscribe(data => {
@@ -139,6 +154,10 @@ export class MyResponsesComponent implements OnInit {
         filteredResponses[0].messages
       );
     });
+  }
+
+  ngOnDestroy() {
+    console.log('closing my responses');
   }
 }
 

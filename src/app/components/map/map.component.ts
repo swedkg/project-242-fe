@@ -97,7 +97,7 @@ export class MapComponent implements OnInit {
   respondToRequest(id) {
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setSidenavOpen(false);
-    this.SidenavService.setMessagingSidenavOpened(true);
+    // this.SidenavService.setMessagingSidenavOpened(true);
     this.SidenavService.setActiveSidenavTab(0);
   }
 
@@ -105,7 +105,7 @@ export class MapComponent implements OnInit {
     // let self = this;
     this.store.dispatch(new fromStore.LoadRequests());
     this.store.select(fromStore.getAllRequests).subscribe(data => {
-      // console.log(data);
+      console.log(data);
       this.markers = data;
 
       if (!!navigator.geolocation) {
