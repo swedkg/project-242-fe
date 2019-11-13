@@ -1,6 +1,10 @@
 <mat-accordion class="accordion">
-  <mat-expansion-panel *ngFor="let request of requests$ | async">
+  <mat-expansion-panel
+    *ngFor="let request of requests$ | async"
+    [expanded]="expandedPanel === request.id"
+  >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
+      <!-- <pre>{{ request | json }}</pre> -->
       <span class="title">{{ request.title }}</span>
       <span class="request-type">
         <span
@@ -25,6 +29,9 @@
           (click)="handleShowMessages(request.id, responder.id)"
         >
           Go to messages (req_id: {{ request.id }}, res_id: {{ responder.id }})
+        </button>
+        <button mat-button>
+          Remove
         </button>
       </p>
     </div>

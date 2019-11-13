@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +10,9 @@ export class SidenavService {
   private isSidenavOpen = new Subject<boolean>();
   private messagingSidenavOpened = new Subject<boolean>();
   private expanded = new Subject<number>();
-  private activeSidenavTab = new Subject<number>();
-  private openChat = new Subject<boolean>();
-  private activeThread = new Subject<number>();
+  private activeSidenavTab = new ReplaySubject<number>(1);
+  private openChat = new ReplaySubject<boolean>(1);
+  private activeThread = new ReplaySubject<number>(1);
   private chat = new Subject<any>();
 
   public thread: number;

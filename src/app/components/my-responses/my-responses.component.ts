@@ -4,29 +4,29 @@ import {
   OnInit,
   Input,
   ViewEncapsulation
-} from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { Globals } from '../../../assets/globals';
-import { Message } from '../../models/message.model';
-import * as fromStore from '../../store';
-import { MessageFlowService } from '../../_services/message-flow.service';
-import { SidenavService } from '../../_services/sidenav.service';
+} from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable, Subscription } from "rxjs";
+import { Globals } from "../../../assets/globals";
+import { Message } from "../../models/message.model";
+import * as fromStore from "../../store";
+import { MessageFlowService } from "../../_services/message-flow.service";
+import { SidenavService } from "../../_services/sidenav.service";
 
 import {
   FormControl,
   FormGroup,
   Validators,
   AbstractControl
-} from '@angular/forms';
-import { isNgTemplate } from '@angular/compiler';
-import { AidRequest } from '../../models/aidRequest.model';
+} from "@angular/forms";
+import { isNgTemplate } from "@angular/compiler";
+import { AidRequest } from "../../models/aidRequest.model";
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'app-my-responses',
-  templateUrl: './my-responses.component.html',
-  styleUrls: ['./my-responses.component.scss'],
+  selector: "app-my-responses",
+  templateUrl: "./my-responses.component.html",
+  styleUrls: ["./my-responses.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
 export class MyResponsesComponent implements OnInit {
@@ -50,7 +50,6 @@ export class MyResponsesComponent implements OnInit {
   activeThread: Number;
   chat$: object;
   public newMessageForm: FormGroup;
-  activeMessagingTab: number;
   constructor(
     private cdr: ChangeDetectorRef,
     private SidenavService: SidenavService,
@@ -80,44 +79,52 @@ export class MyResponsesComponent implements OnInit {
   };
 
   ngOnInit() {
-    console.log('open my responses');
+    console.log("open my responses");
 
     this.newMessageForm = new FormGroup({
-      messageText: new FormControl('', [
+      messageText: new FormControl("", [
         Validators.required,
         Validators.maxLength(this.messageMaxLength)
       ])
     });
 
+    let _getChatMessages;
+
     this.SidenavService.getOpenChat().subscribe(open => {
+      console.log("1");
+
       if (this.activeTab !== 1) return null;
+      console.log("2");
 
-      if (open === false) return null;
+      if (open === true) {
+        console.log("3");
 
-      console.log('--------------------------------------------------');
-      console.log('this.activeMessagingTab', this);
+        this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+        // this.store.dispatch(new fromStore.LoadRequests());
+        _getChatMessages = this.store
+          .select(fromStore.getChatMessages, this.activeThread)
+          .subscribe(data => {
+            this.chat$ = data;
+            console.log("____", this.chat$, this.activeThread);
 
-      this.store.dispatch(new fromStore.LoadMessages(this.current_user));
-      this.store.dispatch(new fromStore.LoadRequests());
-      this.store
-        .select(fromStore.getChatMessages, this.activeThread)
-        .subscribe(data => {
-          this.chat$ = data;
-          console.log('____', this.chat$, this.activeThread);
+            this.SidenavService.setActiveChat(data);
+            // this.SidenavService.setActiveThread(this.activeThread);
+            setTimeout(() => {}, 0);
+          });
 
-          this.SidenavService.setActiveChat(data);
-          this.SidenavService.setActiveThread(this.activeThread);
-          setTimeout(() => {}, 0);
-        });
+        console.log(open, this.activeThread, this.chat$);
+      } else {
+        _getChatMessages.unsubscribe();
+        console.log(open, this.activeThread, this.chat$);
+        return null;
+      }
 
-      console.log(open, this.activeThread, this.chat$);
       // this.showMessages = open;
-      console.log('--------------------------------------------------');
     });
 
     this.myResponses$ = this.store.select(fromStore.getUserResponses);
 
-    console.log('--------------------', this.myResponses$);
+    console.log("--------------------", this.myResponses$);
 
     this.myResponses$.subscribe(data => {
       this.myResponsesLength = data.length;
@@ -130,13 +137,12 @@ export class MyResponsesComponent implements OnInit {
 
     this.SidenavService.getActiveThread().subscribe(data => {
       this.activeThread = data;
-      // this.SidenavService.setOpenChat(true);
-      console.log('activeThread', data);
+      // console.log('activeThread', data);
     });
 
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
-      console.log('getActiveSidenavTab', this.activeTab);
+      // console.log('getActiveSidenavTab', this.activeTab);
     });
 
     this.messageFlowService.getNewMessage().subscribe(data => {
@@ -147,7 +153,7 @@ export class MyResponsesComponent implements OnInit {
       // filteredResponses[0].messages.push(data.newMessage);
       this.myResponsesList[0].messages.concat([data.newMessage]);
       console.log(
-        'getNewMessage',
+        "getNewMessage",
         this,
         data,
         this.myResponsesList,
@@ -157,7 +163,7 @@ export class MyResponsesComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log('closing my responses');
+    console.log("closing my responses");
   }
 }
 

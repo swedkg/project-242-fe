@@ -1,20 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { HelpRequestsService } from '../../_services/help-requests.service';
+import { Component, OnInit, Input } from "@angular/core";
+import { HelpRequestsService } from "../../_services/help-requests.service";
 
-import { Message } from '../../models/message.model';
+import { Message } from "../../models/message.model";
 
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import * as fromStore from '../../store';
+import { Store } from "@ngrx/store";
+import { Observable, Subscription } from "rxjs";
+import * as fromStore from "../../store";
 
-import { Globals } from '../../../assets/globals';
-import { AidRequest } from '../../models/aidRequest.model';
-import { SidenavService } from '../../_services/sidenav.service';
+import { Globals } from "../../../assets/globals";
+import { AidRequest } from "../../models/aidRequest.model";
+import { SidenavService } from "../../_services/sidenav.service";
 
 @Component({
-  selector: 'app-my-requests',
-  templateUrl: './my-requests.component.html',
-  styleUrls: ['./my-requests.component.scss']
+  selector: "app-my-requests",
+  templateUrl: "./my-requests.component.html",
+  styleUrls: ["./my-requests.component.scss"]
 })
 export class MyRequestsComponent implements OnInit {
   @Input() activeTab: number;
@@ -30,6 +30,7 @@ export class MyRequestsComponent implements OnInit {
   showMessages: boolean;
   chat$: object;
   responder_id: number;
+  expandedPanel: number;
 
   constructor(
     private store: Store<fromStore.PlatformState>, // public globals: Globals
@@ -40,40 +41,72 @@ export class MyRequestsComponent implements OnInit {
   handleShowMessages(request_id, responder_id) {
     this.activeThread = request_id;
     this.responder_id = responder_id;
-    this.SidenavService.setActiveSidenavTab(2);
+    // this.SidenavService.setActiveSidenavTab(2);
+    this.SidenavService.setActiveThread(request_id);
     this.SidenavService.setOpenChat(true);
-    // console.log(this);
+    console.log(this);
   }
 
   ngOnInit() {
+    let _getChatForResponder;
+
     this.SidenavService.getOpenChat().subscribe(open => {
+      console.log("1");
+
       if (this.activeTab !== 2) return null;
+      console.log("2");
 
-      if (open === false) return null;
+      if (open === true) {
+        this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+        // this.store.dispatch(new fromStore.LoadRequests());
 
-      console.log('this.activeMessagingTab', this);
+        _getChatForResponder = this.store
+          .select(fromStore.getChatForResponder, {
+            request_id: this.activeThread,
+            responder_id: this.responder_id
+          })
+          .subscribe(data => {
+            this.chat$ = data;
+            this.SidenavService.setActiveChat(data);
+            console.log(
+              "____",
+              this.chat$,
+              this.activeThread,
+              this.responder_id
+            );
 
-      this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+            // this.SidenavService.setActiveThread(this.activeThread);
+          });
 
-      this.store
-        .select(fromStore.getChatForResponder, {
-          request_id: this.activeThread,
-          responder_id: this.responder_id
-        })
-        .subscribe(data => {
-          this.chat$ = data;
-        });
-
-      console.log(open, this, this.chat$);
-      this.showMessages = open;
-      console.log('--------------------------------------------------');
+        // console.log(open, this, this.chat$);
+        this.showMessages = open;
+        // console.log('-----------', this);
+      } else {
+        _getChatForResponder.unsubscribe();
+        return null;
+      }
+      console.log("3");
     });
 
     this.requests$ = this.store.select(fromStore.getUserRequests);
 
     this.requests$.subscribe(data => {
       this.myRequestsLength = data.length;
-      console.log('fromStore.getUserRequests', data);
+      console.log("fromStore.getUserRequests", data);
+    });
+
+    this.SidenavService.getExpandedAccordionPanel().subscribe(
+      data => (this.expandedPanel = data)
+    );
+
+    this.SidenavService.getActiveThread().subscribe(data => {
+      this.activeThread = data;
+      // console.log('activeThread', data);
+    });
+
+    this.SidenavService.getActiveSidenavTab().subscribe(data => {
+      this.activeTab = data;
+      // console.log('getActiveSidenavTab', this.activeTab);
     });
 
     // this.store
@@ -98,5 +131,9 @@ export class MyRequestsComponent implements OnInit {
     // });
 
     // this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
+  }
+
+  ngOnDestroy() {
+    console.log("we are out");
   }
 }

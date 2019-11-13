@@ -50,14 +50,18 @@ export class ChatComponent implements OnInit {
   @Input() showMessages: boolean;
   // @Input() chat$: any;
   chat$: any;
+  activeTab: number;
 
   sendMessage() {
     let fullfilment_id = this.chat$[0].fullfilment_id;
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
     this.newMessage.fullfilment_id = fullfilment_id;
     this.newMessage.sender_id = Globals.id;
-    this.newMessage.receiver_id = this.responder_id;
-    console.log(this.newMessage);
+    this.newMessage.receiver_id =
+      this.activeTab === 1
+        ? this.chatRequest.owner_id
+        : this.chat$[0].users.sender.id;
+    console.log(this.newMessage, this.chatRequest);
 
     // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
     // this.messageFlowService.sendMessage(this.newMessage);
@@ -76,6 +80,7 @@ export class ChatComponent implements OnInit {
   _getActiveChat;
   _getActiveThread;
   _chatRequest;
+  _getActiveSidenavTab;
 
   ngOnInit() {
     console.log('chat init');
@@ -95,7 +100,7 @@ export class ChatComponent implements OnInit {
       data => {
         // this.chat$ = this.SidenavService.activeChat;
         this.chat$ = data;
-        console.log('getActiveChat', data, this);
+        console.log('getActiveChat', data);
       }
     );
 
@@ -113,11 +118,22 @@ export class ChatComponent implements OnInit {
         this._chatRequest = this.store
           .select(fromStore.getSingleRequest, this.request_id)
           .subscribe(data => {
-            this.chatRequest = data;
-            this.chatRequest = this.chatRequest[0];
-            console.log('fromStore.getSingleRequest', this.request_id, data);
+            // this.chatRequest = data;
+            this.chatRequest = data[0];
+            console.log(
+              'fromStore.getSingleRequest',
+              this.request_id,
+              this.chatRequest
+            );
           });
         console.log('Chat activeThread', data);
+      }
+    );
+
+    this._getActiveSidenavTab = this.SidenavService.getActiveSidenavTab().subscribe(
+      data => {
+        this.activeTab = data;
+        console.log('getActiveSidenavTab', this.activeTab);
       }
     );
 
@@ -133,6 +149,8 @@ export class ChatComponent implements OnInit {
     this._getActiveChat.unsubscribe();
     this._getActiveThread.unsubscribe();
     this._chatRequest.unsubscribe();
+    this._getActiveSidenavTab.unsubscribe();
+    console.clear();
     console.log('closing chat');
   }
 }

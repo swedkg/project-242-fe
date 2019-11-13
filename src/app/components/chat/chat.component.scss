@@ -1,16 +1,13 @@
 .messages {
-  position: relative;
+  position: absolute;
   z-index: 100;
   background: white;
-  /* left: 0; */
-  /* top: 0px; */
   padding: 1rem 2rem;
-  /* bottom: 0; */
-  /* right: 0; */
-  /* bottom: 0; */
-  /* margin-bottom: -3em; */
-  margin-top: -3em;
+  top: 5em;
   box-shadow: 0px 0px 10px -4px darkgrey;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .request-message {
