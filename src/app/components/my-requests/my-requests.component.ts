@@ -11,6 +11,8 @@ import { Globals } from "../../../assets/globals";
 import { AidRequest } from "../../models/aidRequest.model";
 import { SidenavService } from "../../_services/sidenav.service";
 
+import { MessageFlowService } from "../../_services/message-flow.service";
+
 @Component({
   selector: "app-my-requests",
   templateUrl: "./my-requests.component.html",
@@ -31,11 +33,13 @@ export class MyRequestsComponent implements OnInit {
   chat$: object;
   responder_id: number;
   expandedPanel: number;
+  openPanel: number;
 
   constructor(
     private store: Store<fromStore.PlatformState>, // public globals: Globals
     private SidenavService: SidenavService,
-    private helpRequestsService: HelpRequestsService
+    private helpRequestsService: HelpRequestsService,
+    private MessageFlowService: MessageFlowService
   ) {}
 
   handleShowMessages(request_id, responder_id) {
@@ -45,6 +49,16 @@ export class MyRequestsComponent implements OnInit {
     this.SidenavService.setActiveThread(request_id);
     this.SidenavService.setOpenChat(true);
     console.log(this);
+  }
+
+  handleRemoveResponder(fullfilment) {
+    // we need the fullfilment id here
+    this.MessageFlowService.removeResponder(fullfilment);
+  }
+
+  setStep(id) {
+    this.openPanel = id;
+    console.log(id);
   }
 
   ngOnInit() {
@@ -107,6 +121,14 @@ export class MyRequestsComponent implements OnInit {
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
       // console.log('getActiveSidenavTab', this.activeTab);
+    });
+
+    this.MessageFlowService.getRemovedResponder().subscribe(data => {
+      console.log(data, this);
+      this.store.dispatch(new fromStore.LoadRequests());
+      setTimeout(() => {
+        this.expandedPanel = this.openPanel;
+      }, 0);
     });
 
     // this.store

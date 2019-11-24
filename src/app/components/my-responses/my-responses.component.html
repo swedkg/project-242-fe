@@ -4,15 +4,33 @@
     [expanded]="expandedPanel === request.id"
   >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
-      <span class="title">{{ request.title }}</span>
+      <span class="request-details">
+        <span class="title">
+          <span
+            class="material-icons marker sidepanel red"
+            matTooltip="One-time request"
+            *ngIf="request.isOneTime"
+            >pin_drop</span
+          >
+          <span
+            class="material-icons marker sidepanel green"
+            matTooltip="Material need"
+            *ngIf="!request.isOneTime"
+            >pin_drop</span
+          >{{ request.title }}</span
+        >
+        <span class="address">{{ request.address }}</span>
+      </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <p>
       {{ request.desc }}
     </p>
-    <button mat-button (click)="handleShowMessages(request.id)">
-      Go to messages (id: {{ request.id }})
-    </button>
+    <div class="button-holder">
+      <button mat-button (click)="handleShowMessages(request.id)">
+        Go to messages
+      </button>
+    </div>
   </mat-expansion-panel>
   <!-- <app-chat
     class="messages"
@@ -24,3 +42,4 @@
     Your don't have any messages.
   </p>
 </mat-accordion>
+<!-- Go to messages (id: {{ request.id }}) -->

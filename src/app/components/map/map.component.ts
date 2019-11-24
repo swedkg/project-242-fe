@@ -1,4 +1,4 @@
-import { AgmMap } from '@agm/core';
+import { AgmMap } from "@agm/core";
 import {
   Component,
   NgModule,
@@ -6,22 +6,24 @@ import {
   ViewChild,
   HostListener,
   ViewEncapsulation
-} from '@angular/core';
-import { HelpRequestsService } from '../../_services/help-requests.service';
-import { SidenavService } from '../../_services/sidenav.service';
+} from "@angular/core";
+import { HelpRequestsService } from "../../_services/help-requests.service";
+import { SidenavService } from "../../_services/sidenav.service";
 
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import * as fromStore from '../../store';
-import { Globals } from '../../../assets/globals';
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
+import * as fromStore from "../../store";
+import { Globals } from "../../../assets/globals";
+
+import { mapStyle } from "./mapStyle";
 
 @NgModule({
   providers: [HelpRequestsService, SidenavService]
 })
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
+  selector: "app-map",
+  templateUrl: "./map.component.html",
+  styleUrls: ["./map.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
 export class MapComponent implements OnInit {
@@ -32,13 +34,14 @@ export class MapComponent implements OnInit {
   ) {}
 
   public markers; //: {} = [];
+  public mapStyle = mapStyle;
 
   current_user = Globals.id;
 
   @ViewChild(AgmMap)
   public agmMap: AgmMap;
 
-  @HostListener('window:resize')
+  @HostListener("window:resize")
   onWindowResize() {
     // console.log('resize');
     // console.log(this);
@@ -80,7 +83,7 @@ export class MapComponent implements OnInit {
   }
 
   addMarker(event) {
-    console.log('another marker added', event);
+    console.log("another marker added", event);
   }
 
   addUserLocation(position) {
@@ -89,7 +92,7 @@ export class MapComponent implements OnInit {
     this.markers.push({
       lat: coords.latitude,
       lng: coords.longitude,
-      title: 'You are here',
+      title: "You are here",
       isUser: true
     });
   }

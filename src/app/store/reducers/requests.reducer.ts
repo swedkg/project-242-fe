@@ -1,5 +1,5 @@
-import * as fromRequests from '../actions/requests.action';
-import { AidRequest } from '../../models/aidRequest.model';
+import * as fromRequests from "../actions/requests.action";
+import { AidRequest } from "../../models/aidRequest.model";
 
 // a slice of state that our reducer will manage in out entire state tree
 export interface RequestState {
@@ -72,7 +72,16 @@ export function reducer(
         entities
       };
     }
+
+    case fromRequests.CREATE_REQUEST_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false
+      };
+    }
   }
+
   return state;
 }
 

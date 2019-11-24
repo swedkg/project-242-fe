@@ -1,22 +1,27 @@
 <mat-accordion class="accordion">
   <mat-expansion-panel *ngFor="let request of requests">
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
-      <span class="title">{{ request.title }}</span>
-      <span class="request-type">
-        <span
-          class="material-icons marker sidepanel"
-          [ngClass]="{
-            red: request.isOneTime === true,
-            green: request.isOneTime === false
-          }"
-          >pin_drop</span
-        ><span *ngIf="request.isOneTime">One time</span>
-        <span *ngIf="!request.isOneTime">Material need</span>
+      <span class="request-details">
+        <span class="title">
+          <span
+            class="material-icons marker sidepanel red"
+            matTooltip="One-time request"
+            *ngIf="request.isOneTime"
+            >pin_drop</span
+          >
+          <span
+            class="material-icons marker sidepanel green"
+            matTooltip="Material need"
+            *ngIf="!request.isOneTime"
+            >pin_drop</span
+          >{{ request.title }}</span
+        >
+        <span class="address">{{ request.address }}</span>
       </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <span class="description">{{ request.desc }}</span>
-    <pre>{{ request.responders?.details | json }}</pre>
+    <!-- <pre>{{ request | json }}</pre> -->
     <mat-action-row>
       <button
         mat-button
@@ -32,19 +37,21 @@
       <button
         mat-button
         (click)="goToMessages(request.id)"
+        matTooltip="You have previously responded to this request for help. Click here to check if you have any messages"
         *ngIf="
           request.responders && request.responders.ids.includes(current_user)
         "
       >
-        Go to messages ({{ request.owner_id }}, {{ current_user }}) !!
+        Check my responses
       </button>
       <button
         mat-button
         (click)="goToMessagesInMyRequests(request.id)"
         *ngIf="request.owner_id === current_user"
+        matTooltip="You have posted some requests for help. Click here to message your responders"
         [disabled]="request.responders.ids.length == 0"
       >
-        Go to messages (my requests)!!
+        Check my requests
       </button>
     </mat-action-row>
   </mat-expansion-panel>
@@ -53,6 +60,8 @@
     There are currently no aid requests inside the visible area of the map.
   </p>
 </mat-accordion>
+
+<!-- Go to messages ({{ request.owner_id }}, {{ current_user }}) !! -->
 
 <!-- 
 *ngIf="

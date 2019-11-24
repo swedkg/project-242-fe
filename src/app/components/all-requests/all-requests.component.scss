@@ -18,16 +18,29 @@ span.material-icons.marker.sidepanel {
   margin-right: 8px;
 }
 .title {
-  max-width: 300px;
-  margin-right: 16px;
+  // max-width: 300px;
+  /* margin-right: 16px; */
   font-family: roboto-medium;
+  font-size: 1.15em;
+  display: flex;
+  flex-flow: row;
+  align-items: end;
+  margin-bottom: 0.5em;
+  color: hsl(0, 0%, 5%);
+}
+
+.request-details {
+  color: hsl(0, 0%, 66%);
+  display: flex;
+  flex-flow: column;
 }
 
 .request-type {
-  color: hsl(0, 0%, 66%);
+  color: grey;
 }
+
 .description {
-  max-width: 300px;
+  // max-width: 300px;
   display: inline-block;
   margin-top: 16px;
 }

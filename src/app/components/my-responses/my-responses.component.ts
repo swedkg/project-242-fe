@@ -99,13 +99,19 @@ export class MyResponsesComponent implements OnInit {
       if (open === true) {
         console.log("3");
 
-        this.store.dispatch(new fromStore.LoadMessages(this.current_user));
-        // this.store.dispatch(new fromStore.LoadRequests());
+        this.chat$ = {};
+
+        setTimeout(() => {
+          this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+        }, 500);
+
+        // this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+
         _getChatMessages = this.store
           .select(fromStore.getChatMessages, this.activeThread)
           .subscribe(data => {
             this.chat$ = data;
-            console.log("____", this.chat$, this.activeThread);
+            console.log("____", this.chat$, data);
 
             this.SidenavService.setActiveChat(data);
             // this.SidenavService.setActiveThread(this.activeThread);
@@ -123,8 +129,6 @@ export class MyResponsesComponent implements OnInit {
     });
 
     this.myResponses$ = this.store.select(fromStore.getUserResponses);
-
-    console.log("--------------------", this.myResponses$);
 
     this.myResponses$.subscribe(data => {
       this.myResponsesLength = data.length;

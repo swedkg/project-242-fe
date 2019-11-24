@@ -1,39 +1,62 @@
 <mat-accordion class="accordion">
   <mat-expansion-panel
     *ngFor="let request of requests$ | async"
+    (opened)="setStep(request.id)"
     [expanded]="expandedPanel === request.id"
   >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <!-- <pre>{{ request | json }}</pre> -->
-      <span class="title">{{ request.title }}</span>
-      <span class="request-type">
-        <span
-          class="material-icons marker sidepanel"
-          [ngClass]="{
-            red: request.isOneTime === true,
-            green: request.isOneTime === false
-          }"
-          >pin_drop</span
-        ><span *ngIf="request.isOneTime">One time</span>
-        <span *ngIf="!request.isOneTime">Material need</span>
+      <span class="request-details">
+        <span class="title">
+          <span
+            class="material-icons marker sidepanel red"
+            matTooltip="One-time request"
+            *ngIf="request.isOneTime"
+            >pin_drop</span
+          >
+          <span
+            class="material-icons marker sidepanel green"
+            matTooltip="Material need"
+            *ngIf="!request.isOneTime"
+            >pin_drop</span
+          >{{ request.title }}</span
+        >
+        <span class="address">{{ request.address }}</span>
       </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
     <span class="description">{{ request.desc }}</span>
     <!-- <pre>{{ request | json }}</pre> -->
     <div class="responders-list">
-      <p *ngFor="let responder of request.responders.details">
-        <span>{{ responder.firstName }} {{ responder.lastName }}</span>
-        <button
-          mat-button
-          (click)="handleShowMessages(request.id, responder.id)"
-        >
-          Go to messages (req_id: {{ request.id }}, res_id: {{ responder.id }})
-        </button>
-        <button mat-button>
-          Remove
-        </button>
-      </p>
+      <div
+        *ngFor="let responder of request.responders.details"
+        class="responder"
+      >
+        <div class="responder" *ngIf="responder.fullfilment.status">
+          <p class="responder-name">
+            <span
+              matTooltip="{{ responder.firstName }} {{
+                responder.lastName
+              }} has responded to your request"
+              >{{ responder.firstName }} {{ responder.lastName }}
+            </span>
+            <span
+              class="material-icons remove-responder"
+              matTooltip="Remove {{ responder.firstName }} {{
+                responder.lastName
+              }} from responders"
+              (click)="handleRemoveResponder(responder.fullfilment)"
+              >close</span
+            >
+          </p>
+          <button
+            mat-button
+            (click)="handleShowMessages(request.id, responder.id)"
+          >
+            Go to messages
+          </button>
+        </div>
+      </div>
     </div>
   </mat-expansion-panel>
   <!-- <app-chat
@@ -48,3 +71,5 @@
     Your don't have any requests.
   </p>
 </mat-accordion>
+
+<!-- Go to messages (req_id: {{ request.id }}, res_id: {{ responder.id }}) -->

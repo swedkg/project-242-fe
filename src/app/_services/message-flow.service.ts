@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
-import { Globals } from '../../assets/globals';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, Subject } from "rxjs";
+import { Globals } from "../../assets/globals";
 
-import { Store } from '@ngrx/store';
+import { Store } from "@ngrx/store";
 
-import * as fromStore from '../store/';
+import * as fromStore from "../store/";
 
-const BASEURL = 'http://localhost:3000';
-const MESSAGES = '/messages';
-const FULLFILMENTS = '/fullfilments/';
+import { catchError } from "rxjs/operators";
+
+const BASEURL = "http://localhost:3000";
+const MESSAGES = "/messages";
+const FULLFILMENTS = "/fullfilments/";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class MessageFlowService {
   constructor(
@@ -23,6 +25,7 @@ export class MessageFlowService {
   private messageFlow = new Subject<any>();
   private newMessageToFullfilment = new Subject<any>();
   private responseToRequest = new Subject<number>();
+  private removedResponder = new Subject<number>();
 
   // TODO: some cleanup is needed, HTTP requests are being send on refresh
   // TODO: an observable is need to update the messages as we send a new one.
@@ -41,18 +44,47 @@ export class MessageFlowService {
   }
 
   getUserMessages(id: number): Observable<any[]> {
-    let url: string = BASEURL + MESSAGES + '?user_id=' + id;
+    let url: string = BASEURL + MESSAGES + "?user_id=" + id;
     console.log(url);
 
     return this.http.get<any[]>(url);
   }
   getUserRequests(id: number): Observable<any[]> {
     let url: string =
-      BASEURL + MESSAGES + '?requester_id=' + id + '&user_id_ne=' + id;
+      BASEURL + MESSAGES + "?requester_id=" + id + "&user_id_ne=" + id;
     // ?requester_id=3&user_id_ne=3
     console.log(url);
 
     return this.http.get<any[]>(url);
+  }
+
+  setRemovedResponder(bool) {
+    this.removedResponder.next(bool);
+  }
+
+  getRemovedResponder() {
+    return this.removedResponder;
+  }
+
+  removeResponder(fullfilment) {
+    console.log("fullfilment:", fullfilment);
+
+    let url = BASEURL + FULLFILMENTS + "/" + fullfilment.id;
+    let body = {
+      status: false
+    };
+
+    return this.http
+      .patch(url, body, { observe: "response" })
+      .subscribe(response => {
+        if (response.status === 200) {
+          this.setRemovedResponder(true);
+          // this.store.dispatch(new fromStore.LoadRequests());
+        } else {
+          console.log("Something went wrong");
+        }
+        // console.log(response);
+      });
   }
 
   respondToRequest(id: number) {
@@ -65,17 +97,14 @@ export class MessageFlowService {
     };
 
     return this.http
-      .post(BASEURL + FULLFILMENTS, fullfilment, { observe: 'response' })
+      .post(BASEURL + FULLFILMENTS, fullfilment, { observe: "response" })
       .subscribe(response => {
         console.log(response, response.status);
 
         if (response.status === 201) {
-          // this.store.dispatch(new fromStore.LoadMessages(Globals.id));
-          // this.store.dispatch(new fromStore.LoadRequests());
-
           this.setResponseToRequest(response.status);
         } else {
-          console.log('Something went wrong');
+          console.log("Something went wrong");
         }
         return response.status;
       });
@@ -87,15 +116,23 @@ export class MessageFlowService {
     console.log(newMessage);
 
     return this.http
-      .post(url, newMessage, { observe: 'response' })
+      .post(url, newMessage, { observe: "response" })
       .subscribe(response => {
         if (response.status === 201) {
           this.newMessageToFullfilment.next({ newMessage });
         } else {
-          console.log('Something went wrong');
+          console.log("Something went wrong");
         }
         console.log(response, response.status);
       });
+  }
+
+  createMessage(message): Observable<any> {
+    let url = BASEURL + MESSAGES;
+    console.log(message);
+    return this.http
+      .post<any>(url, message, { observe: "response" })
+      .pipe(catchError((error: any) => Observable.throw(console.log(error))));
   }
 
   getNewMessage(): Observable<any> {

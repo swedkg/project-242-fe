@@ -7,16 +7,13 @@
     >
       <p class="material-icons">close</p>
     </button>
-    <!-- <app-messaging></app-messaging>
-    <app-markers-list></app-markers-list
-  > -->
     {{ user.firstName }} {{ user.lastName }} ({{ user.id }})
     <mat-tab-group
       selectedIndex="{{ activeTab }}"
       (selectedIndexChange)="indexChanged($event)"
     >
       <mat-tab label="All requests">
-        <app-markers-list></app-markers-list
+        <app-all-requests></app-all-requests
       ></mat-tab>
       <mat-tab label="My resposnes"
         ><app-my-responses [activeTab]="activeTab"></app-my-responses

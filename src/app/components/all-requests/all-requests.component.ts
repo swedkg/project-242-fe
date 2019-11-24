@@ -1,20 +1,20 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
-import { Globals } from '../../../assets/globals';
-import { AidRequest } from '../../models/aidRequest.model';
-import * as fromStore from '../../store';
-import { HelpRequestsService } from '../../_services/help-requests.service';
-import { MessageFlowService } from '../../_services/message-flow.service';
-import { SidenavService } from '../../_services/sidenav.service';
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable, Subscription } from "rxjs";
+import { Globals } from "../../../assets/globals";
+import { AidRequest } from "../../models/aidRequest.model";
+import * as fromStore from "../../store";
+import { HelpRequestsService } from "../../_services/help-requests.service";
+import { MessageFlowService } from "../../_services/message-flow.service";
+import { SidenavService } from "../../_services/sidenav.service";
 
 @Component({
-  selector: 'app-markers-list',
-  templateUrl: './markers-list.component.html',
-  styleUrls: ['./markers-list.component.scss'],
+  selector: "app-all-requests",
+  templateUrl: "./all-requests.component.html",
+  styleUrls: ["./all-requests.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
-export class MarkersListComponent implements OnInit {
+export class AllRequestsComponent implements OnInit {
   requests$: Observable<AidRequest[]>;
   requests: any[] = [];
   subscription: Subscription;
@@ -33,7 +33,7 @@ export class MarkersListComponent implements OnInit {
   }
 
   goToMessages(id) {
-    console.log('goTomessages', id);
+    console.log("goTomessages", id);
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setActiveSidenavTab(1);
     this.SidenavService.setActiveThread(id);
@@ -45,7 +45,7 @@ export class MarkersListComponent implements OnInit {
   }
 
   goToMessagesInMyRequests(id) {
-    console.log('goTomessages', id);
+    console.log("goTomessages", id);
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setActiveSidenavTab(2);
     this.SidenavService.setActiveThread(id);
@@ -61,7 +61,8 @@ export class MarkersListComponent implements OnInit {
     private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService,
     private MessageFlowService: MessageFlowService
-  ) {
+  ) {}
+  ngOnInit() {
     this.subscription = this.helpRequestsService
       .getInboundRequestsList()
       .subscribe(message => {
@@ -75,8 +76,7 @@ export class MarkersListComponent implements OnInit {
           this.requests = [];
         }
       });
-  }
-  ngOnInit() {
+
     this.MessageFlowService.getResponseToRequest().subscribe(data => {
       if (data === 201) {
         this.store.dispatch(new fromStore.LoadMessages(Globals.id));
@@ -84,10 +84,10 @@ export class MarkersListComponent implements OnInit {
         this.SidenavService.setActiveThread(this.request_id);
         this.SidenavService.setExpandedAccordionPanel(this.request_id);
         this.SidenavService.setOpenChat(true);
-        console.log('goTomessages', this.request_id);
+        console.log("goTomessages", this.request_id);
         setTimeout(function() {}.bind(this), 100);
 
-        console.log('getResponseToRequest', data);
+        console.log("getResponseToRequest", data);
       }
     });
     // this.store.select(fromStore.getAllRequests).subscribe(state => {

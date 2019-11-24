@@ -1,34 +1,34 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable, Subject } from "rxjs";
 
-import { AidRequest } from '../models/aidRequest.model';
-import { catchError } from 'rxjs/operators';
+import { AidRequest } from "../models/aidRequest.model";
+import { catchError } from "rxjs/operators";
 
-import 'rxjs/add/observable/throw';
+import "rxjs/add/observable/throw";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class HelpRequestsService {
   constructor(private http: HttpClient) {}
 
   private requestsList = new Subject<any>();
   private inboundRequestsList = new Subject<any>();
-  private newRequesst = new Subject<any>();
+  // private newRequesst = new Subject<any>();
 
   addNewRequest(request) {
-    let url: string = 'http://localhost:3000/requests';
+    let url: string = "http://localhost:3000/requests";
 
     console.log(request);
 
-    return this.http.post(url, request, { observe: 'response' }).subscribe(
+    return this.http.post(url, request, { observe: "response" }).subscribe(
       response => {
         console.log(response, response.status);
         if (response.status === 201) {
-          this.newRequesst.next({ request });
+          // this.newRequesst.next({ request });
         } else {
-          console.log('Something went wrong');
+          console.log("Something went wrong");
         }
         return response;
       },
@@ -39,9 +39,9 @@ export class HelpRequestsService {
     // .pipe(catchError((error: any) => Observable.throw(console.log(error))));
   }
 
-  getNewRequest(): Observable<any> {
-    return this.newRequesst.asObservable();
-  }
+  // getNewRequest(): Observable<any> {
+  //   return this.newRequesst.asObservable();
+  // }
 
   // ---------------------------------- //
 
@@ -66,14 +66,14 @@ export class HelpRequestsService {
   // ---------------------------------- //
 
   createRequest(request): Observable<any> {
-    let url: string = 'http://localhost:3000/requests';
+    let url: string = "http://localhost:3000/requests";
     return this.http
-      .post<any>(url, request, { observe: 'response' })
+      .post<any>(url, request, { observe: "response" })
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
   }
 
   getAllRequests(): Observable<any[]> {
-    let url: string = 'http://localhost:3000/requests';
+    let url: string = "http://localhost:3000/requests";
     return this.http
       .get<AidRequest[]>(url)
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));

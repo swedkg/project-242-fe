@@ -1,10 +1,22 @@
 .responders-list {
   display: flex;
   flex-direction: column;
+}
+.remove-responder {
+  color: red;
+  font-size: 1em;
+  margin-bottom: 2px;
+  margin-right: 4px;
+}
 
-  p {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.responder-name {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
+.responder {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }

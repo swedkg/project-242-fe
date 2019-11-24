@@ -1,5 +1,5 @@
-import * as fromMessages from '../actions/messages.actions';
-import { Message } from '../../models/message.model';
+import * as fromMessages from "../actions/messages.actions";
+import { Message } from "../../models/message.model";
 
 export interface MessageState {
   // data: Message[];
@@ -22,34 +22,49 @@ export function reducer(
 ): MessageState {
   switch (action.type) {
     case fromMessages.LOAD_MESSAGES: {
+      console.log(state);
+
       return {
         ...state,
         loading: true
       };
     }
     case fromMessages.LOAD_MESSAGES_SUCCESS: {
-      // console.log(action);
-      const messages = action.payload;
-      // console.log(data);
-      const entities = messages.reduce(
+      console.log(action);
+      let messages = action.payload;
+      console.log(messages);
+
+      // let entities = messages.reduce(
+      //   (entities: { [id: number]: Message }, message) => {
+      //     return {
+      //       ...entities,
+      //       [message.id]: message
+      //     };
+      //   },
+      //   {
+      //     ...state.entities
+      //   }
+      // );
+
+      let entities = messages.reduce(
         (entities: { [id: number]: Message }, message) => {
-          return {
-            ...entities,
-            [message.id]: message
-          };
+          entities[message.id] = message;
+          return entities;
         },
-        {
-          ...state.entities
-        }
+        {}
       );
 
-      // console.log(entities);
+      console.log(messages, state, entities, {
+        entities,
+        loading: false,
+        loaded: true
+      });
 
       return {
-        ...state,
+        entities,
         loading: false,
-        loaded: true,
-        entities
+        loaded: true
+        // entities
       };
     }
     case fromMessages.LOAD_MESSAGES_FAIL: {
@@ -59,8 +74,30 @@ export function reducer(
         loaded: false
       };
     }
+
+    case fromMessages.CREATE_MESSAGE_SUCCESS: {
+      let message = action.payload;
+      console.log(action, message);
+
+      let entities = {
+        ...state.entities,
+        [message.id]: message
+      };
+
+      let kk = {
+        ...state,
+        entities
+      };
+
+      console.log(state, entities, kk);
+
+      return {
+        ...state,
+        entities
+      };
+    }
   }
-  // console.log(action, state);
+  console.log(action, state);
   return state;
 }
 
