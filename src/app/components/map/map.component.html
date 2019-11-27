@@ -29,11 +29,32 @@
       [wrapperClass]="'agmSnazzyInfoWindow'"
     >
       <ng-template>
-        <p class="title">{{ m.title }}</p>
-        <p *ngIf="m.isOneTime" class="request-type">One-time task</p>
-        <p *ngIf="!m.isOneTime" class="request-type">Material need</p>
-        <p class="request-type">{{ m.responders }} responses</p>
-        <p class="description">{{ m.description }}</p>
+        <!-- <pre>{{m |json}}</pre> -->
+        <!-- <p *ngIf="m.isOneTime" class="request-type">One-time task</p> -->
+        <!-- <p *ngIf="!m.isOneTime" class="request-type">Material need</p> -->
+        <!-- <p class="request-type">{{ m.responders }} responses</p>
+        <p class="description">{{ m.description }}</p> -->
+        <span class="request-details">
+          <span class="title">
+            <span
+              class="material-icons marker sidepanel red"
+              matTooltip="One-time request"
+              *ngIf="m.isOneTime"
+              >pin_drop</span
+            >
+            <span
+              class="material-icons marker sidepanel green"
+              matTooltip="Material need"
+              *ngIf="!m.isOneTime"
+              >pin_drop</span
+            >{{ m.title }}</span
+          >
+          <span class="address">{{ m.address }}</span>
+          <mat-divider></mat-divider>
+          <p>
+            {{ m.desc }}
+          </p>
+        </span>
         <mat-divider></mat-divider>
         <button *ngIf="!m.isUser" mat-button (click)="respondToRequest(m.id)">
           Respond to request

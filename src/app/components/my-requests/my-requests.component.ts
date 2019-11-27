@@ -1,14 +1,14 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 
-import { Message } from "../../models/message.model";
+import { Message } from "../../_models/message.model";
 
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import * as fromStore from "../../store";
 
 import { Globals } from "../../../assets/globals";
-import { AidRequest } from "../../models/aidRequest.model";
+import { AidRequest } from "../../_models/aidRequest.model";
 import { SidenavService } from "../../_services/sidenav.service";
 
 import { MessageFlowService } from "../../_services/message-flow.service";

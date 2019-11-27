@@ -8,7 +8,7 @@ import {
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { Globals } from "../../../assets/globals";
-import { Message } from "../../models/message.model";
+import { Message } from "../../_models/message.model";
 import * as fromStore from "../../store";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
@@ -20,7 +20,7 @@ import {
   AbstractControl
 } from "@angular/forms";
 import { isNgTemplate } from "@angular/compiler";
-import { AidRequest } from "../../models/aidRequest.model";
+import { AidRequest } from "../../_models/aidRequest.model";
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,

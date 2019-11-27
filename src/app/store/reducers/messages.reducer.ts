@@ -1,5 +1,5 @@
 import * as fromMessages from "../actions/messages.actions";
-import { Message } from "../../models/message.model";
+import { Message } from "../../_models/message.model";
 
 export interface MessageState {
   // data: Message[];

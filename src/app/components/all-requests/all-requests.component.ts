@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import { Globals } from "../../../assets/globals";
-import { AidRequest } from "../../models/aidRequest.model";
+import { AidRequest } from "../../_models/aidRequest.model";
 import * as fromStore from "../../store";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { MessageFlowService } from "../../_services/message-flow.service";

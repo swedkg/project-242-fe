@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
 
-import { AidRequest } from "../models/aidRequest.model";
+import { AidRequest } from "../_models/aidRequest.model";
 import { catchError } from "rxjs/operators";
 
 import "rxjs/add/observable/throw";

@@ -1,0 +1,48 @@
+<form [formGroup]="loginForm" class="login-form">
+  <mat-form-field>
+    <input
+      #email
+      type="email"
+      email="true"
+      matInput
+      formControlName="email"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      formControlName="email"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="email"
+    />
+    <mat-error *ngIf="hasError('email', 'required')"
+      >A email is required</mat-error
+    >
+    <mat-error *ngIf="hasError('email', 'pattern')"
+      >Please use a valid email</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      #password
+      type="password"
+      matInput
+      formControlName="password"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      formControlName="password"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="password"
+    />
+    <mat-error *ngIf="hasError('password', 'required')"
+      >A password is required</mat-error
+    >
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-button (click)="closeDialog()">
+      Cancel
+    </button>
+    <button mat-button (click)="login()" [disabled]="!loginForm.valid">
+      Login
+    </button>
+  </div>
+</form>

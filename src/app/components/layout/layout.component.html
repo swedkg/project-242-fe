@@ -2,4 +2,19 @@
   <app-map></app-map>
   <app-submit-request></app-submit-request>
   <app-counter></app-counter>
+
+  <div class="login-register">
+    <!-- <a routerLink="/login" class="material-icons">input</a> -->
+    <a *ngIf="!isLoggedIn" routerLink="/login">Login</a>
+    <a *ngIf="isLoggedIn" (click)="logout()">Logout</a>
+
+    <!-- <pre>{{ UserService.currentUserDetails | json }}</pre> -->
+
+    <!-- isLoggedIn :: {{ isLoggedIn }} -->
+
+    <!-- <a (click)="openDialog()">Login</a> -->
+    <!-- <a routerLink="/register">Register</a> -->
+
+    <router-outlet></router-outlet>
+  </div>
 </section>

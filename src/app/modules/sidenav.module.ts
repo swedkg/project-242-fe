@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RequestsModule } from './requests.module';
-import { ResponsesModule } from './responses.module';
-import { ChatComponent } from '../components/chat/chat.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './material.module';
+import { CommonModule } from "@angular/common";
+import { NgModule } from "@angular/core";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ChatComponent } from "../components/chat/chat.component";
+import { MaterialModule } from "./material.module";
+import { RequestsModule } from "./requests.module";
+import { ResponsesModule } from "./responses.module";
 
 @NgModule({
   declarations: [ChatComponent],

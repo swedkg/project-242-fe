@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Message } from "../../models/message.model";
+import { Message } from "../../_models/message.model";
 
 // load messages
 export const LOAD_MESSAGES = "[Messages] Load Messages";

@@ -5,27 +5,27 @@ import {
   NgZone,
   ElementRef,
   ViewEncapsulation
-} from '@angular/core';
+} from "@angular/core";
 import {
   FormControl,
   FormGroup,
   Validators,
   AbstractControl
-} from '@angular/forms';
-import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { MapsAPILoader } from '@agm/core';
-import { HelpRequestsService } from '../../_services/help-requests.service';
-import { MatDialogRef } from '@angular/material';
+} from "@angular/forms";
+import { CdkTextareaAutosize } from "@angular/cdk/text-field";
+import { MapsAPILoader } from "@agm/core";
+import { HelpRequestsService } from "../../_services/help-requests.service";
+import { MatDialogRef } from "@angular/material";
 
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../store';
+import { Store } from "@ngrx/store";
+import * as fromStore from "../../store";
 
-import { Globals } from '../../../assets/globals';
+import { Globals } from "../../../assets/globals";
 
 @Component({
-  selector: 'app-submit-request-content',
-  templateUrl: './submit-request-content.component.html',
-  styleUrls: ['./submit-request-content.component.scss'],
+  selector: "app-submit-request-content",
+  templateUrl: "./submit-request-content.component.html",
+  styleUrls: ["./submit-request-content.component.scss"],
   encapsulation: ViewEncapsulation.None
 })
 export class SubmitRequestContentComponent implements OnInit {
@@ -42,10 +42,10 @@ export class SubmitRequestContentComponent implements OnInit {
   reverseResult: any = {};
   current_address: string;
 
-  @ViewChild('autosize')
+  @ViewChild("autosize")
   autosize: CdkTextareaAutosize;
 
-  @ViewChild('address')
+  @ViewChild("address")
   public searchElementRef: ElementRef;
 
   closeDialog() {
@@ -57,7 +57,7 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.desc = this.newRequestForm.controls.description.value;
     this.newRequest.isOneTime = this.newRequestForm.controls.isOneTime.value;
     this.newRequest.address = this.current_address;
-    this.newRequest.status = false;
+    this.newRequest.status = true;
     // this.newRequest.isUser = false;
     this.newRequest.owner_id = Globals.id;
 
@@ -93,20 +93,20 @@ export class SubmitRequestContentComponent implements OnInit {
     console.log(this);
 
     this.newRequestForm = new FormGroup({
-      title: new FormControl('', [
+      title: new FormControl("", [
         Validators.required,
         Validators.maxLength(50)
       ]),
-      description: new FormControl('', [
+      description: new FormControl("", [
         Validators.required,
         Validators.maxLength(300)
       ]),
       address: new FormControl(
-        '',
+        "",
         [Validators.required, this.validateAddress.bind(this)],
         []
       ),
-      isOneTime: new FormControl('', [Validators.required])
+      isOneTime: new FormControl("", [Validators.required])
     });
 
     this.mapsAPILoader.load().then(() => {
@@ -117,10 +117,10 @@ export class SubmitRequestContentComponent implements OnInit {
       let autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ['address']
+          types: ["address"]
         }
       );
-      autocomplete.addListener('place_changed', () => {
+      autocomplete.addListener("place_changed", () => {
         this.ngZone.run(() => {
           //get the place result
           let reverseResult: google.maps.places.PlaceResult = autocomplete.getPlace();

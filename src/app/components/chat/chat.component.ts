@@ -12,8 +12,8 @@ import { Observable, Subscription } from "rxjs";
 
 import * as fromStore from "../../store";
 
-import { Message } from "../../models/message.model";
-import { AidRequest } from "../../models/aidRequest.model";
+import { Message } from "../../_models/message.model";
+import { AidRequest } from "../../_models/aidRequest.model";
 
 import {
   FormControl,
