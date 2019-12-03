@@ -1,9 +1,6 @@
-import { createSelector } from '@ngrx/store';
-
-import * as fromFeature from '../reducers';
-import * as fromRequests from '../reducers/requests.reducer';
-
-import { Globals } from '../../../assets/globals';
+import { createSelector } from "@ngrx/store";
+import * as fromFeature from "../reducers";
+import * as fromRequests from "../reducers/requests.reducer";
 
 export const getRequestsState = createSelector(
   fromFeature.getPlatformState,
@@ -15,12 +12,9 @@ export const getRequestsEntities = createSelector(
   fromRequests.getRequestsEntities
 );
 
-export const getAllRequests = createSelector(
-  getRequestsEntities,
-  entitites => {
-    return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
-  }
-);
+export const getAllRequests = createSelector(getRequestsEntities, entitites => {
+  return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
+});
 
 export const getRequestsLoaded = createSelector(
   getRequestsState,
@@ -34,15 +28,14 @@ export const getRequestsLoading = createSelector(
 
 export const getUserRequests = createSelector(
   getRequestsEntities,
-  entitites => {
+  (entitites, user_id) => {
     let result = Object.keys(entitites)
       .map(id => entitites[parseInt(id, 10)])
       .filter(r => {
-        return r.owner_id == Globals.id;
+        return r.owner_id == user_id;
       });
 
-    // console.log(Globals, entitites);
-    // console.log('User requests', result);
+    console.log("User requests", result, user_id);
 
     return result;
   }
@@ -51,15 +44,14 @@ export const getUserRequests = createSelector(
 // requests that the user have responded to
 export const getUserResponses = createSelector(
   getRequestsEntities,
-  entitites => {
+  (entitites, user_id) => {
     let result = Object.keys(entitites)
       .map(id => entitites[parseInt(id, 10)])
       .filter(r => {
-        return r.responders.ids.includes(Globals.id);
+        return r.responders.ids.includes(user_id);
       });
 
-    // console.log(Globals, entitites);
-    // console.log('Requests that the user have responded to', result);
+    console.log("Requests that the user have responded to", result, user_id);
 
     return result;
   }
@@ -74,7 +66,6 @@ export const getSingleRequest = createSelector(
         return r.id == request_id;
       });
 
-    // console.log(Globals, entitites);
     // console.log('Single request', result);
 
     return result;

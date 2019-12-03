@@ -1,11 +1,14 @@
 <!-- this creates a google map on the page with the given lat/lng from -->
 <!-- the component as the initial center of the map: -->
 <agm-map
-  [fitBounds]="true"
+  [fitBounds]="fitBounds"
   [mapTypeControl]="true"
   (boundsChange)="checkMarkersInBounds($event)"
   (mapClick)="addMarker($event)"
   [styles]="mapStyle"
+  [zoom]="initialZoomLevel"
+  [latitude]="userPosition.latitude"
+  [longitude]="userPosition.longitude"
 >
   <agm-marker
     *ngFor="let m of markers; let i = index"
@@ -17,8 +20,12 @@
     <agm-overlay [latitude]="m.lat" [longitude]="m.lng">
       <span
         class="material-icons marker"
+        *ngIf="!m.isUser"
         [ngClass]="{ red: m.isOneTime === true, green: m.isOneTime === false }"
         >pin_drop</span
+      >
+      <span class="material-icons marker isUser" *ngIf="m.isUser"
+        >my_location</span
       >
     </agm-overlay>
 

@@ -28,18 +28,18 @@
         (click)="respondToRequest(request.id)"
         *ngIf="
           request.responders &&
-          !request.responders.ids.includes(current_user) &&
-          request.owner_id !== current_user
+          !request.responders.ids.includes(current_user.id) &&
+          request.owner_id !== current_user.id
         "
       >
-        Respond to request ({{ request.owner_id }}, {{ current_user }}) !!
+        Respond to request ({{ request.owner_id }}, {{ current_user.id }}) !!
       </button>
       <button
         mat-button
         (click)="goToMessages(request.id)"
         matTooltip="You have previously responded to this request for help. Click here to check if you have any messages"
         *ngIf="
-          request.responders && request.responders.ids.includes(current_user)
+          request.responders && request.responders.ids.includes(current_user.id)
         "
       >
         Check my responses
@@ -47,7 +47,7 @@
       <button
         mat-button
         (click)="goToMessagesInMyRequests(request.id)"
-        *ngIf="request.owner_id === current_user"
+        *ngIf="request.owner_id === current_user.id"
         matTooltip="You have posted some requests for help. Click here to message your responders"
         [disabled]="request.responders.ids.length == 0"
       >
@@ -60,10 +60,3 @@
     There are currently no aid requests inside the visible area of the map.
   </p>
 </mat-accordion>
-
-<!-- Go to messages ({{ request.owner_id }}, {{ current_user }}) !! -->
-
-<!-- 
-*ngIf="
-request.responders && !request.responders.ids.includes(current_user)
-" -->

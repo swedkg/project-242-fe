@@ -1,26 +1,19 @@
 import {
   ChangeDetectorRef,
   Component,
-  OnInit,
   Input,
+  OnInit,
   ViewEncapsulation
 } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { Globals } from "../../../assets/globals";
-import { Message } from "../../_models/message.model";
 import * as fromStore from "../../store";
+import { AidRequest } from "../../_models/aidRequest.model";
+import { User } from "../../_models/user";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
-
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  AbstractControl
-} from "@angular/forms";
-import { isNgTemplate } from "@angular/compiler";
-import { AidRequest } from "../../_models/aidRequest.model";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -43,18 +36,22 @@ export class MyResponsesComponent implements OnInit {
   messageFlow: Subscription;
   allRequests: Subscription;
   showMessages: boolean = false;
-  current_user = Globals.id;
   expandedPanel: number;
   messageMaxLength = 150;
   newMessage: any = {};
   activeThread: Number;
   chat$: object;
   public newMessageForm: FormGroup;
+
+  current_user: User;
+
   constructor(
     private cdr: ChangeDetectorRef,
     private SidenavService: SidenavService,
     private messageFlowService: MessageFlowService,
-    private store: Store<fromStore.PlatformState> // public globals: Globals
+    private UserService: UserService,
+
+    private store: Store<fromStore.PlatformState>
   ) {}
 
   handleShowMessages(id) {
@@ -67,7 +64,7 @@ export class MyResponsesComponent implements OnInit {
   sendMessage(fullfilment_id: number, owner: number) {
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
     this.newMessage.fullfilment_id = fullfilment_id;
-    this.newMessage.sender_id = this.current_user;
+    this.newMessage.sender_id = this.current_user.id;
     this.newMessage.receiver_id = owner;
     // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
     this.messageFlowService.sendMessage(this.newMessage);
@@ -101,11 +98,11 @@ export class MyResponsesComponent implements OnInit {
 
         this.chat$ = {};
 
-        setTimeout(() => {
-          this.store.dispatch(new fromStore.LoadMessages(this.current_user));
-        }, 500);
+        console.log(this.current_user);
 
-        // this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+        setTimeout(() => {
+          this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+        }, 0);
 
         _getChatMessages = this.store
           .select(fromStore.getChatMessages, this.activeThread)
@@ -120,19 +117,27 @@ export class MyResponsesComponent implements OnInit {
 
         console.log(open, this.activeThread, this.chat$);
       } else {
-        _getChatMessages.unsubscribe();
+        if (_getChatMessages) _getChatMessages.unsubscribe();
         console.log(open, this.activeThread, this.chat$);
         return null;
       }
 
       // this.showMessages = open;
     });
+    this.UserService.currentUserSubject.subscribe(data => {
+      this.current_user = data;
+      console.log(this.current_user);
+      if (this.UserService.isLoggedIn) {
+        this.myResponses$ = this.store.select(
+          fromStore.getUserResponses,
+          this.current_user.id
+        );
 
-    this.myResponses$ = this.store.select(fromStore.getUserResponses);
-
-    this.myResponses$.subscribe(data => {
-      this.myResponsesLength = data.length;
-      console.log(data, data.length, this.myResponsesLength);
+        this.myResponses$.subscribe(data => {
+          this.myResponsesLength = data.length;
+          console.log(data, data.length, this.myResponsesLength);
+        });
+      }
     });
 
     this.SidenavService.getExpandedAccordionPanel().subscribe(

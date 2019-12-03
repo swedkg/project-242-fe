@@ -3,11 +3,24 @@ mat-sidenav-container {
 }
 
 mat-sidenav.mat-drawer.mat-sidenav {
-  width: 500px;
+  width: 485px;
 }
 
 .accordion {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+}
+.mat-tab-label-content .material-icons {
+  font-size: 1.25em;
+  margin-right: 4px;
+}
+
+.mat-tab-header-pagination {
+  display: none !important;
+}
+.user-actions {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }

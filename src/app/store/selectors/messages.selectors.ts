@@ -1,9 +1,6 @@
-import { createSelector } from '@ngrx/store';
-
-import * as fromFeature from '../reducers';
-import * as fromMessages from '../reducers/messages.reducer';
-
-import { Globals } from '../../../assets/globals';
+import { createSelector } from "@ngrx/store";
+import * as fromFeature from "../reducers";
+import * as fromMessages from "../reducers/messages.reducer";
 
 export const getMessagesState = createSelector(
   fromFeature.getPlatformState,
@@ -16,18 +13,15 @@ export const getMessagesEntities = createSelector(
   fromMessages.getMessages
 );
 
-export const getMessages = createSelector(
-  getMessagesEntities,
-  entitites => {
-    // return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
+export const getMessages = createSelector(getMessagesEntities, entitites => {
+  // return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
 
-    let result = Object.keys(entitites).map(id => entitites[id]);
+  let result = Object.keys(entitites).map(id => entitites[id]);
 
-    console.log('all messages', result);
+  console.log("all messages", result);
 
-    return result;
-  }
-);
+  return result;
+});
 
 export const getChatMessages = createSelector(
   getMessagesEntities,
@@ -38,7 +32,7 @@ export const getChatMessages = createSelector(
         return m.request_id == request_id;
       });
 
-    // console.log('--------------->', entitites, request_id, result);
+    console.log("--------------->", entitites, request_id, result);
 
     return result;
   }
@@ -50,13 +44,15 @@ export const getChatForResponder = createSelector(
     let result = Object.keys(entitites)
       .map(id => entitites[id])
       .filter(m => {
+        console.log("-----------------------------", m);
+        // return m;
         return (
           m.request_id == obj.request_id &&
           (m.receiver_id == obj.responder_id || m.sender_id == obj.responder_id)
         );
       });
 
-    // console.log(entitites, obj, '--------------->', result);
+    console.log(entitites, obj, "--------------->", result);
 
     return result;
   }

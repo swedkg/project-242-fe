@@ -13,21 +13,24 @@ agm-map {
 }
 
 .material-icons.marker {
-  font-size: 36px;
+  // font-size: 30px;
   position: relative;
-  top: -24px;
+  // top: -24px;
   &.red {
-    color: red;
+    color: hsl(0, 100%, 45%);
   }
   &.green {
-    color: green;
+    color: hsl(120, 100%, 20%);
+  }
+  &.isUser {
+    color: hsl(196, 100%, 45%);
   }
 }
 
 .si-wrapper-top.si-has-border.agmSnazzyInfoWindow {
   width: 300px;
   margin-top: -45px !important;
-  margin-left: 8px !important;
+  margin-left: 2px !important;
 
   button.mat-button {
     display: flex;

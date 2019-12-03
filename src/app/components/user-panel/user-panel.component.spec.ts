@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubmitRequestComponent } from './submit-request.component';
+import { UserPanelComponent } from './user-panel.component';
 
-describe('SubmitRequestComponent', () => {
-  let component: SubmitRequestComponent;
-  let fixture: ComponentFixture<SubmitRequestComponent>;
+describe('UserPanelComponent', () => {
+  let component: UserPanelComponent;
+  let fixture: ComponentFixture<UserPanelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubmitRequestComponent ]
+      declarations: [ UserPanelComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SubmitRequestComponent);
+    fixture = TestBed.createComponent(UserPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

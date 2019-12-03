@@ -1,26 +1,39 @@
 <mat-sidenav-container hasBackdrop="false">
   <mat-sidenav #requests mode="over" [(opened)]="isSidenavOpen">
-    <button
-      mat-button
-      class="material-icons menu-icon"
-      (click)="toggleRequestSidenav()"
-    >
-      <p class="material-icons">close</p>
-    </button>
-    {{ user.firstName }} {{ user.lastName }} ({{ user.id }})
+    <div class="user-actions">
+      <button
+        mat-button
+        class="material-icons menu-icon"
+        (click)="toggleRequestSidenav()"
+      >
+        <p class="material-icons">menu_open</p>
+      </button>
+      <app-user-panel></app-user-panel>
+    </div>
     <mat-tab-group
       selectedIndex="{{ activeTab }}"
       (selectedIndexChange)="indexChanged($event)"
     >
-      <mat-tab label="All requests">
+      <mat-tab>
+        <ng-template mat-tab-label
+          ><p class="material-icons">apps</p>
+          All</ng-template
+        >
         <app-all-requests></app-all-requests
       ></mat-tab>
-      <mat-tab label="My resposnes"
+      <mat-tab>
+        <ng-template mat-tab-label
+          ><p class="material-icons">emoji_people</p>
+          Volunteered</ng-template
         ><app-my-responses [activeTab]="activeTab"></app-my-responses
       ></mat-tab>
-      <mat-tab label="My requests"
+      <mat-tab
+        ><ng-template mat-tab-label
+          ><p class="material-icons">home_work</p>
+          My Requests</ng-template
         ><app-my-requests [activeTab]="activeTab"></app-my-requests
       ></mat-tab>
+      <!-- TODO: change order of tabs -->
     </mat-tab-group>
     <app-chat *ngIf="showMessages"></app-chat>
   </mat-sidenav>
@@ -28,6 +41,7 @@
   <mat-sidenav-content>
     <button
       mat-button
+      disabled="{{ !isLoggedIn }}"
       class="material-icons menu-icon"
       style="z-index: 1;"
       (click)="toggleRequestSidenav()"

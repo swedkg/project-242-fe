@@ -1,29 +1,11 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation
-} from "@angular/core";
-
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { Observable, Subscription } from "rxjs";
-
+import { Observable } from "rxjs";
 import * as fromStore from "../../store";
-
 import { Message } from "../../_models/message.model";
-import { AidRequest } from "../../_models/aidRequest.model";
-
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  AbstractControl
-} from "@angular/forms";
 import { SidenavService } from "../../_services/sidenav.service";
-import { MessageFlowService } from "../../_services/message-flow.service";
-import { Globals } from "../../../assets/globals";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-chat",
@@ -41,8 +23,8 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private SidenavService: SidenavService,
-    private messageFlowService: MessageFlowService,
-    private store: Store<fromStore.PlatformState> // public globals: Globals
+    private store: Store<fromStore.PlatformState>,
+    private UserService: UserService
   ) {}
 
   // @Input() request_id: number;
@@ -54,10 +36,12 @@ export class ChatComponent implements OnInit {
   activeTab: number;
 
   sendMessage() {
+    let current_user = this.UserService.currentUserDetails;
     let fullfilment_id = this.chat$[0].fullfilment_id;
+
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
     this.newMessage.fullfilment_id = fullfilment_id;
-    this.newMessage.sender_id = Globals.id;
+    this.newMessage.sender_id = current_user.id;
 
     this.newMessage.users = {};
     let users = this.chat$[0].users;
@@ -77,12 +61,14 @@ export class ChatComponent implements OnInit {
     // ? this.chatRequest.owner_id
     // : this.chat$[0].users.sender.id;
 
-    console.log(this.newMessage, this.chat$);
+    console.log(this.newMessage, this.chat$, current_user);
+
+    // return null;
 
     this.store.dispatch(new fromStore.CreateMessage(this.newMessage));
 
     setTimeout(() => {
-      this.store.dispatch(new fromStore.LoadMessages(Globals.id));
+      this.store.dispatch(new fromStore.LoadMessages(current_user.id));
     }, 250);
 
     // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1

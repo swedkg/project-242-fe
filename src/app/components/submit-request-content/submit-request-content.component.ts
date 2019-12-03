@@ -1,26 +1,18 @@
+import { MapsAPILoader } from "@agm/core";
+import { CdkTextareaAutosize } from "@angular/cdk/text-field";
 import {
   Component,
+  ElementRef,
+  NgZone,
   OnInit,
   ViewChild,
-  NgZone,
-  ElementRef,
   ViewEncapsulation
 } from "@angular/core";
-import {
-  FormControl,
-  FormGroup,
-  Validators,
-  AbstractControl
-} from "@angular/forms";
-import { CdkTextareaAutosize } from "@angular/cdk/text-field";
-import { MapsAPILoader } from "@agm/core";
-import { HelpRequestsService } from "../../_services/help-requests.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material";
-
 import { Store } from "@ngrx/store";
 import * as fromStore from "../../store";
-
-import { Globals } from "../../../assets/globals";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-submit-request-content",
@@ -32,9 +24,9 @@ export class SubmitRequestContentComponent implements OnInit {
   constructor(
     private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,
-    private helpRequestsService: HelpRequestsService,
-    public dialogRef: MatDialogRef<SubmitRequestContentComponent>, // public globals: Globals
-    private store: Store<fromStore.PlatformState>
+    public dialogRef: MatDialogRef<SubmitRequestContentComponent>,
+    private store: Store<fromStore.PlatformState>,
+    private UserService: UserService
   ) {}
   public newRequestForm: FormGroup;
   // private geoCoder;
@@ -59,14 +51,8 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequest.address = this.current_address;
     this.newRequest.status = true;
     // this.newRequest.isUser = false;
-    this.newRequest.owner_id = Globals.id;
+    this.newRequest.owner_id = this.UserService.currentUserDetails.id;
 
-    // console.log(
-    //   'addNewRequest',
-    //   this.newRequest,
-    //   this.newRequestForm.controls.title
-    // );
-    // this.helpRequestsService.addNewRequest(this.newRequest);
     this.store.dispatch(new fromStore.CreateRequest(this.newRequest));
     this.closeDialog();
   }

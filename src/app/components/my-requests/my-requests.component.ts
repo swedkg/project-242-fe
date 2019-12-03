@@ -1,17 +1,13 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { HelpRequestsService } from "../../_services/help-requests.service";
-
-import { Message } from "../../_models/message.model";
-
+import { Component, Input, OnInit } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import * as fromStore from "../../store";
-
-import { Globals } from "../../../assets/globals";
 import { AidRequest } from "../../_models/aidRequest.model";
-import { SidenavService } from "../../_services/sidenav.service";
-
+import { User } from "../../_models/user";
+import { HelpRequestsService } from "../../_services/help-requests.service";
 import { MessageFlowService } from "../../_services/message-flow.service";
+import { SidenavService } from "../../_services/sidenav.service";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-my-requests",
@@ -23,7 +19,6 @@ export class MyRequestsComponent implements OnInit {
 
   myRequests: any[] = [];
   myRequestsLength: number;
-  current_user = Globals.id;
   subscription: Subscription;
   requests$: Observable<AidRequest[]>;
   requests: any[] = [];
@@ -35,11 +30,14 @@ export class MyRequestsComponent implements OnInit {
   expandedPanel: number;
   openPanel: number;
 
+  current_user: User;
+
   constructor(
-    private store: Store<fromStore.PlatformState>, // public globals: Globals
+    private store: Store<fromStore.PlatformState>,
     private SidenavService: SidenavService,
     private helpRequestsService: HelpRequestsService,
-    private MessageFlowService: MessageFlowService
+    private MessageFlowService: MessageFlowService,
+    private UserService: UserService
   ) {}
 
   handleShowMessages(request_id, responder_id) {
@@ -71,7 +69,9 @@ export class MyRequestsComponent implements OnInit {
       console.log("2");
 
       if (open === true) {
-        this.store.dispatch(new fromStore.LoadMessages(this.current_user));
+        setTimeout(() => {
+          this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+        }, 0);
         // this.store.dispatch(new fromStore.LoadRequests());
 
         _getChatForResponder = this.store
@@ -96,17 +96,29 @@ export class MyRequestsComponent implements OnInit {
         this.showMessages = open;
         // console.log('-----------', this);
       } else {
-        _getChatForResponder.unsubscribe();
+        if (_getChatForResponder) _getChatForResponder.unsubscribe();
         return null;
       }
       console.log("3");
     });
 
-    this.requests$ = this.store.select(fromStore.getUserRequests);
+    this.UserService.currentUserSubject.subscribe(data => {
+      this.current_user = data;
+      console.log(this.current_user);
 
-    this.requests$.subscribe(data => {
-      this.myRequestsLength = data.length;
-      console.log("fromStore.getUserRequests", data);
+      if (this.UserService.isLoggedIn) {
+        // this.store.dispatch(new fromStore.LoadRequests());
+
+        this.requests$ = this.store.select(
+          fromStore.getUserRequests,
+          this.current_user.id
+        );
+
+        this.requests$.subscribe(data => {
+          this.myRequestsLength = data.length;
+          console.log("fromStore.getUserRequests", data);
+        });
+      }
     });
 
     this.SidenavService.getExpandedAccordionPanel().subscribe(
@@ -130,29 +142,6 @@ export class MyRequestsComponent implements OnInit {
         this.expandedPanel = this.openPanel;
       }, 0);
     });
-
-    // this.store
-    //   .select(fromStore.getChatForResponder, {
-    //     request_id: this.request_id,
-    //     responder: 2
-    //   })
-    //   .subscribe(data => {
-    //     console.log('getChatForResponder', data);
-    //   });
-
-    // .subscribe(state => {
-    //   // console.log(Globals);
-    //   this.requests = state
-    //     .map(item => ({
-    //       ...item
-    //     }))
-    //     .filter(r => {
-    //       return r.owner_id == this.current_user;
-    //     });
-    //   console.log('user requests', this.requests);
-    // });
-
-    // this.store.dispatch(new fromStore.LoadMyRequests(this.current_user));
   }
 
   ngOnDestroy() {

@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
-import { Globals } from "../../../assets/globals";
-import { AidRequest } from "../../_models/aidRequest.model";
 import * as fromStore from "../../store";
+import { AidRequest } from "../../_models/aidRequest.model";
+import { User } from "../../_models/user";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-all-requests",
@@ -21,7 +22,7 @@ export class AllRequestsComponent implements OnInit {
 
   request_id: number;
 
-  current_user = Globals.id;
+  current_user: User;
 
   respondToRequest(id) {
     // TODO: we need a POST request here
@@ -60,17 +61,26 @@ export class AllRequestsComponent implements OnInit {
     private store: Store<fromStore.PlatformState>,
     private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService,
-    private MessageFlowService: MessageFlowService
+    private MessageFlowService: MessageFlowService,
+    private UserService: UserService
   ) {}
   ngOnInit() {
+    this.UserService.currentUserSubject.subscribe(data => {
+      if (this.UserService.isLoggedIn) {
+        this.current_user = this.UserService.currentUserDetails;
+      }
+    });
+
     this.subscription = this.helpRequestsService
       .getInboundRequestsList()
       .subscribe(message => {
         if (message) {
           this.requests = [];
-          this.requests = message.requests;
+          this.requests = message.requests.filter(r => {
+            return !r.isUser;
+          });
           // this.requests.push(message);
-          // console.log(message);
+          // console.log(message, this.requests);
         } else {
           // clear requests when empty message received
           this.requests = [];
@@ -79,7 +89,7 @@ export class AllRequestsComponent implements OnInit {
 
     this.MessageFlowService.getResponseToRequest().subscribe(data => {
       if (data === 201) {
-        this.store.dispatch(new fromStore.LoadMessages(Globals.id));
+        this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
         this.SidenavService.setActiveSidenavTab(1);
         this.SidenavService.setActiveThread(this.request_id);
         this.SidenavService.setExpandedAccordionPanel(this.request_id);

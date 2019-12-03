@@ -1,20 +1,16 @@
 import { AgmMap } from "@agm/core";
 import {
   Component,
+  HostListener,
   NgModule,
   OnInit,
   ViewChild,
-  HostListener,
   ViewEncapsulation
 } from "@angular/core";
+import { Store } from "@ngrx/store";
+import * as fromStore from "../../store";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { SidenavService } from "../../_services/sidenav.service";
-
-import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
-import * as fromStore from "../../store";
-import { Globals } from "../../../assets/globals";
-
 import { mapStyle } from "./mapStyle";
 
 @NgModule({
@@ -33,19 +29,21 @@ export class MapComponent implements OnInit {
     private store: Store<fromStore.PlatformState>
   ) {}
 
+  public initialZoomLevel = 12;
+  public userPosition: object = {};
+  public fitBounds: boolean = false;
   public markers; //: {} = [];
   public mapStyle = mapStyle;
-
-  current_user = Globals.id;
 
   @ViewChild(AgmMap)
   public agmMap: AgmMap;
 
   @HostListener("window:resize")
   onWindowResize() {
-    // console.log('resize');
+    // console.log("resize");
     // console.log(this);
 
+    this.fitBounds = true;
     this.agmMap.triggerResize();
   }
 
@@ -60,7 +58,7 @@ export class MapComponent implements OnInit {
     let counter = 0;
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();
-    // console.log(event, mapBounds);
+    // console.log(event, mapBounds, this);
     // console.log(this.markers);
 
     if (this.markers)
@@ -88,7 +86,8 @@ export class MapComponent implements OnInit {
 
   addUserLocation(position) {
     let coords = position.coords;
-    // console.log('navigator.geolocation exists', coords, this);
+    this.userPosition = coords;
+    // console.log("navigator.geolocation exists", coords, this);
     this.markers.push({
       lat: coords.latitude,
       lng: coords.longitude,
@@ -104,13 +103,20 @@ export class MapComponent implements OnInit {
     this.SidenavService.setActiveSidenavTab(0);
   }
 
+  // TODO: sign-in/ signup
+  // TODO: wireframes, at leasts 5, desktop and mobile
+  // TODO: markers of separate colors
+  // TODO: unlist after 24 hours, add republish button
+  // TODO: backed testing, unit tests for models and controler tests
+  // TODO: click on marker, displays info, status, button to fullfil
+  // TODO: if >5 users = fulfilled, cannot republish
+  // TODO: add the number of fullfiled requests
+
   ngOnInit() {
     // let self = this;
     this.store.dispatch(new fromStore.LoadRequests());
     this.store.select(fromStore.getAllRequests).subscribe(data => {
-      console.log(data);
       this.markers = data;
-
       if (!!navigator.geolocation) {
         // Support
         navigator.geolocation.getCurrentPosition(

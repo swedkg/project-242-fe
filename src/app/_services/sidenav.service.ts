@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject, ReplaySubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { Observable, Subject, ReplaySubject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class SidenavService {
   constructor() {}
@@ -21,6 +21,11 @@ export class SidenavService {
   setSidenavOpen(boolean) {
     this.isSidenavOpen.next(boolean);
   }
+
+  getSidenavOpen(): Observable<boolean> {
+    return this.isSidenavOpen;
+  }
+
   isRequestSidenavOpened(): Observable<boolean> {
     return this.isSidenavOpen.asObservable();
   }

@@ -1,13 +1,10 @@
-import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable, Subject } from "rxjs";
-import { Globals } from "../../assets/globals";
-
+import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-
-import * as fromStore from "../store/";
-
+import { Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
+import * as fromStore from "../store/";
+import { UserService } from "../_services/user.service";
 
 const BASEURL = "http://localhost:3000";
 const MESSAGES = "/messages";
@@ -19,7 +16,8 @@ const FULLFILMENTS = "/fullfilments/";
 export class MessageFlowService {
   constructor(
     private http: HttpClient,
-    private store: Store<fromStore.PlatformState>
+    private store: Store<fromStore.PlatformState>,
+    private UserService: UserService
   ) {}
 
   private messageFlow = new Subject<any>();
@@ -90,10 +88,10 @@ export class MessageFlowService {
   respondToRequest(id: number) {
     // http://localhost:3000/fullfilments/?request_id=1&user_id=1
     // user_id =
-    console.log(id, Globals);
+    let current_user = this.UserService.currentUserDetails;
     let fullfilment = {
       request_id: id,
-      user_id: Globals.id
+      user_id: current_user.id
     };
 
     return this.http

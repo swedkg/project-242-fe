@@ -1,0 +1,19 @@
+<div class="user-panel" *ngIf="user">
+  <span>{{ user.firstName }} {{ user.lastName }} :: {{ user.id }}</span>
+  <button
+    mat-button
+    (click)="addNewRequest()"
+    matTooltip="Add a new request"
+    style="margin-left: auto;
+  margin-right: 0;"
+  >
+    <i class="material-icons">
+      add_circle_outline
+    </i>
+  </button>
+  <button mat-button (click)="logout()" matTooltip="Logout">
+    <i class="material-icons">
+      exit_to_app
+    </i>
+  </button>
+</div>
