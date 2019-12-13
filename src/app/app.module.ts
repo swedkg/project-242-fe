@@ -1,6 +1,6 @@
 import { AgmCoreModule } from "@agm/core";
 import { AgmSnazzyInfoWindowModule } from "@agm/snazzy-info-window";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -24,6 +24,9 @@ import { effects, reducers } from "./store";
 import { HelpRequestsService } from "./_services/help-requests.service";
 import { MessageFlowService } from "./_services/message-flow.service";
 import { UserService } from "./_services/user.service";
+
+import { JwtInterceptor } from "./_helpers/jwt.interceptor";
+import { ErrorInterceptor } from "./_helpers/error.interceptor";
 
 const environment = {
   development: true,
@@ -66,7 +69,13 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     EffectsModule.forRoot([])
   ],
 
-  providers: [HelpRequestsService, MessageFlowService, UserService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    HelpRequestsService,
+    MessageFlowService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

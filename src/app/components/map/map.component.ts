@@ -49,7 +49,7 @@ export class MapComponent implements OnInit {
 
   inBoundMarkersList(message): void {
     // send message to subscribers via observable subject
-    // console.log(message);
+    console.log(message);
     this.helpRequestsService.inBoundMarkersList(message);
   }
 
@@ -68,11 +68,12 @@ export class MapComponent implements OnInit {
           if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
             counter++; // console.log(el);
             // TODO: we need to annouce that so the side panel will be updated
+
+            // console.log(el);
             inBoundMarkers.push(el);
           }
         }
       });
-    // console.log(counter + ' in bounds markers');
     this.inBoundMarkersList(inBoundMarkers);
   }
 
@@ -88,12 +89,17 @@ export class MapComponent implements OnInit {
     let coords = position.coords;
     this.userPosition = coords;
     // console.log("navigator.geolocation exists", coords, this);
+    this.markers = this.markers.filter(function(m) {
+      // console.log(m);
+      return m.republised === 1;
+    });
     this.markers.push({
       lat: coords.latitude,
       lng: coords.longitude,
       title: "You are here",
       isUser: true
     });
+    // console.log(this.markers);
   }
 
   respondToRequest(id) {
@@ -117,6 +123,7 @@ export class MapComponent implements OnInit {
     this.store.dispatch(new fromStore.LoadRequests());
     this.store.select(fromStore.getAllRequests).subscribe(data => {
       this.markers = data;
+
       if (!!navigator.geolocation) {
         // Support
         navigator.geolocation.getCurrentPosition(

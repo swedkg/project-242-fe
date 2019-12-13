@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subject } from "rxjs";
@@ -6,9 +6,13 @@ import { catchError } from "rxjs/operators";
 import * as fromStore from "../store/";
 import { UserService } from "../_services/user.service";
 
+import { User } from "../_models/user";
+
 const BASEURL = "http://localhost:3000";
 const MESSAGES = "/messages";
 const FULLFILMENTS = "/fullfilments/";
+
+// let current_user: User;
 
 @Injectable({
   providedIn: "root"
@@ -16,6 +20,7 @@ const FULLFILMENTS = "/fullfilments/";
 export class MessageFlowService {
   constructor(
     private http: HttpClient,
+    // private HttpHeaders: HttpHeaders,
     private store: Store<fromStore.PlatformState>,
     private UserService: UserService
   ) {}
@@ -42,9 +47,19 @@ export class MessageFlowService {
   }
 
   getUserMessages(id: number): Observable<any[]> {
+    let current_user = this.UserService.currentUserDetails;
     let url: string = BASEURL + MESSAGES + "?user_id=" + id;
-    console.log(url);
 
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "X-User-Email": current_user.email,
+        "X-User-Token": current_user.authentication_token
+      })
+    };
+
+    console.log("----------------------------->", url, current_user);
+
+    // return this.http.get<any[]>(url, httpOptions);
     return this.http.get<any[]>(url);
   }
   getUserRequests(id: number): Observable<any[]> {

@@ -16,13 +16,14 @@ import { UserService } from "../../_services/user.service";
   encapsulation: ViewEncapsulation.None
 })
 export class AllRequestsComponent implements OnInit {
-  requests$: Observable<AidRequest[]>;
+  // requests$: Observable;
   requests: any[] = [];
   subscription: Subscription;
 
   request_id: number;
 
   current_user: User;
+  isLoggedIn: boolean = false;
 
   respondToRequest(id) {
     // TODO: we need a POST request here
@@ -67,6 +68,7 @@ export class AllRequestsComponent implements OnInit {
   ngOnInit() {
     this.UserService.currentUserSubject.subscribe(data => {
       if (this.UserService.isLoggedIn) {
+        this.isLoggedIn = this.UserService.isLoggedIn;
         this.current_user = this.UserService.currentUserDetails;
       }
     });

@@ -1,4 +1,4 @@
-<mat-accordion class="accordion">
+<mat-accordion class="accordion" *ngIf="isLoggedIn">
   <mat-expansion-panel *ngFor="let request of requests">
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="request-details">
