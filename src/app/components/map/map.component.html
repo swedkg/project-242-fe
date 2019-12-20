@@ -19,12 +19,12 @@
   >
     <agm-overlay [latitude]="m.lat" [longitude]="m.lng">
       <span
-        class="material-icons marker"
+        class="material-icons-outlined marker"
         *ngIf="!m.isUser"
         [ngClass]="{ red: m.isOneTime === true, green: m.isOneTime === false }"
         >pin_drop</span
       >
-      <span class="material-icons marker isUser" *ngIf="m.isUser"
+      <span class="material-icons-outlined marker isUser" *ngIf="m.isUser"
         >my_location</span
       >
     </agm-overlay>
@@ -44,13 +44,13 @@
         <span class="request-details">
           <span class="title">
             <span
-              class="material-icons marker sidepanel red"
+              class="material-icons-outlined marker sidepanel red"
               matTooltip="One-time request"
               *ngIf="m.isOneTime"
               >pin_drop</span
             >
             <span
-              class="material-icons marker sidepanel green"
+              class="material-icons-outlined marker sidepanel green"
               matTooltip="Material need"
               *ngIf="!m.isOneTime"
               >pin_drop</span

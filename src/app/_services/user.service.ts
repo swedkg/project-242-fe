@@ -29,8 +29,9 @@ export class UserService {
   }
 
   login(payload) {
-    let url: string = "http://localhost:3000/sessions/";
     console.log(payload);
+
+    let url: string = "http://localhost:3000/sessions/";
 
     return this.http.post<any>(url, payload).pipe(
       map(user => {
@@ -50,7 +51,23 @@ export class UserService {
 
   logout() {
     // remove user from local storage to log user out
-    localStorage.removeItem("currentUser");
-    this.currentUserSubject.next(null);
+    let url: string = "http://localhost:3000/user/logout";
+
+    return this.http.delete(url, { observe: "response" }).subscribe(
+      response => {
+        console.log(response, response.status);
+        if (response.status === 200) {
+          localStorage.removeItem("currentUser");
+          this.currentUserSubject.next(null);
+          // this.newRequesst.next({ request });
+        } else {
+          console.log("Something went wrong");
+        }
+        return response;
+      },
+      err => {
+        throw err;
+      }
+    );
   }
 }

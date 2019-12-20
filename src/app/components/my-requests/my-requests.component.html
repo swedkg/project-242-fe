@@ -8,20 +8,36 @@
       <!-- <pre>{{ request | json }}</pre> -->
       <span class="request-details">
         <span class="title">
-          <span
-            class="material-icons marker sidepanel red"
+          <!-- <span
+            class="material-icons-outlined marker sidepanel red"
             matTooltip="One-time request"
             *ngIf="request.isOneTime"
             >pin_drop</span
           >
           <span
-            class="material-icons marker sidepanel green"
+            class="material-icons-outlined marker sidepanel green"
             matTooltip="Material need"
             *ngIf="!request.isOneTime"
             >pin_drop</span
-          >{{ request.title }}</span
+          > -->
+          {{ request.title
+          }}<i
+            class="material-icons-outlined mark-fulfilled"
+            *ngIf="request.republished != 1"
+            matTooltip="Mark as fulfilled"
+            (click)="handleMarkFulfilled(request.id)"
+          >
+            check_circle_outline </i
+          ><i
+            class="material-icons-outlined mark-fulfilled"
+            *ngIf="request.republished == 1 && request.ownwer_id"
+            matTooltip="Republish request"
+            (click)="handleRepublishRequest(request.id)"
+          >
+            refresh
+          </i></span
         >
-        <span class="address">{{ request.address }}</span>
+        <span class="address">{{ request.address }} </span>
       </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
@@ -41,7 +57,7 @@
               >{{ responder.firstName }} {{ responder.lastName }}
             </span>
             <span
-              class="material-icons remove-responder"
+              class="material-icons-outlined remove-responder"
               matTooltip="Remove {{ responder.firstName }} {{
                 responder.lastName
               }} from responders"
@@ -49,12 +65,16 @@
               >close</span
             >
           </p>
-          <button
-            mat-button
-            (click)="handleShowMessages(request.id, responder.id)"
-          >
-            Go to messages
-          </button>
+          <div class="button-holder">
+            <button
+              mat-button
+              (click)="handleShowMessages(request.id, responder.id)"
+            >
+              <i class="material-icons-outlined" matTooltip="Go to messages">
+                message
+              </i>
+            </button>
+          </div>
         </div>
       </div>
     </div>

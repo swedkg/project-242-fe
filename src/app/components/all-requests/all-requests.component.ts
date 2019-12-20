@@ -91,6 +91,8 @@ export class AllRequestsComponent implements OnInit {
 
     this.MessageFlowService.getResponseToRequest().subscribe(data => {
       if (data === 201) {
+        this.store.dispatch(new fromStore.LoadRequests());
+
         this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
         this.SidenavService.setActiveSidenavTab(1);
         this.SidenavService.setActiveThread(this.request_id);

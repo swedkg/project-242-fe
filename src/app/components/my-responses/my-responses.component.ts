@@ -14,6 +14,7 @@ import { User } from "../../_models/user";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
+import { HelpRequestsService } from "../../_services/help-requests.service";
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -50,6 +51,7 @@ export class MyResponsesComponent implements OnInit {
     private SidenavService: SidenavService,
     private messageFlowService: MessageFlowService,
     private UserService: UserService,
+    private HelpRequestsService: HelpRequestsService,
 
     private store: Store<fromStore.PlatformState>
   ) {}
@@ -59,6 +61,16 @@ export class MyResponsesComponent implements OnInit {
     this.SidenavService.setActiveThread(id);
     this.SidenavService.setOpenChat(true);
     console.log(this);
+  }
+
+  handleMarkFulfilled(request_id) {
+    event.stopPropagation();
+    this.HelpRequestsService.markFulfilled(request_id);
+  }
+
+  handleRepublishRequest(request_id) {
+    event.stopPropagation();
+    this.HelpRequestsService.republishRequest(request_id);
   }
 
   sendMessage(fullfilment_id: number, owner: number) {

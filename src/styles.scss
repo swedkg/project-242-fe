@@ -1,8 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-
-@import '../node_modules/roboto-fontface/css/roboto/roboto-fontface.css';
-@import '../node_modules/material-icons/iconfont/material-icons.css';
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../node_modules/roboto-fontface/css/roboto/roboto-fontface.css";
+@import url("https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp");
 
 body,
 html {
@@ -12,5 +11,5 @@ html {
 
 * {
   box-sizing: content-box;
-  font-family: 'Roboto';
+  font-family: "Roboto";
 }

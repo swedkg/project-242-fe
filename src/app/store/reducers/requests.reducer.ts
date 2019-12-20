@@ -35,9 +35,7 @@ export function reducer(
             [request.id]: request
           };
         },
-        {
-          ...state.entities
-        }
+        {}
       );
 
       return {

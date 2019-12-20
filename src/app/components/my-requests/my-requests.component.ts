@@ -35,7 +35,7 @@ export class MyRequestsComponent implements OnInit {
   constructor(
     private store: Store<fromStore.PlatformState>,
     private SidenavService: SidenavService,
-    private helpRequestsService: HelpRequestsService,
+    private HelpRequestsService: HelpRequestsService,
     private MessageFlowService: MessageFlowService,
     private UserService: UserService
   ) {}
@@ -52,6 +52,16 @@ export class MyRequestsComponent implements OnInit {
   handleRemoveResponder(fullfilment) {
     // we need the fullfilment id here
     this.MessageFlowService.removeResponder(fullfilment);
+  }
+
+  handleMarkFulfilled(request_id) {
+    event.stopPropagation();
+    this.HelpRequestsService.markFulfilled(request_id);
+  }
+
+  handleRepublishRequest(request_id) {
+    event.stopPropagation();
+    this.HelpRequestsService.republishRequest(request_id);
   }
 
   setStep(id) {

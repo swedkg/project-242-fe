@@ -12,6 +12,8 @@ import * as fromStore from "../../store";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { mapStyle } from "./mapStyle";
+import { UserService } from "../../_services/user.service";
+import { User } from "../../_models/user";
 
 @NgModule({
   providers: [HelpRequestsService, SidenavService]
@@ -26,6 +28,8 @@ export class MapComponent implements OnInit {
   constructor(
     private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService,
+    private UserService: UserService,
+
     private store: Store<fromStore.PlatformState>
   ) {}
 
@@ -34,6 +38,8 @@ export class MapComponent implements OnInit {
   public fitBounds: boolean = false;
   public markers; //: {} = [];
   public mapStyle = mapStyle;
+
+  current_user: User;
 
   @ViewChild(AgmMap)
   public agmMap: AgmMap;
@@ -49,7 +55,7 @@ export class MapComponent implements OnInit {
 
   inBoundMarkersList(message): void {
     // send message to subscribers via observable subject
-    console.log(message);
+    // console.log(message);
     this.helpRequestsService.inBoundMarkersList(message);
   }
 
@@ -89,9 +95,10 @@ export class MapComponent implements OnInit {
     let coords = position.coords;
     this.userPosition = coords;
     // console.log("navigator.geolocation exists", coords, this);
+    // TODO: remember to adjust filtering
     this.markers = this.markers.filter(function(m) {
       // console.log(m);
-      return m.republised === 1;
+      return m.republished != 1;
     });
     this.markers.push({
       lat: coords.latitude,
@@ -99,7 +106,7 @@ export class MapComponent implements OnInit {
       title: "You are here",
       isUser: true
     });
-    // console.log(this.markers);
+    console.log(this.markers);
   }
 
   respondToRequest(id) {
@@ -113,13 +120,35 @@ export class MapComponent implements OnInit {
   // TODO: wireframes, at leasts 5, desktop and mobile
   // TODO: markers of separate colors
   // TODO: unlist after 24 hours, add republish button
-  // TODO: backed testing, unit tests for models and controler tests
+  // TODO: backend testing, unit tests for models and controler tests
   // TODO: click on marker, displays info, status, button to fullfil
   // TODO: if >5 users = fulfilled, cannot republish
   // TODO: add the number of fullfiled requests
 
   ngOnInit() {
     // let self = this;
+
+    this.UserService.currentUserSubject.subscribe(data => {
+      this.current_user = data;
+      console.log(this.current_user);
+    });
+
+    this.helpRequestsService.getFulfilled().subscribe(data => {
+      console.log(data);
+      this.store.dispatch(new fromStore.LoadRequests());
+      // setTimeout(() => {
+      //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+      // }, 0);
+    });
+
+    this.helpRequestsService.getRepublish().subscribe(data => {
+      console.log(data);
+      this.store.dispatch(new fromStore.LoadRequests());
+      // setTimeout(() => {
+      //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+      // }, 0);
+    });
+
     this.store.dispatch(new fromStore.LoadRequests());
     this.store.select(fromStore.getAllRequests).subscribe(data => {
       this.markers = data;

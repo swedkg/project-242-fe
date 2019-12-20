@@ -12,7 +12,7 @@
 span.mat-content {
   flex-flow: column;
 }
-.material-icons.marker.sidepanel {
+.material-icons-outlined.marker.sidepanel {
   top: 3px;
   font-size: 1rem;
   margin-right: 8px;
@@ -24,7 +24,7 @@ span.mat-content {
   font-size: 1.15em;
   display: flex;
   flex-flow: row;
-  align-items: end;
+  // align-items: flex-end;
   margin-bottom: 0.5em;
   color: hsl(0, 0%, 5%);
 }

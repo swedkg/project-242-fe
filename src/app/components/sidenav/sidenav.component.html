@@ -3,10 +3,10 @@
     <div class="user-actions">
       <button
         mat-button
-        class="material-icons menu-icon"
+        class="material-icons-outlined menu-icon"
         (click)="toggleRequestSidenav()"
       >
-        <p class="material-icons">menu_open</p>
+        <p class="material-icons-outlined">menu_open</p>
       </button>
       <app-user-panel></app-user-panel>
     </div>
@@ -16,20 +16,20 @@
     >
       <mat-tab>
         <ng-template mat-tab-label
-          ><p class="material-icons">apps</p>
+          ><p class="material-icons-outlined">apps</p>
           All</ng-template
         >
         <app-all-requests></app-all-requests
       ></mat-tab>
       <mat-tab>
         <ng-template mat-tab-label
-          ><p class="material-icons">emoji_people</p>
+          ><p class="material-icons-outlined">emoji_people</p>
           Volunteered</ng-template
         ><app-my-responses [activeTab]="activeTab"></app-my-responses
       ></mat-tab>
       <mat-tab
         ><ng-template mat-tab-label
-          ><p class="material-icons">home_work</p>
+          ><p class="material-icons-outlined">home_work</p>
           My Requests</ng-template
         ><app-my-requests [activeTab]="activeTab"></app-my-requests
       ></mat-tab>
@@ -42,11 +42,11 @@
     <button
       mat-button
       disabled="{{ !isLoggedIn }}"
-      class="material-icons menu-icon"
+      class="material-icons-outlined menu-icon"
       style="z-index: 1;"
       (click)="toggleRequestSidenav()"
     >
-      <p class="material-icons">menu</p>
+      <p class="material-icons-outlined">menu</p>
     </button>
     <app-layout></app-layout>
   </mat-sidenav-content>

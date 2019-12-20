@@ -6,18 +6,26 @@
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="request-details">
         <span class="title">
-          <span
-            class="material-icons marker sidepanel red"
+          <!-- <span
+            class="material-icons-outlined marker sidepanel red"
             matTooltip="One-time request"
             *ngIf="request.isOneTime"
             >pin_drop</span
           >
           <span
-            class="material-icons marker sidepanel green"
+            class="material-icons-outlined marker sidepanel green"
             matTooltip="Material need"
             *ngIf="!request.isOneTime"
             >pin_drop</span
-          >{{ request.title }}</span
+          > -->
+          {{ request.title
+          }}<i
+            class="material-icons-outlined mark-fulfilled"
+            matTooltip="Mark as fulfilled"
+            (click)="handleMarkFulfilled(request.id)"
+          >
+            check_circle_outline
+          </i></span
         >
         <span class="address">{{ request.address }}</span>
       </span>
@@ -28,7 +36,9 @@
     </p>
     <div class="button-holder">
       <button mat-button (click)="handleShowMessages(request.id)">
-        Go to messages
+        <i class="material-icons-outlined" matTooltip="Go to messages">
+          message
+        </i>
       </button>
     </div>
   </mat-expansion-panel>
