@@ -21,12 +21,11 @@ import { LoginRegisterModule } from "./modules/login-register.module";
 import { MaterialModule } from "./modules/material.module";
 import { SidenavModule } from "./modules/sidenav.module";
 import { effects, reducers } from "./store";
+import { ErrorInterceptor } from "./_helpers/error.interceptor";
+import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { HelpRequestsService } from "./_services/help-requests.service";
 import { MessageFlowService } from "./_services/message-flow.service";
 import { UserService } from "./_services/user.service";
-
-import { JwtInterceptor } from "./_helpers/jwt.interceptor";
-import { ErrorInterceptor } from "./_helpers/error.interceptor";
 
 const environment = {
   development: true,

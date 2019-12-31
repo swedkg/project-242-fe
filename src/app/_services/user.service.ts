@@ -28,6 +28,25 @@ export class UserService {
     return user ? true : false;
   }
 
+  register(payload) {
+    let url: string = "http://localhost:3000/users/";
+
+    return this.http.post<any>(url, payload).pipe(
+      map(user => {
+        console.log(user);
+
+        // login successful if there's a jwt token in the response
+        // if (user && user.authentication_token) {
+        //   // store user details and jwt token in local storage to keep user logged in between page refreshes
+        //   localStorage.setItem("currentUser", JSON.stringify(user));
+        //   this.currentUserSubject.next(user);
+        // }
+
+        return user;
+      })
+    );
+  }
+
   login(payload) {
     console.log(payload);
 

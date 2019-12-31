@@ -14,16 +14,21 @@ export class LoginComponent {
   currentDialog: MatDialogRef<LoginDialogComponent> = null;
   destroy = new Subject<any>();
 
-  constructor(matDialog: MatDialog, route: ActivatedRoute, router: Router) {
+  constructor(
+    public matDialog: MatDialog,
+    public route: ActivatedRoute,
+    public router: Router
+  ) {
     route.params.pipe(takeUntil(this.destroy)).subscribe(params => {
-      // console.log(params);
+      console.log(params);
 
       if (this.currentDialog) {
         this.currentDialog.close();
       }
 
       this.currentDialog = matDialog.open(LoginDialogComponent);
-      this.currentDialog.afterClosed().subscribe(result => {
+
+      this.currentDialog.backdropClick().subscribe(data => {
         console.log("The login dialog was closed");
         router.navigateByUrl("/");
       });

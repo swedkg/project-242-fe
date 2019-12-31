@@ -1,0 +1,130 @@
+<form [formGroup]="registrationForm" class="registration-form">
+  <mat-form-field>
+    <input
+      #firstName
+      type="firstName"
+      matInput
+      formControlName="firstName"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="First name"
+    />
+    <mat-error *ngIf="hasError('firstName', 'required')"
+      >Your first name is required</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      #firstName
+      type="lastName"
+      matInput
+      formControlName="lastName"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="Last name"
+    />
+    <mat-error *ngIf="hasError('lastName', 'required')"
+      >Your first name is required</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      #email
+      type="email"
+      matInput
+      formControlName="email"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="email"
+    />
+    <mat-error *ngIf="hasError('email', 'required')"
+      >An email is required</mat-error
+    >
+    <mat-error *ngIf="hasError('email', 'pattern')"
+      >Please use a valid email</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      #password
+      type="password"
+      matInput
+      formControlName="password"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="Password"
+    />
+    <mat-error *ngIf="hasError('password', 'required')"
+      >A password is required</mat-error
+    >
+    <mat-error *ngIf="hasError('password', 'minlength')"
+      >Your password should be at leat 6 chars</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      #confirmPassword
+      type="password"
+      matInput
+      formControlName="confirmPassword"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="off"
+      (keydown.enter)="$event.preventDefault()"
+      placeholder="Confirm password"
+    />
+    <mat-error *ngIf="hasError('confirmPassword', 'required')"
+      >A password is required</mat-error
+    >
+    <mat-error *ngIf="hasError('confirmPassword', 'minlength')"
+      >Your password should be at leat 6 chars</mat-error
+    >
+    <mat-error *ngIf="hasError('confirmPassword', 'passwordMatch')"
+      >Passwords don't match</mat-error
+    >
+  </mat-form-field>
+
+  <button mat-button (click)="openInput()">
+    <span *ngIf="image == null">Select File to Upload</span>
+    <span *ngIf="image">File to Upload: {{ image.name }}</span>
+  </button>
+  <input
+    #fileInput
+    id="fileInput"
+    formControlName="fileInput"
+    placeholder="fileInput"
+    hidden
+    type="file"
+    (change)="fileChange($event.target.files)"
+    name="file"
+    accept=".jpg,.png"
+  />
+  <mat-error class="font-size-12px" *ngIf="hasError('fileInput', 'required')"
+    >An image is required</mat-error
+  >
+
+  <!-- <button mat-button (click)="inputFile.click()">Import file</button>
+  {{ inputFile.value }}
+  <input #inputFile type="file" [style.display]="'none'" /> -->
+
+  <div class="button-container">
+    <button mat-button (click)="closeDialog()">
+      Cancel
+    </button>
+    <button
+      mat-button
+      (click)="register()"
+      [disabled]="!registrationForm.valid"
+    >
+      Register
+    </button>
+  </div>
+</form>

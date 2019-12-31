@@ -1,9 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialogRef } from "@angular/material";
+import { MatDialogRef, MatDialog } from "@angular/material";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 import { UserService } from "../../_services/user.service";
 import { first } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-login-dialog",
@@ -14,11 +15,24 @@ export class LoginDialogComponent implements OnInit {
   public loginForm: FormGroup;
   constructor(
     public dialogRef: MatDialogRef<LoginDialogComponent>,
-    private UserService: UserService
+    private UserService: UserService,
+    public matDialog: MatDialog,
+    public route: ActivatedRoute,
+    public router: Router
   ) {}
 
   closeDialog() {
     this.dialogRef.close();
+    this.router.navigateByUrl("/");
+  }
+
+  register() {
+    event.stopPropagation();
+
+    if (this.dialogRef) {
+      this.dialogRef.close();
+    }
+    this.router.navigateByUrl("/register");
   }
 
   login() {

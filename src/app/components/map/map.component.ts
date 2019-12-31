@@ -33,7 +33,7 @@ export class MapComponent implements OnInit {
     private store: Store<fromStore.PlatformState>
   ) {}
 
-  public initialZoomLevel = 12;
+  public initialZoomLevel = 16;
   public userPosition: object = {};
   public fitBounds: boolean = false;
   public markers; //: {} = [];
