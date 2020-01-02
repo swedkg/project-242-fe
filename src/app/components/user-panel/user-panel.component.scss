@@ -9,3 +9,11 @@ app-user-panel {
   display: flex;
   flex-grow: 1;
 }
+
+.profile-pic {
+  width: 3em;
+  margin: 0 1em 0 0em;
+  -webkit-clip-path: circle(50% at 50% 50%);
+  clip-path: circle(50% at 50% 50%);
+  height: 3em;
+}

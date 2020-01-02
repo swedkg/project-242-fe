@@ -1,4 +1,14 @@
 <div class="user-panel" *ngIf="user">
+  <div
+    *ngIf="user.image != null"
+    [ngStyle]="{
+      background: 'url(' + user.image + ')',
+      'background-position': 'center',
+      'background-size': 'cover',
+      'background-repeat': 'no-repeat'
+    }"
+    class="profile-pic"
+  ></div>
   <span>{{ user.firstName }} {{ user.lastName }} :: {{ user.id }}</span>
   <button
     mat-button
