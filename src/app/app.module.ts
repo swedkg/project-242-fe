@@ -26,6 +26,8 @@ import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { HelpRequestsService } from "./_services/help-requests.service";
 import { MessageFlowService } from "./_services/message-flow.service";
 import { UserService } from "./_services/user.service";
+import { SnackbarService } from "./_services/snackbar.service";
+import { SnackbarComponent } from "./components/snackbar/snackbar.component";
 
 const environment = {
   development: true,
@@ -42,7 +44,8 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     MapComponent,
     LayoutComponent,
     SidenavComponent,
-    CounterComponent
+    CounterComponent,
+    SnackbarComponent
   ],
   imports: [
     appRoutingModule,
@@ -73,7 +76,8 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     HelpRequestsService,
     MessageFlowService,
-    UserService
+    UserService,
+    SnackbarService
   ],
   bootstrap: [AppComponent]
 })

@@ -13,6 +13,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   imports: [
@@ -27,7 +28,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatSelectModule,
     MatInputModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
   ],
   exports: [
     MatSidenavModule,
@@ -40,7 +42,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     MatSelectModule,
     MatInputModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSnackBarModule
   ],
   declarations: []
 })
