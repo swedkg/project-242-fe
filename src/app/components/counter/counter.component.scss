@@ -1,9 +1,9 @@
 app-counter {
   // z-index: -1;
-  position: relative;
+  position: absolute;
   display: inline-flex;
-  left: 40%;
-  top: -3em;
+  right: 4rem;
+  bottom: 1.5rem;
   .stats {
     background: rgba(255, 255, 255, 0.8);
     padding: 1rem;

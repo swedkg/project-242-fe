@@ -20,3 +20,8 @@ form.login-form {
   text-align: center;
   margin-top: 2em;
 }
+
+.register-here > a {
+  box-shadow: inset 0 0px 0 white, inset 0 -2px 0 hsl(4, 90%, 58%);
+  cursor: pointer;
+}
