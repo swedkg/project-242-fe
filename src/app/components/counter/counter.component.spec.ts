@@ -1,21 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CounterComponent } from './counter.component';
+import { CounterComponent } from "./counter.component";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 
-
-describe('CounterComponent', () => {
+describe("CounterComponent", () => {
   let component: CounterComponent;
   let fixture: ComponentFixture<CounterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-      ],
-      declarations: [ CounterComponent ]
-    })
-    .compileComponents();
+      imports: [HttpClientTestingModule],
+      declarations: [CounterComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -24,7 +20,7 @@ describe('CounterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should be created", () => {
     expect(component).toBeTruthy();
   });
 });

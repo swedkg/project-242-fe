@@ -11,21 +11,25 @@ import { Observable } from "rxjs/Observable";
   encapsulation: ViewEncapsulation.None
 })
 export class CounterComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-  ) {}
+  stats= { total: 0, unfulfilled: 0, time: "" };
+  constructor(private http: HttpClient) {}
   stats$: Observable<any>;
-  stats = {};
+  // public stats;
 
   ngOnInit() {
-
     const stat$ = this.http.get("http://localhost:3000/platform/status/");
+    console.log("stats$ ->", stat$);
     timer(0, 15000)
       .pipe(
         concatMap(_ => stat$),
-        map((response: { requests: { requests: any } }) => response.requests)
+        map(
+          (response: {
+            requests: { total: number; unfulfilled: number; time: string };
+          }) => response.requests
+        )
       )
       .subscribe(stats => {
+        console.log("stats ->", stats);
         this.stats = stats;
       });
   }

@@ -1,16 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { MaterialModule } from "../../modules/material.module";
+import { LoginComponent } from "./login.component";
+import { routes } from "../../app.routing";
+import { RegisterComponent } from "../register/register.component";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { LoginDialogComponent } from "../login-dialog/login-dialog.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { BrowserDynamicTestingModule } from "@angular/platform-browser-dynamic/testing";
 
-import { LoginComponent } from './login.component';
-
-describe('LoginComponent', () => {
+describe("LoginComponent", () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
+      imports: [
+        BrowserAnimationsModule,
+        MaterialModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule.withRoutes(routes)
+      ],
+      declarations: [LoginComponent, LoginDialogComponent, RegisterComponent]
     })
-    .compileComponents();
+      .overrideModule(BrowserDynamicTestingModule, {
+        set: { entryComponents: [LoginDialogComponent] }
+      })
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +36,7 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should be created", () => {
     expect(component).toBeTruthy();
   });
 });

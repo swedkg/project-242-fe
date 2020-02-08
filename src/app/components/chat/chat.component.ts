@@ -153,10 +153,10 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this._getActiveChat.unsubscribe();
-    this._getActiveThread.unsubscribe();
-    this._chatRequest.unsubscribe();
-    this._getActiveSidenavTab.unsubscribe();
+    if (this._getActiveChat) this._getActiveChat.unsubscribe();
+    if (this._getActiveThread) this._getActiveThread.unsubscribe();
+    if (this._chatRequest) this._chatRequest.unsubscribe();
+    if (this._getActiveSidenavTab) this._getActiveSidenavTab.unsubscribe();
     console.clear();
     console.log("closing chat");
   }

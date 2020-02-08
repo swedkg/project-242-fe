@@ -1,16 +1,38 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { StoreModule } from "@ngrx/store";
+import { MaterialModule } from "../../modules/material.module";
+import { reducers } from "../../store";
+import {
+  HelpRequestsService,
+  MessageFlowService,
+  SidenavService,
+  UserService
+} from "../../_services";
+import { MyRequestsComponent } from "./my-requests.component";
 
-import { MyRequestsComponent } from './my-requests.component';
-
-describe('MyRequestsComponent', () => {
+describe("MyRequestsComponent", () => {
   let component: MyRequestsComponent;
   let fixture: ComponentFixture<MyRequestsComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MyRequestsComponent ]
-    })
-    .compileComponents();
+      imports: [
+        BrowserAnimationsModule,
+        MaterialModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot({}),
+        StoreModule.forFeature("aidPlatform", reducers)
+      ],
+      providers: [
+        UserService,
+        MessageFlowService,
+        HelpRequestsService,
+        SidenavService
+      ],
+      declarations: [MyRequestsComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +41,7 @@ describe('MyRequestsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should be created", () => {
     expect(component).toBeTruthy();
   });
 });

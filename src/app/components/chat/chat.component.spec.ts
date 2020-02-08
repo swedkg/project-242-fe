@@ -1,16 +1,30 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { StoreModule } from "@ngrx/store";
+import { MaterialModule } from "../../modules/material.module";
+import { reducers } from "../../store";
+import { ChatComponent } from "./chat.component";
 
-import { ChatComponent } from './chat.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-describe('ChatComponent', () => {
+describe("ChatComponent", () => {
   let component: ChatComponent;
   let fixture: ComponentFixture<ChatComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatComponent ]
-    })
-    .compileComponents();
+      imports: [
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MaterialModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot({}),
+        StoreModule.forFeature("aidPlatform", reducers)
+      ],
+      declarations: [ChatComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +33,7 @@ describe('ChatComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should be created", () => {
     expect(component).toBeTruthy();
   });
 });

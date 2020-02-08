@@ -29,12 +29,11 @@ export class MapComponent implements OnInit {
     private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService,
     private UserService: UserService,
-
     private store: Store<fromStore.PlatformState>
   ) {}
 
   public initialZoomLevel = 16;
-  public userPosition: object = {};
+  public userPosition = { longitude: 0, latitude: 0 };
   public fitBounds: boolean = false;
   public markers; //: {} = [];
   public mapStyle = mapStyle;
