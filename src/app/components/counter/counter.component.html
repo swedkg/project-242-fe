@@ -1,5 +1,11 @@
-<div class="stats">
-  <span>Requests: {{ stats.total }}</span>
-  <span>Unfulfilled: {{ stats.unfulfilled }}</span>
-  <span>Updated: {{ stats.time | date: 'medium' }}</span>
-</div>
+<!-- <div class="stats">
+  <span>Requests: {{ stats.total }}, Unfulfilled: {{ stats.unfulfilled }}</span>
+  <span>Updated: {{ stats.time | date: "hh:mm:ss" }}</span>
+</div> -->
+<i
+  class="material-icons-outlined tooltip-stats"
+  matTooltip="Requests: {{ stats.total }},  Unfulfilled: {{
+    stats.unfulfilled
+  }} &#13; Updated: {{ stats.time | date: 'hh:mm:ss' }}"
+  >assignment</i
+>

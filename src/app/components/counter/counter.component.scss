@@ -1,9 +1,11 @@
 app-counter {
   // z-index: -1;
   position: absolute;
-  display: inline-flex;
-  right: 4rem;
-  bottom: 1.5rem;
+  // display: inline-flex;
+  right: 10px;
+  bottom: 11.5rem;
+  // right: 4rem;
+  // bottom: 1.5rem;
   .stats {
     background: rgba(255, 255, 255, 0.8);
     padding: 1rem;
@@ -12,4 +14,16 @@ app-counter {
     // width: fit-content;
     border-radius: 10px;
   }
+  i.material-icons-outlined.tooltip-stats {
+    color: #666666;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0 1px 4px -1px;
+    font-size: 1.5em;
+    padding: 8px;
+  }
+}
+
+.mat-tooltip {
+  white-space: pre-line;
 }

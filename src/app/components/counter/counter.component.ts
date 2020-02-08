@@ -11,7 +11,7 @@ import { Observable } from "rxjs/Observable";
   encapsulation: ViewEncapsulation.None
 })
 export class CounterComponent implements OnInit {
-  stats= { total: 0, unfulfilled: 0, time: "" };
+  stats = { total: 0, unfulfilled: 0, time: "" };
   constructor(private http: HttpClient) {}
   stats$: Observable<any>;
   // public stats;
@@ -29,7 +29,7 @@ export class CounterComponent implements OnInit {
         )
       )
       .subscribe(stats => {
-        console.log("stats ->", stats);
+        // console.log("stats ->", stats);
         this.stats = stats;
       });
   }
