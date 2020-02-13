@@ -1,3 +1,6 @@
+@import "../../_styling/variables.scss";
+@import "../../_styling/mixins.scss";
+
 form.login-form {
   display: flex;
   flex-direction: column;
@@ -13,6 +16,10 @@ form.login-form {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+  }
+
+  @include md-max {
+    width: unset;
   }
 }
 

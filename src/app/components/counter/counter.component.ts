@@ -4,6 +4,8 @@ import { HttpClient } from "@angular/common/http";
 import { concatMap, map, tap, withLatestFrom } from "rxjs/operators";
 import { Observable } from "rxjs/Observable";
 
+import { host } from "../../_services/host";
+
 @Component({
   selector: "app-counter",
   templateUrl: "./counter.component.html",
@@ -17,7 +19,7 @@ export class CounterComponent implements OnInit {
   // public stats;
 
   ngOnInit() {
-    const stat$ = this.http.get("http://localhost:3000/platform/status/");
+    const stat$ = this.http.get(host + "/platform/status/");
     console.log("stats$ ->", stat$);
     timer(0, 15000)
       .pipe(

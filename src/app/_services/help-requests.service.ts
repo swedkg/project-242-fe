@@ -7,6 +7,8 @@ import { catchError } from "rxjs/operators";
 
 import "rxjs/add/observable/throw";
 
+import { host } from "./host";
+
 @Injectable({
   providedIn: "root"
 })
@@ -19,7 +21,7 @@ export class HelpRequestsService {
   private republish = new Subject<any>();
 
   addNewRequest(request) {
-    let url: string = "http://localhost:3000/requests";
+    let url: string = host + "/requests";
 
     console.log(request);
 
@@ -83,14 +85,14 @@ export class HelpRequestsService {
   // ---------------------------------- //
 
   createRequest(request): Observable<any> {
-    let url: string = "http://localhost:3000/requests";
+    let url: string = host + "/requests";
     return this.http
       .post<any>(url, request, { observe: "response" })
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
   }
 
   getAllRequests(): Observable<any[]> {
-    let url: string = "http://localhost:3000/requests";
+    let url: string = host + "/requests";
     return this.http
       .get<AidRequest[]>(url)
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
@@ -99,7 +101,7 @@ export class HelpRequestsService {
   markFulfilled(request) {
     console.log("request:", request);
 
-    let url = "http://localhost:3000/requests/" + request;
+    let url = host + "/requests/" + request;
     let body = {
       fulfilled: true
     };
@@ -118,7 +120,7 @@ export class HelpRequestsService {
   }
 
   republishRequest(request) {
-    let url = "http://localhost:3000/requests/" + request;
+    let url = host + "/requests/" + request;
 
     let body = {
       republished: 2

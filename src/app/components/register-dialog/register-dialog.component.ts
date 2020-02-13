@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { MatDialogRef } from "@angular/material";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 
@@ -8,7 +8,8 @@ import { first } from "rxjs/operators";
 @Component({
   selector: "app-register-dialog",
   templateUrl: "./register-dialog.component.html",
-  styleUrls: ["./register-dialog.component.scss"]
+  styleUrls: ["./register-dialog.component.scss"],
+  encapsulation: ViewEncapsulation.None
 })
 export class RegisterDialogComponent implements OnInit {
   public registrationForm: FormGroup;

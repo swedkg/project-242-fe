@@ -1,5 +1,13 @@
+@import "../../_styling/variables.scss";
+@import "../../_styling/mixins.scss";
+
 .login-register {
   position: absolute;
   right: 1em;
   top: 1em;
+
+  @include md-max {
+    right: -0.5em;
+    top: 0.2em;
+  }
 }

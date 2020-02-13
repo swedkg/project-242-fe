@@ -1,9 +1,15 @@
+@import "../../_styling/variables.scss";
+@import "../../_styling/mixins.scss";
+
 mat-sidenav-container {
   height: 100vh;
 }
 
 mat-sidenav.mat-drawer.mat-sidenav {
   width: 485px;
+  @include md-max {
+    width: 100vw;
+  }
 }
 
 .accordion {
@@ -22,4 +28,18 @@ mat-sidenav.mat-drawer.mat-sidenav {
 .user-actions {
   display: flex;
   justify-content: space-between;
+}
+
+.menu-icon {
+  @include md-max {
+    // background-color: greenyellow;
+    left: -0.5em;
+    top: -1em;
+  }
+}
+
+.mat-tab-label {
+  @include md-max {
+    padding: 0px 12px !important;
+  }
 }

@@ -1,3 +1,6 @@
+@import "../../_styling/variables.scss";
+@import "../../_styling/mixins.scss";
+
 .new-request-form {
   display: flex;
   flex-direction: column;
@@ -20,8 +23,26 @@
     flex-direction: row;
     justify-content: space-around;
   }
+
+  @include md-max {
+    width: 70vw;
+  }
+
+  @include md-max-landscape {
+    width: auto;
+  }
 }
 
 .pac-container.pac-logo::after {
   display: none;
+}
+
+.mat-dialog-container {
+  // @include md-max {
+  @include md-max-landscape {
+    width: 70vw;
+    max-width: unset;
+    height: unset;
+    overflow: scroll;
+  }
 }

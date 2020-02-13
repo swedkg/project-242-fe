@@ -6,9 +6,9 @@ import { catchError } from "rxjs/operators";
 import * as fromStore from "../store/";
 import { UserService } from "../_services/user.service";
 
-import { User } from "../_models/user";
+import { host } from "./host";
 
-const BASEURL = "http://localhost:3000";
+const BASEURL = host + "";
 const MESSAGES = "/messages";
 const FULLFILMENTS = "/fullfilments/";
 

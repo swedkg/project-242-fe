@@ -6,6 +6,8 @@ import { map } from "rxjs/operators";
 
 import { SnackbarService } from "./snackbar.service";
 
+import { host } from "./host";
+
 @Injectable({
   providedIn: "root"
 })
@@ -43,7 +45,7 @@ export class UserService {
   }
 
   register(payload) {
-    let url: string = "http://localhost:3000/users/";
+    let url: string = host + "/users/";
 
     return this.http.post<any>(url, payload).pipe(
       map(user => {
@@ -54,7 +56,7 @@ export class UserService {
   }
 
   login(payload) {
-    let url: string = "http://localhost:3000/sessions/";
+    let url: string = host + "/sessions/";
 
     return this.http.post<any>(url, payload).pipe(
       map(user => {
@@ -68,7 +70,7 @@ export class UserService {
 
   logout() {
     // remove user from local storage to log user out
-    let url: string = "http://localhost:3000/user/logout";
+    let url: string = host + "/user/logout";
 
     return this.http.delete(url, { observe: "response" }).subscribe(
       response => {
