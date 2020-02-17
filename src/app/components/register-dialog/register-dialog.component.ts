@@ -5,6 +5,8 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { UserService } from "../../_services/user.service";
 import { first } from "rxjs/operators";
 
+import { SnackbarService } from "../../_services/snackbar.service";
+
 @Component({
   selector: "app-register-dialog",
   templateUrl: "./register-dialog.component.html",
@@ -16,7 +18,8 @@ export class RegisterDialogComponent implements OnInit {
   image: "";
   constructor(
     public dialogRef: MatDialogRef<RegisterDialogComponent>,
-    private UserService: UserService
+    private UserService: UserService,
+    public SnackbarService: SnackbarService
   ) {}
 
   closeDialog() {
@@ -70,10 +73,7 @@ export class RegisterDialogComponent implements OnInit {
           // this.router.navigate([this.returnUrl]);
         },
         error => {
-          // this.alertService.error(error);
-          console.log(error);
-
-          // this.loading = false;
+          this.SnackbarService.show(error.error.email[1]);
         }
       );
 

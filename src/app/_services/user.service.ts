@@ -50,6 +50,7 @@ export class UserService {
     return this.http.post<any>(url, payload).pipe(
       map(user => {
         this.saveUserToLocalStorage(user);
+        this.SnackbarService.show("Thank you for joinning in!");
         return user;
       })
     );
@@ -59,12 +60,17 @@ export class UserService {
     let url: string = host + "/sessions/";
 
     return this.http.post<any>(url, payload).pipe(
-      map(user => {
-        // login successful if there's a jwt token in the response
-        this.saveUserToLocalStorage(user);
-        this.SnackbarService.show("Login");
-        return user;
-      })
+      map(
+        user => {
+          // login successful if there's a jwt token in the response
+          this.saveUserToLocalStorage(user);
+          this.SnackbarService.show("Login Successful");
+          return user;
+        },
+        error => {
+          console.log(error);
+        }
+      )
     );
   }
 
@@ -78,6 +84,7 @@ export class UserService {
         if (response.status === 200) {
           localStorage.removeItem("currentUser");
           this.currentUserSubject.next(null);
+          this.SnackbarService.show("Logout Successful");
         } else {
           console.log("Something went wrong");
         }

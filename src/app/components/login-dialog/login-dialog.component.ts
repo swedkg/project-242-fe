@@ -6,6 +6,8 @@ import { UserService } from "../../_services/user.service";
 import { first } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 
+import { SnackbarService } from "../../_services/snackbar.service";
+
 @Component({
   selector: "app-login-dialog",
   templateUrl: "./login-dialog.component.html",
@@ -18,7 +20,8 @@ export class LoginDialogComponent implements OnInit {
     private UserService: UserService,
     public matDialog: MatDialog,
     public route: ActivatedRoute,
-    public router: Router
+    public router: Router,
+    public SnackbarService: SnackbarService
   ) {}
 
   closeDialog() {
@@ -50,9 +53,8 @@ export class LoginDialogComponent implements OnInit {
           // this.router.navigate([this.returnUrl]);
         },
         error => {
-          // this.alertService.error(error);
+          this.SnackbarService.show(error.error.login_error);
           console.log(error);
-
           // this.loading = false;
         }
       );

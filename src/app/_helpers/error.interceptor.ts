@@ -18,15 +18,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
-      catchError(err => {
-        if (err.status === 401) {
-          // auto logout if 401 response returned from api
-          // this.UserService.logout();
-          // location.reload(true);
-          console.error("Somethis bad happened");
-        }
-
-        const error = err.error.message || err.statusText;
+      catchError(error => {
         return throwError(error);
       })
     );
