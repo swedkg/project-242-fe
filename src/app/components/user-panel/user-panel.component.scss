@@ -17,3 +17,20 @@ app-user-panel {
   clip-path: circle(50% at 50% 50%);
   height: 3em;
 }
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  .material-icons-outlined {
+    max-width: 1em;
+    font-size: 1em;
+    margin-bottom: 1px;
+    margin-left: -1px;
+  }
+  .logout {
+    min-width: auto !important;
+    padding: 0.5em 0.5em 0.3em;
+    line-height: 1em;
+    margin-bottom: 1em;
+  }
+}
