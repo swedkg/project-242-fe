@@ -115,6 +115,10 @@ export class MapComponent implements OnInit {
     this.SidenavService.setActiveSidenavTab(0);
   }
 
+  get isLoggedIn() {
+    return this.UserService.isLoggedIn;
+  }
+
   // TODO: sign-in/ signup
   // TODO: wireframes, at leasts 5, desktop and mobile
   // TODO: markers of separate colors

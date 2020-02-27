@@ -832,7 +832,8 @@
       "isOneTime": "0",
       "lat": "60.1805",
       "lng": "67.8949",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "2",
@@ -842,7 +843,8 @@
       "isOneTime": "0",
       "lat": "23.8337",
       "lng": "-97.5502",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "3",
@@ -852,7 +854,8 @@
       "isOneTime": "0",
       "lat": "-46.341",
       "lng": "20.4515",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "4",
@@ -862,7 +865,8 @@
       "isOneTime": "1",
       "lat": "-3.27447",
       "lng": "101.298",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "5",
@@ -872,7 +876,8 @@
       "isOneTime": "0",
       "lat": "8.08134",
       "lng": "-14.3937",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "6",
@@ -882,7 +887,8 @@
       "isOneTime": "1",
       "lat": "-30.5241",
       "lng": "4.77855",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "7",
@@ -892,7 +898,8 @@
       "isOneTime": "0",
       "lat": "30.1162",
       "lng": "-1.21911",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "8",
@@ -902,7 +909,8 @@
       "isOneTime": "0",
       "lat": "37.3861",
       "lng": "50.9034",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "9",
@@ -912,7 +920,8 @@
       "isOneTime": "1",
       "lat": "58.4184",
       "lng": "146.701",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "10",
@@ -922,7 +931,8 @@
       "isOneTime": "0",
       "lat": "-87.3519",
       "lng": "1.25719",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "11",
@@ -932,7 +942,8 @@
       "isOneTime": "0",
       "lat": "-58.8686",
       "lng": "-134.26",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "12",
@@ -942,7 +953,8 @@
       "isOneTime": "0",
       "lat": "53.4768",
       "lng": "110.72",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "13",
@@ -952,7 +964,8 @@
       "isOneTime": "0",
       "lat": "36.4167",
       "lng": "-104.773",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "14",
@@ -962,7 +975,8 @@
       "isOneTime": "1",
       "lat": "-71.5559",
       "lng": "71.8147",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "15",
@@ -972,7 +986,8 @@
       "isOneTime": "0",
       "lat": "19.0493",
       "lng": "-1.23559",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "16",
@@ -982,7 +997,8 @@
       "isOneTime": "1",
       "lat": "-53.9215",
       "lng": "-101.148",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "17",
@@ -992,7 +1008,8 @@
       "isOneTime": "1",
       "lat": "16.8933",
       "lng": "-94.4421",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "18",
@@ -1002,7 +1019,8 @@
       "isOneTime": "1",
       "lat": "67.6739",
       "lng": "40.295",
-      "fullfilled": "1"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "19",
@@ -1012,7 +1030,8 @@
       "isOneTime": "0",
       "lat": "74.3612",
       "lng": "-132.925",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     },
     {
       "id": "20",
@@ -1022,7 +1041,8 @@
       "isOneTime": "1",
       "lat": "-61.9792",
       "lng": "-178.784",
-      "fullfilled": "0"
+      "fullfilled": 0,
+      "republished": false
     }
   ],
   "users": [

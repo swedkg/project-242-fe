@@ -106,7 +106,8 @@ export class MessageFlowService {
     let current_user = this.UserService.currentUserDetails;
     let fullfilment = {
       request_id: id,
-      user_id: current_user.id
+      user_id: current_user.id,
+      status: true
     };
 
     return this.http

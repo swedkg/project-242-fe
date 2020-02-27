@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
 
 import { SnackbarService } from "./snackbar.service";
+import { SidenavService } from "./sidenav.service";
 
 import { host } from "./host";
 
@@ -18,7 +19,8 @@ export class UserService {
 
   constructor(
     private http: HttpClient,
-    private SnackbarService: SnackbarService
+    private SnackbarService: SnackbarService,
+    private SidenavService: SidenavService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -65,6 +67,7 @@ export class UserService {
           // login successful if there's a jwt token in the response
           this.saveUserToLocalStorage(user);
           this.SnackbarService.show("Login Successful");
+          this.SidenavService.setSidenavOpen(true);
           return user;
         },
         error => {

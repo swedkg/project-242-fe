@@ -101,6 +101,8 @@ export class MyResponsesComponent implements OnInit {
 
     this.SidenavService.getOpenChat().subscribe(open => {
       console.log("1");
+      console.log("activeTab", this.activeTab);
+
 
       if (this.activeTab !== 1) return null;
       console.log("2");

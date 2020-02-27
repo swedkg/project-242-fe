@@ -64,7 +64,11 @@
           </p>
         </span>
         <mat-divider></mat-divider>
-        <button *ngIf="!m.isUser" mat-button (click)="respondToRequest(m.id)">
+        <button
+          *ngIf="!m.isUser && isLoggedIn"
+          mat-button
+          (click)="respondToRequest(m.id)"
+        >
           Respond to request
         </button>
       </ng-template>
