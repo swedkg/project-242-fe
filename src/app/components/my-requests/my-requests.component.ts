@@ -73,16 +73,16 @@ export class MyRequestsComponent implements OnInit {
     let _getChatForResponder;
 
     this.SidenavService.getOpenChat().subscribe(open => {
-      console.log("1");
+      console.log("Step 1");
 
       console.log("activeTab", this.activeTab, open);
-      
-      if (this.activeTab !== 1) return null;
-      console.log("2");
+
+      if (this.activeTab !== 2) return null;
+      console.log("Step 2");
 
       if (open === true) {
-        console.log("in here");
-        
+        console.log("Step 3");
+
         setTimeout(() => {
           this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
         }, 0);

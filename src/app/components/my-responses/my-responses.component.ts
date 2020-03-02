@@ -100,23 +100,21 @@ export class MyResponsesComponent implements OnInit {
     let _getChatMessages;
 
     this.SidenavService.getOpenChat().subscribe(open => {
-      console.log("1");
+      console.log("Step 1");
       console.log("activeTab", this.activeTab);
 
-
       if (this.activeTab !== 1) return null;
-      console.log("2");
+      console.log("Step 2");
 
       if (open === true) {
-        console.log("3");
+        console.log("Step 3");
 
         this.chat$ = {};
 
-        console.log(this.current_user);
+        console.log("current user", this.current_user);
 
-        setTimeout(() => {
-          this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-        }, 0);
+        setTimeout(() => {}, 0);
+        this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
 
         _getChatMessages = this.store
           .select(fromStore.getChatMessages, this.activeThread)
@@ -124,12 +122,11 @@ export class MyResponsesComponent implements OnInit {
             this.chat$ = data;
             console.log("____", this.chat$, data);
 
-            this.SidenavService.setActiveChat(data);
-            // this.SidenavService.setActiveThread(this.activeThread);
-            setTimeout(() => {}, 0);
+            this.SidenavService.setActiveChat(this.chat$);
+            console.log(open, this.activeThread, this.chat$);
+            // setTimeout(() => {
+            // }, 0);
           });
-
-        console.log(open, this.activeThread, this.chat$);
       } else {
         if (_getChatMessages) _getChatMessages.unsubscribe();
         console.log(open, this.activeThread, this.chat$);
@@ -165,7 +162,7 @@ export class MyResponsesComponent implements OnInit {
 
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
-      // console.log('getActiveSidenavTab', this.activeTab);
+      console.log("activeTab", this.activeTab);
     });
 
     this.messageFlowService.getNewMessage().subscribe(data => {

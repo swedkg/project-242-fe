@@ -1,38 +1,31 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { timer } from "rxjs";
-import { HttpClient } from "@angular/common/http";
-import { concatMap, map, tap, withLatestFrom } from "rxjs/operators";
-import { Observable } from "rxjs/Observable";
-
-import { host } from "../../_services/host";
+import { ActionCableService, Channel } from "angular2-actioncable";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-counter",
   templateUrl: "./counter.component.html",
   styleUrls: ["./counter.component.scss"],
+  providers: [ActionCableService],
   encapsulation: ViewEncapsulation.None
 })
 export class CounterComponent implements OnInit {
-  stats = { total: 0, unfulfilled: 0, time: "" };
-  constructor(private http: HttpClient) {}
-  stats$: Observable<any>;
-  // public stats;
+  platformStatus = {
+    requests: { total: 0, unfulfilled: 0, time: "" }
+  };
+  // platformStatus.
+  constructor(private cableService: ActionCableService) {}
+  subscription: Subscription;
 
   ngOnInit() {
-    const stat$ = this.http.get(host + "/platform/status/");
-    console.log("stats$ ->", stat$);
-    timer(0, 15000)
-      .pipe(
-        concatMap(_ => stat$),
-        map(
-          (response: {
-            requests: { total: number; unfulfilled: number; time: string };
-          }) => response.requests
-        )
-      )
-      .subscribe(stats => {
-        // console.log("stats ->", stats);
-        this.stats = stats;
-      });
+    // Open a connection and obtain a reference to the channel
+    const channel: Channel = this.cableService
+      .cable("ws://127.0.0.1:3000/cable")
+      .channel("WebNotificationsChannel");
+    // Subscribe to incoming messages
+    this.subscription = channel.received().subscribe(status => {
+      this.platformStatus = status;
+      console.log(status, this.platformStatus);
+    });
   }
 }

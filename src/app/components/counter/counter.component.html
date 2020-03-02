@@ -1,11 +1,10 @@
-<!-- <div class="stats">
-  <span>Requests: {{ stats.total }}, Unfulfilled: {{ stats.unfulfilled }}</span>
-  <span>Updated: {{ stats.time | date: "hh:mm:ss" }}</span>
-</div> -->
 <i
   class="material-icons-outlined tooltip-stats"
-  matTooltip="Requests: {{ stats.total }},  Unfulfilled: {{
-    stats.unfulfilled
-  }} &#13; Updated: {{ stats.time | date: 'h:mm:ss a' }}"
+  *ngIf="platformStatus.requests.total > 0"
+  matTooltip="Requests: {{
+    platformStatus.requests.total
+  }}, &#13;Unfulfilled: {{
+    platformStatus.requests.unfulfilled
+  }} &#13; Updated: {{ platformStatus.requests.time | date: 'h:mm:ss' }}"
   >assignment</i
 >

@@ -133,7 +133,7 @@ export class ChatComponent implements OnInit {
               this.chatRequest
             );
           });
-        console.log("Chat activeThread", request_id);
+        console.log("Chat chatRequest", request_id);
       }
     );
 
@@ -157,7 +157,7 @@ export class ChatComponent implements OnInit {
     if (this._getActiveThread) this._getActiveThread.unsubscribe();
     if (this._chatRequest) this._chatRequest.unsubscribe();
     if (this._getActiveSidenavTab) this._getActiveSidenavTab.unsubscribe();
-    console.clear();
+    // console.clear();
     console.log("closing chat");
   }
 }

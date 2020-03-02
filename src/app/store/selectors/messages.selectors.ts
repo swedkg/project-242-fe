@@ -53,7 +53,6 @@ export const getChatForResponder = createSelector(
       });
 
     console.log(entitites, obj, "--------------->", result);
-
     return result;
   }
 );
