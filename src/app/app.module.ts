@@ -28,6 +28,7 @@ import { HelpRequestsService } from "./_services/help-requests.service";
 import { MessageFlowService } from "./_services/message-flow.service";
 import { SnackbarService } from "./_services/snackbar.service";
 import { UserService } from "./_services/user.service";
+import { ActionCableService } from "angular2-actioncable";
 
 const environment = {
   development: true,
@@ -77,7 +78,8 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     HelpRequestsService,
     MessageFlowService,
     UserService,
-    SnackbarService
+    SnackbarService,
+    ActionCableService
   ],
   bootstrap: [AppComponent]
 })

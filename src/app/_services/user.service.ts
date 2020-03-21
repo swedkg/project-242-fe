@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { User } from "../_models/user";
 import { HttpClient } from "@angular/common/http";
 import { map } from "rxjs/operators";
@@ -8,6 +8,7 @@ import { SnackbarService } from "./snackbar.service";
 import { SidenavService } from "./sidenav.service";
 
 import { host } from "./host";
+import { ActionCableService, Channel } from "angular2-actioncable";
 
 @Injectable({
   providedIn: "root"
@@ -15,12 +16,14 @@ import { host } from "./host";
 export class UserService {
   public currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
+  subscription: Subscription;
   // private SnackbarService: SnackbarService;
 
   constructor(
     private http: HttpClient,
     private SnackbarService: SnackbarService,
-    private SidenavService: SidenavService
+    private SidenavService: SidenavService,
+    private cableService: ActionCableService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -68,6 +71,27 @@ export class UserService {
           this.saveUserToLocalStorage(user);
           this.SnackbarService.show("Login Successful");
           this.SidenavService.setSidenavOpen(true);
+
+          // Open a connection and obtain a reference to the channel
+          console.log(user.authentication_token);
+          // .cable("ws://127.0.0.1:3000/cable", user.authentication_token)
+
+          const channel: Channel = this.cableService
+            .cable("ws://127.0.0.1:3000/cable", {
+              authentication_token: user.authentication_token
+            })
+            .channel("WebNotificationsChannel", {
+              room: user.authentication_token
+            });
+          // Subscribe to incoming messages
+
+          this.subscription = channel.received().subscribe(status => {
+            console.log(status);
+          });
+          // // document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + location.host;
+
+          // document.cookie =
+          //   "X-Authorization=" + user.authentication_token + "; path=/";
           return user;
         },
         error => {
@@ -88,6 +112,14 @@ export class UserService {
           localStorage.removeItem("currentUser");
           this.currentUserSubject.next(null);
           this.SnackbarService.show("Logout Successful");
+          this.SidenavService.setSidenavOpen(false);
+          console.log("action cable disconnect??");
+
+          this.cableService.disconnect("ws://127.0.0.1:3000/cable");
+          // document.cookie =
+          // "COOKIE_NAME=; Max-Age=0; path=/; domain=" + location.host;
+          //
+          // document.cookie = "X-Authorization=;Max-Age=0; path=/";
         } else {
           console.log("Something went wrong");
         }

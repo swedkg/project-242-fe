@@ -1,6 +1,8 @@
+<!-- *ngIf="platformStatus.requests.total > 0" -->
+
 <i
-  class="material-icons-outlined tooltip-stats"
   *ngIf="platformStatus.requests.total > 0"
+  class="material-icons-outlined tooltip-stats"
   matTooltip="Requests: {{
     platformStatus.requests.total
   }}, &#13;Unfulfilled: {{
