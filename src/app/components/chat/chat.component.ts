@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   chatMessages$: Observable<Message[]>;
   chatMessages: {};
   chatRequest: any = {};
+  current_user: any = {};
 
   constructor(
     private SidenavService: SidenavService,
@@ -33,18 +34,18 @@ export class ChatComponent implements OnInit {
   @Input() showMessages: boolean;
   // @Input() chat$: any;
   chat$: any;
-  activeTab: number;
+  activeTab;
 
   sendMessage() {
-    let current_user = this.UserService.currentUserDetails;
     let fullfilment_id = this.chat$[0].fullfilment_id;
 
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
     this.newMessage.fullfilment_id = fullfilment_id;
-    this.newMessage.sender_id = current_user.id;
+    this.newMessage.sender_id = this.current_user.id;
 
     this.newMessage.users = {};
     let users = this.chat$[0].users;
+    // this.activeTab = this.SidenavService.getCurrentSidenavTab();
 
     if (this.activeTab === 1) {
       this.newMessage.receiver_id = this.chatRequest.owner_id;
@@ -61,24 +62,44 @@ export class ChatComponent implements OnInit {
     // ? this.chatRequest.owner_id
     // : this.chat$[0].users.sender.id;
 
-    console.log(this.newMessage, this.chat$, current_user);
+    console.log(this);
 
     // return null;
 
     this.store.dispatch(new fromStore.CreateMessage(this.newMessage));
 
+    this.newMessage = {};
+    this.newMessageForm.reset();
+
     setTimeout(() => {
-      this.store.dispatch(new fromStore.LoadMessages(current_user.id));
-    }, 250);
+      this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+    }, 100);
+
+    this.scrollMessageFLowContainer();
 
     // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
     // this.messageFlowService.sendMessage(this.newMessage);
-    this.newMessageForm.reset();
   }
 
   hasError = (controlName: string, errorName: string) => {
     return this.newMessageForm.controls[controlName].hasError(errorName);
   };
+
+  // scroll element to bottom
+  scrollMessageFLowContainer() {
+    let el = document.querySelector(".message-flow-container");
+    if (el === null) return false;
+    el.scrollTo({
+      left: 0,
+      top: el.scrollHeight,
+      behavior: "smooth"
+    });
+    // el.scrollTop = el.scrollHeight;
+  }
+
+  resetChat() {
+    this.newMessageForm.reset();
+  }
 
   closeChat() {
     this.SidenavService.setOpenChat(false);
@@ -88,10 +109,11 @@ export class ChatComponent implements OnInit {
   _getActiveChat;
   _getActiveThread;
   _chatRequest;
-  _getActiveSidenavTab;
 
   ngOnInit() {
     console.log("chat init");
+
+    this.current_user = this.UserService.currentUserDetails;
 
     // this.request_id = this.SidenavService.thread;
 
@@ -109,6 +131,7 @@ export class ChatComponent implements OnInit {
         // this.chat$ = this.SidenavService.activeChat;
         this.chat$ = data;
         console.log("getActiveChat", data);
+        setTimeout(this.scrollMessageFLowContainer, 100);
       }
     );
 
@@ -137,12 +160,8 @@ export class ChatComponent implements OnInit {
       }
     );
 
-    this._getActiveSidenavTab = this.SidenavService.getActiveSidenavTab().subscribe(
-      data => {
-        this.activeTab = data;
-        console.log("getActiveSidenavTab", this.activeTab);
-      }
-    );
+    this.activeTab = this.SidenavService.getCurrentTab();
+    console.log(this);
 
     this.newMessageForm = new FormGroup({
       messageText: new FormControl("", [
@@ -156,7 +175,7 @@ export class ChatComponent implements OnInit {
     if (this._getActiveChat) this._getActiveChat.unsubscribe();
     if (this._getActiveThread) this._getActiveThread.unsubscribe();
     if (this._chatRequest) this._chatRequest.unsubscribe();
-    if (this._getActiveSidenavTab) this._getActiveSidenavTab.unsubscribe();
+    // if (this._getActiveSidenavTab) this._getActiveSidenavTab.unsubscribe();
     // console.clear();
     console.log("closing chat");
   }

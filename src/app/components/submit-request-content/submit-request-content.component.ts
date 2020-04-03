@@ -14,7 +14,6 @@ import { Store } from "@ngrx/store";
 import * as fromStore from "../../store";
 import { UserService } from "../../_services/user.service";
 
-
 @Component({
   selector: "app-submit-request-content",
   templateUrl: "./submit-request-content.component.html",
@@ -54,6 +53,7 @@ export class SubmitRequestContentComponent implements OnInit {
     // this.newRequest.isUser = false;
     this.newRequest.owner_id = this.UserService.currentUserDetails.id;
 
+    // TODO: use the same logic in messages. We subscribe to a channel, add the message to the store when we receive it from the channel
     this.store.dispatch(new fromStore.CreateRequest(this.newRequest));
     this.closeDialog();
   }

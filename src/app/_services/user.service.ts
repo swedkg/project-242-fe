@@ -76,18 +76,30 @@ export class UserService {
           console.log(user.authentication_token);
           // .cable("ws://127.0.0.1:3000/cable", user.authentication_token)
 
-          const channel: Channel = this.cableService
+          const platformStatusChannel: Channel = this.cableService
             .cable("ws://127.0.0.1:3000/cable", {
-              authentication_token: user.authentication_token
-            })
-            .channel("WebNotificationsChannel", {
               room: user.authentication_token
-            });
-          // Subscribe to incoming messages
+            })
+            .channel("PlatformStatusChannel");
 
-          this.subscription = channel.received().subscribe(status => {
-            console.log(status);
+          // Subscribe to incoming platform messages
+          this.subscription = platformStatusChannel
+            .received()
+            .subscribe(status => {
+              console.log("PlatformStatusChannel", status);
+            });
+
+          const messagingChannel: Channel = this.cableService
+            .cable("ws://127.0.0.1:3000/cable", {
+              room: user.authentication_token
+            })
+            .channel("MessagingChannel");
+
+          // Subscribe to incoming platform messages
+          this.subscription = messagingChannel.received().subscribe(status => {
+            console.log("MessagingChannel", status);
           });
+
           // // document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + location.host;
 
           // document.cookie =
@@ -112,6 +124,8 @@ export class UserService {
           localStorage.removeItem("currentUser");
           this.currentUserSubject.next(null);
           this.SnackbarService.show("Logout Successful");
+          this.SidenavService.setOpenChat(false);
+          this.SidenavService.setActiveSidenavTab(0);
           this.SidenavService.setSidenavOpen(false);
           console.log("action cable disconnect??");
 

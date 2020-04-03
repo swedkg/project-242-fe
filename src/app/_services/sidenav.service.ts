@@ -19,6 +19,8 @@ export class SidenavService {
   public thread: number;
   public activeChat: any;
 
+  public currentTab: number;
+
   setSidenavOpen(boolean) {
     this.isSidenavOpen.next(boolean);
   }
@@ -50,6 +52,14 @@ export class SidenavService {
 
   getActiveSidenavTab(): Observable<number> {
     return this.activeSidenavTab.asObservable();
+  }
+
+  setCurrentTab(number) {
+    this.currentTab = number;
+  }
+
+  getCurrentTab() {
+    return this.currentTab;
   }
 
   setOpenChat(bool) {

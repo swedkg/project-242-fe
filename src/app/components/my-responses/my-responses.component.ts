@@ -60,6 +60,7 @@ export class MyResponsesComponent implements OnInit {
     // this.activeThread = id;
     this.SidenavService.setActiveThread(id);
     this.SidenavService.setOpenChat(true);
+    this.SidenavService.setCurrentTab(this.activeTab);
     console.log(this);
   }
 

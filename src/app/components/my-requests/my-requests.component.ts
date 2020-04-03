@@ -44,6 +44,7 @@ export class MyRequestsComponent implements OnInit {
     this.activeThread = request_id;
     this.responder_id = responder_id;
     // this.SidenavService.setActiveSidenavTab(2);
+    this.SidenavService.setCurrentTab(this.activeTab);
     this.SidenavService.setActiveThread(request_id);
     this.SidenavService.setOpenChat(true);
     console.log(this);
@@ -83,9 +84,8 @@ export class MyRequestsComponent implements OnInit {
       if (open === true) {
         console.log("Step 3");
 
-        setTimeout(() => {
-          this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-        }, 0);
+        setTimeout(() => {}, 0);
+        this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
         // this.store.dispatch(new fromStore.LoadRequests());
 
         _getChatForResponder = this.store

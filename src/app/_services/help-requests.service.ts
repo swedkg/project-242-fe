@@ -20,34 +20,6 @@ export class HelpRequestsService {
   private fulfilled = new Subject<any>();
   private republish = new Subject<any>();
 
-  addNewRequest(request) {
-    let url: string = host + "/requests";
-
-    console.log(request);
-
-    return this.http.post(url, request, { observe: "response" }).subscribe(
-      response => {
-        console.log(response, response.status);
-        if (response.status === 201) {
-          // this.newRequesst.next({ request });
-        } else {
-          console.log("Something went wrong");
-        }
-        return response;
-      },
-      err => {
-        throw err;
-      }
-    );
-    // .pipe(catchError((error: any) => Observable.throw(console.log(error))));
-  }
-
-  // getNewRequest(): Observable<any> {
-  //   return this.newRequesst.asObservable();
-  // }
-
-  // ---------------------------------- //
-
   getRepublish(): Observable<any> {
     return this.republish;
   }
