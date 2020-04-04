@@ -27,7 +27,7 @@ export const CREATE_MESSAGE_SUCCESS = "[Messages] Create Message Success";
 
 export class CreateMessage implements Action {
   readonly type = CREATE_MESSAGE;
-  constructor(public payload: Message) {}
+  constructor(public payload: any) {}
 }
 
 export class CreateMessageFail implements Action {
@@ -37,7 +37,7 @@ export class CreateMessageFail implements Action {
 
 export class CreateMessageSuccess implements Action {
   readonly type = CREATE_MESSAGE_SUCCESS;
-  constructor(public payload: Message) {}
+  constructor(public payload: any) {}
 }
 
 // create message

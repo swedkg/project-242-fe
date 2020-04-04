@@ -10,6 +10,7 @@ import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
 import * as fromStore from "../../store";
 import { AidRequest } from "../../_models/aidRequest.model";
+import { Message } from "../../_models/message.model";
 import { User } from "../../_models/user";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
@@ -41,7 +42,7 @@ export class MyResponsesComponent implements OnInit {
   messageMaxLength = 150;
   newMessage: any = {};
   activeThread: Number;
-  chat$: object;
+  chat$: Observable<Message>[];
   public newMessageForm: FormGroup;
 
   current_user: User;
@@ -74,16 +75,6 @@ export class MyResponsesComponent implements OnInit {
     this.HelpRequestsService.republishRequest(request_id);
   }
 
-  sendMessage(fullfilment_id: number, owner: number) {
-    this.newMessage.message = this.newMessageForm.controls.messageText.value;
-    this.newMessage.fullfilment_id = fullfilment_id;
-    this.newMessage.sender_id = this.current_user.id;
-    this.newMessage.receiver_id = owner;
-    // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
-    this.messageFlowService.sendMessage(this.newMessage);
-    this.newMessageForm.reset();
-  }
-
   hasError = (controlName: string, errorName: string) => {
     return this.newMessageForm.controls[controlName].hasError(errorName);
   };
@@ -110,7 +101,7 @@ export class MyResponsesComponent implements OnInit {
       if (open === true) {
         console.log("Step 3");
 
-        this.chat$ = {};
+        // this.chat$ = {};
 
         console.log("current user", this.current_user);
 
@@ -164,22 +155,6 @@ export class MyResponsesComponent implements OnInit {
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
       console.log("activeTab", this.activeTab);
-    });
-
-    this.messageFlowService.getNewMessage().subscribe(data => {
-      let filteredResponses = this.myResponsesList.filter(message => {
-        console.log(message);
-        return message.id == data.newMessage.fullfilment_id;
-      });
-      // filteredResponses[0].messages.push(data.newMessage);
-      this.myResponsesList[0].messages.concat([data.newMessage]);
-      console.log(
-        "getNewMessage",
-        this,
-        data,
-        this.myResponsesList,
-        filteredResponses[0].messages
-      );
     });
   }
 

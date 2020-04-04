@@ -1,9 +1,8 @@
 export interface Message {
   id?: number;
-  requester_id?: number;
-  user_id?: number;
   request_id?: number;
-  isActive?: boolean;
+  fullfilment_id?: number;
+  sender_id?: number;
+  receiver_id?: number;
   message?: string;
-  timestamp?: number;
 }

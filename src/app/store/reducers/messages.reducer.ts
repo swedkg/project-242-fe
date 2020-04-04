@@ -76,10 +76,10 @@ export function reducer(
     }
 
     case fromMessages.CREATE_MESSAGE_SUCCESS: {
-      let message = action.payload;
+      let message = action.payload.body;
       console.log(action, message);
 
-      let entities = {
+      const entities = {
         ...state.entities,
         [message.id]: message
       };

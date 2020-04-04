@@ -34,7 +34,7 @@ export class AllRequestsComponent implements OnInit {
     // continue with the rest
   }
 
-  goToMessages(id) {
+  goToMessagesInMyResponses(id) {
     console.log("goTomessages", id);
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setActiveSidenavTab(1);

@@ -21,6 +21,7 @@ export class ChatComponent implements OnInit {
   chatMessages: {};
   chatRequest: any = {};
   current_user: any = {};
+  fullfilment_id: number;
 
   constructor(
     private SidenavService: SidenavService,
@@ -37,11 +38,12 @@ export class ChatComponent implements OnInit {
   activeTab;
 
   sendMessage() {
-    let fullfilment_id = this.chat$[0].fullfilment_id;
+    this.fullfilment_id = this.chat$[0].fullfilment_id;
 
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
-    this.newMessage.fullfilment_id = fullfilment_id;
+    this.newMessage.fullfilment_id = this.fullfilment_id;
     this.newMessage.sender_id = this.current_user.id;
+    this.newMessage.request_id = this.request_id;
 
     this.newMessage.users = {};
     let users = this.chat$[0].users;
@@ -62,7 +64,7 @@ export class ChatComponent implements OnInit {
     // ? this.chatRequest.owner_id
     // : this.chat$[0].users.sender.id;
 
-    console.log(this);
+    console.log(this, users);
 
     // return null;
 
@@ -71,14 +73,13 @@ export class ChatComponent implements OnInit {
     this.newMessage = {};
     this.newMessageForm.reset();
 
-    setTimeout(() => {
-      this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-    }, 100);
+    // setTimeout(() => {
+    //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+    // }, 100);
 
     this.scrollMessageFLowContainer();
 
     // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
-    // this.messageFlowService.sendMessage(this.newMessage);
   }
 
   hasError = (controlName: string, errorName: string) => {
@@ -117,11 +118,6 @@ export class ChatComponent implements OnInit {
 
     // this.request_id = this.SidenavService.thread;
 
-    // this.chatMessages$ = this.store.select(
-    //   fromStore.getChatMessages,
-    //   this.request_id
-    // );
-
     // this.SidenavService.getOpenChat().subscribe(data => {
     //   this.showMessages = data;
     // });
@@ -146,6 +142,17 @@ export class ChatComponent implements OnInit {
         // this.activeThread = data;
         // this.SidenavService.setOpenChat(true);
         this.request_id = request_id;
+
+        // TODO: The chat observable should not be moved around like that. Subscibe here below
+        this.chatMessages$ = this.store.select(
+          fromStore.getChatMessages,
+          this.request_id
+        );
+
+        this.chatMessages$.subscribe(data => {
+          console.log("chatMessage$", data);
+        });
+
         this._chatRequest = this.store
           .select(fromStore.getSingleRequest, this.request_id)
           .subscribe((chatRequest: any) => {

@@ -36,7 +36,7 @@
       </button>
       <button
         mat-button
-        (click)="goToMessages(request.id)"
+        (click)="goToMessagesInMyResponses(request.id)"
         matTooltip="You have previously responded to this request for help. Click here to check if you have any messages"
         *ngIf="
           request.responders && request.responders.ids.includes(current_user.id)

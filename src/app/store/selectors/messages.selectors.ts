@@ -44,7 +44,7 @@ export const getChatForResponder = createSelector(
     let result = Object.keys(entitites)
       .map(id => entitites[id])
       .filter(m => {
-        console.log("-----------------------------", m);
+        // console.log("-----------------------------", m);
         // return m;
         return (
           m.request_id == obj.request_id &&

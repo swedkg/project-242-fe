@@ -25,8 +25,6 @@ export class MessageFlowService {
     private UserService: UserService
   ) {}
 
-  private messageFlow = new Subject<any>();
-  private newMessageToFullfilment = new Subject<any>();
   private responseToRequest = new Subject<number>();
   private removedResponder = new Subject<number>();
 
@@ -62,14 +60,15 @@ export class MessageFlowService {
     // return this.http.get<any[]>(url, httpOptions);
     return this.http.get<any[]>(url);
   }
-  getUserRequests(id: number): Observable<any[]> {
-    let url: string =
-      BASEURL + MESSAGES + "?requester_id=" + id + "&user_id_ne=" + id;
-    // ?requester_id=3&user_id_ne=3
-    console.log(url);
 
-    return this.http.get<any[]>(url);
-  }
+  // getUserRequests(id: number): Observable<any[]> {
+  //   let url: string =
+  //     BASEURL + MESSAGES + "?requester_id=" + id + "&user_id_ne=" + id;
+  //   // ?requester_id=3&user_id_ne=3
+  //   console.log(url);
+
+  //   return this.http.get<any[]>(url);
+  // }
 
   setRemovedResponder(bool) {
     this.removedResponder.next(bool);
@@ -124,32 +123,11 @@ export class MessageFlowService {
       });
   }
 
-  sendMessage(newMessage) {
-    //http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
-    let url = BASEURL + MESSAGES;
-    console.log(newMessage);
-
-    return this.http
-      .post(url, newMessage, { observe: "response" })
-      .subscribe(response => {
-        if (response.status === 201) {
-          this.newMessageToFullfilment.next({ newMessage });
-        } else {
-          console.log("Something went wrong");
-        }
-        console.log(response, response.status);
-      });
-  }
-
   createMessage(message): Observable<any> {
     let url = BASEURL + MESSAGES;
     console.log(message);
     return this.http
       .post<any>(url, message, { observe: "response" })
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));
-  }
-
-  getNewMessage(): Observable<any> {
-    return this.newMessageToFullfilment.asObservable();
   }
 }
