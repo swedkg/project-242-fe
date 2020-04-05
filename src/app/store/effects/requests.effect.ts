@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Effect, Actions, ofType } from '@ngrx/effects';
-import { of } from 'rxjs/observable/of';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { Effect, Actions, ofType } from "@ngrx/effects";
+import { of } from "rxjs/observable/of";
+import { map, switchMap, catchError } from "rxjs/operators";
 
-import * as fromServices from '../../_services';
+import { HelpRequestsService } from "../../_services/help-requests.service";
 
-import * as requestsActions from '../actions/requests.action';
+import * as requestsActions from "../actions/requests.action";
 
 @Injectable()
 export class RequestsEffects {
   constructor(
     private actions$: Actions,
-    private requestsService: fromServices.HelpRequestsService
+    private requestsService: HelpRequestsService
   ) {}
   @Effect()
   loadRequests$ = this.actions$.pipe(

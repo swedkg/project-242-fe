@@ -8,7 +8,6 @@ import { SnackbarService } from "./snackbar.service";
 import { SidenavService } from "./sidenav.service";
 
 import { host } from "./host";
-import { ActionCableService, Channel } from "angular2-actioncable";
 
 @Injectable({
   providedIn: "root"
@@ -22,8 +21,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private SnackbarService: SnackbarService,
-    private SidenavService: SidenavService,
-    private cableService: ActionCableService
+    private SidenavService: SidenavService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -76,30 +74,6 @@ export class UserService {
           console.log(user.authentication_token);
           // .cable("ws://127.0.0.1:3000/cable", user.authentication_token)
 
-          const platformStatusChannel: Channel = this.cableService
-            .cable("ws://127.0.0.1:3000/cable", {
-              room: user.authentication_token
-            })
-            .channel("PlatformStatusChannel");
-
-          // Subscribe to incoming platform messages
-          this.subscription = platformStatusChannel
-            .received()
-            .subscribe(status => {
-              console.log("PlatformStatusChannel", status);
-            });
-
-          const messagingChannel: Channel = this.cableService
-            .cable("ws://127.0.0.1:3000/cable", {
-              room: user.authentication_token
-            })
-            .channel("MessagingChannel");
-
-          // Subscribe to incoming platform messages
-          this.subscription = messagingChannel.received().subscribe(status => {
-            console.log("MessagingChannel", status);
-          });
-
           // // document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + location.host;
 
           // document.cookie =
@@ -127,9 +101,7 @@ export class UserService {
           this.SidenavService.setOpenChat(false);
           this.SidenavService.setActiveSidenavTab(0);
           this.SidenavService.setSidenavOpen(false);
-          console.log("action cable disconnect??");
 
-          this.cableService.disconnect("ws://127.0.0.1:3000/cable");
           // document.cookie =
           // "COOKIE_NAME=; Max-Age=0; path=/; domain=" + location.host;
           //

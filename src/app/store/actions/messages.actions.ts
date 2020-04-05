@@ -21,6 +21,7 @@ export class LoadMessagesSuccess implements Action {
   constructor(public payload: Message[]) {}
 }
 
+// create message from API
 export const CREATE_MESSAGE = "[Messages] Create Message";
 export const CREATE_MESSAGE_FAIL = "[Messages] Create Message Fail";
 export const CREATE_MESSAGE_SUCCESS = "[Messages] Create Message Success";
@@ -40,7 +41,25 @@ export class CreateMessageSuccess implements Action {
   constructor(public payload: any) {}
 }
 
-// create message
+// create message from websocket
+export const CREATE_WB_MESSAGE = "[Messages] Create WB Message";
+export const CREATE_WB_MESSAGE_FAIL = "[Messages] Create WB Message Fail";
+export const CREATE_WB_MESSAGE_SUCCESS = "[Messages] Create WB Message Success";
+
+export class CreateWebSocketMessage implements Action {
+  readonly type = CREATE_WB_MESSAGE;
+  constructor(public payload: any) {}
+}
+
+export class CreateWebSocketMessageFail implements Action {
+  readonly type = CREATE_WB_MESSAGE_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class CreateWebSocketMessageSuccess implements Action {
+  readonly type = CREATE_WB_MESSAGE_SUCCESS;
+  constructor(public payload: any) {}
+}
 
 // action types
 export type MyMessagesAction =
@@ -49,4 +68,7 @@ export type MyMessagesAction =
   | LoadMessagesSuccess
   | CreateMessage
   | CreateMessageFail
-  | CreateMessageSuccess;
+  | CreateMessageSuccess
+  | CreateWebSocketMessage
+  | CreateWebSocketMessageFail
+  | CreateWebSocketMessageSuccess;

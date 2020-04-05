@@ -4,7 +4,6 @@ import { Message } from "../../_models/message.model";
 export interface MessageState {
   // data: Message[];
   entities: { [id: number]: Message };
-
   loaded: boolean;
   loading: boolean;
 }
@@ -78,6 +77,27 @@ export function reducer(
     case fromMessages.CREATE_MESSAGE_SUCCESS: {
       let message = action.payload.body;
       console.log(action, message);
+
+      const entities = {
+        ...state.entities,
+        [message.id]: message
+      };
+
+      let kk = {
+        ...state,
+        entities
+      };
+
+      console.log(state, entities, kk);
+
+      return {
+        ...state,
+        entities
+      };
+    }
+    case fromMessages.CREATE_WB_MESSAGE_SUCCESS: {
+      let message = action.payload.message;
+      console.log("CREATE_WB_MESSAGE_SUCCESS", action, message, state.entities);
 
       const entities = {
         ...state.entities,

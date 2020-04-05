@@ -2,9 +2,9 @@ import { Injectable } from "@angular/core";
 
 import { Effect, Actions, ofType } from "@ngrx/effects";
 import { of } from "rxjs/observable/of";
-import { map, switchMap, catchError } from "rxjs/operators";
+import { map, switchMap, catchError, tap } from "rxjs/operators";
 
-import * as fromServices from "../../_services";
+import { MessageFlowService } from "../../_services/message-flow.service";
 
 import * as messagesActions from "../actions/messages.actions";
 
@@ -12,7 +12,7 @@ import * as messagesActions from "../actions/messages.actions";
 export class MyMessagesEffects {
   constructor(
     private actions$: Actions,
-    private messagesService: fromServices.MessageFlowService
+    private messagesService: MessageFlowService
   ) {}
 
   @Effect()
@@ -35,6 +35,17 @@ export class MyMessagesEffects {
         map(message => new messagesActions.CreateMessageSuccess(message)),
         catchError(error => of(new messagesActions.CreateMessageFail(error)))
       );
+    })
+  );
+
+  @Effect()
+  createWebSocketMessage$ = this.actions$.pipe(
+    ofType<messagesActions.CreateWebSocketMessage>(
+      messagesActions.CREATE_WB_MESSAGE
+    ),
+    map(action => {
+      let message = action.payload;
+      return new messagesActions.CreateWebSocketMessageSuccess(message);
     })
   );
 }
