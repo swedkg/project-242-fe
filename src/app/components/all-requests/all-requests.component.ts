@@ -37,7 +37,9 @@ export class AllRequestsComponent implements OnInit {
   goToMessagesInMyResponses(id) {
     console.log("goTomessages", id);
     this.SidenavService.setExpandedAccordionPanel(id);
-    this.SidenavService.setActiveSidenavTab(1);
+    this.SidenavService.setActiveSidenavTab(
+      this.SidenavService.tabs.myResponses
+    );
     this.SidenavService.setActiveThread(id);
     this.SidenavService.setOpenChat(true);
     // this.SidenavService.setSidenavOpen(false);
@@ -49,7 +51,9 @@ export class AllRequestsComponent implements OnInit {
   goToMessagesInMyRequests(id) {
     console.log("goTomessages", id);
     this.SidenavService.setExpandedAccordionPanel(id);
-    this.SidenavService.setActiveSidenavTab(2);
+    this.SidenavService.setActiveSidenavTab(
+      this.SidenavService.tabs.myRequests
+    );
     this.SidenavService.setActiveThread(id);
     // this.SidenavService.setOpenChat(true);
     // this.SidenavService.setSidenavOpen(false);
@@ -94,7 +98,9 @@ export class AllRequestsComponent implements OnInit {
         this.store.dispatch(new fromStore.LoadRequests());
 
         this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-        this.SidenavService.setActiveSidenavTab(1);
+        this.SidenavService.setActiveSidenavTab(
+          this.SidenavService.tabs.myResponses
+        );
         this.SidenavService.setActiveThread(this.request_id);
         this.SidenavService.setExpandedAccordionPanel(this.request_id);
         this.SidenavService.setOpenChat(true);

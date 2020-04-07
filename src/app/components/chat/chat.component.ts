@@ -17,7 +17,7 @@ export class ChatComponent implements OnInit {
   public newMessageForm: FormGroup;
   messageMaxLength = 150;
   newMessage: any = {};
-  chatMessages$: Observable<Message[]>;
+  chatMessages$: any;
   chatMessages: {};
   chatRequest: any = {};
   current_user: any = {};
@@ -144,14 +144,12 @@ export class ChatComponent implements OnInit {
         this.request_id = request_id;
 
         // TODO: The chat observable should not be moved around like that. Subscibe here below
-        this.chatMessages$ = this.store.select(
-          fromStore.getChatMessages,
-          this.request_id
-        );
-
-        this.chatMessages$.subscribe(data => {
-          console.log("chatMessage$", data);
-        });
+        this.store
+          .select(fromStore.getChatMessages, this.request_id)
+          .subscribe(data => {
+            this.chatMessages$ = data;
+            console.log("chatMessage$", data);
+          });
 
         this._chatRequest = this.store
           .select(fromStore.getSingleRequest, this.request_id)

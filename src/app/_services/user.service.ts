@@ -99,7 +99,9 @@ export class UserService {
           this.currentUserSubject.next(null);
           this.SnackbarService.show("Logout Successful");
           this.SidenavService.setOpenChat(false);
-          this.SidenavService.setActiveSidenavTab(0);
+          this.SidenavService.setActiveSidenavTab(
+            this.SidenavService.tabs.allRequests
+          );
           this.SidenavService.setSidenavOpen(false);
 
           // document.cookie =

@@ -1,16 +1,16 @@
-<div class="user-panel" *ngIf="user">
+<div class="user-panel" *ngIf="current_user">
   <div class="user-profile">
     <div
-      *ngIf="user.image != null"
+      *ngIf="current_user.image != null"
       [ngStyle]="{
-        background: 'url(' + user.image + ')',
+        background: 'url(' + current_user.image + ')',
         'background-position': 'center',
         'background-size': 'cover',
         'background-repeat': 'no-repeat'
       }"
       class="profile-pic"
     ></div>
-    <span>{{ user.firstName }} {{ user.lastName }} </span>
+    <span>{{ current_user.firstName }} {{ current_user.lastName }} </span>
     <button mat-button (click)="logout()" matTooltip="Logout" class="logout">
       [<i class="material-icons-outlined"> closed_outline </i>]
     </button>

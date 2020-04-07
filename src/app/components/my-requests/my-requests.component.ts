@@ -15,7 +15,8 @@ import { UserService } from "../../_services/user.service";
   styleUrls: ["./my-requests.component.scss"]
 })
 export class MyRequestsComponent implements OnInit {
-  @Input() activeTab: number;
+  // @Input()
+  activeTab: number;
 
   myRequests: any[] = [];
   myRequestsLength: number;
@@ -43,7 +44,7 @@ export class MyRequestsComponent implements OnInit {
   handleShowMessages(request_id, responder_id) {
     this.activeThread = request_id;
     this.responder_id = responder_id;
-    // this.SidenavService.setActiveSidenavTab(2);
+    // this.SidenavService.setActiveSidenavTab(this.SidenavService.tabs.myRequests);
     this.SidenavService.setCurrentTab(this.activeTab);
     this.SidenavService.setActiveThread(request_id);
     this.SidenavService.setOpenChat(true);
@@ -73,6 +74,8 @@ export class MyRequestsComponent implements OnInit {
   ngOnInit() {
     let _getChatForResponder;
 
+    // TODO: now that we have the websocklets working
+    // we do not need all this
     this.SidenavService.getOpenChat().subscribe(open => {
       console.log("Step 1");
 
@@ -146,7 +149,7 @@ export class MyRequestsComponent implements OnInit {
 
     this.SidenavService.getActiveSidenavTab().subscribe(data => {
       this.activeTab = data;
-      // console.log('getActiveSidenavTab', this.activeTab);
+      console.log("getActiveSidenavTab", this.activeTab);
     });
 
     this.MessageFlowService.getRemovedResponder().subscribe(data => {

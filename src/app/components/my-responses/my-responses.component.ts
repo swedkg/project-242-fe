@@ -25,7 +25,8 @@ import { HelpRequestsService } from "../../_services/help-requests.service";
   encapsulation: ViewEncapsulation.None
 })
 export class MyResponsesComponent implements OnInit {
-  @Input() activeTab: number;
+  // @Input()
+  activeTab: number;
 
   // myResponses$: Observable<Message>;
   allResponses: any[] = [];
@@ -91,6 +92,8 @@ export class MyResponsesComponent implements OnInit {
 
     let _getChatMessages;
 
+    // TODO: now that we have the websocklets working
+    // we do not need all this
     this.SidenavService.getOpenChat().subscribe(open => {
       console.log("Step 1");
       console.log("activeTab", this.activeTab);

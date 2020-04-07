@@ -11,7 +11,7 @@
     <span
       class="request-message"
       [ngClass]="{ 'align-right': mes.sender_id === current_user.id }"
-      *ngFor="let mes of chat$"
+      *ngFor="let mes of chatMessages$"
     >
       <!-- <pre>
           {{ mes | json }}

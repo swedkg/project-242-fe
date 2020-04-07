@@ -21,6 +21,12 @@ export class SidenavService {
 
   public currentTab: number;
 
+  public readonly tabs = {
+    allRequests: 0,
+    myResponses: 1,
+    myRequests: 2
+  };
+
   setSidenavOpen(boolean) {
     this.isSidenavOpen.next(boolean);
   }

@@ -28,6 +28,8 @@ export class SidenavComponent implements OnInit {
   indexChanged(event) {
     this.SidenavService.setOpenChat(false);
     this.activeTab = event;
+    console.log("indexChanged to ->", event);
+
     this.SidenavService.setActiveSidenavTab(event);
   }
 
