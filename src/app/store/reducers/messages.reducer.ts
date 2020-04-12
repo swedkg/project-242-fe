@@ -29,9 +29,9 @@ export function reducer(
       };
     }
     case fromMessages.LOAD_MESSAGES_SUCCESS: {
-      console.log(action);
+      // console.log(action);
       let messages = action.payload;
-      console.log(messages);
+      // console.log(messages);
 
       // let entities = messages.reduce(
       //   (entities: { [id: number]: Message }, message) => {
@@ -53,11 +53,11 @@ export function reducer(
         {}
       );
 
-      console.log(messages, state, entities, {
-        entities,
-        loading: false,
-        loaded: true
-      });
+      // console.log(messages, state, entities, {
+      //   entities,
+      //   loading: false,
+      //   loaded: true
+      // });
 
       return {
         entities,
@@ -76,7 +76,7 @@ export function reducer(
 
     case fromMessages.CREATE_MESSAGE_SUCCESS: {
       let message = action.payload.body;
-      console.log(action, message);
+      // console.log(action, message);
 
       const entities = {
         ...state.entities,
@@ -88,7 +88,7 @@ export function reducer(
         entities
       };
 
-      console.log(state, entities, kk);
+      // console.log(state, entities, kk);
 
       return {
         ...state,
@@ -96,20 +96,11 @@ export function reducer(
       };
     }
     case fromMessages.CREATE_WB_MESSAGE_SUCCESS: {
-      let message = action.payload.message;
-      console.log("CREATE_WB_MESSAGE_SUCCESS", action, message, state.entities);
-
+      let message = action.payload;
       const entities = {
         ...state.entities,
         [message.id]: message
       };
-
-      let kk = {
-        ...state,
-        entities
-      };
-
-      console.log(state, entities, kk);
 
       return {
         ...state,
@@ -117,7 +108,7 @@ export function reducer(
       };
     }
   }
-  console.log(action, state);
+  // console.log(action, state);
   return state;
 }
 

@@ -1,12 +1,12 @@
 <!-- *ngIf="platformStatus.requests.total > 0" -->
 
 <i
-  *ngIf="platformStatus.requests.total > 0"
+  *ngIf="isLoggedIn"
   class="material-icons-outlined tooltip-stats"
-  matTooltip="Requests: {{
-    platformStatus.requests.total
-  }}, &#13;Unfulfilled: {{
-    platformStatus.requests.unfulfilled
-  }} &#13; Updated: {{ platformStatus.requests.time | date: 'h:mm:ss' }}"
+  matTooltip="Requests: {{ platformStatus.total }}, &#13;Unfulfilled: {{
+    platformStatus.unfulfilled
+  }} &#13; Users Online: {{ platformStatus.onlineUsers }} &#13;Updated: {{
+    platformStatus.time | date: 'HH:mm:ss'
+  }}"
   >assignment</i
 >

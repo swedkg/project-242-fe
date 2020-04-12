@@ -5,7 +5,7 @@ import {
   NgModule,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as fromStore from "../../store";
@@ -15,14 +15,14 @@ import { mapStyle } from "./mapStyle";
 import { UserService } from "../../_services/user.service";
 import { User } from "../../_models/user";
 
-@NgModule({
-  providers: [HelpRequestsService, SidenavService]
-})
+// @NgModule({
+//   providers: [HelpRequestsService, SidenavService]
+// })
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
   styleUrls: ["./map.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MapComponent implements OnInit {
   constructor(
@@ -67,7 +67,7 @@ export class MapComponent implements OnInit {
     // console.log(this.markers);
 
     if (this.markers)
-      this.markers.forEach(el => {
+      this.markers.forEach((el) => {
         let position = { lat: el.lat, lng: el.lng };
         if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
           if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
@@ -95,7 +95,7 @@ export class MapComponent implements OnInit {
     this.userPosition = coords;
     // console.log("navigator.geolocation exists", coords, this);
     // TODO: remember to adjust filtering
-    this.markers = this.markers.filter(function(m) {
+    this.markers = this.markers.filter(function (m) {
       // console.log(m);
       return m.republished != 1;
     });
@@ -103,7 +103,7 @@ export class MapComponent implements OnInit {
       lat: coords.latitude,
       lng: coords.longitude,
       title: "You are here",
-      isUser: true
+      isUser: true,
     });
     console.log(this.markers);
   }
@@ -133,12 +133,12 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     // let self = this;
 
-    this.UserService.currentUserSubject.subscribe(data => {
+    this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
       console.log(this.current_user);
     });
 
-    this.helpRequestsService.getFulfilled().subscribe(data => {
+    this.helpRequestsService.getFulfilled().subscribe((data) => {
       console.log(data);
       this.store.dispatch(new fromStore.LoadRequests());
       // setTimeout(() => {
@@ -146,7 +146,7 @@ export class MapComponent implements OnInit {
       // }, 0);
     });
 
-    this.helpRequestsService.getRepublish().subscribe(data => {
+    this.helpRequestsService.getRepublish().subscribe((data) => {
       console.log(data);
       this.store.dispatch(new fromStore.LoadRequests());
       // setTimeout(() => {
@@ -155,7 +155,7 @@ export class MapComponent implements OnInit {
     });
 
     this.store.dispatch(new fromStore.LoadRequests());
-    this.store.select(fromStore.getAllRequests).subscribe(data => {
+    this.store.select(fromStore.getAllRequests).subscribe((data) => {
       this.markers = data;
 
       if (!!navigator.geolocation) {

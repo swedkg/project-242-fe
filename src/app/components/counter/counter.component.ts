@@ -1,46 +1,50 @@
-import { Component, OnInit, ViewEncapsulation, OnDestroy } from "@angular/core";
-import { ActionCableService, Channel } from "angular2-actioncable";
+import { Component, OnDestroy, OnInit, ViewEncapsulation } from "@angular/core";
 import { Subscription } from "rxjs";
-import { UserService } from "../../_services/user.service";
 import { User } from "../../_models/user";
+import { UserService } from "../../_services/user.service";
+import { MessageFlowService } from "../../_services/message-flow.service";
 
 @Component({
   selector: "app-counter",
   templateUrl: "./counter.component.html",
   styleUrls: ["./counter.component.scss"],
-  providers: [ActionCableService, UserService],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class CounterComponent implements OnInit, OnDestroy {
   platformStatus = {
-    requests: { total: 0, unfulfilled: 0, time: "" }
+    requests: { total: 0, unfulfilled: 0, time: "" },
+    onlineUsers: 0,
   };
-  // platformStatus.
+
   constructor(
-    private cableService: ActionCableService,
-    private UserService: UserService
+    private UserService: UserService,
+    private MessageFlowService: MessageFlowService
   ) {}
   subscription: Subscription;
   current_user: User;
+  isLoggedIn: boolean = false;
 
   ngOnInit() {
     console.log("The counter was created");
 
-    this.current_user = this.UserService.currentUserDetails;
+    this.UserService.currentUserSubject.subscribe((data) => {
+      if (this.UserService.isLoggedIn) {
+        this.isLoggedIn = this.UserService.isLoggedIn;
+        this.current_user = this.UserService.currentUserDetails;
+      }
+    });
 
-    // // Open a connection and obtain a reference to the channel
-    // const channel: Channel = this.cableService
-    //   .cable("ws://127.0.0.1:3000/cable")
-    //   .channel("WebNotificationsChannel");
-    // // Subscribe to incoming messages
-    // this.subscription = channel.received().subscribe(status => {
-    //   this.platformStatus = status;
-    //   console.log(status, this.platformStatus);
-    // });
+    this.MessageFlowService.getPlatformStatusChannelMessage().subscribe(
+      (received) => {
+        if (received.type == "status")
+          this.platformStatus = received.body.platform_status;
+        this.platformStatus.onlineUsers = received.online_users;
+        console.log("PlatformStatusChannel", received, this.platformStatus);
+      }
+    );
   }
 
   ngOnDestroy() {
     console.log("The counter was destroyed");
-    // this.cableService.disconnect("ws://127.0.0.1:3000/cable");
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, ReplaySubject, BehaviorSubject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import * as fromStore from "../store/";
 import { UserService } from "../_services/user.service";
@@ -15,7 +15,7 @@ const FULLFILMENTS = "/fullfilments/";
 // let current_user: User;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class MessageFlowService {
   constructor(
@@ -28,15 +28,25 @@ export class MessageFlowService {
   private responseToRequest = new Subject<number>();
   private removedResponder = new Subject<number>();
 
+  private platformStatusChannelMessage = new BehaviorSubject<any>({});
+
   // TODO: some cleanup is needed, HTTP requests are being send on refresh
   // TODO: an observable is need to update the messages as we send a new one.
+
+  setPlatformStatusChannelMessage(status) {
+    this.platformStatusChannelMessage.next(status);
+  }
+
+  getPlatformStatusChannelMessage() {
+    return this.platformStatusChannelMessage.asObservable();
+  }
 
   setResponseToRequest(bool) {
     this.responseToRequest.next(bool);
   }
 
   getResponseToRequest() {
-    return this.responseToRequest;
+    return this.responseToRequest.asObservable();
   }
 
   getAllResponseRequests(): Observable<any[]> {
@@ -51,8 +61,8 @@ export class MessageFlowService {
     const httpOptions = {
       headers: new HttpHeaders({
         "X-User-Email": current_user.email,
-        "X-User-Token": current_user.authentication_token
-      })
+        "X-User-Token": current_user.authentication_token,
+      }),
     };
 
     console.log("----------------------------->", url, current_user);
@@ -83,12 +93,12 @@ export class MessageFlowService {
 
     let url = BASEURL + FULLFILMENTS + "/" + fullfilment.id;
     let body = {
-      status: false
+      status: false,
     };
 
     return this.http
       .patch(url, body, { observe: "response" })
-      .subscribe(response => {
+      .subscribe((response) => {
         if (response.status === 200) {
           this.setRemovedResponder(true);
           // this.store.dispatch(new fromStore.LoadRequests());
@@ -106,12 +116,12 @@ export class MessageFlowService {
     let fullfilment = {
       request_id: id,
       user_id: current_user.id,
-      status: true
+      status: true,
     };
 
     return this.http
       .post(BASEURL + FULLFILMENTS, fullfilment, { observe: "response" })
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response, response.status);
 
         if (response.status === 201) {

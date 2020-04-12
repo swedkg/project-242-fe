@@ -13,7 +13,7 @@ import { UserService } from "../../_services/user.service";
   selector: "app-all-requests",
   templateUrl: "./all-requests.component.html",
   styleUrls: ["./all-requests.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class AllRequestsComponent implements OnInit {
   // requests$: Observable;
@@ -45,7 +45,7 @@ export class AllRequestsComponent implements OnInit {
     // this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
     // this.SidenavService.setExpandedAccordionPanel(id);
-    setTimeout(function() {}.bind(this), 100);
+    setTimeout(function () {}.bind(this), 100);
   }
 
   goToMessagesInMyRequests(id) {
@@ -59,7 +59,7 @@ export class AllRequestsComponent implements OnInit {
     // this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
     // this.SidenavService.setExpandedAccordionPanel(id);
-    setTimeout(function() {}.bind(this), 100);
+    setTimeout(function () {}.bind(this), 100);
   }
 
   constructor(
@@ -70,7 +70,7 @@ export class AllRequestsComponent implements OnInit {
     private UserService: UserService
   ) {}
   ngOnInit() {
-    this.UserService.currentUserSubject.subscribe(data => {
+    this.UserService.currentUserSubject.subscribe((data) => {
       if (this.UserService.isLoggedIn) {
         this.isLoggedIn = this.UserService.isLoggedIn;
         this.current_user = this.UserService.currentUserDetails;
@@ -79,10 +79,10 @@ export class AllRequestsComponent implements OnInit {
 
     this.subscription = this.helpRequestsService
       .getInboundRequestsList()
-      .subscribe(message => {
+      .subscribe((message) => {
         if (message) {
           this.requests = [];
-          this.requests = message.requests.filter(r => {
+          this.requests = message.requests.filter((r) => {
             return !r.isUser;
           });
           // this.requests.push(message);
@@ -93,7 +93,7 @@ export class AllRequestsComponent implements OnInit {
         }
       });
 
-    this.MessageFlowService.getResponseToRequest().subscribe(data => {
+    this.MessageFlowService.getResponseToRequest().subscribe((data) => {
       if (data === 201) {
         this.store.dispatch(new fromStore.LoadRequests());
 
@@ -105,7 +105,7 @@ export class AllRequestsComponent implements OnInit {
         this.SidenavService.setExpandedAccordionPanel(this.request_id);
         this.SidenavService.setOpenChat(true);
         console.log("goTomessages", this.request_id);
-        setTimeout(function() {}.bind(this), 100);
+        setTimeout(function () {}.bind(this), 100);
 
         console.log("getResponseToRequest", data);
       }
