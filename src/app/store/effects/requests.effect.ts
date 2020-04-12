@@ -19,8 +19,8 @@ export class RequestsEffects {
     ofType(requestsActions.LOAD_REQUESTS),
     switchMap(() => {
       return this.requestsService.getAllRequests().pipe(
-        map(requests => new requestsActions.LoadRequestsSuccess(requests)),
-        catchError(error => of(new requestsActions.LoadRequestsFail(error)))
+        map((requests) => new requestsActions.LoadRequestsSuccess(requests)),
+        catchError((error) => of(new requestsActions.LoadRequestsFail(error)))
       );
     })
   );
@@ -29,12 +29,23 @@ export class RequestsEffects {
   createRequest$ = this.actions$.pipe(
     ofType<requestsActions.CreateRequest>(requestsActions.CREATE_REQUEST),
     // map((action: requestsActions.CreateRequest)=> action.payload),
-    switchMap(action => {
+    switchMap((action) => {
       let request = action.payload;
       return this.requestsService.createRequest(request).pipe(
-        map(request => new requestsActions.CreateRequestSuccess(request)),
-        catchError(error => of(new requestsActions.CreateRequestFail(error)))
+        map((request) => new requestsActions.CreateRequestSuccess(request)),
+        catchError((error) => of(new requestsActions.CreateRequestFail(error)))
       );
+    })
+  );
+
+  @Effect()
+  createWebSocketRequest$ = this.actions$.pipe(
+    ofType<requestsActions.CreateWebSocketRequest>(
+      requestsActions.CREATE_WB_REQUEST
+    ),
+    map((action) => {
+      let request = action.payload;
+      return new requestsActions.CreateWebSocketRequestSuccess(request);
     })
   );
 }

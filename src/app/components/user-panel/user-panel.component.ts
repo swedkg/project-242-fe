@@ -86,6 +86,10 @@ export class UserPanelComponent implements OnInit {
           this.store.dispatch(
             new fromStore.CreateWebSocketMessage(received.body)
           );
+        if (received.type == "request")
+          this.store.dispatch(
+            new fromStore.CreateWebSocketRequest(received.body)
+          );
       });
       console.log("UserPanelComponent", this.current_user);
     });

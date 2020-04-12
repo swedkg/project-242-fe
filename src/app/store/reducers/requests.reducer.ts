@@ -11,7 +11,7 @@ export interface RequestState {
 export const initialState: RequestState = {
   entities: {},
   loaded: false,
-  loading: false
+  loading: false,
 };
 
 export function reducer(
@@ -22,7 +22,7 @@ export function reducer(
     case fromRequests.LOAD_REQUESTS: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
     case fromRequests.LOAD_REQUESTS_SUCCESS: {
@@ -32,7 +32,7 @@ export function reducer(
         (entities: { [id: number]: AidRequest }, request) => {
           return {
             ...entities,
-            [request.id]: request
+            [request.id]: request,
           };
         },
         {}
@@ -42,14 +42,14 @@ export function reducer(
         ...state,
         loading: false,
         loaded: true,
-        entities
+        entities,
       };
     }
     case fromRequests.LOAD_REQUESTS_FAIL: {
       return {
         ...state,
         loading: false,
-        loaded: false
+        loaded: false,
       };
     }
 
@@ -58,16 +58,36 @@ export function reducer(
 
       request = {
         ...request,
-        responders: { ids: [], details: [] }
+        responders: { ids: [], details: [] },
       };
 
       const entities = {
         ...state.entities,
-        [request.id]: request
+        [request.id]: request,
       };
       return {
         ...state,
-        entities
+        entities,
+      };
+    }
+
+    case fromRequests.CREATE_WB_REQUEST_SUCCESS: {
+      let request = action.payload;
+
+      // request = {
+      //   ...request,
+      //   responders: { ids: [], details: [] },
+      // };
+
+      console.log(action, request);
+      // return state;
+      const entities = {
+        ...state.entities,
+        [request.id]: request,
+      };
+      return {
+        ...state,
+        entities,
       };
     }
 
@@ -75,7 +95,7 @@ export function reducer(
       return {
         ...state,
         loading: false,
-        loaded: false
+        loaded: false,
       };
     }
   }

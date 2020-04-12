@@ -40,6 +40,26 @@ export class CreateRequestSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+// create request from websocket
+export const CREATE_WB_REQUEST = "[Requests] Create WB Request";
+export const CREATE_WB_REQUEST_FAIL = "[Requests] Create WB Request Fail";
+export const CREATE_WB_REQUEST_SUCCESS = "[Requests] Create WB Request Success";
+
+export class CreateWebSocketRequest implements Action {
+  readonly type = CREATE_WB_REQUEST;
+  constructor(public payload: AidRequest) {}
+}
+
+export class CreateWebSocketRequestFail implements Action {
+  readonly type = CREATE_WB_REQUEST_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class CreateWebSocketRequestSuccess implements Action {
+  readonly type = CREATE_WB_REQUEST_SUCCESS;
+  constructor(public payload: any) {}
+}
+
 // action types
 export type RequestsAction =
   | LoadRequests
@@ -47,4 +67,7 @@ export type RequestsAction =
   | LoadRequestsSuccess
   | CreateRequest
   | CreateRequestFail
-  | CreateRequestSuccess;
+  | CreateRequestSuccess
+  | CreateWebSocketRequest
+  | CreateWebSocketRequestFail
+  | CreateWebSocketRequestSuccess;
