@@ -92,15 +92,12 @@ export class MessageFlowService {
     console.log("fullfilment:", fullfilment);
 
     let url = BASEURL + FULLFILMENTS + "/" + fullfilment.id;
-    let body = {
-      status: false,
-    };
 
     return this.http
-      .patch(url, body, { observe: "response" })
+      .delete(url, { observe: "response" })
       .subscribe((response) => {
         if (response.status === 200) {
-          this.setRemovedResponder(true);
+          // this.setRemovedResponder(true);
           // this.store.dispatch(new fromStore.LoadRequests());
         } else {
           console.log("Something went wrong");

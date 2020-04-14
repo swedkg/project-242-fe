@@ -18,14 +18,13 @@
             *ngIf="!request.isOneTime"
             >pin_drop</span
           > -->
-          {{ request.title
-          }}<i
+          <i
             class="material-icons-outlined mark-fulfilled"
             matTooltip="Mark as fulfilled"
             (click)="handleMarkFulfilled(request.id)"
           >
-            check_circle_outline
-          </i></span
+            check_circle_outline </i
+          >{{ request.title }}</span
         >
         <span class="address">{{ request.address }}</span>
       </span>

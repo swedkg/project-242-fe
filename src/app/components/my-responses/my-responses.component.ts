@@ -3,7 +3,7 @@ import {
   Component,
   Input,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
@@ -22,7 +22,7 @@ import { HelpRequestsService } from "../../_services/help-requests.service";
   selector: "app-my-responses",
   templateUrl: "./my-responses.component.html",
   styleUrls: ["./my-responses.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MyResponsesComponent implements OnInit {
   // @Input()
@@ -86,15 +86,15 @@ export class MyResponsesComponent implements OnInit {
     this.newMessageForm = new FormGroup({
       messageText: new FormControl("", [
         Validators.required,
-        Validators.maxLength(this.messageMaxLength)
-      ])
+        Validators.maxLength(this.messageMaxLength),
+      ]),
     });
 
     let _getChatMessages;
 
     // TODO: now that we have the websocklets working
     // we do not need all this
-    this.SidenavService.getOpenChat().subscribe(open => {
+    this.SidenavService.getOpenChat().subscribe((open) => {
       console.log("Step 1");
       console.log("activeTab", this.activeTab);
 
@@ -109,11 +109,11 @@ export class MyResponsesComponent implements OnInit {
         console.log("current user", this.current_user);
 
         setTimeout(() => {}, 0);
-        this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+        // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
 
         _getChatMessages = this.store
           .select(fromStore.getChatMessages, this.activeThread)
-          .subscribe(data => {
+          .subscribe((data) => {
             this.chat$ = data;
             console.log("____", this.chat$, data);
 
@@ -130,7 +130,7 @@ export class MyResponsesComponent implements OnInit {
 
       // this.showMessages = open;
     });
-    this.UserService.currentUserSubject.subscribe(data => {
+    this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
       console.log(this.current_user);
       if (this.UserService.isLoggedIn) {
@@ -139,7 +139,7 @@ export class MyResponsesComponent implements OnInit {
           this.current_user.id
         );
 
-        this.myResponses$.subscribe(data => {
+        this.myResponses$.subscribe((data) => {
           this.myResponsesLength = data.length;
           console.log(data, data.length, this.myResponsesLength);
         });
@@ -147,15 +147,15 @@ export class MyResponsesComponent implements OnInit {
     });
 
     this.SidenavService.getExpandedAccordionPanel().subscribe(
-      data => (this.expandedPanel = data)
+      (data) => (this.expandedPanel = data)
     );
 
-    this.SidenavService.getActiveThread().subscribe(data => {
+    this.SidenavService.getActiveThread().subscribe((data) => {
       this.activeThread = data;
       // console.log('activeThread', data);
     });
 
-    this.SidenavService.getActiveSidenavTab().subscribe(data => {
+    this.SidenavService.getActiveSidenavTab().subscribe((data) => {
       this.activeTab = data;
       console.log("activeTab", this.activeTab);
     });

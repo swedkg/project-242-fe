@@ -12,7 +12,7 @@ import { UserService } from "../../_services/user.service";
 @Component({
   selector: "app-my-requests",
   templateUrl: "./my-requests.component.html",
-  styleUrls: ["./my-requests.component.scss"]
+  styleUrls: ["./my-requests.component.scss"],
 })
 export class MyRequestsComponent implements OnInit {
   // @Input()
@@ -76,7 +76,7 @@ export class MyRequestsComponent implements OnInit {
 
     // TODO: now that we have the websocklets working
     // we do not need all this
-    this.SidenavService.getOpenChat().subscribe(open => {
+    this.SidenavService.getOpenChat().subscribe((open) => {
       console.log("Step 1");
 
       console.log("activeTab", this.activeTab, open);
@@ -88,15 +88,15 @@ export class MyRequestsComponent implements OnInit {
         console.log("Step 3");
 
         setTimeout(() => {}, 0);
-        this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+        // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
         // this.store.dispatch(new fromStore.LoadRequests());
 
         _getChatForResponder = this.store
           .select(fromStore.getChatForResponder, {
             request_id: this.activeThread,
-            responder_id: this.responder_id
+            responder_id: this.responder_id,
           })
-          .subscribe(data => {
+          .subscribe((data) => {
             this.chat$ = data;
             this.SidenavService.setActiveChat(data);
             console.log(
@@ -119,7 +119,7 @@ export class MyRequestsComponent implements OnInit {
       console.log("3");
     });
 
-    this.UserService.currentUserSubject.subscribe(data => {
+    this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
       console.log(this.current_user);
 
@@ -131,7 +131,7 @@ export class MyRequestsComponent implements OnInit {
           this.current_user.id
         );
 
-        this.requests$.subscribe(data => {
+        this.requests$.subscribe((data) => {
           this.myRequestsLength = data.length;
           console.log("fromStore.getUserRequests", data);
         });
@@ -139,20 +139,20 @@ export class MyRequestsComponent implements OnInit {
     });
 
     this.SidenavService.getExpandedAccordionPanel().subscribe(
-      data => (this.expandedPanel = data)
+      (data) => (this.expandedPanel = data)
     );
 
-    this.SidenavService.getActiveThread().subscribe(data => {
+    this.SidenavService.getActiveThread().subscribe((data) => {
       this.activeThread = data;
       // console.log('activeThread', data);
     });
 
-    this.SidenavService.getActiveSidenavTab().subscribe(data => {
+    this.SidenavService.getActiveSidenavTab().subscribe((data) => {
       this.activeTab = data;
       console.log("getActiveSidenavTab", this.activeTab);
     });
 
-    this.MessageFlowService.getRemovedResponder().subscribe(data => {
+    this.MessageFlowService.getRemovedResponder().subscribe((data) => {
       console.log(data, this);
       this.store.dispatch(new fromStore.LoadRequests());
       setTimeout(() => {
