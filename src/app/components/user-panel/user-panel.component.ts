@@ -36,6 +36,10 @@ export class UserPanelComponent implements OnInit {
     this.UserService.logout();
     this.SidenavService.setSidenavOpen(false);
     console.log("action cable disconnect??");
+
+    this.store.dispatch(new fromStore.RemoveAllMessages());
+    this.store.dispatch(new fromStore.RemoveAllRequests());
+
     this.cableService.disconnect("ws://127.0.0.1:3000/cable");
   }
 

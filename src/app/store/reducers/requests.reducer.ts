@@ -25,6 +25,7 @@ export function reducer(
         loading: true,
       };
     }
+
     case fromRequests.LOAD_REQUESTS_SUCCESS: {
       const requests = action.payload;
 
@@ -45,6 +46,7 @@ export function reducer(
         entities,
       };
     }
+
     case fromRequests.LOAD_REQUESTS_FAIL: {
       return {
         ...state,
@@ -97,6 +99,10 @@ export function reducer(
         loading: false,
         loaded: false,
       };
+    }
+
+    case fromRequests.REMOVE_ALL_REQUESTS: {
+      return initialState;
     }
   }
 

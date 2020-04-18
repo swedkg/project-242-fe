@@ -10,7 +10,7 @@ import { SidenavService } from "./sidenav.service";
 import { host } from "./host";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class UserService {
   public currentUserSubject: BehaviorSubject<User>;
@@ -51,7 +51,7 @@ export class UserService {
     let url: string = host + "/users/";
 
     return this.http.post<any>(url, payload).pipe(
-      map(user => {
+      map((user) => {
         this.saveUserToLocalStorage(user);
         this.SnackbarService.show("Thank you for joinning in!");
         return user;
@@ -64,7 +64,7 @@ export class UserService {
 
     return this.http.post<any>(url, payload).pipe(
       map(
-        user => {
+        (user) => {
           // login successful if there's a jwt token in the response
           this.saveUserToLocalStorage(user);
           this.SnackbarService.show("Login Successful");
@@ -80,7 +80,7 @@ export class UserService {
           //   "X-Authorization=" + user.authentication_token + "; path=/";
           return user;
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       )
@@ -92,7 +92,7 @@ export class UserService {
     let url: string = host + "/user/logout";
 
     return this.http.delete(url, { observe: "response" }).subscribe(
-      response => {
+      (response) => {
         console.log(response, response.status);
         if (response.status === 200) {
           localStorage.removeItem("currentUser");
@@ -104,6 +104,8 @@ export class UserService {
           );
           this.SidenavService.setSidenavOpen(false);
 
+          window.dispatchEvent(new Event("resize"));
+
           // document.cookie =
           // "COOKIE_NAME=; Max-Age=0; path=/; domain=" + location.host;
           //
@@ -113,7 +115,7 @@ export class UserService {
         }
         return response;
       },
-      err => {
+      (err) => {
         throw err;
       }
     );

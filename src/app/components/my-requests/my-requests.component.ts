@@ -154,7 +154,7 @@ export class MyRequestsComponent implements OnInit {
 
     this.MessageFlowService.getRemovedResponder().subscribe((data) => {
       console.log(data, this);
-      this.store.dispatch(new fromStore.LoadRequests());
+      // this.store.dispatch(new fromStore.LoadRequests());
       setTimeout(() => {
         this.expandedPanel = this.openPanel;
       }, 0);

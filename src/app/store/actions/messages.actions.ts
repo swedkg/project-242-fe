@@ -61,6 +61,14 @@ export class CreateWebSocketMessageSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+// logout
+export const REMOVE_ALL_MESSAGES = "[Messages] Remove all messages";
+
+export class RemoveAllMessages implements Action {
+  readonly type = REMOVE_ALL_MESSAGES;
+  constructor() {}
+}
+
 // action types
 export type MyMessagesAction =
   | LoadMessages
@@ -71,4 +79,5 @@ export type MyMessagesAction =
   | CreateMessageSuccess
   | CreateWebSocketMessage
   | CreateWebSocketMessageFail
-  | CreateWebSocketMessageSuccess;
+  | CreateWebSocketMessageSuccess
+  | RemoveAllMessages;

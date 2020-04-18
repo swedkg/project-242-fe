@@ -12,7 +12,7 @@ export const initialState: MessageState = {
   // data: [],
   entities: {},
   loaded: false,
-  loading: false
+  loading: false,
 };
 
 export function reducer(
@@ -25,9 +25,10 @@ export function reducer(
 
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
+
     case fromMessages.LOAD_MESSAGES_SUCCESS: {
       // console.log(action);
       let messages = action.payload;
@@ -62,15 +63,16 @@ export function reducer(
       return {
         entities,
         loading: false,
-        loaded: true
+        loaded: true,
         // entities
       };
     }
+
     case fromMessages.LOAD_MESSAGES_FAIL: {
       return {
         ...state,
         loading: false,
-        loaded: false
+        loaded: false,
       };
     }
 
@@ -80,32 +82,37 @@ export function reducer(
 
       const entities = {
         ...state.entities,
-        [message.id]: message
+        [message.id]: message,
       };
 
       let kk = {
         ...state,
-        entities
+        entities,
       };
 
       // console.log(state, entities, kk);
 
       return {
         ...state,
-        entities
+        entities,
       };
     }
+
     case fromMessages.CREATE_WB_MESSAGE_SUCCESS: {
       let message = action.payload;
       const entities = {
         ...state.entities,
-        [message.id]: message
+        [message.id]: message,
       };
 
       return {
         ...state,
-        entities
+        entities,
       };
+    }
+
+    case fromMessages.REMOVE_ALL_MESSAGES: {
+      return initialState;
     }
   }
   // console.log(action, state);

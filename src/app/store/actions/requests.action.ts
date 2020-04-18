@@ -60,6 +60,14 @@ export class CreateWebSocketRequestSuccess implements Action {
   constructor(public payload: any) {}
 }
 
+// logout
+export const REMOVE_ALL_REQUESTS = "[Requests] Remove all requests";
+
+export class RemoveAllRequests implements Action {
+  readonly type = REMOVE_ALL_REQUESTS;
+  constructor() {}
+}
+
 // action types
 export type RequestsAction =
   | LoadRequests
@@ -70,4 +78,5 @@ export type RequestsAction =
   | CreateRequestSuccess
   | CreateWebSocketRequest
   | CreateWebSocketRequestFail
-  | CreateWebSocketRequestSuccess;
+  | CreateWebSocketRequestSuccess
+  | RemoveAllRequests;

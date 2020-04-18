@@ -7,11 +7,13 @@ import { first } from "rxjs/operators";
 import { ActivatedRoute, Router } from "@angular/router";
 
 import { SnackbarService } from "../../_services/snackbar.service";
+import { Store } from "@ngrx/store";
+import * as fromStore from "../../store";
 
 @Component({
   selector: "app-login-dialog",
   templateUrl: "./login-dialog.component.html",
-  styleUrls: ["./login-dialog.component.scss"]
+  styleUrls: ["./login-dialog.component.scss"],
 })
 export class LoginDialogComponent implements OnInit {
   public loginForm: FormGroup;
@@ -21,7 +23,8 @@ export class LoginDialogComponent implements OnInit {
     public matDialog: MatDialog,
     public route: ActivatedRoute,
     public router: Router,
-    public SnackbarService: SnackbarService
+    public SnackbarService: SnackbarService,
+    private store: Store<fromStore.PlatformState>
   ) {}
 
   closeDialog() {
@@ -41,18 +44,21 @@ export class LoginDialogComponent implements OnInit {
   login() {
     let payload = {
       email: this.loginForm.controls.email.value,
-      password: this.loginForm.controls.password.value
+      password: this.loginForm.controls.password.value,
     };
     console.log(payload);
     this.UserService.login(payload)
       .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           console.log(data);
           this.closeDialog();
+          this.store.dispatch(new fromStore.LoadRequests());
+          window.dispatchEvent(new Event("resize"));
+
           // this.router.navigate([this.returnUrl]);
         },
-        error => {
+        (error) => {
           this.SnackbarService.show(error.error.login_error);
           console.log(error);
           // this.loading = false;
@@ -69,9 +75,9 @@ export class LoginDialogComponent implements OnInit {
       email: new FormControl("", [
         Validators.required,
         Validators.email,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
       ]),
-      password: new FormControl("", [Validators.required])
+      password: new FormControl("", [Validators.required]),
     });
   }
 }
