@@ -62,6 +62,7 @@ export class UserPanelComponent implements OnInit {
       if (data == null) return;
 
       this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+      this.store.dispatch(new fromStore.LoadRequests());
 
       const platformStatusChannel: Channel = this.cableService
         .cable("ws://127.0.0.1:3000/cable", {

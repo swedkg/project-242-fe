@@ -45,10 +45,10 @@ export class MapComponent implements OnInit {
 
   @HostListener("window:resize")
   onWindowResize() {
-    // console.log("resize");
+    // console.log("map log", "resize");
     // console.log(this);
 
-    this.fitBounds = true;
+    // this.fitBounds = true;
     this.agmMap.triggerResize();
   }
 
@@ -105,7 +105,8 @@ export class MapComponent implements OnInit {
       title: "You are here",
       isUser: true,
     });
-    console.log(this.markers);
+
+    // console.log("map log", this.markers, this);
   }
 
   respondToRequest(id) {
@@ -140,7 +141,7 @@ export class MapComponent implements OnInit {
 
     this.helpRequestsService.getFulfilled().subscribe((data) => {
       console.log(data);
-      this.store.dispatch(new fromStore.LoadRequests());
+      // this.store.dispatch(new fromStore.LoadRequests());
       // setTimeout(() => {
       //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
       // }, 0);
@@ -148,15 +149,18 @@ export class MapComponent implements OnInit {
 
     this.helpRequestsService.getRepublish().subscribe((data) => {
       console.log(data);
-      this.store.dispatch(new fromStore.LoadRequests());
+      // this.store.dispatch(new fromStore.LoadRequests());
       // setTimeout(() => {
       //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
       // }, 0);
     });
 
-    this.store.dispatch(new fromStore.LoadRequests());
+    // this.store.dispatch(new fromStore.LoadRequests());
+
     this.store.select(fromStore.getAllRequests).subscribe((data) => {
       this.markers = data;
+
+      this.fitBounds = this.markers.length == 0 ? false : true;
 
       if (!!navigator.geolocation) {
         // Support
