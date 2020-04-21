@@ -7,7 +7,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 @Component({
   selector: "app-snackbar",
   templateUrl: "./snackbar.component.html",
-  styleUrls: ["./snackbar.component.scss"]
+  styleUrls: ["./snackbar.component.scss"],
 })
 export class SnackbarComponent implements OnInit, OnDestroy {
   private show = false;
@@ -24,14 +24,17 @@ export class SnackbarComponent implements OnInit, OnDestroy {
     console.log(this.snackbarService);
 
     this.snackbarSubscription = this.snackbarService.snackbarState.subscribe(
-      state => {
+      (state) => {
         if (state.type) {
           this.type = state.type;
         } else {
           this.type = "success";
         }
         this.message = state.message;
-        this._snackBar.open(state.message);
+        this._snackBar.open(state.message, "", {
+          verticalPosition: "bottom",
+          horizontalPosition: "center",
+        });
         // this.show = state.show;
         setTimeout(() => {
           this._snackBar.dismiss();

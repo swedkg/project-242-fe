@@ -11,7 +11,7 @@ import { UserService } from "../../_services/user.service";
   selector: "app-chat",
   templateUrl: "./chat.component.html",
   styleUrls: ["./chat.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ChatComponent implements OnInit {
   public newMessageForm: FormGroup;
@@ -93,7 +93,7 @@ export class ChatComponent implements OnInit {
     el.scrollTo({
       left: 0,
       top: el.scrollHeight,
-      behavior: "smooth"
+      behavior: "smooth",
     });
     // el.scrollTop = el.scrollHeight;
   }
@@ -114,16 +114,22 @@ export class ChatComponent implements OnInit {
   ngOnInit() {
     console.log("chat init");
 
-    this.current_user = this.UserService.currentUserDetails;
+    this.UserService.currentUserSubject.subscribe((data) => {
+      this.current_user = data;
+    });
 
     // this.request_id = this.SidenavService.thread;
 
-    // this.SidenavService.getOpenChat().subscribe(data => {
-    //   this.showMessages = data;
-    // });
+    this.SidenavService.getOpenChat().subscribe((data) => {
+      this.showMessages = data;
+      if (this.current_user == null) {
+        this.store.dispatch(new fromStore.RemoveAllMessages());
+        this.store.dispatch(new fromStore.RemoveAllRequests());
+      }
+    });
 
     this._getActiveChat = this.SidenavService.getActiveChat().subscribe(
-      data => {
+      (data) => {
         // this.chat$ = this.SidenavService.activeChat;
         this.chat$ = data;
         console.log("getActiveChat", data);
@@ -138,7 +144,7 @@ export class ChatComponent implements OnInit {
     // });
 
     this._getActiveThread = this.SidenavService.getActiveThread().subscribe(
-      request_id => {
+      (request_id) => {
         // this.activeThread = data;
         // this.SidenavService.setOpenChat(true);
         this.request_id = request_id;
@@ -146,7 +152,7 @@ export class ChatComponent implements OnInit {
         // TODO: The chat observable should not be moved around like that. Subscibe here below
         this.store
           .select(fromStore.getChatMessages, this.request_id)
-          .subscribe(data => {
+          .subscribe((data) => {
             this.chatMessages$ = data;
             console.log("chatMessage$", data);
           });
@@ -171,8 +177,8 @@ export class ChatComponent implements OnInit {
     this.newMessageForm = new FormGroup({
       messageText: new FormControl("", [
         Validators.required,
-        Validators.maxLength(this.messageMaxLength)
-      ])
+        Validators.maxLength(this.messageMaxLength),
+      ]),
     });
   }
 

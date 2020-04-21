@@ -2,10 +2,13 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { User } from "../_models/user";
 import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { map, timeout } from "rxjs/operators";
 
 import { SnackbarService } from "./snackbar.service";
 import { SidenavService } from "./sidenav.service";
+
+import { Store } from "@ngrx/store";
+import * as fromStore from "../store/";
 
 import { host } from "./host";
 
@@ -21,7 +24,8 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private SnackbarService: SnackbarService,
-    private SidenavService: SidenavService
+    private SidenavService: SidenavService,
+    private store: Store<fromStore.PlatformState>
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -103,13 +107,7 @@ export class UserService {
             this.SidenavService.tabs.allRequests
           );
           this.SidenavService.setSidenavOpen(false);
-
           window.dispatchEvent(new Event("resize"));
-
-          // document.cookie =
-          // "COOKIE_NAME=; Max-Age=0; path=/; domain=" + location.host;
-          //
-          // document.cookie = "X-Authorization=;Max-Age=0; path=/";
         } else {
           console.log("Something went wrong");
         }

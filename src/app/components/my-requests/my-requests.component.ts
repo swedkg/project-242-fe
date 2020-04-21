@@ -53,6 +53,7 @@ export class MyRequestsComponent implements OnInit {
 
   handleRemoveResponder(fullfilment) {
     // we need the fullfilment id here
+    // BUG: the responder is removed by we need to reload
     this.MessageFlowService.removeResponder(fullfilment);
   }
 
@@ -154,6 +155,8 @@ export class MyRequestsComponent implements OnInit {
 
     this.MessageFlowService.getRemovedResponder().subscribe((data) => {
       console.log(data, this);
+      // BUG: remove messages related to responder from both stores
+      // BUG: Close chat on responder's site when they are removed
       // this.store.dispatch(new fromStore.LoadRequests());
       setTimeout(() => {
         this.expandedPanel = this.openPanel;

@@ -30,6 +30,14 @@ app-chat {
     text-align: right;
     margin-top: 0.5em;
   }
+
+  .message-tracking {
+    color: hsl(0, 0%, 70%);
+    font-size: 1em;
+    position: relative;
+    left: 5px;
+    top: 2px;
+  }
 }
 
 // .request-message:last-of-type {

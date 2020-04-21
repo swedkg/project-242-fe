@@ -37,9 +37,6 @@ export class UserPanelComponent implements OnInit {
     this.SidenavService.setSidenavOpen(false);
     console.log("action cable disconnect??");
 
-    this.store.dispatch(new fromStore.RemoveAllMessages());
-    this.store.dispatch(new fromStore.RemoveAllRequests());
-
     this.cableService.disconnect("ws://127.0.0.1:3000/cable");
   }
 
@@ -87,10 +84,17 @@ export class UserPanelComponent implements OnInit {
       // Subscribe to incoming platform messages
       this.subscription = messagingChannel.received().subscribe((received) => {
         console.log("MessagingChannel", received);
-        if (received.type == "message")
-          this.store.dispatch(
-            new fromStore.CreateWebSocketMessage(received.body)
-          );
+        if (received.type == "message") {
+          let message = Object.assign({}, received.body);
+          message.status = 1;
+
+          this.store.dispatch(new fromStore.CreateWebSocketMessage(message));
+
+          // notify the original sender
+          // that the message was received
+          console.log(message);
+          messagingChannel.send({ action: "received", message: message });
+        }
         if (received.type == "request")
           this.store.dispatch(
             new fromStore.CreateWebSocketRequest(received.body)

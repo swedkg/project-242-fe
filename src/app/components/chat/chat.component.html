@@ -22,8 +22,18 @@
       <p class="message">
         {{ mes.message }}
         <small
-          >by {{ mes.users.sender.firstName }}
-          {{ mes.users.sender.lastName }}</small
+          >by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName
+          }}<span
+            *ngIf="mes.status == 1"
+            class="material-icons-outlined message-tracking"
+          >
+            done </span
+          ><span
+            *ngIf="mes.status == 2"
+            class="material-icons-outlined message-tracking"
+          >
+            done_all
+          </span></small
         >
       </p></span
     >
