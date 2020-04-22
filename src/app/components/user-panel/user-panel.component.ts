@@ -95,10 +95,20 @@ export class UserPanelComponent implements OnInit {
           console.log(message);
           messagingChannel.send({ action: "received", message: message });
         }
+
         if (received.type == "request")
           this.store.dispatch(
             new fromStore.CreateWebSocketRequest(received.body)
           );
+
+        if (received.type == "remove_orphan_messages") {
+          let body = Object.assign({}, received.body);
+          console.log(body);
+
+          this.store.dispatch(
+            new fromStore.RemoveRespodersMessages(body.fullfilment_id)
+          );
+        }
       });
       console.log("UserPanelComponent", this.current_user);
     });

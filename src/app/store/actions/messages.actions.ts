@@ -69,6 +69,15 @@ export class RemoveAllMessages implements Action {
   constructor() {}
 }
 
+// clean messages after a responder was removed
+export const REMOVE_RESPONDERS_MESSAGES =
+  "[Messages] Remove responder's messages";
+
+export class RemoveRespodersMessages implements Action {
+  readonly type = REMOVE_RESPONDERS_MESSAGES;
+  constructor(public payload: number) {}
+}
+
 // action types
 export type MyMessagesAction =
   | LoadMessages
@@ -80,4 +89,5 @@ export type MyMessagesAction =
   | CreateWebSocketMessage
   | CreateWebSocketMessageFail
   | CreateWebSocketMessageSuccess
-  | RemoveAllMessages;
+  | RemoveAllMessages
+  | RemoveRespodersMessages;

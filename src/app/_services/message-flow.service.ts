@@ -1,9 +1,7 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-// import { Store } from "@ngrx/store";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
-// import * as fromStore from "../store/";
 import { UserService } from "../_services/user.service";
 import { host } from "./host";
 
@@ -20,7 +18,6 @@ export class MessageFlowService {
   constructor(
     private http: HttpClient,
     // private HttpHeaders: HttpHeaders,
-    // private store: Store<fromStore.PlatformState>,
     private UserService: UserService
   ) {}
 
@@ -79,8 +76,8 @@ export class MessageFlowService {
   //   return this.http.get<any[]>(url);
   // }
 
-  setRemovedResponder(bool) {
-    this.removedResponder.next(bool);
+  setRemovedResponder(id) {
+    this.removedResponder.next(id);
   }
 
   getRemovedResponder() {
@@ -96,15 +93,10 @@ export class MessageFlowService {
       .delete(url, { observe: "response" })
       .subscribe((response) => {
         if (response.status === 200) {
-          // this.setRemovedResponder(true);
-          // this.store.dispatch(new fromStore.LoadRequests());
-          // this.store.dispatch(new fromStore.LoadRequests());
-          // TODO: remove orphaned messages for this fullfilment.id on the responder side
-          console.log(fullfilment.id);
+          this.setRemovedResponder(fullfilment.id);
         } else {
           console.log("Something went wrong");
         }
-        // console.log(response);
       });
   }
 

@@ -114,6 +114,31 @@ export function reducer(
     case fromMessages.REMOVE_ALL_MESSAGES: {
       return initialState;
     }
+
+    case fromMessages.REMOVE_RESPONDERS_MESSAGES: {
+      let fulfillment = action.payload;
+      let entities = state.entities;
+      const filterObject = (obj, filter, filterValue) =>
+        Object.keys(obj).reduce(
+          (acc, val) =>
+            obj[val][filter] === filterValue
+              ? acc
+              : {
+                  ...acc,
+                  [val]: obj[val],
+                },
+          {}
+        );
+
+      entities = filterObject(entities, "fullfilment_id", fulfillment);
+
+      console.log(fulfillment, state, entities);
+
+      return {
+        ...state,
+        entities,
+      };
+    }
   }
   // console.log(action, state);
   return state;

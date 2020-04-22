@@ -158,6 +158,8 @@ export class MyRequestsComponent implements OnInit {
       // BUG: remove messages related to responder from both stores
       // BUG: Close chat on responder's site when they are removed
       // this.store.dispatch(new fromStore.LoadRequests());
+      // TODO: remove orphaned messages for this fullfilment.id on the responder side
+      // this.store.dispatch(new fromStore.RemoveRespodersMessages(data));
       setTimeout(() => {
         this.expandedPanel = this.openPanel;
       }, 0);
