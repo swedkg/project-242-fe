@@ -98,16 +98,20 @@ export class AllRequestsComponent implements OnInit {
         // this.store.dispatch(new fromStore.LoadRequests());
 
         // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-        this.SidenavService.setActiveSidenavTab(
-          this.SidenavService.tabs.myResponses
-        );
-        this.SidenavService.setActiveThread(this.request_id);
-        this.SidenavService.setExpandedAccordionPanel(this.request_id);
-        this.SidenavService.setOpenChat(true);
         console.log("goTomessages", this.request_id);
-        setTimeout(function () {}.bind(this), 100);
+        setTimeout(
+          function () {
+            this.SidenavService.setActiveSidenavTab(
+              this.SidenavService.tabs.myResponses
+            );
+            this.SidenavService.setActiveThread(this.request_id);
+            this.SidenavService.setExpandedAccordionPanel(this.request_id);
+            this.SidenavService.setOpenChat(true);
+          }.bind(this),
+          500
+        );
 
-        console.log("getResponseToRequest", data);
+        console.log("getResponseToRequest", data, this);
       }
     });
     // this.store.select(fromStore.getAllRequests).subscribe(state => {

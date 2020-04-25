@@ -94,42 +94,42 @@ export class MyResponsesComponent implements OnInit {
 
     // TODO: now that we have the websocklets working
     // we do not need all this
-    this.SidenavService.getOpenChat().subscribe((open) => {
-      console.log("Step 1");
-      console.log("activeTab", this.activeTab);
+    // this.SidenavService.getOpenChat().subscribe((open) => {
+    //   console.log("Step 1");
+    //   console.log("activeTab", this.activeTab);
 
-      if (this.activeTab !== 1) return null;
-      console.log("Step 2");
+    //   if (this.activeTab !== 1) return null;
+    //   console.log("Step 2");
 
-      if (open === true) {
-        console.log("Step 3");
+    //   if (open === true) {
+    //     console.log("Step 3");
 
-        // this.chat$ = {};
+    //     // this.chat$ = {};
 
-        console.log("current user", this.current_user);
+    //     console.log("current user", this.current_user);
 
-        setTimeout(() => {}, 0);
-        // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+    //     setTimeout(() => {}, 0);
+    //     // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
 
-        _getChatMessages = this.store
-          .select(fromStore.getChatMessages, this.activeThread)
-          .subscribe((data) => {
-            this.chat$ = data;
-            console.log("____", this.chat$, data);
+    //     _getChatMessages = this.store
+    //       .select(fromStore.getChatMessages, this.activeThread)
+    //       .subscribe((data) => {
+    //         this.chat$ = data;
+    //         console.log("____", this.chat$, data);
 
-            this.SidenavService.setActiveChat(this.chat$);
-            console.log(open, this.activeThread, this.chat$);
-            // setTimeout(() => {
-            // }, 0);
-          });
-      } else {
-        if (_getChatMessages) _getChatMessages.unsubscribe();
-        console.log(open, this.activeThread, this.chat$);
-        return null;
-      }
+    //         this.SidenavService.setActiveChat(this.chat$);
+    //         console.log(open, this.activeThread, this.chat$);
+    //         // setTimeout(() => {
+    //         // }, 0);
+    //       });
+    //   } else {
+    //     if (_getChatMessages) _getChatMessages.unsubscribe();
+    //     console.log(open, this.activeThread, this.chat$);
+    //     return null;
+    //   }
 
-      // this.showMessages = open;
-    });
+    //   // this.showMessages = open;
+    // });
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
       console.log(this.current_user);

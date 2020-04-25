@@ -47,13 +47,14 @@
         *ngFor="let responder of request.responders.details"
         class="responder"
       >
-        <div class="responder" *ngIf="responder.fullfilment.status">
+        <div class="responder" *ngIf="responder.fullfilment.status == true">
           <p class="responder-name">
             <span
               matTooltip="{{ responder.firstName }} {{
                 responder.lastName
               }} has responded to your request"
               >{{ responder.firstName }} {{ responder.lastName }}
+              <!-- {{ responder | json }} -->
             </span>
             <span
               class="material-icons-outlined remove-responder"

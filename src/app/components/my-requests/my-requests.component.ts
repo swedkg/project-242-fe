@@ -42,18 +42,20 @@ export class MyRequestsComponent implements OnInit {
   ) {}
 
   handleShowMessages(request_id, responder_id) {
-    this.activeThread = request_id;
-    this.responder_id = responder_id;
-    // this.SidenavService.setActiveSidenavTab(this.SidenavService.tabs.myRequests);
-    this.SidenavService.setCurrentTab(this.activeTab);
+    // this.activeThread = request_id;
+    // this.responder_id = responder_id;
+    // // this.SidenavService.setActiveSidenavTab(this.SidenavService.tabs.myRequests);
+    // this.SidenavService.setCurrentTab(this.activeTab);
     this.SidenavService.setActiveThread(request_id);
     this.SidenavService.setOpenChat(true);
-    console.log(this);
+    console.log(request_id, responder_id);
   }
 
   handleRemoveResponder(fullfilment) {
     // we need the fullfilment id here
     // BUG: the responder is removed by we need to reload
+    console.log(fullfilment);
+
     this.MessageFlowService.removeResponder(fullfilment);
   }
 
@@ -69,7 +71,6 @@ export class MyRequestsComponent implements OnInit {
 
   setStep(id) {
     this.openPanel = id;
-    console.log(id);
   }
 
   ngOnInit() {
@@ -77,48 +78,48 @@ export class MyRequestsComponent implements OnInit {
 
     // TODO: now that we have the websocklets working
     // we do not need all this
-    this.SidenavService.getOpenChat().subscribe((open) => {
-      console.log("Step 1");
+    // this.SidenavService.getOpenChat().subscribe((open) => {
+    //   console.log("Step 1");
 
-      console.log("activeTab", this.activeTab, open);
+    //   console.log("activeTab", this.activeTab, open);
 
-      if (this.activeTab !== 2) return null;
-      console.log("Step 2");
+    //   if (this.activeTab !== 2) return null;
+    //   console.log("Step 2");
 
-      if (open === true) {
-        console.log("Step 3");
+    //   if (open === true) {
+    //     console.log("Step 3");
 
-        setTimeout(() => {}, 0);
-        // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-        // this.store.dispatch(new fromStore.LoadRequests());
+    //     setTimeout(() => {}, 0);
+    //     // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+    //     // this.store.dispatch(new fromStore.LoadRequests());
 
-        _getChatForResponder = this.store
-          .select(fromStore.getChatForResponder, {
-            request_id: this.activeThread,
-            responder_id: this.responder_id,
-          })
-          .subscribe((data) => {
-            this.chat$ = data;
-            this.SidenavService.setActiveChat(data);
-            console.log(
-              "____",
-              this.chat$,
-              this.activeThread,
-              this.responder_id
-            );
+    //     _getChatForResponder = this.store
+    //       .select(fromStore.getChatForResponder, {
+    //         request_id: this.activeThread,
+    //         responder_id: this.responder_id,
+    //       })
+    //       .subscribe((data) => {
+    //         this.chat$ = data;
+    //         this.SidenavService.setActiveChat(data);
+    //         console.log(
+    //           "____",
+    //           this.chat$,
+    //           this.activeThread,
+    //           this.responder_id
+    //         );
 
-            // this.SidenavService.setActiveThread(this.activeThread);
-          });
+    //         // this.SidenavService.setActiveThread(this.activeThread);
+    //       });
 
-        // console.log(open, this, this.chat$);
-        this.showMessages = open;
-        // console.log('-----------', this);
-      } else {
-        if (_getChatForResponder) _getChatForResponder.unsubscribe();
-        return null;
-      }
-      console.log("3");
-    });
+    //     // console.log(open, this, this.chat$);
+    //     this.showMessages = open;
+    //     // console.log('-----------', this);
+    //   } else {
+    //     if (_getChatForResponder) _getChatForResponder.unsubscribe();
+    //     return null;
+    //   }
+    //   console.log("3");
+    // });
 
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;

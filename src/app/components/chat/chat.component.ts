@@ -22,6 +22,12 @@ export class ChatComponent implements OnInit {
   chatRequest: any = {};
   current_user: any = {};
   fullfilment_id: number;
+  chatMembers: any = [];
+
+  _getActiveChat;
+  _getActiveThread;
+  _chatRequest;
+  _getChatMessages;
 
   constructor(
     private SidenavService: SidenavService,
@@ -38,25 +44,22 @@ export class ChatComponent implements OnInit {
   activeTab;
 
   sendMessage() {
-    this.fullfilment_id = this.chat$[0].fullfilment_id;
-
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
     this.newMessage.fullfilment_id = this.fullfilment_id;
     this.newMessage.sender_id = this.current_user.id;
     this.newMessage.request_id = this.request_id;
 
     this.newMessage.users = {};
-    let users = this.chat$[0].users;
     // this.activeTab = this.SidenavService.getCurrentSidenavTab();
 
     if (this.activeTab === 1) {
       this.newMessage.receiver_id = this.chatRequest.owner_id;
-      this.newMessage.users.receiver = users.receiver;
-      this.newMessage.users.sender = users.sender;
+      this.newMessage.users.receiver = this.chatMembers.receiver;
+      this.newMessage.users.sender = this.chatMembers.sender;
     } else {
-      this.newMessage.receiver_id = users.sender.id;
-      this.newMessage.users.receiver = users.sender;
-      this.newMessage.users.sender = users.receiver;
+      this.newMessage.receiver_id = this.chatMembers.sender.id;
+      this.newMessage.users.receiver = this.chatMembers.sender;
+      this.newMessage.users.sender = this.chatMembers.receiver;
     }
 
     // this.newMessage.receiver_id =
@@ -64,7 +67,7 @@ export class ChatComponent implements OnInit {
     // ? this.chatRequest.owner_id
     // : this.chat$[0].users.sender.id;
 
-    console.log(this, users);
+    console.log(this, this.chatMembers);
 
     // return null;
 
@@ -107,10 +110,6 @@ export class ChatComponent implements OnInit {
     this.showMessages = false;
   }
 
-  _getActiveChat;
-  _getActiveThread;
-  _chatRequest;
-
   ngOnInit() {
     console.log("chat init");
 
@@ -122,10 +121,10 @@ export class ChatComponent implements OnInit {
 
     this.SidenavService.getOpenChat().subscribe((data) => {
       this.showMessages = data;
-      if (this.current_user == null) {
-        this.store.dispatch(new fromStore.RemoveAllMessages());
-        this.store.dispatch(new fromStore.RemoveAllRequests());
-      }
+      // if (this.current_user == null) {
+      //   this.store.dispatch(new fromStore.RemoveAllMessages());
+      //   this.store.dispatch(new fromStore.RemoveAllRequests());
+      // }
     });
 
     this._getActiveChat = this.SidenavService.getActiveChat().subscribe(
@@ -148,12 +147,16 @@ export class ChatComponent implements OnInit {
         // this.activeThread = data;
         // this.SidenavService.setOpenChat(true);
         this.request_id = request_id;
+        console.log("_getActiveThread", this.request_id);
 
         // TODO: The chat observable should not be moved around like that. Subscibe here below
-        this.store
+        this._getChatMessages = this.store
           .select(fromStore.getChatMessages, this.request_id)
           .subscribe((data) => {
             this.chatMessages$ = data;
+            this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
+            this.chatMembers = this.chatMessages$[0].users;
+
             console.log("chatMessage$", data);
           });
 
@@ -186,6 +189,7 @@ export class ChatComponent implements OnInit {
     if (this._getActiveChat) this._getActiveChat.unsubscribe();
     if (this._getActiveThread) this._getActiveThread.unsubscribe();
     if (this._chatRequest) this._chatRequest.unsubscribe();
+    if (this._getChatMessages) this._getChatMessages.unsubscribe();
     // if (this._getActiveSidenavTab) this._getActiveSidenavTab.unsubscribe();
     // console.clear();
     console.log("closing chat");

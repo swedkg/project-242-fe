@@ -33,6 +33,8 @@ export class UserPanelComponent implements OnInit {
   ) {}
 
   logout() {
+    this.store.dispatch(new fromStore.RemoveAllMessages());
+    // this.store.dispatch(new fromStore.RemoveAllRequests());
     this.UserService.logout();
     this.SidenavService.setSidenavOpen(false);
     console.log("action cable disconnect??");
@@ -57,6 +59,9 @@ export class UserPanelComponent implements OnInit {
       this.current_user = data;
 
       if (data == null) return;
+
+      this.store.dispatch(new fromStore.RemoveAllMessages());
+      this.store.dispatch(new fromStore.RemoveAllRequests());
 
       this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
       this.store.dispatch(new fromStore.LoadRequests());
