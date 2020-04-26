@@ -147,7 +147,6 @@ export class ChatComponent implements OnInit {
         // this.activeThread = data;
         // this.SidenavService.setOpenChat(true);
         this.request_id = request_id;
-        console.log("_getActiveThread", this.request_id);
 
         // TODO: The chat observable should not be moved around like that. Subscibe here below
         this._getChatMessages = this.store

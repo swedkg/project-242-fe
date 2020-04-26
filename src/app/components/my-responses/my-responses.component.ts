@@ -1,9 +1,15 @@
 import {
   ChangeDetectorRef,
+  AfterContentChecked,
   Component,
   Input,
   OnInit,
+  AfterViewInit,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList,
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
@@ -16,6 +22,7 @@ import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { HelpRequestsService } from "../../_services/help-requests.service";
+import { timeout } from "rxjs/operators";
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +31,7 @@ import { HelpRequestsService } from "../../_services/help-requests.service";
   styleUrls: ["./my-responses.component.scss"],
   encapsulation: ViewEncapsulation.None,
 })
-export class MyResponsesComponent implements OnInit {
+export class MyResponsesComponent implements OnInit, AfterContentChecked {
   // @Input()
   activeTab: number;
 
@@ -40,6 +47,7 @@ export class MyResponsesComponent implements OnInit {
   allRequests: Subscription;
   showMessages: boolean = false;
   expandedPanel: number;
+  expandedPanelOpen: number;
   messageMaxLength = 150;
   newMessage: any = {};
   activeThread: Number;
@@ -47,6 +55,8 @@ export class MyResponsesComponent implements OnInit {
   public newMessageForm: FormGroup;
 
   current_user: User;
+
+  @ViewChild("showMessagesButton") showMessagesButton: ElementRef<HTMLElement>;
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -62,7 +72,7 @@ export class MyResponsesComponent implements OnInit {
     // this.activeThread = id;
     this.SidenavService.setActiveThread(id);
     this.SidenavService.setOpenChat(true);
-    this.SidenavService.setCurrentTab(this.activeTab);
+    // this.SidenavService.setCurrentTab(this.activeTab);
     console.log(this);
   }
 
@@ -92,47 +102,8 @@ export class MyResponsesComponent implements OnInit {
 
     let _getChatMessages;
 
-    // TODO: now that we have the websocklets working
-    // we do not need all this
-    // this.SidenavService.getOpenChat().subscribe((open) => {
-    //   console.log("Step 1");
-    //   console.log("activeTab", this.activeTab);
-
-    //   if (this.activeTab !== 1) return null;
-    //   console.log("Step 2");
-
-    //   if (open === true) {
-    //     console.log("Step 3");
-
-    //     // this.chat$ = {};
-
-    //     console.log("current user", this.current_user);
-
-    //     setTimeout(() => {}, 0);
-    //     // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-
-    //     _getChatMessages = this.store
-    //       .select(fromStore.getChatMessages, this.activeThread)
-    //       .subscribe((data) => {
-    //         this.chat$ = data;
-    //         console.log("____", this.chat$, data);
-
-    //         this.SidenavService.setActiveChat(this.chat$);
-    //         console.log(open, this.activeThread, this.chat$);
-    //         // setTimeout(() => {
-    //         // }, 0);
-    //       });
-    //   } else {
-    //     if (_getChatMessages) _getChatMessages.unsubscribe();
-    //     console.log(open, this.activeThread, this.chat$);
-    //     return null;
-    //   }
-
-    //   // this.showMessages = open;
-    // });
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
-      console.log(this.current_user);
       if (this.UserService.isLoggedIn) {
         this.myResponses$ = this.store.select(
           fromStore.getUserResponses,
@@ -146,26 +117,36 @@ export class MyResponsesComponent implements OnInit {
       }
     });
 
-    this.SidenavService.getExpandedAccordionPanel().subscribe(
-      (data) => (this.expandedPanel = data)
-    );
-
     this.SidenavService.getActiveThread().subscribe((data) => {
       this.activeThread = data;
-      // console.log('activeThread', data);
     });
 
     this.SidenavService.getActiveSidenavTab().subscribe((data) => {
       this.activeTab = data;
-      console.log("activeTab", this.activeTab);
     });
+  }
+
+  ngAfterViewInit() {
+    this.SidenavService.getExpandedAccordionPanel().subscribe((data) => {
+      this.expandedPanel = data;
+      setTimeout(
+        function () {
+          if (this.activeTab == this.SidenavService.tabs.myResponses) {
+            let el: HTMLElement = this.showMessagesButton._elementRef
+              .nativeElement;
+            el.click();
+          }
+        }.bind(this),
+        0
+      );
+    });
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
     console.log("closing my responses");
   }
 }
-
-// PanictUtil.getRequestObservable().subscribe(data => this.requesting = data);
-
-// PanictUtil.getRequestObservable().subscribe(data => setTimeout(() => this.requesting = data, 0));

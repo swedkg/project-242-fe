@@ -36,7 +36,7 @@
       </button>
       <button
         mat-button
-        (click)="goToMessagesInMyResponses(request.id)"
+        (click)="goToMessages(request.id, this.SidenavService.tabs.myResponses)"
         matTooltip="You have previously responded to this request for help. Click here to check if you have any messages"
         *ngIf="
           request.responders && request.responders.ids.includes(current_user.id)
@@ -46,7 +46,7 @@
       </button>
       <button
         mat-button
-        (click)="goToMessagesInMyRequests(request.id)"
+        (click)="goToMessages(request.id, this.SidenavService.tabs.myRequests)"
         *ngIf="request.owner_id === current_user.id"
         matTooltip="You have posted some requests for help. Click here to message your responders"
         [disabled]="request.responders.ids.length == 0"

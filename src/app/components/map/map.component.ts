@@ -136,7 +136,6 @@ export class MapComponent implements OnInit {
 
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
-      console.log(this.current_user);
     });
 
     this.helpRequestsService.getFulfilled().subscribe((data) => {

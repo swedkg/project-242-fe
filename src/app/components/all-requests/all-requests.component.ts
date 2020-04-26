@@ -34,31 +34,13 @@ export class AllRequestsComponent implements OnInit {
     // continue with the rest
   }
 
-  goToMessagesInMyResponses(id) {
-    console.log("goTomessages", id);
-    this.SidenavService.setExpandedAccordionPanel(id);
-    this.SidenavService.setActiveSidenavTab(
-      this.SidenavService.tabs.myResponses
-    );
+  goToMessages(id, tab) {
     this.SidenavService.setActiveThread(id);
-    this.SidenavService.setOpenChat(true);
-    // this.SidenavService.setSidenavOpen(false);
-    // this.SidenavService.setMessagingSidenavOpened(true);
-    // this.SidenavService.setExpandedAccordionPanel(id);
-    setTimeout(function () {}.bind(this), 100);
-  }
-
-  goToMessagesInMyRequests(id) {
-    console.log("goTomessages", id);
+    this.SidenavService.setActiveSidenavTab(tab);
     this.SidenavService.setExpandedAccordionPanel(id);
-    this.SidenavService.setActiveSidenavTab(
-      this.SidenavService.tabs.myRequests
-    );
-    this.SidenavService.setActiveThread(id);
     // this.SidenavService.setOpenChat(true);
     // this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
-    // this.SidenavService.setExpandedAccordionPanel(id);
     setTimeout(function () {}.bind(this), 100);
   }
 
@@ -98,7 +80,6 @@ export class AllRequestsComponent implements OnInit {
         // this.store.dispatch(new fromStore.LoadRequests());
 
         // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-        console.log("goTomessages", this.request_id);
         setTimeout(
           function () {
             this.SidenavService.setActiveSidenavTab(
@@ -106,9 +87,9 @@ export class AllRequestsComponent implements OnInit {
             );
             this.SidenavService.setActiveThread(this.request_id);
             this.SidenavService.setExpandedAccordionPanel(this.request_id);
-            this.SidenavService.setOpenChat(true);
+            // this.SidenavService.setOpenChat(true);
           }.bind(this),
-          500
+          0
         );
 
         console.log("getResponseToRequest", data, this);

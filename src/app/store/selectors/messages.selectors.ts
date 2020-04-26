@@ -13,12 +13,10 @@ export const getMessagesEntities = createSelector(
   fromMessages.getMessages
 );
 
-export const getMessages = createSelector(getMessagesEntities, entitites => {
+export const getMessages = createSelector(getMessagesEntities, (entitites) => {
   // return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
 
-  let result = Object.keys(entitites).map(id => entitites[id]);
-
-  console.log("all messages", result);
+  let result = Object.keys(entitites).map((id) => entitites[id]);
 
   return result;
 });
@@ -27,12 +25,10 @@ export const getChatMessages = createSelector(
   getMessagesEntities,
   (entitites, request_id) => {
     let result = Object.keys(entitites)
-      .map(id => entitites[id])
-      .filter(m => {
+      .map((id) => entitites[id])
+      .filter((m) => {
         return m.request_id == request_id;
       });
-
-    console.log("--------------->", entitites, request_id, result);
 
     return result;
   }
@@ -42,17 +38,14 @@ export const getChatForResponder = createSelector(
   getMessagesEntities,
   (entitites, obj) => {
     let result = Object.keys(entitites)
-      .map(id => entitites[id])
-      .filter(m => {
-        // console.log("-----------------------------", m);
-        // return m;
+      .map((id) => entitites[id])
+      .filter((m) => {
         return (
           m.request_id == obj.request_id &&
           (m.receiver_id == obj.responder_id || m.sender_id == obj.responder_id)
         );
       });
 
-    console.log(entitites, obj, "--------------->", result);
     return result;
   }
 );

@@ -1,25 +1,13 @@
 <mat-accordion class="accordion">
   <mat-expansion-panel
     *ngFor="let request of requests$ | async"
-    (opened)="setStep(request.id)"
     [expanded]="expandedPanel === request.id"
+    (opened)="expandedPanelOpen = request.id"
   >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <!-- <pre>{{ request | json }}</pre> -->
       <span class="request-details">
         <span class="title">
-          <!-- <span
-            class="material-icons-outlined marker sidepanel red"
-            matTooltip="One-time request"
-            *ngIf="request.isOneTime"
-            >pin_drop</span
-          >
-          <span
-            class="material-icons-outlined marker sidepanel green"
-            matTooltip="Material need"
-            *ngIf="!request.isOneTime"
-            >pin_drop</span
-          > -->
           <i
             class="material-icons-outlined mark-fulfilled"
             *ngIf="request.republished != 1"
@@ -65,9 +53,10 @@
               >close</span
             >
           </p>
-          <div class="button-holder">
+          <div class="button-holder" *ngIf="expandedPanelOpen === request.id">
             <button
               mat-button
+              #showMessagesButton
               (click)="handleShowMessages(request.id, responder.id)"
             >
               <i class="material-icons-outlined" matTooltip="Go to messages">
@@ -79,13 +68,7 @@
       </div>
     </div>
   </mat-expansion-panel>
-  <!-- <app-chat
-    class="messages"
-    [request_id]="activeThread"
-    [responder_id]="responder_id"
-    [chat$]="chat$"
-    *ngIf="showMessages"
-  ></app-chat> -->
+
   <!-- requests.length:: {{ requests.length }} :: {{ requests.length === 0 }} -->
   <p *ngIf="myRequestsLength === 0" class="warning">
     Your don't have any requests.

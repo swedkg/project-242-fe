@@ -9,7 +9,7 @@ export class SidenavService {
 
   private isSidenavOpen = new Subject<boolean>();
   private messagingSidenavOpened = new Subject<boolean>();
-  private expanded = new Subject<number>();
+  private expanded = new BehaviorSubject<number>(0);
   private activeSidenavTab = new Subject<number>();
   // private activeSidenavTab = new ReplaySubject<number>(1);
   private openChat = new ReplaySubject<boolean>(1);
@@ -53,7 +53,6 @@ export class SidenavService {
 
   setActiveSidenavTab(num) {
     this.activeSidenavTab.next(num);
-    console.log("-----> activeSidenavTab", num);
   }
 
   getActiveSidenavTab(): Observable<number> {
@@ -77,7 +76,6 @@ export class SidenavService {
   }
 
   setActiveThread(num) {
-    // this.thread = num;
     this.activeThread.next(num);
   }
 

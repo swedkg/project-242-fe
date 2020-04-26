@@ -61,8 +61,6 @@ export class MessageFlowService {
       }),
     };
 
-    console.log("----------------------------->", url, current_user);
-
     // return this.http.get<any[]>(url, httpOptions);
     return this.http.get<any[]>(url);
   }
