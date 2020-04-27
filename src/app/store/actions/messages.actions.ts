@@ -78,6 +78,14 @@ export class RemoveRespodersMessages implements Action {
   constructor(public payload: number) {}
 }
 
+// mark message as delivered
+export const MESSAGE_DELIVERED = "[Messages] Message was delivered";
+
+export class MessageDelivered implements Action {
+  readonly type = MESSAGE_DELIVERED;
+  constructor(public payload: number) {}
+}
+
 // action types
 export type MyMessagesAction =
   | LoadMessages
@@ -90,4 +98,5 @@ export type MyMessagesAction =
   | CreateWebSocketMessageFail
   | CreateWebSocketMessageSuccess
   | RemoveAllMessages
-  | RemoveRespodersMessages;
+  | RemoveRespodersMessages
+  | MessageDelivered;

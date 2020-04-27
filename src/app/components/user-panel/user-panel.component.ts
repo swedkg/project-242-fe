@@ -89,30 +89,46 @@ export class UserPanelComponent implements OnInit {
       // Subscribe to incoming platform messages
       this.subscription = messagingChannel.received().subscribe((received) => {
         console.log("MessagingChannel", received);
-        if (received.type == "message") {
-          let message = Object.assign({}, received.body);
-          message.status = 1;
 
-          this.store.dispatch(new fromStore.CreateWebSocketMessage(message));
+        switch (received.type) {
+          case "message": {
+            // on the receiver side, when we receive a message, set the status as delivered (=1)
+            let message = Object.assign({}, received.body);
+            message.status = 1;
 
-          // notify the original sender
-          // that the message was received
-          console.log(message);
-          messagingChannel.send({ action: "received", message: message });
-        }
+            // and save it to the store
+            this.store.dispatch(new fromStore.CreateWebSocketMessage(message));
 
-        if (received.type == "request")
-          this.store.dispatch(
-            new fromStore.CreateWebSocketRequest(received.body)
-          );
+            // notify the original sender
+            // that the message was received
+            console.log(message);
+            messagingChannel.send({ action: "delivered", message: message });
+            break;
+          }
 
-        if (received.type == "remove_orphan_messages") {
-          let body = Object.assign({}, received.body);
-          console.log(body);
+          case "request": {
+            this.store.dispatch(
+              new fromStore.CreateWebSocketRequest(received.body)
+            );
+            break;
+          }
 
-          this.store.dispatch(
-            new fromStore.RemoveRespodersMessages(body.fullfilment_id)
-          );
+          case "remove_orphan_messages": {
+            let body = Object.assign({}, received.body);
+            console.log(body);
+            this.store.dispatch(
+              new fromStore.RemoveRespodersMessages(body.fullfilment_id)
+            );
+            break;
+          }
+
+          case "message_delivered": {
+            let body = Object.assign({}, received.body);
+            console.log(body);
+            this.store.dispatch(
+              new fromStore.MessageDelivered(body.message_id)
+            );
+          }
         }
       });
       console.log("UserPanelComponent", this.current_user);
