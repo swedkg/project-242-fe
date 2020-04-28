@@ -24,7 +24,7 @@
         <small
           >by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName
           }}<span
-            *ngIf="mes.status == 1"
+            *ngIf="mes.status == 1 && mes.sender_id == current_user.id"
             class="material-icons-outlined message-tracking"
           >
             done </span

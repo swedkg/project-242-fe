@@ -10,7 +10,7 @@ export class SidenavService {
   private isSidenavOpen = new Subject<boolean>();
   private messagingSidenavOpened = new Subject<boolean>();
   private expanded = new BehaviorSubject<number>(0);
-  private activeSidenavTab = new Subject<number>();
+  private activeSidenavTab = new BehaviorSubject<number>(0);
   // private activeSidenavTab = new ReplaySubject<number>(1);
   private openChat = new ReplaySubject<boolean>(1);
   private activeThread = new BehaviorSubject<number>(0);

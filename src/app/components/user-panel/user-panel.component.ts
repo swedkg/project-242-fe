@@ -101,7 +101,6 @@ export class UserPanelComponent implements OnInit {
 
             // notify the original sender
             // that the message was received
-            console.log(message);
             messagingChannel.send({ action: "delivered", message: message });
             break;
           }
@@ -115,7 +114,6 @@ export class UserPanelComponent implements OnInit {
 
           case "remove_orphan_messages": {
             let body = Object.assign({}, received.body);
-            console.log(body);
             this.store.dispatch(
               new fromStore.RemoveRespodersMessages(body.fullfilment_id)
             );
@@ -124,7 +122,6 @@ export class UserPanelComponent implements OnInit {
 
           case "message_delivered": {
             let body = Object.assign({}, received.body);
-            console.log(body);
             this.store.dispatch(
               new fromStore.MessageDelivered(body.message_id)
             );

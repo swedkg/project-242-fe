@@ -50,39 +50,29 @@ export class ChatComponent implements OnInit {
     this.newMessage.request_id = this.request_id;
 
     this.newMessage.users = {};
-    // this.activeTab = this.SidenavService.getCurrentSidenavTab();
 
-    if (this.activeTab === 1) {
-      this.newMessage.receiver_id = this.chatRequest.owner_id;
-      this.newMessage.users.receiver = this.chatMembers.receiver;
-      this.newMessage.users.sender = this.chatMembers.sender;
-    } else {
-      this.newMessage.receiver_id = this.chatMembers.sender.id;
-      this.newMessage.users.receiver = this.chatMembers.sender;
-      this.newMessage.users.sender = this.chatMembers.receiver;
+    switch (this.activeTab) {
+      case this.SidenavService.tabs.myResponses: {
+        this.newMessage.receiver_id = this.chatRequest.owner_id;
+        this.newMessage.users.receiver = this.chatMembers.receiver;
+        this.newMessage.users.sender = this.chatMembers.sender;
+        break;
+      }
+      case this.SidenavService.tabs.myRequests: {
+        this.newMessage.receiver_id = this.chatMembers.sender.id;
+        this.newMessage.users.receiver = this.chatMembers.sender;
+        this.newMessage.users.sender = this.chatMembers.receiver;
+        break;
+      }
     }
-
-    // this.newMessage.receiver_id =
-    // this.activeTab === 1
-    // ? this.chatRequest.owner_id
-    // : this.chat$[0].users.sender.id;
-
-    console.log(this, this.chatMembers);
-
-    // return null;
 
     this.store.dispatch(new fromStore.CreateMessage(this.newMessage));
 
+    // reset the message and the form
     this.newMessage = {};
     this.newMessageForm.reset();
 
-    // setTimeout(() => {
-    //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-    // }, 100);
-
     this.scrollMessageFLowContainer();
-
-    // http://localhost:3000/messages/?text=I want to help&fullfilment_id=1&sender_id=2&receiver_id=1
   }
 
   hasError = (controlName: string, errorName: string) => {
@@ -173,7 +163,10 @@ export class ChatComponent implements OnInit {
       }
     );
 
-    this.activeTab = this.SidenavService.getCurrentTab();
+    this.SidenavService.getActiveSidenavTab().subscribe((data) => {
+      this.activeTab = data;
+    });
+
     console.log(this);
 
     this.newMessageForm = new FormGroup({
