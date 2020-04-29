@@ -29,10 +29,11 @@ import { MessageFlowService } from "./_services/message-flow.service";
 import { SnackbarService } from "./_services/snackbar.service";
 import { UserService } from "./_services/user.service";
 import { ActionCableService } from "angular2-actioncable";
+import { WebsocketsService } from "./_services/websockets.service";
 
 const environment = {
   development: true,
-  production: false
+  production: false,
 };
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
@@ -46,7 +47,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     LayoutComponent,
     SidenavComponent,
     CounterComponent,
-    SnackbarComponent
+    SnackbarComponent,
   ],
   imports: [
     appRoutingModule,
@@ -60,16 +61,16 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     AgmOverlays,
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyCw9TlphTR3feHATjeQhqJKA8qP5wGjLjQ",
-      libraries: ["places"]
+      libraries: ["places"],
     }),
     StoreModule.forFeature("aidPlatform", reducers),
     EffectsModule.forFeature(effects),
     StoreModule.forRoot({}, { metaReducers }),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
-      logOnly: environment.production
+      logOnly: environment.production,
     }),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
   ],
 
   providers: [
@@ -79,8 +80,9 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     MessageFlowService,
     UserService,
     SnackbarService,
-    ActionCableService
+    ActionCableService,
+    WebsocketsService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

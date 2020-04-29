@@ -24,7 +24,7 @@ export class ChatComponent implements OnInit {
   fullfilment_id: number;
   chatMembers: any = [];
 
-  _getActiveChat;
+  // _getActiveChat;
   _getActiveThread;
   _chatRequest;
   _getChatMessages;
@@ -68,6 +68,7 @@ export class ChatComponent implements OnInit {
 
     this.store.dispatch(new fromStore.CreateMessage(this.newMessage));
 
+    // TODO: clear the message form after success
     // reset the message and the form
     this.newMessage = {};
     this.newMessageForm.reset();
@@ -117,14 +118,14 @@ export class ChatComponent implements OnInit {
       // }
     });
 
-    this._getActiveChat = this.SidenavService.getActiveChat().subscribe(
-      (data) => {
-        // this.chat$ = this.SidenavService.activeChat;
-        this.chat$ = data;
-        console.log("getActiveChat", data);
-        setTimeout(this.scrollMessageFLowContainer, 100);
-      }
-    );
+    // this._getActiveChat = this.SidenavService.getActiveChat().subscribe(
+    //   (data) => {
+    //     // this.chat$ = this.SidenavService.activeChat;
+    //     this.chat$ = data;
+    //     console.log("getActiveChat", data);
+    //     setTimeout(this.scrollMessageFLowContainer, 100);
+    //   }
+    // );
 
     // this.chatMessages$ = this.chat$;
 
@@ -145,6 +146,8 @@ export class ChatComponent implements OnInit {
             this.chatMessages$ = data;
             this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
             this.chatMembers = this.chatMessages$[0].users;
+
+            setTimeout(this.scrollMessageFLowContainer, 100);
 
             console.log("chatMessage$", data);
           });
@@ -178,7 +181,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    if (this._getActiveChat) this._getActiveChat.unsubscribe();
+    // if (this._getActiveChat) this._getActiveChat.unsubscribe();
     if (this._getActiveThread) this._getActiveThread.unsubscribe();
     if (this._chatRequest) this._chatRequest.unsubscribe();
     if (this._getChatMessages) this._getChatMessages.unsubscribe();
