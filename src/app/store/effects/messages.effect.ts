@@ -55,7 +55,6 @@ export class MyMessagesEffects {
       messagesActions.CREATE_MESSAGE_FAIL
     ),
     map(() => {
-      // TODO: clear the message form after success
       this.SnackbarService.show("Not send. Try again later");
     })
   );

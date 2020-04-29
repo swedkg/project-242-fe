@@ -1,9 +1,10 @@
 import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { ofType } from "@ngrx/effects";
+import { ActionsSubject, Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
 import * as fromStore from "../../store";
-import { Message } from "../../_models/message.model";
+import * as messagesActions from "../../store/actions/messages.actions";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 
@@ -15,6 +16,7 @@ import { UserService } from "../../_services/user.service";
 })
 export class ChatComponent implements OnInit {
   public newMessageForm: FormGroup;
+  messageMinLength = 3;
   messageMaxLength = 150;
   newMessage: any = {};
   chatMessages$: any;
@@ -29,11 +31,21 @@ export class ChatComponent implements OnInit {
   _chatRequest;
   _getChatMessages;
 
+  subsc: Subscription;
+
   constructor(
     private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>,
-    private UserService: UserService
-  ) {}
+    private UserService: UserService,
+    private actionsSubj: ActionsSubject
+  ) {
+    this.subsc = this.actionsSubj
+      .pipe(ofType(messagesActions.CREATE_MESSAGE_SUCCESS))
+      .subscribe((data) => {
+        this.newMessage = {};
+        this.newMessageForm.reset();
+      });
+  }
 
   // @Input() request_id: number;
   request_id: number;
@@ -44,6 +56,8 @@ export class ChatComponent implements OnInit {
   activeTab;
 
   sendMessage() {
+    if (!this.newMessageForm.valid) return null;
+
     this.newMessage.message = this.newMessageForm.controls.messageText.value;
     this.newMessage.fullfilment_id = this.fullfilment_id;
     this.newMessage.sender_id = this.current_user.id;
@@ -67,11 +81,6 @@ export class ChatComponent implements OnInit {
     }
 
     this.store.dispatch(new fromStore.CreateMessage(this.newMessage));
-
-    // TODO: clear the message form after success
-    // reset the message and the form
-    this.newMessage = {};
-    this.newMessageForm.reset();
 
     this.scrollMessageFLowContainer();
   }
@@ -175,6 +184,7 @@ export class ChatComponent implements OnInit {
     this.newMessageForm = new FormGroup({
       messageText: new FormControl("", [
         Validators.required,
+        Validators.minLength(this.messageMinLength),
         Validators.maxLength(this.messageMaxLength),
       ]),
     });
