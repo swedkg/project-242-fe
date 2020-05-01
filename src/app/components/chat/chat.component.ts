@@ -148,13 +148,26 @@ export class ChatComponent implements OnInit {
         // this.SidenavService.setOpenChat(true);
         this.request_id = request_id;
 
-        // TODO: The chat observable should not be moved around like that. Subscibe here below
         this._getChatMessages = this.store
           .select(fromStore.getChatMessages, this.request_id)
           .subscribe((data) => {
             this.chatMessages$ = data;
             this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
             this.chatMembers = this.chatMessages$[0].users;
+
+            // TODO: this is not working as intended
+            // this.chatMessages$.forEach((message) => {
+            //   if (
+            //     message.status == 1 &&
+            //     message.receiver_id == this.current_user.id
+            //   ) {
+            //     console.log(message);
+
+            //     // change status -> 2 and update the store
+            //     this.store.dispatch(new fromStore.MessageRead(message.id));
+            //     // send websocket to the sender_id
+            //   }
+            // });
 
             setTimeout(this.scrollMessageFLowContainer, 100);
 

@@ -86,6 +86,14 @@ export class MessageDelivered implements Action {
   constructor(public payload: number) {}
 }
 
+// mark message as read
+export const MESSAGE_READ = "[Messages] Message was read";
+
+export class MessageRead implements Action {
+  readonly type = MESSAGE_READ;
+  constructor(public payload: number) {}
+}
+
 // action types
 export type MyMessagesAction =
   | LoadMessages
@@ -99,4 +107,5 @@ export type MyMessagesAction =
   | CreateWebSocketMessageSuccess
   | RemoveAllMessages
   | RemoveRespodersMessages
-  | MessageDelivered;
+  | MessageDelivered
+  | MessageRead;

@@ -6,7 +6,7 @@ import {
   NgZone,
   OnInit,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material";
@@ -18,7 +18,7 @@ import { UserService } from "../../_services/user.service";
   selector: "app-submit-request-content",
   templateUrl: "./submit-request-content.component.html",
   styleUrls: ["./submit-request-content.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class SubmitRequestContentComponent implements OnInit {
   constructor(
@@ -53,7 +53,6 @@ export class SubmitRequestContentComponent implements OnInit {
     // this.newRequest.isUser = false;
     this.newRequest.owner_id = this.UserService.currentUserDetails.id;
 
-    // TODO: use the same logic in messages. We subscribe to a channel, add the message to the store when we receive it from the channel
     this.store.dispatch(new fromStore.CreateRequest(this.newRequest));
     this.closeDialog();
   }
@@ -82,18 +81,18 @@ export class SubmitRequestContentComponent implements OnInit {
     this.newRequestForm = new FormGroup({
       title: new FormControl("", [
         Validators.required,
-        Validators.maxLength(50)
+        Validators.maxLength(50),
       ]),
       description: new FormControl("", [
         Validators.required,
-        Validators.maxLength(300)
+        Validators.maxLength(300),
       ]),
       address: new FormControl(
         "",
         [Validators.required, this.validateAddress.bind(this)],
         []
       ),
-      isOneTime: new FormControl("", [Validators.required])
+      isOneTime: new FormControl("", [Validators.required]),
     });
 
     this.mapsAPILoader.load().then(() => {
@@ -104,7 +103,7 @@ export class SubmitRequestContentComponent implements OnInit {
       let autocomplete = new google.maps.places.Autocomplete(
         this.searchElementRef.nativeElement,
         {
-          types: ["address"]
+          types: ["address"],
         }
       );
       autocomplete.addListener("place_changed", () => {

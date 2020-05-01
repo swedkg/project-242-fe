@@ -46,7 +46,7 @@ export class LoginDialogComponent implements OnInit {
       email: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value,
     };
-    console.log(payload);
+    // console.log(payload);
     this.UserService.login(payload)
       .pipe(first())
       .subscribe(
@@ -54,6 +54,8 @@ export class LoginDialogComponent implements OnInit {
           console.log(data);
           this.closeDialog();
           this.store.dispatch(new fromStore.LoadRequests());
+          this.store.dispatch(new fromStore.RemoveAllMessages());
+          // this.store.dispatch(new fromStore.LoadMessages(data.id))
           window.dispatchEvent(new Event("resize"));
 
           // this.router.navigate([this.returnUrl]);

@@ -65,7 +65,6 @@ export class MyRequestsComponent implements OnInit {
 
   handleRemoveResponder(fullfilment) {
     // we need the fullfilment id here
-    // BUG: the responder is removed by we need to reload
     console.log(fullfilment);
 
     this.MessageFlowService.removeResponder(fullfilment);
@@ -118,7 +117,6 @@ export class MyRequestsComponent implements OnInit {
 
     this.MessageFlowService.getRemovedResponder().subscribe((data) => {
       console.log(data, this);
-      // BUG: Close chat on responder's site when they are removed
     });
   }
 

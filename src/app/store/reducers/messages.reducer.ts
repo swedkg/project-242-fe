@@ -167,6 +167,33 @@ export function reducer(
         entities,
       };
     }
+    case fromMessages.MESSAGE_READ: {
+      let messageId = action.payload;
+      let entities = state.entities;
+
+      const modify = (obj, filter, filterValue) =>
+        Object.keys(obj).reduce((acc, val) => {
+          let mod = Object.assign({}, obj[val]);
+          mod.status = 2;
+          return obj[val][filter] === filterValue
+            ? {
+                ...acc,
+                [val]: mod,
+              }
+            : {
+                ...acc,
+                [val]: obj[val],
+              };
+        }, {});
+
+      entities = modify(entities, "id", messageId);
+
+      // console.log("fromMessages.MESSAGE_DELIVERED", messageId, entities);
+      return {
+        ...state,
+        entities,
+      };
+    }
   }
   // console.log(action, state);
   return state;

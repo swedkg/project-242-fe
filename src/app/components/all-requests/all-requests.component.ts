@@ -26,7 +26,6 @@ export class AllRequestsComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   respondToRequest(id) {
-    // TODO: we need a POST request here
     this.request_id = id;
     this.MessageFlowService.respondToRequest(id);
 

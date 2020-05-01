@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { ActionsSubject, Store } from "@ngrx/store";
 import { ActionCableService, Channel } from "angular2-actioncable";
 import { Subscription } from "rxjs";
 import * as fromStore from "../store";
+import * as messagesActions from "../store/actions/messages.actions";
 import { User } from "../_models/user";
 import { MessageFlowService } from "./message-flow.service";
 import { UserService } from "./user.service";
+import { ofType } from "@ngrx/effects";
 
 @Injectable({
   providedIn: "root",
@@ -19,11 +21,14 @@ export class WebsocketsService {
   platformStatusChannel: Channel;
   messagingChannel: Channel;
 
+  subsc: Subscription;
+
   constructor(
     private store: Store<fromStore.PlatformState>,
     private cableService: ActionCableService,
     private MessageFlowService: MessageFlowService,
-    private UserService: UserService
+    private UserService: UserService,
+    private ActionsSubject: ActionsSubject
   ) {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
@@ -35,7 +40,33 @@ export class WebsocketsService {
         this.messagingChannelSubscribe();
       } else this.disconnect();
     });
+
+    // TODO: decide when to load the messages. Look for fromStore.LoadMessages
+
+    // TODO: the "message_delivered" case from the webSocket service
+    // in only active when the chat is open
+    // we shoud get the status on incoming messages the moment that we
+    // init the panel
+
+    // TODO: localstorage service ????
+    // write a list of message id and status in the local storage
+    // and compare it with the store
+    // depending on the result, we will notify of delivery of message
+
+    this.subsc = this.ActionsSubject.pipe(
+      ofType(messagesActions.LOAD_MESSAGES_SUCCESS)
+    ).subscribe((data) => {
+      console.log(data);
+    });
+
+    // we load messages only once. So this only works when we first load the app
+    // after that, we need to rely on the websockets
   }
+
+  /**
+   * messagingChannelMessageRead
+id:number   */
+  public messagingChannelMessageRead(id: number) {}
 
   /**
    * disconnect
@@ -104,6 +135,11 @@ export class WebsocketsService {
         case "message_delivered": {
           let body = Object.assign({}, received.body);
           this.store.dispatch(new fromStore.MessageDelivered(body.message_id));
+        }
+
+        case "message_read": {
+          let body = Object.assign({}, received.body);
+          this.store.dispatch(new fromStore.MessageRead(body.message_id));
         }
       }
     });

@@ -72,8 +72,6 @@ export class MapComponent implements OnInit {
         if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
           if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
             counter++; // console.log(el);
-            // TODO: we need to annouce that so the side panel will be updated
-
             // console.log(el);
             inBoundMarkers.push(el);
           }
@@ -122,14 +120,9 @@ export class MapComponent implements OnInit {
     return this.UserService.isLoggedIn;
   }
 
-  // TODO: sign-in/ signup
   // TODO: wireframes, at leasts 5, desktop and mobile
-  // TODO: markers of separate colors
-  // TODO: unlist after 24 hours, add republish button
-  // TODO: backend testing, unit tests for models and controler tests
   // TODO: click on marker, displays info, status, button to fullfil
   // TODO: if >5 users = fulfilled, cannot republish
-  // TODO: add the number of fullfiled requests
 
   ngOnInit() {
     // let self = this;

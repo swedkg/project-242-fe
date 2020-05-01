@@ -26,9 +26,6 @@ export class MessageFlowService {
 
   private platformStatusChannelMessage = new BehaviorSubject<any>({});
 
-  // TODO: some cleanup is needed, HTTP requests are being send on refresh
-  // TODO: an observable is need to update the messages as we send a new one.
-
   setPlatformStatusChannelMessage(status) {
     this.platformStatusChannelMessage.next(status);
   }

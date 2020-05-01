@@ -11,7 +11,7 @@ import { SnackbarService } from "../../_services/snackbar.service";
   selector: "app-register-dialog",
   templateUrl: "./register-dialog.component.html",
   styleUrls: ["./register-dialog.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegisterDialogComponent implements OnInit {
   public registrationForm: FormGroup;
@@ -39,8 +39,6 @@ export class RegisterDialogComponent implements OnInit {
     console.log(ev, this.image);
   }
 
-  // TODO: save cookie in local storage after success
-  // TODO: open sidebar after succuessfull login
   // TODO: image size limit
   // TODO: png, jpg, pdf
   // TODO: mobile devices
@@ -67,12 +65,12 @@ export class RegisterDialogComponent implements OnInit {
     this.UserService.register(formData)
       .pipe(first())
       .subscribe(
-        data => {
+        (data) => {
           console.log(data);
           this.closeDialog();
           // this.router.navigate([this.returnUrl]);
         },
-        error => {
+        (error) => {
           this.SnackbarService.show(error.error.email[1]);
         }
       );
@@ -89,7 +87,7 @@ export class RegisterDialogComponent implements OnInit {
     return fieldControl.value === this.registrationForm.controls.password.value
       ? null
       : {
-          passwordMatch: true
+          passwordMatch: true,
         };
   }
 
@@ -101,17 +99,17 @@ export class RegisterDialogComponent implements OnInit {
       email: new FormControl("", [
         Validators.required,
         Validators.email,
-        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
+        Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
       ]),
       password: new FormControl("", [
         Validators.required,
-        Validators.minLength(6)
+        Validators.minLength(6),
       ]),
       confirmPassword: new FormControl("", [
         Validators.required,
         Validators.minLength(6),
-        this.passwordMatch.bind(this)
-      ])
+        this.passwordMatch.bind(this),
+      ]),
     });
   }
 }
