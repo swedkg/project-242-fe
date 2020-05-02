@@ -13,12 +13,12 @@ export class LoadMessages implements Action {
 
 export class LoadMessagesFail implements Action {
   readonly type = LOAD_MESSAGES_FAIL;
-  constructor(public payload: any) {}
+  constructor(public payload?: any) {}
 }
 
 export class LoadMessagesSuccess implements Action {
   readonly type = LOAD_MESSAGES_SUCCESS;
-  constructor(public payload: Message[]) {}
+  constructor(public payload?: Message[]) {}
 }
 
 // create message from API
@@ -87,10 +87,10 @@ export class MessageDelivered implements Action {
 }
 
 // mark message as read
-export const MESSAGE_READ = "[Messages] Message was read";
+export const MESSAGE_DISPLAYED = "[Messages] Message was read";
 
-export class MessageRead implements Action {
-  readonly type = MESSAGE_READ;
+export class MessageDisplayed implements Action {
+  readonly type = MESSAGE_DISPLAYED;
   constructor(public payload: number) {}
 }
 
@@ -108,4 +108,4 @@ export type MyMessagesAction =
   | RemoveAllMessages
   | RemoveRespodersMessages
   | MessageDelivered
-  | MessageRead;
+  | MessageDisplayed;

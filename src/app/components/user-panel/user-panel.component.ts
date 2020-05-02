@@ -1,16 +1,13 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { Store } from "@ngrx/store";
-import { ActionCableService, Channel } from "angular2-actioncable";
+import { ActionCableService } from "angular2-actioncable";
 import { Subscription } from "rxjs";
 import * as fromStore from "../../store";
 import { User } from "../../_models/user";
-import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { SubmitRequestContentComponent } from "../submit-request-content/submit-request-content.component";
-
-import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
   selector: "app-user-panel",
@@ -27,9 +24,7 @@ export class UserPanelComponent implements OnInit {
     private SidenavService: SidenavService,
     public MatDialog: MatDialog,
     private cableService: ActionCableService,
-    private MessageFlowService: MessageFlowService,
-    private store: Store<fromStore.PlatformState>,
-    private WebsocketsService: WebsocketsService
+    private store: Store<fromStore.PlatformState>
   ) {}
 
   logout() {

@@ -1,13 +1,12 @@
 import { Injectable } from "@angular/core";
+import { Actions } from "@ngrx/effects";
 import { ActionsSubject, Store } from "@ngrx/store";
 import { ActionCableService, Channel } from "angular2-actioncable";
 import { Subscription } from "rxjs";
 import * as fromStore from "../store";
-import * as messagesActions from "../store/actions/messages.actions";
 import { User } from "../_models/user";
 import { MessageFlowService } from "./message-flow.service";
 import { UserService } from "./user.service";
-import { ofType } from "@ngrx/effects";
 
 @Injectable({
   providedIn: "root",
@@ -28,11 +27,12 @@ export class WebsocketsService {
     private cableService: ActionCableService,
     private MessageFlowService: MessageFlowService,
     private UserService: UserService,
-    private ActionsSubject: ActionsSubject
+    private ActionsSubject: ActionsSubject,
+    private actions$: Actions
   ) {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
-      console.log("WebsocketsService", this);
+      // console.log("WebsocketsService", data);
       if (this.current_user != null) {
         this.platformStatusChannelConnect();
         this.platformStatusChannelSubscribe();
@@ -48,25 +48,40 @@ export class WebsocketsService {
     // we shoud get the status on incoming messages the moment that we
     // init the panel
 
-    // TODO: localstorage service ????
+    // TODO: notifications service ????
     // write a list of message id and status in the local storage
     // and compare it with the store
     // depending on the result, we will notify of delivery of message
-
-    this.subsc = this.ActionsSubject.pipe(
-      ofType(messagesActions.LOAD_MESSAGES_SUCCESS)
-    ).subscribe((data) => {
-      console.log(data);
-    });
-
-    // we load messages only once. So this only works when we first load the app
-    // after that, we need to rely on the websockets
   }
 
   /**
-   * messagingChannelMessageRead
-id:number   */
-  public messagingChannelMessageRead(id: number) {}
+   * messagingChannelMessageDisplayed
+  id:number   */
+  public messagingChannelMessageDisplayed(id: number) {
+    this.messagingChannel.send({
+      action: "message_displayed",
+      message: id,
+    });
+  }
+
+  // private kkk$ = this.actions$
+  //   .pipe(
+  //     ofType<messagesActions.MessageDisplayed>(
+  //       messagesActions.MESSAGE_DISPLAYED
+  //     ),
+  //     map((action) => {
+  //       // action.payload.forEach((el) => {
+  //       //   console.log(el);
+  //       // });
+  //       console.log("message_displayed", action.payload);
+  //       // this.messagingChannel.send({
+  //       //   action: "message_displayed",
+  //       //   message: action.payload,
+  //       // });
+  //       // localStorage.setItem("notifications", JSON.stringify(action.payload));
+  //     })
+  //   )
+  //   .subscribe();
 
   /**
    * disconnect
@@ -113,7 +128,10 @@ id:number   */
 
           // notify the original sender
           // that the message was received
-          this.messagingChannel.send({ action: "delivered", message: message });
+          this.messagingChannel.send({
+            action: "message_delivered",
+            message: message.id,
+          });
           break;
         }
 
@@ -135,11 +153,13 @@ id:number   */
         case "message_delivered": {
           let body = Object.assign({}, received.body);
           this.store.dispatch(new fromStore.MessageDelivered(body.message_id));
+          break;
         }
 
-        case "message_read": {
+        case "message_displayed": {
           let body = Object.assign({}, received.body);
-          this.store.dispatch(new fromStore.MessageRead(body.message_id));
+          this.store.dispatch(new fromStore.MessageDisplayed(body.message_id));
+          break;
         }
       }
     });

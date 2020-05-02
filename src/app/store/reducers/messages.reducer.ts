@@ -148,6 +148,8 @@ export function reducer(
         Object.keys(obj).reduce((acc, val) => {
           let mod = Object.assign({}, obj[val]);
           mod.status = 1;
+          mod.updated_at = new Date().toISOString();
+
           return obj[val][filter] === filterValue
             ? {
                 ...acc,
@@ -167,7 +169,8 @@ export function reducer(
         entities,
       };
     }
-    case fromMessages.MESSAGE_READ: {
+
+    case fromMessages.MESSAGE_DISPLAYED: {
       let messageId = action.payload;
       let entities = state.entities;
 
@@ -175,6 +178,8 @@ export function reducer(
         Object.keys(obj).reduce((acc, val) => {
           let mod = Object.assign({}, obj[val]);
           mod.status = 2;
+          mod.updated_at = new Date().toISOString();
+
           return obj[val][filter] === filterValue
             ? {
                 ...acc,
@@ -188,7 +193,7 @@ export function reducer(
 
       entities = modify(entities, "id", messageId);
 
-      // console.log("fromMessages.MESSAGE_DELIVERED", messageId, entities);
+      // console.log("fromMessages.MESSAGE_DISPLAYED", action.payload, entities);
       return {
         ...state,
         entities,

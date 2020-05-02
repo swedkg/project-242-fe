@@ -7,6 +7,7 @@ import * as fromStore from "../../store";
 import * as messagesActions from "../../store/actions/messages.actions";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
+import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
   selector: "app-chat",
@@ -31,15 +32,16 @@ export class ChatComponent implements OnInit {
   _chatRequest;
   _getChatMessages;
 
-  subsc: Subscription;
+  messageFormReset: Subscription;
 
   constructor(
     private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>,
     private UserService: UserService,
+    private WebsocketsService: WebsocketsService,
     private actionsSubj: ActionsSubject
   ) {
-    this.subsc = this.actionsSubj
+    this.messageFormReset = this.actionsSubj
       .pipe(ofType(messagesActions.CREATE_MESSAGE_SUCCESS))
       .subscribe((data) => {
         this.newMessage = {};
@@ -127,21 +129,6 @@ export class ChatComponent implements OnInit {
       // }
     });
 
-    // this._getActiveChat = this.SidenavService.getActiveChat().subscribe(
-    //   (data) => {
-    //     // this.chat$ = this.SidenavService.activeChat;
-    //     this.chat$ = data;
-    //     console.log("getActiveChat", data);
-    //     setTimeout(this.scrollMessageFLowContainer, 100);
-    //   }
-    // );
-
-    // this.chatMessages$ = this.chat$;
-
-    // this.chatMessages$.subscribe(data => {
-    //   console.log('fromStore.getChatMessages', data);
-    // });
-
     this._getActiveThread = this.SidenavService.getActiveThread().subscribe(
       (request_id) => {
         // this.activeThread = data;
@@ -156,18 +143,30 @@ export class ChatComponent implements OnInit {
             this.chatMembers = this.chatMessages$[0].users;
 
             // TODO: this is not working as intended
-            // this.chatMessages$.forEach((message) => {
-            //   if (
-            //     message.status == 1 &&
-            //     message.receiver_id == this.current_user.id
-            //   ) {
-            //     console.log(message);
+            this.chatMessages$.forEach((message) => {
+              if (
+                (message.status == 0 || message.status == 1) &&
+                message.receiver_id == this.current_user.id
+              ) {
+                console.log(
+                  "mark as read",
+                  message,
+                  message.receiver_id == this.current_user.id
+                );
+                // change status -> 2 and update the store
+                this.store.dispatch(new fromStore.MessageDisplayed(message.id));
 
-            //     // change status -> 2 and update the store
-            //     this.store.dispatch(new fromStore.MessageRead(message.id));
-            //     // send websocket to the sender_id
-            //   }
-            // });
+                // send websocket to the sender_id
+                setTimeout(
+                  function () {
+                    this.WebsocketsService.messagingChannelMessageDisplayed(
+                      message.id
+                    );
+                  }.bind(this),
+                  1000
+                );
+              }
+            });
 
             setTimeout(this.scrollMessageFLowContainer, 100);
 

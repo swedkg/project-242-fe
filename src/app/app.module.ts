@@ -10,6 +10,7 @@ import { MetaReducer, StoreModule } from "@ngrx/store";
 // not used in production
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { AgmOverlays } from "agm-overlays";
+import { ActionCableService } from "angular2-actioncable";
 import { storeFreeze } from "ngrx-store-freeze";
 import { AppComponent } from "./app.component";
 import { appRoutingModule } from "./app.routing";
@@ -26,9 +27,9 @@ import { ErrorInterceptor } from "./_helpers/error.interceptor";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { HelpRequestsService } from "./_services/help-requests.service";
 import { MessageFlowService } from "./_services/message-flow.service";
+import { NotificationsService } from "./_services/notifications.service";
 import { SnackbarService } from "./_services/snackbar.service";
 import { UserService } from "./_services/user.service";
-import { ActionCableService } from "angular2-actioncable";
 import { WebsocketsService } from "./_services/websockets.service";
 
 const environment = {
@@ -82,6 +83,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     SnackbarService,
     ActionCableService,
     WebsocketsService,
+    NotificationsService,
   ],
   bootstrap: [AppComponent],
 })

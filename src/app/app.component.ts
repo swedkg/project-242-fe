@@ -1,13 +1,19 @@
 import { Component, OnInit } from "@angular/core";
 import { SidenavService } from "../app/_services/sidenav.service";
+import { NotificationsService } from "./_services/notifications.service";
+import { WebsocketsService } from "./_services/websockets.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  constructor(private SidenavService: SidenavService) {}
+  constructor(
+    private SidenavService: SidenavService,
+    private WebsocketsService: WebsocketsService,
+    private NotificationsService: NotificationsService
+  ) {}
   events: string[] = [];
   isSidenavOpen: boolean = false;
   messagingSidenavOpened: boolean = false;
@@ -24,10 +30,10 @@ export class AppComponent implements OnInit {
     this.SidenavService.setMessagingSidenavOpened(this.messagingSidenavOpened);
   }
   ngOnInit(): void {
-    this.SidenavService.isRequestSidenavOpened().subscribe(data => {
+    this.SidenavService.isRequestSidenavOpened().subscribe((data) => {
       this.isSidenavOpen = data;
     });
-    this.SidenavService.isMessagingSidenavOpened().subscribe(data => {
+    this.SidenavService.isMessagingSidenavOpened().subscribe((data) => {
       this.messagingSidenavOpened = data;
     });
   }

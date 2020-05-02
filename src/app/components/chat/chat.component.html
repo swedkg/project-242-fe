@@ -20,21 +20,33 @@
       > -->
 
       <p class="message">
-        {{ mes.message }} : {{ mes.status }}
+        {{ mes.message }} {{ mes.id }}:{{ mes.status }}
         <small
-          >by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName
-          }}<span
-            *ngIf="mes.status == 1 && mes.sender_id == current_user.id"
-            class="material-icons-outlined message-tracking"
-          >
-            done </span
           ><span
-            *ngIf="mes.status == 2 && mes.sender_id == current_user.id"
-            class="material-icons-outlined message-tracking"
+            *ngIf="mes.receiver_id == current_user.id"
+            matTooltip="Send {{ mes.created_at | relativeTime }}"
           >
-            check_circle_outline
-          </span></small
-        >
+            by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName }}
+          </span>
+          <span
+            *ngIf="mes.sender_id == current_user.id && mes.status == 1"
+            matTooltip="Delivered {{ mes.updated_at | relativeTime }}"
+          >
+            by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName }}
+            <span class="material-icons-outlined message-tracking">
+              done
+            </span>
+          </span>
+          <span
+            *ngIf="mes.sender_id == current_user.id && mes.status == 2"
+            matTooltip="Displayed {{ mes.updated_at | relativeTime }}"
+          >
+            by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName }}
+            <span class="material-icons-outlined message-tracking">
+              check_circle_outline
+            </span>
+          </span>
+        </small>
       </p></span
     >
   </div>

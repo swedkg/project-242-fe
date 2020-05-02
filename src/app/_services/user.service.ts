@@ -1,16 +1,13 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject, Observable, Subscription } from "rxjs";
-import { User } from "../_models/user";
 import { HttpClient } from "@angular/common/http";
-import { map, timeout } from "rxjs/operators";
-
-import { SnackbarService } from "./snackbar.service";
-import { SidenavService } from "./sidenav.service";
-
+import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
+import { BehaviorSubject, Observable, Subscription } from "rxjs";
+import { map } from "rxjs/operators";
 import * as fromStore from "../store/";
-
+import { User } from "../_models/user";
 import { host } from "./host";
+import { SidenavService } from "./sidenav.service";
+import { SnackbarService } from "./snackbar.service";
 
 @Injectable({
   providedIn: "root",
