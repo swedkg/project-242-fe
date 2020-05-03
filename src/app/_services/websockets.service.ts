@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Actions } from "@ngrx/effects";
+import { Actions, ofType } from "@ngrx/effects";
 import { ActionsSubject, Store } from "@ngrx/store";
 import { ActionCableService, Channel } from "angular2-actioncable";
 import { Subscription } from "rxjs";
@@ -7,6 +7,9 @@ import * as fromStore from "../store";
 import { User } from "../_models/user";
 import { MessageFlowService } from "./message-flow.service";
 import { UserService } from "./user.service";
+
+import * as messagesActions from "../store/actions/messages.actions";
+import { map } from "rxjs/operators";
 
 @Injectable({
   providedIn: "root",
@@ -63,25 +66,49 @@ export class WebsocketsService {
       message: id,
     });
   }
+  /**
+   * messagingChannelMessageDelivered
+  id:number   */
+  public messagingChannelMessageDelivered(id: number) {
+    this.messagingChannel.send({
+      action: "message_delivered",
+      message: id,
+    });
+  }
 
-  // private kkk$ = this.actions$
-  //   .pipe(
-  //     ofType<messagesActions.MessageDisplayed>(
-  //       messagesActions.MESSAGE_DISPLAYED
-  //     ),
-  //     map((action) => {
-  //       // action.payload.forEach((el) => {
-  //       //   console.log(el);
-  //       // });
-  //       console.log("message_displayed", action.payload);
-  //       // this.messagingChannel.send({
-  //       //   action: "message_displayed",
-  //       //   message: action.payload,
-  //       // });
-  //       // localStorage.setItem("notifications", JSON.stringify(action.payload));
-  //     })
-  //   )
-  //   .subscribe();
+  private kkk$ = this.actions$
+    .pipe(
+      ofType<messagesActions.LoadMessagesSuccess>(
+        messagesActions.LOAD_MESSAGES_SUCCESS
+      ),
+      map((action) => {
+        // action.payload.forEach((el) => {
+        //   console.log(el);
+        // });
+
+        // we need to notify that the messages were delivered
+        action.payload
+          .filter(
+            (message) =>
+              message.receiver_id == this.current_user.id &&
+              message.status === 0
+          )
+          .forEach((message) =>
+            this.messagingChannelMessageDelivered(message.id)
+          );
+
+        console.log("LoadMessagesSuccess", action.payload);
+
+        // messages.forEach(message => this.messagingChannelMessageDelivered(message.id))
+
+        // this.messagingChannel.send({
+        //   action: "message_displayed",
+        //   message: action.payload,
+        // });
+        // localStorage.setItem("notifications", JSON.stringify(action.payload));
+      })
+    )
+    .subscribe();
 
   /**
    * disconnect
@@ -121,17 +148,22 @@ export class WebsocketsService {
         case "message": {
           // on the receiver side, when we receive a message, set the status as delivered (=1)
           let message = Object.assign({}, received.body);
-          message.status = 1;
+          // message.status = 1;
 
           // and save it to the store
           this.store.dispatch(new fromStore.CreateWebSocketMessage(message));
 
           // notify the original sender
           // that the message was received
-          this.messagingChannel.send({
-            action: "message_delivered",
-            message: message.id,
-          });
+          if (
+            message.receiver_id == this.current_user.id &&
+            message.status == 0
+          ) {
+            this.messagingChannel.send({
+              action: "message_delivered",
+              message: message.id,
+            });
+          }
           break;
         }
 

@@ -58,6 +58,8 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
 
   @ViewChild("showMessagesButton") showMessagesButton: ElementRef<HTMLElement>;
 
+  // TODO: handle republish/markfulliled with websockets
+
   constructor(
     private cdr: ChangeDetectorRef,
     private SidenavService: SidenavService,

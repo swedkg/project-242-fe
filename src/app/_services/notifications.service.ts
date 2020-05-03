@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, ofType } from "@ngrx/effects";
 import { ActionsSubject, Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
-import { map } from "rxjs/operators";
+import { map, withLatestFrom } from "rxjs/operators";
 import * as fromStore from "../store";
 import * as messagesActions from "../store/actions/messages.actions";
 
@@ -33,15 +33,18 @@ export class NotificationsService {
   // this.userSubcr =
   loadMessagesSuccess$ = this.actions$
     .pipe(
-      ofType<messagesActions.LoadMessagesSuccess>(
-        messagesActions.LOAD_MESSAGES_SUCCESS
-      ),
-      map((action) => {
-        action.payload.forEach((el) => {
-          console.log(el);
-        });
-        console.log(action.payload);
-        localStorage.setItem("notifications", JSON.stringify(action.payload));
+      ofType<messagesActions.CreateMessage>(messagesActions.CREATE_MESSAGE),
+      withLatestFrom(this.store),
+      map(([action, storeState]) => {
+        // action.payload.forEach((el) => {
+        //   console.log(el);
+        // });
+        // let messages = state[1][1].messages.entities;
+        // let aidPlatform = Object.assign({}, state[1]);
+        // aidPlatform.messages.entities
+        // let messages = storeState.messages.entities;
+        console.log(action, storeState);
+        // localStorage.setItem("messages", JSON.stringify(messages));
       })
     )
     .subscribe();

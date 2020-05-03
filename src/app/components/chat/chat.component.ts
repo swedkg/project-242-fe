@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnInit,
+  ViewEncapsulation,
+  ChangeDetectorRef,
+} from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ofType } from "@ngrx/effects";
 import { ActionsSubject, Store } from "@ngrx/store";
@@ -35,6 +41,8 @@ export class ChatComponent implements OnInit {
   messageFormReset: Subscription;
 
   constructor(
+    private cdr: ChangeDetectorRef,
+
     private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>,
     private UserService: UserService,
@@ -200,6 +208,10 @@ export class ChatComponent implements OnInit {
         Validators.maxLength(this.messageMaxLength),
       ]),
     });
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {

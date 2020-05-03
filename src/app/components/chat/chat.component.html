@@ -20,13 +20,23 @@
       > -->
 
       <p class="message">
-        {{ mes.message }} {{ mes.id }}:{{ mes.status }}
+        {{ mes.message }}
+        <!-- {{ mes.id }}:{{ mes.status }} -->
         <small
           ><span
             *ngIf="mes.receiver_id == current_user.id"
-            matTooltip="Send {{ mes.created_at | relativeTime }}"
+            matTooltip="Received {{ mes.created_at | relativeTime }}"
           >
             by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName }}
+          </span>
+          <span
+            *ngIf="mes.sender_id == current_user.id && mes.status == 0"
+            matTooltip="Sent {{ mes.updated_at | relativeTime }}"
+          >
+            by {{ mes.users.sender.firstName }} {{ mes.users.sender.lastName }}
+            <span class="material-icons-outlined message-tracking">
+              call_made
+            </span>
           </span>
           <span
             *ngIf="mes.sender_id == current_user.id && mes.status == 1"
