@@ -43,6 +43,7 @@ export class RegisterDialogComponent implements OnInit {
   // TODO: png, jpg, pdf
   // TODO: mobile devices
   // TODO: wireframes for desktop and mobile
+  // TODO: activity diagram
 
   register() {
     const formData = new FormData();

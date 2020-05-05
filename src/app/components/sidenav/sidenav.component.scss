@@ -17,6 +17,7 @@ mat-sidenav.mat-drawer.mat-sidenav {
   display: flex;
   flex-direction: column;
 }
+
 .mat-tab-label-content .material-icons-outlined {
   font-size: 1.25em;
   margin-right: 4px;
@@ -39,7 +40,14 @@ mat-sidenav.mat-drawer.mat-sidenav {
 }
 
 .mat-tab-label {
+  opacity: 1 !important;
+  flex-grow: 1;
+  color: hsl(0, 0%, 50%);
   @include md-max {
     padding: 0px 12px !important;
   }
+}
+
+span.tab-label {
+  padding-right: 4px;
 }

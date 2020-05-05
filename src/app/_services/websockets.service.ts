@@ -76,39 +76,39 @@ export class WebsocketsService {
     });
   }
 
-  private kkk$ = this.actions$
-    .pipe(
-      ofType<messagesActions.LoadMessagesSuccess>(
-        messagesActions.LOAD_MESSAGES_SUCCESS
-      ),
-      map((action) => {
-        // action.payload.forEach((el) => {
-        //   console.log(el);
-        // });
+  // private kkk$ = this.actions$
+  //   .pipe(
+  //     ofType<messagesActions.LoadMessagesSuccess>(
+  //       messagesActions.LOAD_MESSAGES_SUCCESS
+  //     ),
+  //     map((action) => {
+  //       // action.payload.forEach((el) => {
+  //       //   console.log(el);
+  //       // });
 
-        // we need to notify that the messages were delivered
-        action.payload
-          .filter(
-            (message) =>
-              message.receiver_id == this.current_user.id &&
-              message.status === 0
-          )
-          .forEach((message) =>
-            this.messagingChannelMessageDelivered(message.id)
-          );
+  //       // we need to notify that the messages were delivered
+  //       action.payload
+  //         .filter(
+  //           (message) =>
+  //             message.receiver_id == this.current_user.id &&
+  //             message.status === 0
+  //         )
+  //         .forEach((message) =>
+  //           this.messagingChannelMessageDelivered(message.id)
+  //         );
 
-        console.log("LoadMessagesSuccess", action.payload);
+  //       console.log("LoadMessagesSuccess", action.payload);
 
-        // messages.forEach(message => this.messagingChannelMessageDelivered(message.id))
+  //       // messages.forEach(message => this.messagingChannelMessageDelivered(message.id))
 
-        // this.messagingChannel.send({
-        //   action: "message_displayed",
-        //   message: action.payload,
-        // });
-        // localStorage.setItem("notifications", JSON.stringify(action.payload));
-      })
-    )
-    .subscribe();
+  //       // this.messagingChannel.send({
+  //       //   action: "message_displayed",
+  //       //   message: action.payload,
+  //       // });
+  //       // localStorage.setItem("notifications", JSON.stringify(action.payload));
+  //     })
+  //   )
+  //   .subscribe();
 
   /**
    * disconnect

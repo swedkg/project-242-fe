@@ -150,7 +150,6 @@ export class ChatComponent implements OnInit {
             this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
             this.chatMembers = this.chatMessages$[0].users;
 
-            // TODO: this is not working as intended
             this.chatMessages$.forEach((message) => {
               if (
                 (message.status == 0 || message.status == 1) &&

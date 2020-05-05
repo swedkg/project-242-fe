@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import {
   MatInputModule,
   MatRadioModule,
-  MatSelectModule
+  MatSelectModule,
 } from "@angular/material";
 import { MatButtonModule } from "@angular/material/button";
 import { MatDialogModule } from "@angular/material/dialog";
@@ -14,6 +14,7 @@ import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { MatBadgeModule } from "@angular/material/badge";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatInputModule,
     MatRadioModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBadgeModule,
   ],
   exports: [
     MatSidenavModule,
@@ -43,8 +45,9 @@ import { MatSnackBarModule } from "@angular/material/snack-bar";
     MatInputModule,
     MatRadioModule,
     MatTabsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatBadgeModule,
   ],
-  declarations: []
+  declarations: [],
 })
 export class MaterialModule {}
