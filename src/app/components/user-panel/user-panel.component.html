@@ -1,15 +1,19 @@
 <div class="user-panel" *ngIf="current_user">
   <div class="user-profile">
-    <div
-      *ngIf="current_user.image != null"
-      [ngStyle]="{
-        background: 'url(' + current_user.image + ')',
-        'background-position': 'center',
-        'background-size': 'cover',
-        'background-repeat': 'no-repeat'
-      }"
-      class="profile-pic"
-    ></div>
+    <div class="profile-pic-holder">
+      <app-notifications *ngIf="showNotifications"></app-notifications>
+
+      <div
+        *ngIf="current_user.image != null"
+        [ngStyle]="{
+          background: 'url(' + current_user.image + ')',
+          'background-position': 'center',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat'
+        }"
+        class="profile-pic"
+      ></div>
+    </div>
     <span
       >{{ current_user.firstName }} {{ current_user.lastName }} id:{{
         current_user.id

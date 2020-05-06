@@ -50,6 +50,18 @@ export const getChatForResponder = createSelector(
   }
 );
 
+export const getAllNotifications = createSelector(
+  getMessagesEntities,
+  (entitites, userId) => {
+    let result = Object.keys(entitites)
+      .map((id) => entitites[id])
+      .filter((m) => {
+        return m.receiver_id == userId && (m.status === 0 || m.status === 1);
+      });
+    return result;
+  }
+);
+
 export const getMessagesLoaded = createSelector(
   getMessagesState,
   fromMessages.getMessagesLoaded

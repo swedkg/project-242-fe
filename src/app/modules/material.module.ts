@@ -15,6 +15,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatBadgeModule } from "@angular/material/badge";
+import { MatMenuModule } from "@angular/material/menu";
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { MatBadgeModule } from "@angular/material/badge";
     MatTabsModule,
     MatSnackBarModule,
     MatBadgeModule,
+    MatMenuModule,
   ],
   exports: [
     MatSidenavModule,
@@ -47,6 +49,7 @@ import { MatBadgeModule } from "@angular/material/badge";
     MatTabsModule,
     MatSnackBarModule,
     MatBadgeModule,
+    MatMenuModule,
   ],
   declarations: [],
 })

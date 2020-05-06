@@ -1,0 +1,20 @@
+span.badge-holder {
+  position: relative;
+  right: -50px;
+  z-index: 10;
+  top: 5px;
+}
+
+span.badge-content {
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+  .mat-badge-content {
+    left: 0px;
+    position: absolute;
+    top: 0px !important;
+  }
+}

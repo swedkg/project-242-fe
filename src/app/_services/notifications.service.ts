@@ -15,6 +15,7 @@ import { WebsocketsService } from "./websockets.service";
 export class NotificationsService {
   private current_user: User;
   private notifications = new ReplaySubject<any>();
+  allNotification$;
 
   constructor(
     private store: Store<fromStore.PlatformState>,
@@ -25,6 +26,13 @@ export class NotificationsService {
   ) {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
+
+      this.allNotification$ = this.store
+        .select(fromStore.getAllNotifications, this.current_user.id)
+        .subscribe((data) => {
+          console.log(data);
+          this.setNotifications(data);
+        });
     });
     // subscribe((data) => {
     //   console.log(data);
@@ -38,39 +46,40 @@ export class NotificationsService {
     // after that, we need to rely on the websockets
   }
 
-  private init$ = this.actions$
-    .pipe(
-      ofType<messagesActions.LoadMessagesSuccess>(
-        messagesActions.LOAD_MESSAGES_SUCCESS
-      ),
-      map((action) => {
-        // action.payload.forEach((el) => {
-        //   console.log(el);
-        // });
+  // private init$ = this.actions$
+  //   .pipe(
+  //     ofType<messagesActions.LoadMessagesSuccess>(
+  //       messagesActions.LOAD_MESSAGES_SUCCESS
+  //     ),
+  //     map((action) => {
+  //       // action.payload.forEach((el) => {
+  //       //   console.log(el);
+  //       // });
 
-        let messages = action.payload.filter(
-          (message) =>
-            message.receiver_id == this.current_user.id && message.status === 0
-        );
-        // we need to notify that the messages were delivered
-        // .forEach((message) =>
-        //   this.WebsocketsService.messagingChannelMessageDelivered(message.id)
-        // );
+  //       let messages = action.payload.filter(
+  //         (message) =>
+  //           message.receiver_id == this.current_user.id &&
+  //           (message.status === 0 || message.status === 1)
+  //       );
+  //       // we need to notify that the messages were delivered
+  //       // .forEach((message) =>
+  //       //   this.WebsocketsService.messagingChannelMessageDelivered(message.id)
+  //       // );
 
-        console.log("LoadMessagesSuccess", action.payload, messages);
+  //       console.log("LoadMessagesSuccess", action.payload, messages);
 
-        this.setNotifications(messages);
+  //       this.setNotifications(messages);
 
-        // messages.forEach(message => this.messagingChannelMessageDelivered(message.id))
+  //       // messages.forEach(message => this.messagingChannelMessageDelivered(message.id))
 
-        // this.messagingChannel.send({
-        //   action: "message_displayed",
-        //   message: action.payload,
-        // });
-        // localStorage.setItem("notifications", JSON.stringify(action.payload));
-      })
-    )
-    .subscribe();
+  //       // this.messagingChannel.send({
+  //       //   action: "message_displayed",
+  //       //   message: action.payload,
+  //       // });
+  //       // localStorage.setItem("notifications", JSON.stringify(action.payload));
+  //     })
+  //   )
+  //   .subscribe();
 
   private setNotifications(messages) {
     this.notifications.next(messages);
@@ -80,23 +89,23 @@ export class NotificationsService {
     return this.notifications;
   }
 
-  // @Effect({ dispatch: false })
-  // this.userSubcr =
-  // loadMessagesSuccess$ = this.actions$
-  //   .pipe(
-  //     ofType<messagesActions.CreateMessage>(messagesActions.CREATE_MESSAGE),
-  //     withLatestFrom(this.store),
-  //     map(([action, storeState]) => {
-  //       // action.payload.forEach((el) => {
-  //       //   console.log(el);
-  //       // });
-  //       // let messages = state[1][1].messages.entities;
-  //       // let aidPlatform = Object.assign({}, state[1]);
-  //       // aidPlatform.messages.entities
-  //       // let messages = storeState.messages.entities;
-  //       console.log(action, storeState);
-  //       // localStorage.setItem("messages", JSON.stringify(messages));
-  //     })
-  //   )
-  //   .subscribe();
+  // .pipe(
+  //   ofType(
+  //     messagesActions.LOAD_MESSAGES_SUCCESS,
+  //     messagesActions.CREATE_WB_MESSAGE_SUCCESS
+  //   ),
+  //   withLatestFrom(this.store),
+  //   map(([action]) => {
+  //     // action.payload.forEach((el) => {
+  //     //   console.log(el);
+  //     // });
+  //     // let messages = state[1][1].messages.entities;
+  //     // let aidPlatform = Object.assign({}, state[1]);
+  //     // aidPlatform.messages.entities
+  //     // let messages = storeState.messages.entities;
+  //     console.log(action);
+  //     // localStorage.setItem("messages", JSON.stringify(messages));
+  //   })
+  // )
+  // .subscribe();
 }

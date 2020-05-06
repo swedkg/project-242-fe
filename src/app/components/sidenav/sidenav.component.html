@@ -17,14 +17,8 @@
       <mat-tab>
         <ng-template mat-tab-label>
           <p class="material-icons-outlined">apps</p>
-          <span
-            class="tab-label"
-            matBadge="{{ notificationsAllBadge }}"
-            matBadgeHidden="{{ matBadgeHiddenAllNots }}"
-            matBadgeOverlap="true"
-            matBadgeColor="warn"
-          >
-            All {{ matBadgeHiddenAllNots }}
+          <span>
+            All
           </span></ng-template
         >
         <app-all-requests></app-all-requests
@@ -32,25 +26,13 @@
       <mat-tab>
         <ng-template mat-tab-label>
           <p class="material-icons-outlined">emoji_people</p>
-          <span
-            class="tab-label"
-            matBadge="1"
-            matBadgeOverlap="true"
-            matBadgeColor="warn"
-            >Volunteered
-          </span></ng-template
+          <span>Volunteered </span></ng-template
         ><app-my-responses></app-my-responses
       ></mat-tab>
       <mat-tab
         ><ng-template mat-tab-label>
           <p class="material-icons-outlined">home_work</p>
-          <span
-            class="tab-label"
-            matBadge="2"
-            matBadgeOverlap="true"
-            matBadgeColor="warn"
-            >My Requests
-          </span></ng-template
+          <span>My Requests </span></ng-template
         ><app-my-requests></app-my-requests
       ></mat-tab>
     </mat-tab-group>

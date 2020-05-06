@@ -9,6 +9,8 @@ import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { SubmitRequestContentComponent } from "../submit-request-content/submit-request-content.component";
 
+import { NotificationsService } from "../../_services/notifications.service";
+
 @Component({
   selector: "app-user-panel",
   templateUrl: "./user-panel.component.html",
@@ -18,8 +20,10 @@ import { SubmitRequestContentComponent } from "../submit-request-content/submit-
 export class UserPanelComponent implements OnInit {
   current_user: User;
   subscription: Subscription;
+  showNotifications: boolean = false;
 
   constructor(
+    private NotificationsService: NotificationsService,
     private UserService: UserService,
     private SidenavService: SidenavService,
     public MatDialog: MatDialog,
@@ -62,6 +66,11 @@ export class UserPanelComponent implements OnInit {
       this.store.dispatch(new fromStore.LoadRequests());
 
       console.log("UserPanelComponent", this.current_user);
+    });
+
+    this.NotificationsService.getNotitifications().subscribe((data) => {
+      this.showNotifications = data.length == 0 ? false : true;
+      console.log(data, this.showNotifications);
     });
   }
 

@@ -1,0 +1,14 @@
+<span class="badge-holder" matTooltip="You have new messages!"
+  ><span
+    class="badge-content"
+    matBadge="{{ notificationsAllBadge }}"
+    matBadgeHidden="{{ matBadgeHiddenAllNots }}"
+    matBadgeOverlap="true"
+    matBadgeColor="warn"
+    [matMenuTriggerFor]="menu"
+  ></span>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item>Item 1</button>
+    <button mat-menu-item>Item 2</button>
+  </mat-menu>
+</span>
