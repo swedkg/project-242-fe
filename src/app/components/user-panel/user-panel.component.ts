@@ -9,8 +9,6 @@ import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { SubmitRequestContentComponent } from "../submit-request-content/submit-request-content.component";
 
-import { NotificationsService } from "../../_services/notifications.service";
-
 @Component({
   selector: "app-user-panel",
   templateUrl: "./user-panel.component.html",
@@ -23,7 +21,6 @@ export class UserPanelComponent implements OnInit {
   showNotifications: boolean = false;
 
   constructor(
-    private NotificationsService: NotificationsService,
     private UserService: UserService,
     private SidenavService: SidenavService,
     public MatDialog: MatDialog,
@@ -48,7 +45,7 @@ export class UserPanelComponent implements OnInit {
   addNewRequest(): void {
     const dialogRef = this.MatDialog.open(SubmitRequestContentComponent, {});
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log("The dialog was closed");
     });
   }
@@ -68,10 +65,12 @@ export class UserPanelComponent implements OnInit {
       console.log("UserPanelComponent", this.current_user);
     });
 
-    this.NotificationsService.getNotitifications().subscribe((data) => {
-      this.showNotifications = data.length == 0 ? false : true;
-      console.log(data, this.showNotifications);
-    });
+    this.store
+      .select(fromStore.getAllNotifications, this.current_user.id)
+      .subscribe((data) => {
+        this.showNotifications = data.length == 0 ? false : true;
+        console.log(data, this.showNotifications);
+      });
   }
 
   ngOnDestroy() {

@@ -27,7 +27,6 @@ import { ErrorInterceptor } from "./_helpers/error.interceptor";
 import { JwtInterceptor } from "./_helpers/jwt.interceptor";
 import { HelpRequestsService } from "./_services/help-requests.service";
 import { MessageFlowService } from "./_services/message-flow.service";
-import { NotificationsService } from "./_services/notifications.service";
 import { SnackbarService } from "./_services/snackbar.service";
 import { UserService } from "./_services/user.service";
 import { WebsocketsService } from "./_services/websockets.service";
@@ -83,7 +82,6 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     SnackbarService,
     ActionCableService,
     WebsocketsService,
-    NotificationsService,
   ],
   bootstrap: [AppComponent],
 })

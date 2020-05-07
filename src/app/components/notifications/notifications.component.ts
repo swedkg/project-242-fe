@@ -1,12 +1,11 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
+import * as fromStore from "../../store";
 import { Message } from "../../_models/message.model";
-import { NotificationsService } from "../../_services/notifications.service";
-import { UserService } from "../../_services/user.service";
 import { User } from "../../_models/user";
 import { SidenavService } from "../../_services/sidenav.service";
-import { Store } from "@ngrx/store";
-import * as fromStore from "../../store";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-notifications",
@@ -36,27 +35,25 @@ export class NotificationsComponent implements OnInit {
   }
 
   constructor(
-    private NotificationsService: NotificationsService,
     private UserService: UserService,
     private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>
   ) {}
 
   ngOnInit() {
-    this.UserService.currentUserSubject.subscribe((data) => {
+    this.UserService.currentUserSubject.subscribe(() => {
       if (this.UserService.isLoggedIn) {
         this.current_user = this.UserService.currentUserDetails;
       }
     });
 
-    this.notifications$ = this.NotificationsService.getNotitifications();
+    this.notifications$ = this.store.select(
+      fromStore.getAllNotifications,
+      this.current_user.id
+    );
 
     this.notifications$.subscribe((data) => {
       this.notificationsAllBadge = String(data.length);
-      data.forEach((d) => {
-        console.log(d);
-      });
-      console.log(data, this.notificationsAllBadge);
     });
   }
 }

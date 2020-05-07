@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { SidenavService } from "../app/_services/sidenav.service";
-import { NotificationsService } from "./_services/notifications.service";
 import { WebsocketsService } from "./_services/websockets.service";
 
 @Component({
@@ -11,8 +10,7 @@ import { WebsocketsService } from "./_services/websockets.service";
 export class AppComponent implements OnInit {
   constructor(
     private SidenavService: SidenavService,
-    private WebsocketsService: WebsocketsService,
-    private NotificationsService: NotificationsService
+    private WebsocketsService: WebsocketsService
   ) {}
   events: string[] = [];
   isSidenavOpen: boolean = false;
