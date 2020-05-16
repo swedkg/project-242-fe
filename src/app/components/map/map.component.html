@@ -13,6 +13,7 @@
 >
   <agm-marker
     *ngFor="let m of markers; let i = index"
+    (markerClick)="markerClick(i)"
     [agmFitBounds]="true"
     [latitude]="m.lat"
     [longitude]="m.lng"
@@ -39,6 +40,7 @@
     </agm-overlay>
 
     <agm-snazzy-info-window
+      #AgmSnazzyInfoWindow
       [maxWidth]="500"
       [maxHeight]="500"
       [borderRadius]="'5px'"
@@ -46,11 +48,6 @@
       [wrapperClass]="'agmSnazzyInfoWindow'"
     >
       <ng-template>
-        <!-- <pre>{{m |json}}</pre> -->
-        <!-- <p *ngIf="m.isOneTime" class="request-type">One-time task</p> -->
-        <!-- <p *ngIf="!m.isOneTime" class="request-type">Material need</p> -->
-        <!-- <p class="request-type">{{ m.responders }} responses</p>
-        <p class="description">{{ m.description }}</p> -->
         <span class="request-details">
           <span class="title">
             <span

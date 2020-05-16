@@ -1,23 +1,22 @@
 import { AgmMap } from "@agm/core";
+import { AgmSnazzyInfoWindow } from "@agm/snazzy-info-window";
 import {
   Component,
   HostListener,
-  NgModule,
   OnInit,
+  QueryList,
   ViewChild,
+  ViewChildren,
   ViewEncapsulation,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import * as fromStore from "../../store";
+import { User } from "../../_models/user";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { SidenavService } from "../../_services/sidenav.service";
-import { mapStyle } from "./mapStyle";
 import { UserService } from "../../_services/user.service";
-import { User } from "../../_models/user";
+import { mapStyle } from "./mapStyle";
 
-// @NgModule({
-//   providers: [HelpRequestsService, SidenavService]
-// })
 @Component({
   selector: "app-map",
   templateUrl: "./map.component.html",
@@ -25,6 +24,7 @@ import { User } from "../../_models/user";
   encapsulation: ViewEncapsulation.None,
 })
 export class MapComponent implements OnInit {
+  isSnazzyInfoWindowOpened: boolean;
   constructor(
     private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService,
@@ -37,10 +37,13 @@ export class MapComponent implements OnInit {
   public fitBounds: boolean = false;
   public markers; //: {} = [];
   public mapStyle = mapStyle;
-
   current_user: User;
+  snazzyInfoWindowOpenId: number = 0;
 
   @ViewChild(AgmMap)
+  @ViewChildren(AgmSnazzyInfoWindow)
+  snazzyWindowChildren: QueryList<AgmSnazzyInfoWindow>;
+
   public agmMap: AgmMap;
 
   @HostListener("window:resize")
@@ -50,6 +53,17 @@ export class MapComponent implements OnInit {
 
     // this.fitBounds = true;
     this.agmMap.triggerResize();
+  }
+
+  markerClick(idx) {
+    this.snazzyInfoWindowOpenId = idx;
+    // console.log("click on ", idx);
+  }
+
+  toggleSnazzyInfoWindow() {
+    this.snazzyWindowChildren
+      .toArray()
+      [this.snazzyInfoWindowOpenId]._closeInfoWindow();
   }
 
   inBoundMarkersList(message): void {
@@ -108,6 +122,8 @@ export class MapComponent implements OnInit {
   }
 
   respondToRequest(id) {
+    this.toggleSnazzyInfoWindow();
+    return null;
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setSidenavOpen(false);
     // this.SidenavService.setMessagingSidenavOpened(true);
