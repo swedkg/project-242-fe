@@ -12,26 +12,28 @@ agm-map {
   top: 6px;
 }
 
-.material-icons-outlined.marker {
-  // font-size: 30px;
-  position: relative;
-  text-shadow: 0px 0px 2px white;
-  // top: -24px;
-  &.red {
-    color: hsl(0, 100%, 45%);
+.material-icons {
+  &.marker {
+    font-size: 3em;
+    /* opacity: 0.5; */
+    transform: translate(-20%, -38%);
   }
-  &.green {
-    color: hsl(120, 100%, 20%);
+  &.request-one-time {
+    color: hsl(203, 44%, 47%);
+  }
+  &.request-material {
+    color: hsl(314, 56%, 51%);
   }
   &.isUser {
-    color: hsl(196, 100%, 45%);
+    color: hsla(0, 0%, 10%, 0.9);
   }
 }
 
 .si-wrapper-top.si-has-border.agmSnazzyInfoWindow {
   width: 300px;
-  margin-top: -45px !important;
-  margin-left: 2px !important;
+  // position: relative;
+  top: 5px;
+  // left: 7px;
 
   button.mat-button {
     display: flex;
@@ -41,7 +43,7 @@ agm-map {
   }
 
   .si-content-wrapper {
-    padding: 1rem 0.5rem 0;
+    padding: 2em 2em 0;
   }
 
   p.title {

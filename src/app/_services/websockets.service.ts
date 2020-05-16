@@ -15,15 +15,15 @@ import { map } from "rxjs/operators";
   providedIn: "root",
 })
 export class WebsocketsService {
-  current_user: User;
+  private current_user: User;
 
-  platformStatusSubscription: Subscription;
-  messagingChannelSubscription: Subscription;
+  private platformStatusSubscription: Subscription;
+  private messagingChannelSubscription: Subscription;
 
-  platformStatusChannel: Channel;
-  messagingChannel: Channel;
+  private platformStatusChannel: Channel;
+  private messagingChannel: Channel;
 
-  subsc: Subscription;
+  private subsc: Subscription;
 
   constructor(
     private store: Store<fromStore.PlatformState>,
@@ -111,6 +111,17 @@ export class WebsocketsService {
   //   .subscribe();
 
   /**
+   * notifyPublic
+  data: any
+  */
+  public publicAnnouncement(id: number, _type: string) {
+    this.platformStatusChannel.send({
+      action: "public_announcement",
+      message: { id: id, type: _type },
+    });
+  }
+
+  /**
    * disconnect
    */
   private disconnect() {
@@ -126,9 +137,10 @@ export class WebsocketsService {
   }
 
   private platformStatusChannelSubscribe() {
-    this.platformStatusChannel.received().subscribe((status) => {
-      // console.log("PlatformStatusChannel", status);
-      this.MessageFlowService.setPlatformStatusChannelMessage(status);
+    this.platformStatusChannel.received().subscribe((data) => {
+      console.log("PlatformStatusChannel", data);
+      if (data.type == "status")
+        this.MessageFlowService.setPlatformStatusChannelMessage(data);
     });
   }
 

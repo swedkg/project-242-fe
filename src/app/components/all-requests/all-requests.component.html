@@ -4,16 +4,16 @@
       <span class="request-details">
         <span class="title">
           <span
-            class="material-icons-outlined marker sidepanel red"
+            class="material-icons sidepanel request-one-time"
             matTooltip="One-time request"
             *ngIf="request.isOneTime"
-            >pin_drop</span
+            >place</span
           >
           <span
-            class="material-icons-outlined marker sidepanel green"
+            class="material-icons sidepanel request-material"
             matTooltip="Material need"
             *ngIf="!request.isOneTime"
-            >pin_drop</span
+            >place</span
           >{{ request.title }}</span
         >
         <span class="address">{{ request.address }}</span>

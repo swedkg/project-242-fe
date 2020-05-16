@@ -62,15 +62,15 @@ export class UserPanelComponent implements OnInit {
       this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
       this.store.dispatch(new fromStore.LoadRequests());
 
+      this.store
+        .select(fromStore.getAllNotifications, this.current_user.id)
+        .subscribe((data) => {
+          this.showNotifications = data.length == 0 ? false : true;
+          console.log(data, this.showNotifications);
+        });
+
       console.log("UserPanelComponent", this.current_user);
     });
-
-    this.store
-      .select(fromStore.getAllNotifications, this.current_user.id)
-      .subscribe((data) => {
-        this.showNotifications = data.length == 0 ? false : true;
-        console.log(data, this.showNotifications);
-      });
   }
 
   ngOnDestroy() {

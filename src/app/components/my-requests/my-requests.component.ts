@@ -1,10 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
-  Input,
+  ElementRef,
   OnInit,
   ViewChild,
-  ElementRef,
-  ChangeDetectorRef,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { Observable, Subscription } from "rxjs";
@@ -15,6 +14,8 @@ import { HelpRequestsService } from "../../_services/help-requests.service";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
+
+import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
   selector: "app-my-requests",
@@ -45,7 +46,7 @@ export class MyRequestsComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-
+    private WebsocketsService: WebsocketsService,
     private store: Store<fromStore.PlatformState>,
     private SidenavService: SidenavService,
     private HelpRequestsService: HelpRequestsService,
@@ -72,12 +73,13 @@ export class MyRequestsComponent implements OnInit {
 
   handleMarkFulfilled(request_id) {
     event.stopPropagation();
-    this.HelpRequestsService.markFulfilled(request_id);
+    this.WebsocketsService.publicAnnouncement(request_id, "request_fulfilled");
+    // this.HelpRequestsService.markFulfilled(request_id);
   }
 
   handleRepublishRequest(request_id) {
     event.stopPropagation();
-    this.HelpRequestsService.republishRequest(request_id);
+    // this.HelpRequestsService.republishRequest(request_id);
   }
 
   setStep(id) {

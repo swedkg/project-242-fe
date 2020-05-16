@@ -17,22 +17,31 @@
     [latitude]="m.lat"
     [longitude]="m.lng"
     [opacity]="0"
+    [iconUrl]="{
+      url: './assets/place-24dp.svg',
+      scaledSize: {
+        width: 33,
+        height: 33
+      }
+    }"
   >
     <agm-overlay [latitude]="m.lat" [longitude]="m.lng">
       <span
-        class="material-icons-outlined marker"
+        class="material-icons marker"
         *ngIf="!m.isUser"
-        [ngClass]="{ red: m.isOneTime === true, green: m.isOneTime === false }"
-        >pin_drop</span
+        [ngClass]="{
+          'request-one-time': m.isOneTime === true,
+          'request-material': m.isOneTime === false
+        }"
+        >place</span
       >
-      <span class="material-icons-outlined marker isUser" *ngIf="m.isUser"
-        >my_location</span
-      >
+      <span class="material-icons marker isUser" *ngIf="m.isUser">place</span>
     </agm-overlay>
 
     <agm-snazzy-info-window
       [maxWidth]="500"
       [maxHeight]="500"
+      [borderRadius]="'5px'"
       [closeWhenOthersOpen]="true"
       [wrapperClass]="'agmSnazzyInfoWindow'"
     >
@@ -45,16 +54,16 @@
         <span class="request-details">
           <span class="title">
             <span
-              class="material-icons-outlined marker sidepanel red"
+              class="material-icons sidepanel request-one-time"
               matTooltip="One-time request"
               *ngIf="m.isOneTime"
-              >pin_drop</span
+              >place</span
             >
             <span
-              class="material-icons-outlined marker sidepanel green"
+              class="material-icons sidepanel request-material"
               matTooltip="Material need"
               *ngIf="!m.isOneTime"
-              >pin_drop</span
+              >place</span
             >{{ m.title }}</span
           >
           <span class="address">{{ m.address }}</span>
