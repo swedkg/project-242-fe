@@ -85,8 +85,16 @@
         >
       </mat-form-field>
       <div class="button-holder">
-        <button mat-button (click)="closeChat()">Cancel</button>
-        <button mat-button (click)="resetChat()">Reset</button>
+        <button mat-button (click)="closeChat()" [disabled]="false">
+          Cancel
+        </button>
+        <button
+          mat-button
+          (click)="resetChat()"
+          [disabled]="isMessageFormDisabled"
+        >
+          Reset
+        </button>
         <button
           mat-button
           type="submit"

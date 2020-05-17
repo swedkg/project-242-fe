@@ -139,7 +139,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
             el.click();
           }
         }.bind(this),
-        0
+        100
       );
     });
   }

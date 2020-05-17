@@ -32,6 +32,7 @@ export class ChatComponent implements OnInit {
   current_user: any = {};
   fullfilment_id: number;
   chatMembers: any = [];
+  isMessageFormDisabled: boolean = false;
 
   // _getActiveChat;
   _getActiveThread;
@@ -127,6 +128,14 @@ export class ChatComponent implements OnInit {
       this.current_user = data;
     });
 
+    this.newMessageForm = new FormGroup({
+      messageText: new FormControl("", [
+        Validators.required,
+        Validators.minLength(this.messageMinLength),
+        Validators.maxLength(this.messageMaxLength),
+      ]),
+    });
+
     // this.request_id = this.SidenavService.thread;
 
     this.SidenavService.getOpenChat().subscribe((data) => {
@@ -146,34 +155,42 @@ export class ChatComponent implements OnInit {
         this._getChatMessages = this.store
           .select(fromStore.getChatMessages, this.request_id)
           .subscribe((data) => {
-            this.chatMessages$ = data;
-            this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
-            this.chatMembers = this.chatMessages$[0].users;
+            if (data.length == 0) {
+              this.isMessageFormDisabled = true;
+              this.newMessageForm.disable();
+              return null;
+            } else {
+              this.chatMessages$ = data;
+              this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
+              this.chatMembers = this.chatMessages$[0].users;
 
-            this.chatMessages$.forEach((message) => {
-              if (
-                (message.status == 0 || message.status == 1) &&
-                message.receiver_id == this.current_user.id
-              ) {
-                console.log(
-                  "mark as read",
-                  message,
+              this.chatMessages$.forEach((message) => {
+                if (
+                  (message.status == 0 || message.status == 1) &&
                   message.receiver_id == this.current_user.id
-                );
-                // change status -> 2 and update the store
-                this.store.dispatch(new fromStore.MessageDisplayed(message.id));
+                ) {
+                  console.log(
+                    "mark as read",
+                    message,
+                    message.receiver_id == this.current_user.id
+                  );
+                  // change status -> 2 and update the store
+                  this.store.dispatch(
+                    new fromStore.MessageDisplayed(message.id)
+                  );
 
-                // send websocket to the sender_id
-                setTimeout(
-                  function () {
-                    this.WebsocketsService.messagingChannelMessageDisplayed(
-                      message.id
-                    );
-                  }.bind(this),
-                  1000
-                );
-              }
-            });
+                  // send websocket to the sender_id
+                  setTimeout(
+                    function () {
+                      this.WebsocketsService.messagingChannelMessageDisplayed(
+                        message.id
+                      );
+                    }.bind(this),
+                    1000
+                  );
+                }
+              });
+            }
 
             setTimeout(this.scrollMessageFLowContainer, 100);
 
@@ -199,14 +216,6 @@ export class ChatComponent implements OnInit {
     });
 
     console.log(this);
-
-    this.newMessageForm = new FormGroup({
-      messageText: new FormControl("", [
-        Validators.required,
-        Validators.minLength(this.messageMinLength),
-        Validators.maxLength(this.messageMaxLength),
-      ]),
-    });
   }
 
   ngAfterContentChecked(): void {
