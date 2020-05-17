@@ -16,6 +16,7 @@ import { HelpRequestsService } from "../../_services/help-requests.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { mapStyle } from "./mapStyle";
+import { MessageFlowService } from "../../_services/message-flow.service";
 
 @Component({
   selector: "app-map",
@@ -29,7 +30,8 @@ export class MapComponent implements OnInit {
     private helpRequestsService: HelpRequestsService,
     private SidenavService: SidenavService,
     private UserService: UserService,
-    private store: Store<fromStore.PlatformState>
+    private store: Store<fromStore.PlatformState>,
+    private MessageFlowService: MessageFlowService
   ) {}
 
   public initialZoomLevel = 16;
@@ -39,12 +41,12 @@ export class MapComponent implements OnInit {
   public mapStyle = mapStyle;
   current_user: User;
   snazzyInfoWindowOpenId: number = 0;
+  request_id: number;
 
   @ViewChild(AgmMap)
+  public agmMap: AgmMap;
   @ViewChildren(AgmSnazzyInfoWindow)
   snazzyWindowChildren: QueryList<AgmSnazzyInfoWindow>;
-
-  public agmMap: AgmMap;
 
   @HostListener("window:resize")
   onWindowResize() {
@@ -61,9 +63,9 @@ export class MapComponent implements OnInit {
   }
 
   toggleSnazzyInfoWindow() {
-    this.snazzyWindowChildren
-      .toArray()
-      [this.snazzyInfoWindowOpenId]._closeInfoWindow();
+    this.snazzyWindowChildren.toArray()[this.snazzyInfoWindowOpenId][
+      "_closeInfoWindow()"
+    ];
   }
 
   inBoundMarkersList(message): void {
@@ -121,8 +123,21 @@ export class MapComponent implements OnInit {
     // console.log("map log", this.markers, this);
   }
 
+  goToMessages(id, tab) {
+    this.SidenavService.setSidenavOpen(true);
+    this.SidenavService.setActiveThread(id);
+    this.SidenavService.setActiveSidenavTab(tab);
+    this.SidenavService.setExpandedAccordionPanel(id);
+    // this.SidenavService.setOpenChat(true);
+    // this.SidenavService.setSidenavOpen(false);
+    // this.SidenavService.setMessagingSidenavOpened(true);
+    setTimeout(function () {}.bind(this), 100);
+  }
+
   respondToRequest(id) {
     this.toggleSnazzyInfoWindow();
+    this.MessageFlowService.respondToRequest(id);
+    this.request_id = id;
     return null;
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setSidenavOpen(false);
@@ -164,6 +179,28 @@ export class MapComponent implements OnInit {
     });
 
     // this.store.dispatch(new fromStore.LoadRequests());
+
+    this.MessageFlowService.getResponseToRequest().subscribe((data) => {
+      if (data === 201) {
+        // this.store.dispatch(new fromStore.LoadRequests());
+        this.SidenavService.setSidenavOpen(true);
+
+        // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
+        setTimeout(
+          function () {
+            this.SidenavService.setActiveSidenavTab(
+              this.SidenavService.tabs.myResponses
+            );
+            this.SidenavService.setActiveThread(this.request_id);
+            this.SidenavService.setExpandedAccordionPanel(this.request_id);
+            // this.SidenavService.setOpenChat(true);
+          }.bind(this),
+          0
+        );
+
+        console.log("getResponseToRequest", data, this);
+      }
+    });
 
     this.store.select(fromStore.getAllRequests).subscribe((data) => {
       this.markers = data;

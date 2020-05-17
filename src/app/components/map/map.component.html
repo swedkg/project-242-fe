@@ -71,11 +71,32 @@
         </span>
         <mat-divider></mat-divider>
         <button
-          *ngIf="!m.isUser && isLoggedIn"
           mat-button
           (click)="respondToRequest(m.id)"
+          *ngIf="
+            m.responders &&
+            !m.responders.ids.includes(current_user.id) &&
+            m.owner_id !== current_user.id
+          "
         >
-          Respond to request
+          Respond to request ({{ m.owner_id }}, {{ current_user.id }}) !!
+        </button>
+        <button
+          mat-button
+          (click)="goToMessages(m.id, this.SidenavService.tabs.myResponses)"
+          matTooltip="You have previously responded to this request for help. Click here to check if you have any messages"
+          *ngIf="m.responders && m.responders.ids.includes(current_user.id)"
+        >
+          Check my responses
+        </button>
+        <button
+          mat-button
+          (click)="goToMessages(m.id, this.SidenavService.tabs.myRequests)"
+          *ngIf="m.owner_id === current_user.id"
+          matTooltip="You have posted some requests for help. Click here to message your responders"
+          [disabled]="m.responders.ids.length == 0"
+        >
+          Check my requests
         </button>
       </ng-template>
     </agm-snazzy-info-window>
