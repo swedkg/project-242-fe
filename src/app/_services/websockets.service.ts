@@ -76,40 +76,6 @@ export class WebsocketsService {
     });
   }
 
-  // private kkk$ = this.actions$
-  //   .pipe(
-  //     ofType<messagesActions.LoadMessagesSuccess>(
-  //       messagesActions.LOAD_MESSAGES_SUCCESS
-  //     ),
-  //     map((action) => {
-  //       // action.payload.forEach((el) => {
-  //       //   console.log(el);
-  //       // });
-
-  //       // we need to notify that the messages were delivered
-  //       action.payload
-  //         .filter(
-  //           (message) =>
-  //             message.receiver_id == this.current_user.id &&
-  //             message.status === 0
-  //         )
-  //         .forEach((message) =>
-  //           this.messagingChannelMessageDelivered(message.id)
-  //         );
-
-  //       console.log("LoadMessagesSuccess", action.payload);
-
-  //       // messages.forEach(message => this.messagingChannelMessageDelivered(message.id))
-
-  //       // this.messagingChannel.send({
-  //       //   action: "message_displayed",
-  //       //   message: action.payload,
-  //       // });
-  //       // localStorage.setItem("notifications", JSON.stringify(action.payload));
-  //     })
-  //   )
-  //   .subscribe();
-
   /**
    * notifyPublic
   data: any
@@ -138,9 +104,19 @@ export class WebsocketsService {
 
   private platformStatusChannelSubscribe() {
     this.platformStatusChannel.received().subscribe((data) => {
-      console.log("PlatformStatusChannel", data);
-      if (data.type == "status")
-        this.MessageFlowService.setPlatformStatusChannelMessage(data);
+      switch (data.type) {
+        case "status": {
+          this.MessageFlowService.setPlatformStatusChannelMessage(data);
+          break;
+        }
+        case "request_fulfilled": {
+          let request = Object.assign({}, data.request);
+          console.log("PlatformStatusChannel", data, request);
+          this.store.dispatch(new fromStore.RequestFulfilled(request.id));
+        }
+      }
+
+      // if (data.type == "status")
     });
   }
 

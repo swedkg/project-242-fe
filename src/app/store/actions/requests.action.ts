@@ -68,6 +68,14 @@ export class RemoveAllRequests implements Action {
   constructor() {}
 }
 
+// mark request as fulfilled
+export const REQUEST_FULFILLED = "[Requests] Request was fulfilled";
+
+export class RequestFulfilled implements Action {
+  readonly type = REQUEST_FULFILLED;
+  constructor(public payload: number) {}
+}
+
 // action types
 export type RequestsAction =
   | LoadRequests
@@ -79,4 +87,5 @@ export type RequestsAction =
   | CreateWebSocketRequest
   | CreateWebSocketRequestFail
   | CreateWebSocketRequestSuccess
-  | RemoveAllRequests;
+  | RemoveAllRequests
+  | RequestFulfilled;

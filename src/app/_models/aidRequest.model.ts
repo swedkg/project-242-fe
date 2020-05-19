@@ -7,6 +7,7 @@ export interface AidRequest {
   lng: number;
   status: boolean;
   owner_id: number;
+  fulfilled: boolean;
   responders: {
     ids: Array<number>;
     details: object;

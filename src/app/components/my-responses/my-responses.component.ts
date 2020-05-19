@@ -23,6 +23,7 @@ import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { timeout } from "rxjs/operators";
+import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
   // changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,6 +67,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
     private messageFlowService: MessageFlowService,
     private UserService: UserService,
     private HelpRequestsService: HelpRequestsService,
+    private WebsocketsService: WebsocketsService,
 
     private store: Store<fromStore.PlatformState>
   ) {}
@@ -80,7 +82,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
 
   handleMarkFulfilled(request_id) {
     event.stopPropagation();
-    this.HelpRequestsService.markFulfilled(request_id);
+    this.WebsocketsService.publicAnnouncement(request_id, "request_fulfilled");
   }
 
   handleRepublishRequest(request_id) {

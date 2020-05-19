@@ -104,6 +104,37 @@ export function reducer(
     case fromRequests.REMOVE_ALL_REQUESTS: {
       return initialState;
     }
+
+    case fromRequests.REQUEST_FULFILLED: {
+      let requestId = action.payload;
+      let entities = state.entities;
+      console.log(requestId, entities);
+
+      const modify = (obj, filter, filterValue) =>
+        Object.keys(obj).reduce((acc, val) => {
+          let mod = Object.assign({}, obj[val]);
+          mod.fulfilled = true;
+          mod.fulfilled_at = new Date().toISOString();
+
+          return obj[val][filter] === filterValue
+            ? {
+                ...acc,
+                [val]: mod,
+              }
+            : {
+                ...acc,
+                [val]: obj[val],
+              };
+        }, {});
+
+      entities = modify(entities, "id", requestId);
+
+      console.log("fromMessages.REQUEST_FULFILLED", requestId, entities);
+      return {
+        ...state,
+        entities,
+      };
+    }
   }
 
   return state;

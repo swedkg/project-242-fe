@@ -12,9 +12,16 @@ export const getRequestsEntities = createSelector(
   fromRequests.getRequestsEntities
 );
 
-export const getAllRequests = createSelector(getRequestsEntities, entitites => {
-  return Object.keys(entitites).map(id => entitites[parseInt(id, 10)]);
-});
+export const getAllRequests = createSelector(
+  getRequestsEntities,
+  (entitites) => {
+    return Object.keys(entitites)
+      .map((id) => entitites[parseInt(id, 10)])
+      .filter((r) => {
+        return r.fulfilled == false;
+      });
+  }
+);
 
 export const getRequestsLoaded = createSelector(
   getRequestsState,
@@ -30,9 +37,9 @@ export const getUserRequests = createSelector(
   getRequestsEntities,
   (entitites, user_id) => {
     let result = Object.keys(entitites)
-      .map(id => entitites[parseInt(id, 10)])
-      .filter(r => {
-        return r.owner_id == user_id;
+      .map((id) => entitites[parseInt(id, 10)])
+      .filter((r) => {
+        return r.owner_id == user_id && r.fulfilled == false;
       });
 
     console.log("User requests", result, user_id);
@@ -46,9 +53,9 @@ export const getUserResponses = createSelector(
   getRequestsEntities,
   (entitites, user_id) => {
     let result = Object.keys(entitites)
-      .map(id => entitites[parseInt(id, 10)])
-      .filter(r => {
-        return r.responders.ids.includes(user_id);
+      .map((id) => entitites[parseInt(id, 10)])
+      .filter((r) => {
+        return r.responders.ids.includes(user_id) && r.fulfilled == false;
       });
 
     console.log("Requests that the user have responded to", result, user_id);
@@ -61,8 +68,8 @@ export const getSingleRequest = createSelector(
   getRequestsEntities,
   (entitites, request_id) => {
     let result = Object.keys(entitites)
-      .map(id => entitites[parseInt(id, 10)])
-      .filter(r => {
+      .map((id) => entitites[parseInt(id, 10)])
+      .filter((r) => {
         return r.id == request_id;
       });
 
