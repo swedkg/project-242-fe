@@ -23,12 +23,14 @@ export const getMessages = createSelector(getMessagesEntities, (entitites) => {
 
 export const getChatMessages = createSelector(
   getMessagesEntities,
-  (entitites, request_id) => {
+  (entitites, fullfilment_id) => {
     let result = Object.keys(entitites)
       .map((id) => entitites[id])
       .filter((m) => {
-        return m.request_id == request_id;
+        return m.fullfilment_id == fullfilment_id;
       });
+
+    console.log(result);
 
     return result;
   }

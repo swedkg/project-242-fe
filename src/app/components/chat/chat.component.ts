@@ -49,19 +49,12 @@ export class ChatComponent implements OnInit {
     private UserService: UserService,
     private WebsocketsService: WebsocketsService,
     private actionsSubj: ActionsSubject
-  ) {
-    this.messageFormReset = this.actionsSubj
-      .pipe(ofType(messagesActions.CREATE_MESSAGE_SUCCESS))
-      .subscribe((data) => {
-        this.newMessage = {};
-        this.newMessageForm.reset();
-      });
-  }
+  ) {}
 
   // @Input() request_id: number;
   request_id: number;
   @Input() responder_id: number;
-  @Input() showMessages: boolean;
+  @Input() showMessages: boolean = false;
   // @Input() chat$: any;
   chat$: any;
   activeTab;
@@ -136,6 +129,15 @@ export class ChatComponent implements OnInit {
       ]),
     });
 
+    this.messageFormReset = this.actionsSubj
+      .pipe(ofType(messagesActions.CREATE_MESSAGE_SUCCESS))
+      .subscribe((data) => {
+        console.log(data);
+
+        this.newMessage = {};
+        this.newMessageForm.reset();
+      });
+
     // this.request_id = this.SidenavService.thread;
 
     this.SidenavService.getOpenChat().subscribe((data) => {
@@ -147,21 +149,23 @@ export class ChatComponent implements OnInit {
     });
 
     this._getActiveThread = this.SidenavService.getActiveThread().subscribe(
-      (request_id) => {
+      (fullfilment_id) => {
         // this.activeThread = data;
         // this.SidenavService.setOpenChat(true);
-        this.request_id = request_id;
+        this.fullfilment_id = fullfilment_id;
 
         this._getChatMessages = this.store
-          .select(fromStore.getChatMessages, this.request_id)
+          .select(fromStore.getChatMessages, fullfilment_id)
           .subscribe((data) => {
+            console.log(data);
             if (data.length == 0) {
               this.isMessageFormDisabled = true;
               this.newMessageForm.disable();
               return null;
             } else {
+              this.request_id = data[0].request_id;
               this.chatMessages$ = data;
-              this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
+              // this.fullfilment_id = this.chatMessages$[0].fullfilment_id;
               this.chatMembers = this.chatMessages$[0].users;
 
               this.chatMessages$.forEach((message) => {
@@ -207,7 +211,7 @@ export class ChatComponent implements OnInit {
               this.chatRequest
             );
           });
-        console.log("Chat chatRequest", request_id);
+        console.log("Chat chatRequest", this.request_id);
       }
     );
 

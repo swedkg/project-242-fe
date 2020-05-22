@@ -57,14 +57,14 @@ export class MyRequestsComponent implements OnInit {
     private UserService: UserService
   ) {}
 
-  handleShowMessages(request_id, responder_id) {
+  handleShowMessages(fullfilmentId) {
     // this.activeThread = request_id;
     // this.responder_id = responder_id;
     // // this.SidenavService.setActiveSidenavTab(this.SidenavService.tabs.myRequests);
     // this.SidenavService.setCurrentTab(this.activeTab);
-    this.SidenavService.setActiveThread(request_id);
+    this.SidenavService.setActiveThread(fullfilmentId);
     this.SidenavService.setOpenChat(true);
-    console.log(request_id, responder_id);
+    console.log(fullfilmentId);
   }
 
   handleRemoveResponder(fullfilment) {
@@ -133,21 +133,22 @@ export class MyRequestsComponent implements OnInit {
     });
   }
 
-  ngAfterViewInit() {
-    this.SidenavService.getExpandedAccordionPanel().subscribe((data) => {
-      this.expandedPanel = data;
-      setTimeout(
-        function () {
-          if (this.activeTab == this.SidenavService.tabs.myRequests) {
-            let el: HTMLElement = this.showMessagesButton._elementRef
-              .nativeElement;
-            el.click();
-          }
-        }.bind(this),
-        0
-      );
-    });
-  }
+  // auto-click button when we get into the component
+  // ngAfterViewInit() {
+  //   this.SidenavService.getExpandedAccordionPanel().subscribe((data) => {
+  //     this.expandedPanel = data;
+  //     setTimeout(
+  //       function () {
+  //         if (this.activeTab == this.SidenavService.tabs.myRequests) {
+  //           let el: HTMLElement = this.showMessagesButton._elementRef
+  //             .nativeElement;
+  //           el.click();
+  //         }
+  //       }.bind(this),
+  //       0
+  //     );
+  //   });
+  // }
 
   ngAfterContentChecked(): void {
     this.cdr.detectChanges();

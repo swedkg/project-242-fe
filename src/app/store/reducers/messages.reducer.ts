@@ -116,7 +116,7 @@ export function reducer(
     }
 
     case fromMessages.REMOVE_RESPONDERS_MESSAGES: {
-      let fulfillment = action.payload;
+      let fullfilment = action.payload;
       let entities = state.entities;
       const filterObject = (obj, filter, filterValue) =>
         Object.keys(obj).reduce(
@@ -130,9 +130,9 @@ export function reducer(
           {}
         );
 
-      entities = filterObject(entities, "fullfilment_id", fulfillment);
+      entities = filterObject(entities, "fullfilment_id", fullfilment);
 
-      console.log(fulfillment, state, entities);
+      console.log(fullfilment, state, entities);
 
       return {
         ...state,

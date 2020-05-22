@@ -72,12 +72,14 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
     private store: Store<fromStore.PlatformState>
   ) {}
 
-  handleShowMessages(id) {
+  handleShowMessages(request) {
     // this.activeThread = id;
-    this.SidenavService.setActiveThread(id);
-    this.SidenavService.setOpenChat(true);
     // this.SidenavService.setCurrentTab(this.activeTab);
-    console.log(this);
+    let details = request.responders.details.filter(
+      (u) => u.id == this.current_user.id
+    )[0];
+    this.SidenavService.setActiveThread(details.fullfilment.id);
+    this.SidenavService.setOpenChat(true);
   }
 
   handleMarkFulfilled(request_id) {
