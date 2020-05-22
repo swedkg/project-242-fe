@@ -16,6 +16,7 @@ import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 
 import { WebsocketsService } from "../../_services/websockets.service";
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: "app-my-requests",
@@ -41,6 +42,8 @@ export class MyRequestsComponent implements OnInit {
   openPanel: number;
 
   current_user: User;
+
+  now;
 
   @ViewChild("showMessagesButton") showMessagesButton: ElementRef<HTMLElement>;
 
@@ -79,6 +82,10 @@ export class MyRequestsComponent implements OnInit {
 
   handleRepublishRequest(request_id) {
     event.stopPropagation();
+    this.WebsocketsService.publicAnnouncement(
+      request_id,
+      "request_republished"
+    );
     // this.HelpRequestsService.republishRequest(request_id);
   }
 
@@ -88,6 +95,10 @@ export class MyRequestsComponent implements OnInit {
 
   ngOnInit() {
     let _getChatForResponder;
+
+    setInterval(() => {
+      this.now = formatDate(new Date(), "dd-MM-yyyy hh:mm:ss a", "en-US");
+    }, 5000);
 
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;

@@ -10,14 +10,16 @@
         <span class="title">
           <i
             class="material-icons-outlined mark-fulfilled"
-            *ngIf="request.republished != 1"
             matTooltip="Mark as fulfilled"
             (click)="handleMarkFulfilled(request.id)"
           >
             check_circle_outline </i
           ><i
             class="material-icons-outlined mark-fulfilled"
-            *ngIf="request.republished == 1 && request.ownwer_id"
+            *ngIf="
+              request.republished == 2 &&
+              now > (request.allow_republish_at | date: 'dd-MM-yyyy hh:mm:ss a')
+            "
             matTooltip="Republish request"
             (click)="handleRepublishRequest(request.id)"
           >
@@ -28,7 +30,9 @@
       </span>
     </mat-expansion-panel-header>
     <mat-divider></mat-divider>
-    <span class="description">{{ request.desc }}</span>
+    <span class="description">
+      {{ request.desc }}
+    </span>
     <!-- <pre>{{ request.responders.details | json }}</pre> -->
     <div class="responders-list">
       <div

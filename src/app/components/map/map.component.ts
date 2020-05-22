@@ -108,10 +108,9 @@ export class MapComponent implements OnInit {
     let coords = position.coords;
     this.userPosition = coords;
     // console.log("navigator.geolocation exists", coords, this);
-    // TODO: remember to adjust filtering
     this.markers = this.markers.filter(function (m) {
       // console.log(m);
-      return m.republished != 1;
+      return m.republished == 0;
     });
     this.markers.push({
       lat: coords.latitude,

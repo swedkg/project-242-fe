@@ -10,7 +10,7 @@ import "rxjs/add/observable/throw";
 import { host } from "./host";
 
 @Injectable({
-  providedIn: "root"
+  providedIn: "root",
 })
 export class HelpRequestsService {
   constructor(private http: HttpClient) {}
@@ -75,12 +75,12 @@ export class HelpRequestsService {
 
     let url = host + "/requests/" + request;
     let body = {
-      fulfilled: true
+      fulfilled: true,
     };
 
     return this.http
       .patch<any>(url, body, { observe: "response" })
-      .subscribe(response => {
+      .subscribe((response) => {
         if (response.status === 200) {
           console.log(response);
           this.setFulfilled(true);
@@ -95,12 +95,12 @@ export class HelpRequestsService {
     let url = host + "/requests/" + request;
 
     let body = {
-      republished: 2
+      republished: 0,
     };
 
     return this.http
       .patch<any>(url, body, { observe: "response" })
-      .subscribe(response => {
+      .subscribe((response) => {
         console.log(response);
 
         if (response.status === 200) {

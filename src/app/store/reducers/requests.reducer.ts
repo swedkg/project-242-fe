@@ -114,7 +114,6 @@ export function reducer(
         Object.keys(obj).reduce((acc, val) => {
           let mod = Object.assign({}, obj[val]);
           mod.fulfilled = true;
-          mod.fulfilled_at = new Date().toISOString();
 
           return obj[val][filter] === filterValue
             ? {
@@ -130,6 +129,36 @@ export function reducer(
       entities = modify(entities, "id", requestId);
 
       console.log("fromMessages.REQUEST_FULFILLED", requestId, entities);
+      return {
+        ...state,
+        entities,
+      };
+    }
+
+    case fromRequests.REQUEST_REPUBLISHED: {
+      let requestId = action.payload;
+      let entities = state.entities;
+      console.log(requestId, entities);
+
+      const modify = (obj, filter, filterValue) =>
+        Object.keys(obj).reduce((acc, val) => {
+          let mod = Object.assign({}, obj[val]);
+          mod.republished = 0;
+          mod.allow_republish_at = "";
+          return obj[val][filter] === filterValue
+            ? {
+                ...acc,
+                [val]: mod,
+              }
+            : {
+                ...acc,
+                [val]: obj[val],
+              };
+        }, {});
+
+      entities = modify(entities, "id", requestId);
+
+      console.log("fromMessages.REQUEST_REPUBLISHED", requestId, entities);
       return {
         ...state,
         entities,

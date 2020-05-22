@@ -109,10 +109,25 @@ export class WebsocketsService {
           this.MessageFlowService.setPlatformStatusChannelMessage(data);
           break;
         }
+
         case "request_fulfilled": {
           let request = Object.assign({}, data.request);
           console.log("PlatformStatusChannel", data, request);
           this.store.dispatch(new fromStore.RequestFulfilled(request.id));
+          break;
+        }
+
+        case "request_republished": {
+          let request = Object.assign({}, data.request);
+          console.log("PlatformStatusChannel", data, request);
+          this.store.dispatch(new fromStore.RequestRepublished(request.id));
+          break;
+        }
+
+        case "request": {
+          console.log("PlatformStatusChannel", data);
+          this.store.dispatch(new fromStore.CreateWebSocketRequest(data.body));
+          break;
         }
       }
 
@@ -152,13 +167,6 @@ export class WebsocketsService {
               message: message.id,
             });
           }
-          break;
-        }
-
-        case "request": {
-          this.store.dispatch(
-            new fromStore.CreateWebSocketRequest(received.body)
-          );
           break;
         }
 

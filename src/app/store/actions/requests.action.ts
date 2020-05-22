@@ -76,6 +76,14 @@ export class RequestFulfilled implements Action {
   constructor(public payload: number) {}
 }
 
+// mark request as republished
+export const REQUEST_REPUBLISHED = "[Requests] Request was republished";
+
+export class RequestRepublished implements Action {
+  readonly type = REQUEST_REPUBLISHED;
+  constructor(public payload: number) {}
+}
+
 // action types
 export type RequestsAction =
   | LoadRequests
@@ -88,4 +96,5 @@ export type RequestsAction =
   | CreateWebSocketRequestFail
   | CreateWebSocketRequestSuccess
   | RemoveAllRequests
-  | RequestFulfilled;
+  | RequestFulfilled
+  | RequestRepublished;
