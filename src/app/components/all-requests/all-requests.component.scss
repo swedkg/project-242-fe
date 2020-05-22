@@ -16,24 +16,40 @@ span.mat-content {
 .material-icons.sidepanel {
   top: 3px;
   font-size: 1rem;
-  margin-right: 8px;
+  margin-right: -1px;
+  position: relative;
+  left: -4px;
 }
 .title {
   // max-width: 300px;
   /* margin-right: 16px; */
   font-family: roboto-medium;
-  font-size: 1.15em;
-  display: flex;
-  flex-flow: row;
+  // font-size: 1.15em;
+  // display: flex;
+  // flex-flow: row;
   // align-items: flex-end;
   margin-bottom: 0.5em;
   color: hsl(0, 0%, 5%);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  /* width: 100%; */
+  display: block;
+  /* outline: 1px solid red; */
+  overflow: hidden;
+}
+
+span.address {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
 }
 
 .request-details {
   color: hsl(0, 0%, 66%);
   display: flex;
   flex-flow: column;
+  margin-right: 0.5em;
 }
 
 .request-type {
