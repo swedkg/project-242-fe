@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Actions, ofType } from "@ngrx/effects";
+import { Actions } from "@ngrx/effects";
 import { ActionsSubject, Store } from "@ngrx/store";
 import { ActionCableService, Channel } from "angular2-actioncable";
 import { Subscription } from "rxjs";
@@ -8,8 +8,7 @@ import { User } from "../_models/user";
 import { MessageFlowService } from "./message-flow.service";
 import { UserService } from "./user.service";
 
-import * as messagesActions from "../store/actions/messages.actions";
-import { map } from "rxjs/operators";
+import { host, webSocket } from "./host";
 
 @Injectable({
   providedIn: "root",
@@ -91,12 +90,12 @@ export class WebsocketsService {
    * disconnect
    */
   private disconnect() {
-    this.cableService.disconnect("ws://127.0.0.1:3000/cable");
+    this.cableService.disconnect("wss://" + webSocket + "/cable");
   }
 
   private platformStatusChannelConnect() {
     this.platformStatusChannel = this.cableService
-      .cable("ws://127.0.0.1:3000/cable", {
+      .cable("wss://" + webSocket + "/cable", {
         room: this.current_user.authentication_token,
       })
       .channel("PlatformStatusChannel");
@@ -137,7 +136,7 @@ export class WebsocketsService {
 
   private messagingChannelConnect() {
     this.messagingChannel = this.cableService
-      .cable("ws://127.0.0.1:3000/cable", {
+      .cable("wss://" + webSocket + "/cable", {
         room: this.current_user.authentication_token,
       })
       .channel("MessagingChannel");
