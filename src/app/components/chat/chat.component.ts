@@ -115,7 +115,7 @@ export class ChatComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("chat init");
+    // console.log("chat init");
 
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
@@ -132,7 +132,7 @@ export class ChatComponent implements OnInit {
     this.messageFormReset = this.actionsSubj
       .pipe(ofType(messagesActions.CREATE_MESSAGE_SUCCESS))
       .subscribe((data) => {
-        console.log(data);
+        // console.log(data);
 
         this.newMessage = {};
         this.newMessageForm.reset();
@@ -157,7 +157,7 @@ export class ChatComponent implements OnInit {
         this._getChatMessages = this.store
           .select(fromStore.getChatMessages, fullfilment_id)
           .subscribe((data) => {
-            console.log(data);
+            // console.log(data);
             if (data.length == 0) {
               this.isMessageFormDisabled = true;
               this.newMessageForm.disable();
@@ -173,11 +173,11 @@ export class ChatComponent implements OnInit {
                   (message.status == 0 || message.status == 1) &&
                   message.receiver_id == this.current_user.id
                 ) {
-                  console.log(
-                    "mark as read",
-                    message,
-                    message.receiver_id == this.current_user.id
-                  );
+                  // console.log(
+                  //   "mark as read",
+                  //   message,
+                  //   message.receiver_id == this.current_user.id
+                  // );
                   // change status -> 2 and update the store
                   this.store.dispatch(
                     new fromStore.MessageDisplayed(message.id)
@@ -198,20 +198,20 @@ export class ChatComponent implements OnInit {
 
             setTimeout(this.scrollMessageFLowContainer, 100);
 
-            console.log("chatMessage$", data);
+            // console.log("chatMessage$", data);
           });
 
         this._chatRequest = this.store
           .select(fromStore.getSingleRequest, this.request_id)
           .subscribe((chatRequest: any) => {
             this.chatRequest = chatRequest[0];
-            console.log(
-              "fromStore.getSingleRequest",
-              this.request_id,
-              this.chatRequest
-            );
+            // console.log(
+            //   "fromStore.getSingleRequest",
+            //   this.request_id,
+            //   this.chatRequest
+            // );
           });
-        console.log("Chat chatRequest", this.request_id);
+        // console.log("Chat chatRequest", this.request_id);
       }
     );
 
@@ -219,7 +219,7 @@ export class ChatComponent implements OnInit {
       this.activeTab = data;
     });
 
-    console.log(this);
+    // console.log(this);
   }
 
   ngAfterContentChecked(): void {
@@ -233,6 +233,6 @@ export class ChatComponent implements OnInit {
     if (this._getChatMessages) this._getChatMessages.unsubscribe();
     // if (this._getActiveSidenavTab) this._getActiveSidenavTab.unsubscribe();
     // console.clear();
-    console.log("closing chat");
+    // console.log("closing chat");
   }
 }

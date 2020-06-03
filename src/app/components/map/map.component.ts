@@ -50,8 +50,8 @@ export class MapComponent implements OnInit {
 
   @HostListener("window:resize")
   onWindowResize() {
-    // console.log("map log", "resize");
-    // console.log(this);
+    // // console.log("map log", "resize");
+    // // console.log(this);
 
     // this.fitBounds = true;
     this.agmMap.triggerResize();
@@ -59,7 +59,7 @@ export class MapComponent implements OnInit {
 
   markerClick(idx) {
     this.snazzyInfoWindowOpenId = idx;
-    // console.log("click on ", idx);
+    // // console.log("click on ", idx);
   }
 
   toggleSnazzyInfoWindow() {
@@ -70,7 +70,7 @@ export class MapComponent implements OnInit {
 
   inBoundMarkersList(message): void {
     // send message to subscribers via observable subject
-    // console.log(message);
+    // // console.log(message);
     this.helpRequestsService.inBoundMarkersList(message);
   }
 
@@ -79,16 +79,16 @@ export class MapComponent implements OnInit {
     let counter = 0;
     let inBoundMarkers = [];
     let mapBounds = event.toJSON();
-    // console.log(event, mapBounds, this);
-    // console.log(this.markers);
+    // // console.log(event, mapBounds, this);
+    // // console.log(this.markers);
 
     if (this.markers)
       this.markers.forEach((el) => {
         let position = { lat: el.lat, lng: el.lng };
         if (this.inRange(position.lng, mapBounds.west, mapBounds.east)) {
           if (this.inRange(position.lat, mapBounds.south, mapBounds.north)) {
-            counter++; // console.log(el);
-            // console.log(el);
+            counter++; // // console.log(el);
+            // // console.log(el);
             inBoundMarkers.push(el);
           }
         }
@@ -101,15 +101,15 @@ export class MapComponent implements OnInit {
   }
 
   addMarker(event) {
-    console.log("another marker added", event);
+    // console.log("another marker added", event);
   }
 
   addUserLocation(position) {
     let coords = position.coords;
     this.userPosition = coords;
-    // console.log("navigator.geolocation exists", coords, this);
+    // // console.log("navigator.geolocation exists", coords, this);
     this.markers = this.markers.filter(function (m) {
-      // console.log(m);
+      // // console.log(m);
       return m.republished == 0;
     });
     this.markers.push({
@@ -119,7 +119,7 @@ export class MapComponent implements OnInit {
       isUser: true,
     });
 
-    // console.log("map log", this.markers, this);
+    // // console.log("map log", this.markers, this);
   }
 
   goToMessages(id, tab) {
@@ -162,7 +162,7 @@ export class MapComponent implements OnInit {
     });
 
     this.helpRequestsService.getFulfilled().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       // this.store.dispatch(new fromStore.LoadRequests());
       // setTimeout(() => {
       //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
@@ -170,7 +170,7 @@ export class MapComponent implements OnInit {
     });
 
     this.helpRequestsService.getRepublish().subscribe((data) => {
-      console.log(data);
+      // console.log(data);
       // this.store.dispatch(new fromStore.LoadRequests());
       // setTimeout(() => {
       //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
@@ -197,7 +197,7 @@ export class MapComponent implements OnInit {
           0
         );
 
-        console.log("getResponseToRequest", data, this);
+        // console.log("getResponseToRequest", data, this);
       }
     });
 

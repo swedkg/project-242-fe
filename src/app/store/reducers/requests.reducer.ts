@@ -81,7 +81,7 @@ export function reducer(
       //   responders: { ids: [], details: [] },
       // };
 
-      console.log(action, request);
+      // console.log(action, request);
       // return state;
       const entities = {
         ...state.entities,
@@ -108,7 +108,7 @@ export function reducer(
     case fromRequests.REQUEST_FULFILLED: {
       let requestId = action.payload;
       let entities = state.entities;
-      console.log(requestId, entities);
+      // console.log(requestId, entities);
 
       const modify = (obj, filter, filterValue) =>
         Object.keys(obj).reduce((acc, val) => {
@@ -128,7 +128,7 @@ export function reducer(
 
       entities = modify(entities, "id", requestId);
 
-      console.log("fromMessages.REQUEST_FULFILLED", requestId, entities);
+      // console.log("fromMessages.REQUEST_FULFILLED", requestId, entities);
       return {
         ...state,
         entities,
@@ -138,7 +138,7 @@ export function reducer(
     case fromRequests.REQUEST_REPUBLISHED: {
       let requestId = action.payload;
       let entities = state.entities;
-      console.log(requestId, entities);
+      // console.log(requestId, entities);
 
       const modify = (obj, filter, filterValue) =>
         Object.keys(obj).reduce((acc, val) => {
@@ -158,7 +158,7 @@ export function reducer(
 
       entities = modify(entities, "id", requestId);
 
-      console.log("fromMessages.REQUEST_REPUBLISHED", requestId, entities);
+      // console.log("fromMessages.REQUEST_REPUBLISHED", requestId, entities);
       return {
         ...state,
         entities,

@@ -14,11 +14,7 @@
         class="profile-pic"
       ></div>
     </div>
-    <span
-      >{{ current_user.firstName }} {{ current_user.lastName }} id:{{
-        current_user.id
-      }}</span
-    >
+    <span>{{ current_user.firstName }} {{ current_user.lastName }}</span>
     <button mat-button (click)="logout()" matTooltip="Logout" class="logout">
       [<i class="material-icons-outlined"> closed_outline </i>]
     </button>

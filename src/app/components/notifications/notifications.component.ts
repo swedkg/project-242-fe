@@ -31,7 +31,7 @@ export class NotificationsComponent implements OnInit {
         : this.SidenavService.tabs.myResponses;
     this.SidenavService.setActiveSidenavTab(tab);
     this.SidenavService.setExpandedAccordionPanel(id);
-    console.log(id, req, req.owner_id === this.current_user.id);
+    // console.log(id, req, req.owner_id === this.current_user.id);
   }
 
   constructor(

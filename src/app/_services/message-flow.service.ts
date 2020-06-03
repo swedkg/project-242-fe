@@ -66,7 +66,7 @@ export class MessageFlowService {
   //   let url: string =
   //     BASEURL + MESSAGES + "?requester_id=" + id + "&user_id_ne=" + id;
   //   // ?requester_id=3&user_id_ne=3
-  //   console.log(url);
+  //   // console.log(url);
 
   //   return this.http.get<any[]>(url);
   // }
@@ -80,7 +80,7 @@ export class MessageFlowService {
   }
 
   removeResponder(fullfilment) {
-    console.log("fullfilment:", fullfilment);
+    // console.log("fullfilment:", fullfilment);
 
     let url = BASEURL + FULLFILMENTS + "/" + fullfilment.id;
 
@@ -90,7 +90,7 @@ export class MessageFlowService {
         if (response.status === 200) {
           this.setRemovedResponder(fullfilment.id);
         } else {
-          console.log("Something went wrong");
+          // console.log("Something went wrong");
         }
       });
   }
@@ -108,12 +108,12 @@ export class MessageFlowService {
     return this.http
       .post(BASEURL + FULLFILMENTS, fullfilment, { observe: "response" })
       .subscribe((response) => {
-        console.log(response, response.status);
+        // console.log(response, response.status);
 
         if (response.status === 201) {
           this.setResponseToRequest(response.status);
         } else {
-          console.log("Something went wrong");
+          // console.log("Something went wrong");
         }
         return response.status;
       });
@@ -121,7 +121,7 @@ export class MessageFlowService {
 
   createMessage(message): Observable<any> {
     let url = BASEURL + MESSAGES;
-    console.log(message);
+    // console.log(message);
     return this.http
       .post<any>(url, message, { observe: "response" })
       .pipe(catchError((error: any) => Observable.throw(console.log(error))));

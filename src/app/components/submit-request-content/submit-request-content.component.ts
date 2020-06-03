@@ -62,7 +62,7 @@ export class SubmitRequestContentComponent implements OnInit {
   };
 
   validateAddress() {
-    // console.log(
+    // // console.log(
     //   'current:',
     //   this.current_address,
     //   'native:',
@@ -76,7 +76,7 @@ export class SubmitRequestContentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this);
+    // console.log(this);
 
     this.newRequestForm = new FormGroup({
       title: new FormControl("", [
@@ -96,7 +96,7 @@ export class SubmitRequestContentComponent implements OnInit {
     });
 
     this.mapsAPILoader.load().then(() => {
-      // console.log('mapsAPILoader loaded');
+      // // console.log('mapsAPILoader loaded');
       // this.setCurrentLocation();
       // this.geoCoder = new google.maps.Geocoder();
 
@@ -111,7 +111,7 @@ export class SubmitRequestContentComponent implements OnInit {
           //get the place result
           let reverseResult: google.maps.places.PlaceResult = autocomplete.getPlace();
 
-          // console.log(reverseResult);
+          // // console.log(reverseResult);
 
           //verify result
           if (
@@ -133,7 +133,7 @@ export class SubmitRequestContentComponent implements OnInit {
 
           this.newRequestForm.controls.address.updateValueAndValidity();
 
-          // console.log(
+          // // console.log(
           //   this.newRequest,
           //   this.newRequestForm.controls.address,
           //   reverseResult,
@@ -142,7 +142,7 @@ export class SubmitRequestContentComponent implements OnInit {
 
           // this.addressHasError = false;
 
-          // console.log(
+          // // console.log(
           //   this.searchElementRef.nativeElement.value,
           //   this.searchElementRef.nativeElement.value === this.current_address
           // );

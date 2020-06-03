@@ -30,7 +30,7 @@ export const getChatMessages = createSelector(
         return m.fullfilment_id == fullfilment_id;
       });
 
-    console.log(result);
+    // console.log(result);
 
     return result;
   }

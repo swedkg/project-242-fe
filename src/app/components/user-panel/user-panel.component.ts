@@ -33,7 +33,7 @@ export class UserPanelComponent implements OnInit {
     // this.store.dispatch(new fromStore.RemoveAllRequests());
     this.UserService.logout();
     this.SidenavService.setSidenavOpen(false);
-    // console.log("action cable disconnect??");
+    // // console.log("action cable disconnect??");
 
     this.cableService.disconnect("ws://127.0.0.1:3000/cable");
   }
@@ -46,7 +46,7 @@ export class UserPanelComponent implements OnInit {
     const dialogRef = this.MatDialog.open(SubmitRequestContentComponent, {});
 
     dialogRef.afterClosed().subscribe(() => {
-      console.log("The dialog was closed");
+      // console.log("The dialog was closed");
     });
   }
 
@@ -66,14 +66,14 @@ export class UserPanelComponent implements OnInit {
         .select(fromStore.getAllNotifications, this.current_user.id)
         .subscribe((data) => {
           this.showNotifications = data.length == 0 ? false : true;
-          console.log(data, this.showNotifications);
+          // console.log(data, this.showNotifications);
         });
 
-      console.log("UserPanelComponent", this.current_user);
+      // console.log("UserPanelComponent", this.current_user);
     });
   }
 
   ngOnDestroy() {
-    console.log("UserPanelComponent", this.current_user);
+    // console.log("UserPanelComponent", this.current_user);
   }
 }

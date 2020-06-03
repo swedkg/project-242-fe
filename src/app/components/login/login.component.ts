@@ -8,7 +8,7 @@ import { takeUntil } from "rxjs/operators";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent {
   currentDialog: MatDialogRef<LoginDialogComponent> = null;
@@ -19,8 +19,8 @@ export class LoginComponent {
     public route: ActivatedRoute,
     public router: Router
   ) {
-    route.params.pipe(takeUntil(this.destroy)).subscribe(params => {
-      console.log(params);
+    route.params.pipe(takeUntil(this.destroy)).subscribe((params) => {
+      // console.log(params);
 
       if (this.currentDialog) {
         this.currentDialog.close();
@@ -28,8 +28,8 @@ export class LoginComponent {
 
       this.currentDialog = matDialog.open(LoginDialogComponent);
 
-      this.currentDialog.backdropClick().subscribe(data => {
-        console.log("The login dialog was closed");
+      this.currentDialog.backdropClick().subscribe((data) => {
+        // console.log("The login dialog was closed");
         router.navigateByUrl("/");
       });
     });

@@ -21,7 +21,7 @@ export function reducer(
 ): MessageState {
   switch (action.type) {
     case fromMessages.LOAD_MESSAGES: {
-      console.log(state);
+      // console.log(state);
 
       return {
         ...state,
@@ -30,9 +30,9 @@ export function reducer(
     }
 
     case fromMessages.LOAD_MESSAGES_SUCCESS: {
-      // console.log(action);
+      // // console.log(action);
       let messages = action.payload;
-      // console.log(messages);
+      // // console.log(messages);
 
       // let entities = messages.reduce(
       //   (entities: { [id: number]: Message }, message) => {
@@ -54,7 +54,7 @@ export function reducer(
         {}
       );
 
-      // console.log(messages, state, entities, {
+      // // console.log(messages, state, entities, {
       //   entities,
       //   loading: false,
       //   loaded: true
@@ -78,7 +78,7 @@ export function reducer(
 
     case fromMessages.CREATE_MESSAGE_SUCCESS: {
       let message = action.payload.body;
-      // console.log(action, message);
+      // // console.log(action, message);
 
       const entities = {
         ...state.entities,
@@ -90,7 +90,7 @@ export function reducer(
         entities,
       };
 
-      // console.log(state, entities, kk);
+      // // console.log(state, entities, kk);
 
       return {
         ...state,
@@ -132,7 +132,7 @@ export function reducer(
 
       entities = filterObject(entities, "fullfilment_id", fullfilment);
 
-      console.log(fullfilment, state, entities);
+      // console.log(fullfilment, state, entities);
 
       return {
         ...state,
@@ -163,7 +163,7 @@ export function reducer(
 
       entities = modify(entities, "id", messageId);
 
-      // console.log("fromMessages.MESSAGE_DELIVERED", messageId, entities);
+      // // console.log("fromMessages.MESSAGE_DELIVERED", messageId, entities);
       return {
         ...state,
         entities,
@@ -193,14 +193,14 @@ export function reducer(
 
       entities = modify(entities, "id", messageId);
 
-      // console.log("fromMessages.MESSAGE_DISPLAYED", action.payload, entities);
+      // // console.log("fromMessages.MESSAGE_DISPLAYED", action.payload, entities);
       return {
         ...state,
         entities,
       };
     }
   }
-  // console.log(action, state);
+  // // console.log(action, state);
   return state;
 }
 

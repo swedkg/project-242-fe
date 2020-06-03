@@ -34,7 +34,7 @@ export class WebsocketsService {
   ) {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
-      // console.log("WebsocketsService", data);
+      // // console.log("WebsocketsService", data);
       if (this.current_user != null) {
         this.platformStatusChannelConnect();
         this.platformStatusChannelSubscribe();
@@ -111,20 +111,20 @@ export class WebsocketsService {
 
         case "request_fulfilled": {
           let request = Object.assign({}, data.request);
-          console.log("PlatformStatusChannel", data, request);
+          // console.log("PlatformStatusChannel", data, request);
           this.store.dispatch(new fromStore.RequestFulfilled(request.id));
           break;
         }
 
         case "request_republished": {
           let request = Object.assign({}, data.request);
-          console.log("PlatformStatusChannel", data, request);
+          // console.log("PlatformStatusChannel", data, request);
           this.store.dispatch(new fromStore.RequestRepublished(request.id));
           break;
         }
 
         case "request": {
-          console.log("PlatformStatusChannel", data);
+          // console.log("PlatformStatusChannel", data);
           this.store.dispatch(new fromStore.CreateWebSocketRequest(data.body));
           break;
         }
@@ -144,7 +144,7 @@ export class WebsocketsService {
 
   private messagingChannelSubscribe() {
     this.messagingChannel.received().subscribe((received) => {
-      console.log("MessagingChannel", received);
+      // console.log("MessagingChannel", received);
 
       switch (received.type) {
         case "message": {

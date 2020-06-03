@@ -97,7 +97,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
   };
 
   ngOnInit() {
-    console.log("open my responses");
+    // console.log("open my responses");
 
     this.newMessageForm = new FormGroup({
       messageText: new FormControl("", [
@@ -118,7 +118,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
 
         this.myResponses$.subscribe((data) => {
           this.myResponsesLength = data.length;
-          console.log(data, data.length, this.myResponsesLength);
+          // console.log(data, data.length, this.myResponsesLength);
         });
       }
     });
@@ -143,7 +143,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
             el.click();
           }
         }.bind(this),
-        100
+        1000
       );
     });
   }
@@ -153,6 +153,6 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
   }
 
   ngOnDestroy() {
-    console.log("closing my responses");
+    // console.log("closing my responses");
   }
 }

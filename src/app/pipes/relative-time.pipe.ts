@@ -52,7 +52,7 @@ export class RelativeTimePipe implements PipeTransform {
       let counter;
       for (const i in timeIntervals) {
         counter = Math.floor(differenceInSeconds / timeIntervals[i]);
-        // console.log("Counter is " + counter);
+        // // console.log("Counter is " + counter);
         if (counter > 0) {
           if (counter === 1) {
             // singular (1 day ago)

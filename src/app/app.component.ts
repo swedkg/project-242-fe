@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   messagingSidenavOpened: boolean = false;
 
   openMessagingSidepanel() {
-    console.log("this should open the Messaging Sidepanel ");
+    // console.log("this should open the Messaging Sidepanel ");
   }
   toggleRequestSidenav() {
     this.isSidenavOpen = !this.isSidenavOpen;

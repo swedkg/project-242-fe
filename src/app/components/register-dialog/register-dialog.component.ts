@@ -36,7 +36,7 @@ export class RegisterDialogComponent implements OnInit {
 
   fileChange(ev) {
     this.image = ev.length > 0 ? ev[0] : null;
-    console.log(ev, this.image);
+    // console.log(ev, this.image);
   }
 
   // TODO: image size limit
@@ -49,25 +49,25 @@ export class RegisterDialogComponent implements OnInit {
     const formData = new FormData();
 
     for (var key in this.registrationForm.value) {
-      // console.log(key, this.registrationForm.value[key]);
+      // // console.log(key, this.registrationForm.value[key]);
 
       formData.set(key, this.registrationForm.value[key]);
-      // console.log(formData.getAll(key));
+      // // console.log(formData.getAll(key));
     }
 
     formData.set("picture", this.image);
 
-    // console.log(formData.getAll("image"));
+    // // console.log(formData.getAll("image"));
 
     formData.forEach((value, key) => {
-      console.log("%s: %s", key, value);
+      // console.log("%s: %s", key, value);
     });
 
     this.UserService.register(formData)
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           this.closeDialog();
           // this.router.navigate([this.returnUrl]);
         },
@@ -77,10 +77,10 @@ export class RegisterDialogComponent implements OnInit {
       );
 
     // for (var key of formData.entries()) {
-    //   console.log(key, formData[key]);
+    //   // console.log(key, formData[key]);
     // }
 
-    // console.log(this.registrationForm.value, formData);
+    // // console.log(this.registrationForm.value, formData);
   }
 
   passwordMatch(fieldControl: FormControl) {

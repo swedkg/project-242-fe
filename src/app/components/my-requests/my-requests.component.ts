@@ -64,12 +64,12 @@ export class MyRequestsComponent implements OnInit {
     // this.SidenavService.setCurrentTab(this.activeTab);
     this.SidenavService.setActiveThread(fullfilmentId);
     this.SidenavService.setOpenChat(true);
-    console.log(fullfilmentId);
+    // console.log(fullfilmentId);
   }
 
   handleRemoveResponder(fullfilment) {
     // we need the fullfilment id here
-    console.log(fullfilment);
+    // console.log(fullfilment);
 
     this.MessageFlowService.removeResponder(fullfilment);
   }
@@ -129,7 +129,7 @@ export class MyRequestsComponent implements OnInit {
     });
 
     this.MessageFlowService.getRemovedResponder().subscribe((data) => {
-      console.log(data, this);
+      // console.log(data, this);
     });
   }
 
@@ -155,6 +155,6 @@ export class MyRequestsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    console.log("we are out");
+    // console.log("we are out");
   }
 }

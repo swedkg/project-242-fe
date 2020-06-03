@@ -25,7 +25,7 @@ export class CounterComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
 
   ngOnInit() {
-    console.log("The counter was created");
+    // console.log("The counter was created");
 
     this.UserService.currentUserSubject.subscribe((data) => {
       if (this.UserService.isLoggedIn) {
@@ -39,12 +39,12 @@ export class CounterComponent implements OnInit, OnDestroy {
         if (received.type == "status")
           this.platformStatus = received.body.platform_status;
         this.platformStatus.onlineUsers = received.online_users;
-        console.log("PlatformStatusChannel", received, this.platformStatus);
+        // console.log("PlatformStatusChannel", received, this.platformStatus);
       }
     );
   }
 
   ngOnDestroy() {
-    console.log("The counter was destroyed");
+    // console.log("The counter was destroyed");
   }
 }

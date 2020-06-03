@@ -42,7 +42,7 @@ export const getUserRequests = createSelector(
         return r.owner_id == user_id && r.fulfilled == false;
       });
 
-    console.log("User requests", result, user_id);
+    // console.log("User requests", result, user_id);
 
     return result;
   }
@@ -58,7 +58,7 @@ export const getUserResponses = createSelector(
         return r.responders.ids.includes(user_id) && r.fulfilled == false;
       });
 
-    console.log("Requests that the user have responded to", result, user_id);
+    // console.log("Requests that the user have responded to", result, user_id);
 
     return result;
   }
@@ -73,7 +73,7 @@ export const getSingleRequest = createSelector(
         return r.id == request_id;
       });
 
-    // console.log('Single request', result);
+    // // console.log('Single request', result);
 
     return result;
   }

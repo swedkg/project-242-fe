@@ -46,12 +46,12 @@ export class LoginDialogComponent implements OnInit {
       email: this.loginForm.controls.email.value,
       password: this.loginForm.controls.password.value,
     };
-    // console.log(payload);
+    // // console.log(payload);
     this.UserService.login(payload)
       .pipe(first())
       .subscribe(
         (data) => {
-          console.log(data);
+          // console.log(data);
           this.closeDialog();
           this.store.dispatch(new fromStore.LoadRequests());
           this.store.dispatch(new fromStore.RemoveAllMessages());
@@ -62,7 +62,7 @@ export class LoginDialogComponent implements OnInit {
         },
         (error) => {
           this.SnackbarService.show(error.error.login_error);
-          console.log(error);
+          // console.log(error);
           // this.loading = false;
         }
       );

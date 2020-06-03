@@ -72,7 +72,7 @@ export class UserService {
           this.SidenavService.setSidenavOpen(true);
 
           // Open a connection and obtain a reference to the channel
-          console.log(user.authentication_token);
+          // console.log(user.authentication_token);
           // .cable("ws://127.0.0.1:3000/cable", user.authentication_token)
 
           // // document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + location.host;
@@ -82,7 +82,7 @@ export class UserService {
           return user;
         },
         (error) => {
-          console.log(error);
+          // console.log(error);
         }
       )
     );
@@ -94,7 +94,7 @@ export class UserService {
 
     return this.http.delete(url, { observe: "response" }).subscribe(
       (response) => {
-        console.log(response, response.status);
+        // console.log(response, response.status);
         if (response.status === 200) {
           localStorage.removeItem("currentUser");
           this.currentUserSubject.next(null);
@@ -106,7 +106,7 @@ export class UserService {
           this.SidenavService.setSidenavOpen(false);
           window.dispatchEvent(new Event("resize"));
         } else {
-          console.log("Something went wrong");
+          // console.log("Something went wrong");
         }
         return response;
       },

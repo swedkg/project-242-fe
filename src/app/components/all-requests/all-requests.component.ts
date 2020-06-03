@@ -67,7 +67,7 @@ export class AllRequestsComponent implements OnInit {
             return !r.isUser;
           });
           // this.requests.push(message);
-          // console.log(message, this.requests);
+          // // console.log(message, this.requests);
         } else {
           // clear requests when empty message received
           this.requests = [];
@@ -91,11 +91,11 @@ export class AllRequestsComponent implements OnInit {
           0
         );
 
-        console.log("getResponseToRequest", data, this);
+        // console.log("getResponseToRequest", data, this);
       }
     });
     // this.store.select(fromStore.getAllRequests).subscribe(state => {
-    //   console.log(state);
+    //   // console.log(state);
     // });
     // this.requests$ = this.store.select(fromStore.getAllRequests);
     // this.store.dispatch(new fromStore.LoadRequests());

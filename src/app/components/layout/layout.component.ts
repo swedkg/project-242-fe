@@ -5,7 +5,7 @@ import { UserService } from "../../_services/user.service";
 @Component({
   selector: "app-layout",
   templateUrl: "./layout.component.html",
-  styleUrls: ["./layout.component.scss"]
+  styleUrls: ["./layout.component.scss"],
 })
 export class LayoutComponent implements OnInit {
   constructor(public dialog: MatDialog, private UserService: UserService) {}
@@ -19,8 +19,8 @@ export class LayoutComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginDialogComponent, {});
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("The dialog was closed");
+    dialogRef.afterClosed().subscribe((result) => {
+      // console.log("The dialog was closed");
     });
   }
 

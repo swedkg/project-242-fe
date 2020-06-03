@@ -71,7 +71,7 @@ export class HelpRequestsService {
   }
 
   markFulfilled(request) {
-    console.log("request:", request);
+    // console.log("request:", request);
 
     let url = host + "/requests/" + request;
     let body = {
@@ -82,12 +82,12 @@ export class HelpRequestsService {
       .patch<any>(url, body, { observe: "response" })
       .subscribe((response) => {
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response);
           this.setFulfilled(true);
         } else {
-          console.log("Something went wrong");
+          // console.log("Something went wrong");
         }
-        // console.log(response);
+        // // console.log(response);
       });
   }
 
@@ -101,15 +101,15 @@ export class HelpRequestsService {
     return this.http
       .patch<any>(url, body, { observe: "response" })
       .subscribe((response) => {
-        console.log(response);
+        // console.log(response);
 
         if (response.status === 200) {
-          console.log(response);
+          // console.log(response);
           this.setRepublish(true);
         } else {
-          console.log("Something went wrong");
+          // console.log("Something went wrong");
         }
-        // console.log(response);
+        // // console.log(response);
       });
   }
 }
