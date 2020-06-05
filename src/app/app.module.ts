@@ -32,10 +32,12 @@ import { UserService } from "./_services/user.service";
 import { WebsocketsService } from "./_services/websockets.service";
 import { APP_BASE_HREF } from "@angular/common";
 
-const environment = {
-  development: true,
-  production: false,
-};
+import { environment } from "../environments/environment";
+
+// const environment = {
+//   development: true,
+//   production: false,
+// };
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
   ? [storeFreeze]
@@ -77,7 +79,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: APP_BASE_HREF, useValue: "/project-242-fe/" },
+    { provide: APP_BASE_HREF, useValue: environment.appBaseHref },
     HelpRequestsService,
     MessageFlowService,
     UserService,
