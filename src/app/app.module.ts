@@ -30,6 +30,7 @@ import { MessageFlowService } from "./_services/message-flow.service";
 import { SnackbarService } from "./_services/snackbar.service";
 import { UserService } from "./_services/user.service";
 import { WebsocketsService } from "./_services/websockets.service";
+import { APP_BASE_HREF } from "@angular/common";
 
 const environment = {
   development: true,
@@ -76,6 +77,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: APP_BASE_HREF, useValue: "/" },
     HelpRequestsService,
     MessageFlowService,
     UserService,
