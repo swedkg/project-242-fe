@@ -2,7 +2,7 @@ name: Build and Deploy
 on: [push]
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-18.
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2 # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -22,4 +22,4 @@ jobs:
         with:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: dist/fe # The folder the action should deploy.
+          FOLDER: docs # The folder the action should deploy.
