@@ -63,7 +63,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
     AgmSnazzyInfoWindowModule,
     AgmOverlays,
     AgmCoreModule.forRoot({
-      apiKey: "AIzaSyCw9TlphTR3feHATjeQhqJKA8qP5wGjLjQ",
+      apiKey: environment.apiKey,
       libraries: ["places"],
     }),
     StoreModule.forFeature("aidPlatform", reducers),
