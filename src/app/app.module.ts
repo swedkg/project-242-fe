@@ -77,7 +77,7 @@ export const metaReducers: MetaReducer<any>[] = !environment.production
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: APP_BASE_HREF, useValue: "/" },
+    { provide: APP_BASE_HREF, useValue: "/project-242-fe/" },
     HelpRequestsService,
     MessageFlowService,
     UserService,
