@@ -1,16 +1,13 @@
 import { writeFile } from "fs";
 
-import { name, version } from "../package.json";
+import { name, version } from "./package.json";
 
 const targetPath = "./src/environments/environment.prod.ts";
 
 const envConfigFile = `export const environment = {
-   production: true,
-   firebase: {
-        apiKey: '${process.env.GOOGLEMAPS__API_KEY}'
-    },
-    name: '${name}',
-    version: '${version}'
+    production: true,
+    appBaseHref: "/project-242-fe/",
+    apiKey: "${process.env.GOOGLEMAPS__API_KEY}",
 };
 `;
 
