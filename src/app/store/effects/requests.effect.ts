@@ -1,20 +1,22 @@
 import { Injectable } from "@angular/core";
-
-import { Effect, Actions, ofType } from "@ngrx/effects";
+import { Actions, Effect, ofType } from "@ngrx/effects";
 import { of } from "rxjs/observable/of";
-import { map, switchMap, catchError } from "rxjs/operators";
-
+import { catchError, map, switchMap } from "rxjs/operators";
 import { HelpRequestsService } from "../../_services/help-requests.service";
 import { SnackbarService } from "../../_services/snackbar.service";
-
 import * as requestsActions from "../actions/requests.action";
+import { Store } from "@ngrx/store";
+import * as fromStore from "../../store";
+import { UserService } from "../../_services/user.service";
 
 @Injectable()
 export class RequestsEffects {
   constructor(
     private actions$: Actions,
     private requestsService: HelpRequestsService,
-    private SnackbarService: SnackbarService
+    private SnackbarService: SnackbarService,
+    private store: Store<fromStore.PlatformState>,
+    private UserService: UserService
   ) {}
   @Effect()
   loadRequests$ = this.actions$.pipe(
@@ -57,7 +59,16 @@ export class RequestsEffects {
       requestsActions.REQUEST_REPUBLISHED
     ),
     map((action) => {
-      this.SnackbarService.show("Your request was republished");
+      console.log(action.payload);
+
+      this.store
+        .select(fromStore.getSingleRequest, action.payload)
+        .subscribe((data) => {
+          let request = data[0];
+          let user = this.UserService.currentUserDetails;
+          if (request.owner_id == user.id)
+            this.SnackbarService.show("Your request was republished");
+        });
     })
   );
 }
