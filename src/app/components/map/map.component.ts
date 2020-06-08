@@ -150,13 +150,7 @@ export class MapComponent implements OnInit {
     return this.UserService.isLoggedIn;
   }
 
-  // TODO: wireframes, at leasts 5, desktop and mobile
-  // TODO: click on marker, displays info, status, button to fullfil
-  // TODO: if >5 users = fulfilled, cannot republish
-
   ngOnInit() {
-    // let self = this;
-
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
     });

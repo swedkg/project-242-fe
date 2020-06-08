@@ -76,9 +76,6 @@ export class AllRequestsComponent implements OnInit {
 
     this.MessageFlowService.getResponseToRequest().subscribe((data) => {
       if (data === 201) {
-        // this.store.dispatch(new fromStore.LoadRequests());
-
-        // this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
         setTimeout(
           function () {
             this.SidenavService.setActiveSidenavTab(
@@ -94,10 +91,5 @@ export class AllRequestsComponent implements OnInit {
         // console.log("getResponseToRequest", data, this);
       }
     });
-    // this.store.select(fromStore.getAllRequests).subscribe(state => {
-    //   // console.log(state);
-    // });
-    // this.requests$ = this.store.select(fromStore.getAllRequests);
-    // this.store.dispatch(new fromStore.LoadRequests());
   }
 }

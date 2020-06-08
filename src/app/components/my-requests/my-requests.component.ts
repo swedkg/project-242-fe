@@ -68,9 +68,6 @@ export class MyRequestsComponent implements OnInit {
   }
 
   handleRemoveResponder(fullfilment) {
-    // we need the fullfilment id here
-    // console.log(fullfilment);
-
     this.MessageFlowService.removeResponder(fullfilment);
   }
 
@@ -124,10 +121,6 @@ export class MyRequestsComponent implements OnInit {
 
     this.SidenavService.getActiveSidenavTab().subscribe((data) => {
       this.activeTab = data;
-    });
-
-    this.MessageFlowService.getRemovedResponder().subscribe((data) => {
-      // console.log(data, this);
     });
   }
 

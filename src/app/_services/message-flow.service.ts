@@ -5,6 +5,8 @@ import { catchError } from "rxjs/operators";
 import { UserService } from "../_services/user.service";
 import { host } from "./host";
 
+import { SnackbarService } from "./snackbar.service";
+
 const BASEURL = host + "";
 const MESSAGES = "/messages";
 const FULLFILMENTS = "/fullfilments/";
@@ -18,11 +20,11 @@ export class MessageFlowService {
   constructor(
     private http: HttpClient,
     // private HttpHeaders: HttpHeaders,
-    private UserService: UserService
+    private UserService: UserService,
+    private SnackbarService: SnackbarService
   ) {}
 
   private responseToRequest = new Subject<number>();
-  private removedResponder = new Subject<number>();
 
   private platformStatusChannelMessage = new BehaviorSubject<any>({});
 
@@ -42,11 +44,6 @@ export class MessageFlowService {
     return this.responseToRequest.asObservable();
   }
 
-  getAllResponseRequests(): Observable<any[]> {
-    let url: string = BASEURL;
-    return this.http.get<any[]>(url);
-  }
-
   getUserMessages(id: number): Observable<any[]> {
     let current_user = this.UserService.currentUserDetails;
     let url: string = BASEURL + MESSAGES + "?user_id=" + id;
@@ -62,23 +59,6 @@ export class MessageFlowService {
     return this.http.get<any[]>(url);
   }
 
-  // getUserRequests(id: number): Observable<any[]> {
-  //   let url: string =
-  //     BASEURL + MESSAGES + "?requester_id=" + id + "&user_id_ne=" + id;
-  //   // ?requester_id=3&user_id_ne=3
-  //   // console.log(url);
-
-  //   return this.http.get<any[]>(url);
-  // }
-
-  setRemovedResponder(id) {
-    this.removedResponder.next(id);
-  }
-
-  getRemovedResponder() {
-    return this.removedResponder;
-  }
-
   removeResponder(fullfilment) {
     // console.log("fullfilment:", fullfilment);
 
@@ -88,16 +68,14 @@ export class MessageFlowService {
       .delete(url, { observe: "response" })
       .subscribe((response) => {
         if (response.status === 200) {
-          this.setRemovedResponder(fullfilment.id);
+          this.SnackbarService.show("The responder was removed");
         } else {
-          // console.log("Something went wrong");
+          this.SnackbarService.show("Please try again later");
         }
       });
   }
 
   respondToRequest(id: number) {
-    // http://localhost:3000/fullfilments/?request_id=1&user_id=1
-    // user_id =
     let current_user = this.UserService.currentUserDetails;
     let fullfilment = {
       request_id: id,
