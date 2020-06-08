@@ -49,6 +49,7 @@ export class MyMessagesEffects {
       this.SnackbarService.show("Message was successfully sent");
     })
   );
+
   @Effect({ dispatch: false })
   handleCreateMessageFail$ = this.actions$.pipe(
     ofType<messagesActions.CreateMessageFail>(

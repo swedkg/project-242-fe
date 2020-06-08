@@ -5,6 +5,7 @@ import { of } from "rxjs/observable/of";
 import { map, switchMap, catchError } from "rxjs/operators";
 
 import { HelpRequestsService } from "../../_services/help-requests.service";
+import { SnackbarService } from "../../_services/snackbar.service";
 
 import * as requestsActions from "../actions/requests.action";
 
@@ -12,7 +13,8 @@ import * as requestsActions from "../actions/requests.action";
 export class RequestsEffects {
   constructor(
     private actions$: Actions,
-    private requestsService: HelpRequestsService
+    private requestsService: HelpRequestsService,
+    private SnackbarService: SnackbarService
   ) {}
   @Effect()
   loadRequests$ = this.actions$.pipe(
@@ -46,6 +48,16 @@ export class RequestsEffects {
     map((action) => {
       let request = action.payload;
       return new requestsActions.CreateWebSocketRequestSuccess(request);
+    })
+  );
+
+  @Effect({ dispatch: false })
+  handleRequestRepublished$ = this.actions$.pipe(
+    ofType<requestsActions.RequestRepublished>(
+      requestsActions.REQUEST_REPUBLISHED
+    ),
+    map((action) => {
+      this.SnackbarService.show("Your request was republished");
     })
   );
 }
