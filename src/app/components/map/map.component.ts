@@ -161,22 +161,6 @@ export class MapComponent implements OnInit {
       this.current_user = data;
     });
 
-    this.helpRequestsService.getFulfilled().subscribe((data) => {
-      // console.log(data);
-      // this.store.dispatch(new fromStore.LoadRequests());
-      // setTimeout(() => {
-      //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-      // }, 0);
-    });
-
-    this.helpRequestsService.getRepublish().subscribe((data) => {
-      // console.log(data);
-      // this.store.dispatch(new fromStore.LoadRequests());
-      // setTimeout(() => {
-      //   this.store.dispatch(new fromStore.LoadMessages(this.current_user.id));
-      // }, 0);
-    });
-
     // this.store.dispatch(new fromStore.LoadRequests());
 
     this.MessageFlowService.getResponseToRequest().subscribe((data) => {

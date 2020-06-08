@@ -87,11 +87,6 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
     this.WebsocketsService.publicAnnouncement(request_id, "request_fulfilled");
   }
 
-  handleRepublishRequest(request_id) {
-    event.stopPropagation();
-    this.HelpRequestsService.republishRequest(request_id);
-  }
-
   hasError = (controlName: string, errorName: string) => {
     return this.newMessageForm.controls[controlName].hasError(errorName);
   };

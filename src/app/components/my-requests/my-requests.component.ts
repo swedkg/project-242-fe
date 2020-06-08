@@ -77,7 +77,6 @@ export class MyRequestsComponent implements OnInit {
   handleMarkFulfilled(request_id) {
     event.stopPropagation();
     this.WebsocketsService.publicAnnouncement(request_id, "request_fulfilled");
-    // this.HelpRequestsService.markFulfilled(request_id);
   }
 
   handleRepublishRequest(request_id) {
@@ -86,7 +85,6 @@ export class MyRequestsComponent implements OnInit {
       request_id,
       "request_republished"
     );
-    // this.HelpRequestsService.republishRequest(request_id);
   }
 
   setStep(id) {
