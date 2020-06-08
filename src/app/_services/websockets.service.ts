@@ -1,14 +1,11 @@
 import { Injectable } from "@angular/core";
-import { Actions } from "@ngrx/effects";
-import { ActionsSubject, Store } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { ActionCableService, Channel } from "angular2-actioncable";
-import { Subscription } from "rxjs";
 import * as fromStore from "../store";
 import { User } from "../_models/user";
+import { webSocket } from "./host";
 import { MessageFlowService } from "./message-flow.service";
 import { UserService } from "./user.service";
-
-import { host, webSocket } from "./host";
 
 @Injectable({
   providedIn: "root",
@@ -16,21 +13,14 @@ import { host, webSocket } from "./host";
 export class WebsocketsService {
   private current_user: User;
 
-  private platformStatusSubscription: Subscription;
-  private messagingChannelSubscription: Subscription;
-
   private platformStatusChannel: Channel;
   private messagingChannel: Channel;
-
-  private subsc: Subscription;
 
   constructor(
     private store: Store<fromStore.PlatformState>,
     private cableService: ActionCableService,
     private MessageFlowService: MessageFlowService,
-    private UserService: UserService,
-    private ActionsSubject: ActionsSubject,
-    private actions$: Actions
+    private UserService: UserService
   ) {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
@@ -42,18 +32,6 @@ export class WebsocketsService {
         this.messagingChannelSubscribe();
       } else this.disconnect();
     });
-
-    // TODO: decide when to load the messages. Look for fromStore.LoadMessages
-
-    // TODO: the "message_delivered" case from the webSocket service
-    // in only active when the chat is open
-    // we shoud get the status on incoming messages the moment that we
-    // init the panel
-
-    // TODO: notifications service ????
-    // write a list of message id and status in the local storage
-    // and compare it with the store
-    // depending on the result, we will notify of delivery of message
   }
 
   /**

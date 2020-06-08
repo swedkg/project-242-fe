@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { UserService } from "../_services/user.service";
 import { host } from "./host";
-
 import { SnackbarService } from "./snackbar.service";
 
 const BASEURL = host + "";
@@ -19,7 +18,6 @@ const FULLFILMENTS = "/fullfilments/";
 export class MessageFlowService {
   constructor(
     private http: HttpClient,
-    // private HttpHeaders: HttpHeaders,
     private UserService: UserService,
     private SnackbarService: SnackbarService
   ) {}

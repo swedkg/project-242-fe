@@ -1,9 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Store } from "@ngrx/store";
 import { BehaviorSubject, Observable, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
-import * as fromStore from "../store/";
 import { User } from "../_models/user";
 import { host } from "./host";
 import { SidenavService } from "./sidenav.service";
@@ -21,8 +19,7 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private SnackbarService: SnackbarService,
-    private SidenavService: SidenavService,
-    private store: Store<fromStore.PlatformState>
+    private SidenavService: SidenavService
   ) {
     this.currentUserSubject = new BehaviorSubject<User>(
       JSON.parse(localStorage.getItem("currentUser"))
@@ -71,14 +68,6 @@ export class UserService {
           this.SnackbarService.show("Login Successful");
           this.SidenavService.setSidenavOpen(true);
 
-          // Open a connection and obtain a reference to the channel
-          // console.log(user.authentication_token);
-          // .cable("ws://127.0.0.1:3000/cable", user.authentication_token)
-
-          // // document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + location.host;
-
-          // document.cookie =
-          //   "X-Authorization=" + user.authentication_token + "; path=/";
           return user;
         },
         (error) => {
