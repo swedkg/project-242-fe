@@ -1,11 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-
-import { UserService } from "../../_services/user.service";
 import { first } from "rxjs/operators";
-
 import { SnackbarService } from "../../_services/snackbar.service";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-register-dialog",
@@ -39,12 +37,6 @@ export class RegisterDialogComponent implements OnInit {
     // console.log(ev, this.image);
   }
 
-  // TODO: image size limit
-  // TODO: png, jpg, pdf
-  // TODO: mobile devices
-  // TODO: wireframes for desktop and mobile
-  // TODO: activity diagram
-
   register() {
     const formData = new FormData();
 
@@ -75,12 +67,6 @@ export class RegisterDialogComponent implements OnInit {
           this.SnackbarService.show(error.error.email[1]);
         }
       );
-
-    // for (var key of formData.entries()) {
-    //   // console.log(key, formData[key]);
-    // }
-
-    // // console.log(this.registrationForm.value, formData);
   }
 
   passwordMatch(fieldControl: FormControl) {

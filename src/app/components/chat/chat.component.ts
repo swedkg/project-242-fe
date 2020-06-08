@@ -1,9 +1,9 @@
 import {
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
   ViewEncapsulation,
-  ChangeDetectorRef,
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ofType } from "@ngrx/effects";
@@ -13,7 +13,6 @@ import * as fromStore from "../../store";
 import * as messagesActions from "../../store/actions/messages.actions";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
-import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
   selector: "app-chat",
@@ -47,7 +46,6 @@ export class ChatComponent implements OnInit {
     private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>,
     private UserService: UserService,
-    private WebsocketsService: WebsocketsService,
     private actionsSubj: ActionsSubject
   ) {}
 
@@ -142,10 +140,6 @@ export class ChatComponent implements OnInit {
 
     this.SidenavService.getOpenChat().subscribe((data) => {
       this.showMessages = data;
-      // if (this.current_user == null) {
-      //   this.store.dispatch(new fromStore.RemoveAllMessages());
-      //   this.store.dispatch(new fromStore.RemoveAllRequests());
-      // }
     });
 
     this._getActiveThread = this.SidenavService.getActiveThread().subscribe(
@@ -173,12 +167,6 @@ export class ChatComponent implements OnInit {
                   (message.status == 0 || message.status == 1) &&
                   message.receiver_id == this.current_user.id
                 ) {
-                  // console.log(
-                  //   "mark as read",
-                  //   message,
-                  //   message.receiver_id == this.current_user.id
-                  // );
-                  // change status -> 2 and update the store
                   this.store.dispatch(
                     new fromStore.MessageDisplayed(message.id)
                   );
@@ -205,11 +193,6 @@ export class ChatComponent implements OnInit {
           .select(fromStore.getSingleRequest, this.request_id)
           .subscribe((chatRequest: any) => {
             this.chatRequest = chatRequest[0];
-            // console.log(
-            //   "fromStore.getSingleRequest",
-            //   this.request_id,
-            //   this.chatRequest
-            // );
           });
         // console.log("Chat chatRequest", this.request_id);
       }

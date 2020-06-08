@@ -62,13 +62,6 @@ export class SubmitRequestContentComponent implements OnInit {
   };
 
   validateAddress() {
-    // // console.log(
-    //   'current:',
-    //   this.current_address,
-    //   'native:',
-    //   this.searchElementRef.nativeElement.value
-    // );
-
     if (this.current_address !== this.searchElementRef.nativeElement.value) {
       return { validateAddress: true };
     }
@@ -132,22 +125,6 @@ export class SubmitRequestContentComponent implements OnInit {
           this.current_address = this.searchElementRef.nativeElement.value;
 
           this.newRequestForm.controls.address.updateValueAndValidity();
-
-          // // console.log(
-          //   this.newRequest,
-          //   this.newRequestForm.controls.address,
-          //   reverseResult,
-          //   this.searchElementRef.nativeElement.value
-          // );
-
-          // this.addressHasError = false;
-
-          // // console.log(
-          //   this.searchElementRef.nativeElement.value,
-          //   this.searchElementRef.nativeElement.value === this.current_address
-          // );
-
-          // this.zoom = 16;
         });
       });
     });

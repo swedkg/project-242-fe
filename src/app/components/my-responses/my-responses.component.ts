@@ -1,15 +1,11 @@
 import {
-  ChangeDetectorRef,
   AfterContentChecked,
+  ChangeDetectorRef,
   Component,
-  Input,
-  OnInit,
-  AfterViewInit,
-  ViewEncapsulation,
-  ViewChild,
   ElementRef,
-  ViewChildren,
-  QueryList,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
 } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
@@ -18,11 +14,8 @@ import * as fromStore from "../../store";
 import { AidRequest } from "../../_models/aidRequest.model";
 import { Message } from "../../_models/message.model";
 import { User } from "../../_models/user";
-import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
-import { HelpRequestsService } from "../../_services/help-requests.service";
-import { timeout } from "rxjs/operators";
 import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
@@ -62,9 +55,7 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
   constructor(
     private cdr: ChangeDetectorRef,
     private SidenavService: SidenavService,
-    private messageFlowService: MessageFlowService,
     private UserService: UserService,
-    private HelpRequestsService: HelpRequestsService,
     private WebsocketsService: WebsocketsService,
 
     private store: Store<fromStore.PlatformState>
@@ -97,8 +88,6 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
         Validators.maxLength(this.messageMaxLength),
       ]),
     });
-
-    let _getChatMessages;
 
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;

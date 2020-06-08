@@ -1,14 +1,12 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialogRef, MatDialog } from "@angular/material";
-import { FormGroup, FormControl, Validators } from "@angular/forms";
-
-import { UserService } from "../../_services/user.service";
-import { first } from "rxjs/operators";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MatDialog, MatDialogRef } from "@angular/material";
 import { ActivatedRoute, Router } from "@angular/router";
-
-import { SnackbarService } from "../../_services/snackbar.service";
 import { Store } from "@ngrx/store";
+import { first } from "rxjs/operators";
 import * as fromStore from "../../store";
+import { SnackbarService } from "../../_services/snackbar.service";
+import { UserService } from "../../_services/user.service";
 
 @Component({
   selector: "app-login-dialog",

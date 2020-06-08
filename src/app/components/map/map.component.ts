@@ -13,10 +13,10 @@ import { Store } from "@ngrx/store";
 import * as fromStore from "../../store";
 import { User } from "../../_models/user";
 import { HelpRequestsService } from "../../_services/help-requests.service";
+import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
 import { mapStyle } from "./mapStyle";
-import { MessageFlowService } from "../../_services/message-flow.service";
 
 @Component({
   selector: "app-map",
@@ -151,8 +151,6 @@ export class MapComponent implements OnInit {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
     });
-
-    // this.store.dispatch(new fromStore.LoadRequests());
 
     this.MessageFlowService.getResponseToRequest().subscribe((data) => {
       if (data === 201) {

@@ -1,3 +1,4 @@
+import { formatDate } from "@angular/common";
 import {
   ChangeDetectorRef,
   Component,
@@ -10,13 +11,10 @@ import { Observable, Subscription } from "rxjs";
 import * as fromStore from "../../store";
 import { AidRequest } from "../../_models/aidRequest.model";
 import { User } from "../../_models/user";
-import { HelpRequestsService } from "../../_services/help-requests.service";
 import { MessageFlowService } from "../../_services/message-flow.service";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
-
 import { WebsocketsService } from "../../_services/websockets.service";
-import { formatDate } from "@angular/common";
 
 @Component({
   selector: "app-my-requests",
@@ -52,7 +50,6 @@ export class MyRequestsComponent implements OnInit {
     private WebsocketsService: WebsocketsService,
     private store: Store<fromStore.PlatformState>,
     private SidenavService: SidenavService,
-    private HelpRequestsService: HelpRequestsService,
     private MessageFlowService: MessageFlowService,
     private UserService: UserService
   ) {}
