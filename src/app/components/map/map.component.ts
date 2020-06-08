@@ -127,9 +127,7 @@ export class MapComponent implements OnInit {
     this.SidenavService.setActiveThread(id);
     this.SidenavService.setActiveSidenavTab(tab);
     this.SidenavService.setExpandedAccordionPanel(id);
-    // this.SidenavService.setOpenChat(true);
-    // this.SidenavService.setSidenavOpen(false);
-    // this.SidenavService.setMessagingSidenavOpened(true);
+
     setTimeout(function () {}.bind(this), 100);
   }
 
@@ -140,7 +138,6 @@ export class MapComponent implements OnInit {
     return null;
     this.SidenavService.setExpandedAccordionPanel(id);
     this.SidenavService.setSidenavOpen(false);
-    // this.SidenavService.setMessagingSidenavOpened(true);
     this.SidenavService.setActiveSidenavTab(
       this.SidenavService.tabs.allRequests
     );

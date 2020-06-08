@@ -37,9 +37,6 @@ export class AllRequestsComponent implements OnInit {
     this.SidenavService.setActiveThread(id);
     this.SidenavService.setActiveSidenavTab(tab);
     this.SidenavService.setExpandedAccordionPanel(id);
-    // this.SidenavService.setOpenChat(true);
-    // this.SidenavService.setSidenavOpen(false);
-    // this.SidenavService.setMessagingSidenavOpened(true);
     setTimeout(function () {}.bind(this), 100);
   }
 

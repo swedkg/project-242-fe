@@ -72,7 +72,6 @@ export class MyResponsesComponent implements OnInit, AfterContentChecked {
 
   handleShowMessages(request) {
     // this.activeThread = id;
-    // this.SidenavService.setCurrentTab(this.activeTab);
     let details = request.responders.details.filter(
       (u) => u.id == this.current_user.id
     )[0];

@@ -61,7 +61,6 @@ export class MyRequestsComponent implements OnInit {
     // this.activeThread = request_id;
     // this.responder_id = responder_id;
     // // this.SidenavService.setActiveSidenavTab(this.SidenavService.tabs.myRequests);
-    // this.SidenavService.setCurrentTab(this.activeTab);
     this.SidenavService.setActiveThread(fullfilmentId);
     this.SidenavService.setOpenChat(true);
     // console.log(fullfilmentId);
