@@ -6,6 +6,7 @@ import { User } from "../_models/user";
 import { webSocket } from "./host";
 import { MessageFlowService } from "./message-flow.service";
 import { UserService } from "./user.service";
+import { SnackbarService } from "./snackbar.service";
 
 @Injectable({
   providedIn: "root",
@@ -20,7 +21,8 @@ export class WebsocketsService {
     private store: Store<fromStore.PlatformState>,
     private cableService: ActionCableService,
     private MessageFlowService: MessageFlowService,
-    private UserService: UserService
+    private UserService: UserService,
+    private SnackbarService: SnackbarService
   ) {
     this.UserService.currentUserSubject.subscribe((data) => {
       this.current_user = data;
@@ -98,6 +100,15 @@ export class WebsocketsService {
           let request = Object.assign({}, data.request);
           // console.log("PlatformStatusChannel", data, request);
           this.store.dispatch(new fromStore.RequestRepublished(request.id));
+
+          this.store
+            .select(fromStore.getSingleRequest, request.id)
+            .subscribe((data) => {
+              let request = data[0];
+              let user = this.UserService.currentUserDetails;
+              if (request.owner_id == user.id)
+                this.SnackbarService.show("Your request was republished");
+            });
           break;
         }
 
