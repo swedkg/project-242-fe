@@ -13,6 +13,7 @@ import * as fromStore from "../../store";
 import * as messagesActions from "../../store/actions/messages.actions";
 import { SidenavService } from "../../_services/sidenav.service";
 import { UserService } from "../../_services/user.service";
+import { WebsocketsService } from "../../_services/websockets.service";
 
 @Component({
   selector: "app-chat",
@@ -42,7 +43,7 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-
+    private WebsocketsService: WebsocketsService,
     private SidenavService: SidenavService,
     private store: Store<fromStore.PlatformState>,
     private UserService: UserService,
