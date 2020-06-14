@@ -3,6 +3,7 @@
     *ngFor="let request of myResponses$ | async"
     [expanded]="expandedPanel === request.id"
     (opened)="expandedPanelOpen = request.id"
+    (closed)="SidenavService.setExpandedAccordionPanel(0)"
   >
     <mat-expansion-panel-header *ngIf="!request.isUser" class="panel-header">
       <span class="request-details">
