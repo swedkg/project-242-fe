@@ -1,6 +1,7 @@
 # Project 242: Front end
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
+It is published on [Github Pages](https://swedkg.github.io/project-242-fe/). 
 
 ## Development server
 
